@@ -12,60 +12,27 @@
 
 #include <stdio.h>
 #include <unistd.h>
-void 	evenint(int *tab, int size)
-{
-	int	temp;
-	int i;
-
-	i = 0;
-	while (i != size/2)
-		{
-			temp = tab[i];
-			tab[i] = tab[size - i - 1]; 
-			printf("%d\n", tab[i]);
-			tab[size - i - 1] = temp;
-			i++;
-		}
-}
-
-void	oddint(int *tab, int size)
-{
-	int temp;
-	int i;
-
-	i = 0;
-	while (i != size/2 + 1)
-		{
-			temp = tab[i];
-			tab[i] = tab[size - i - 1]; 
-			printf("%d\n", tab[i]);
-			tab[size - i - 1] = temp;
-			i++;
-		}
-}
-
 
 void	ft_rev_int_tab(int *tab, int size)
 {
 	int	i;
-
+	int	temp;
 
 	i = 0;
-
-	if (size
-
-	if (size % 2 == 0)
+	while (i < (size / 2))
 	{
-		evenint(tab, size)
+		temp = tab[i];
+		tab[i] = tab[size - i - 1];
+		tab[size - i - 1] = temp;
+		i++;
+
 	}
-	else (size % 2 < 0)
-	{
-		oddint(tab, size);
-	}
+
 }
 int	main(void)
 {
 	int	arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+	int 	arr2[] ={1, 2, 3, 4, 5, 6, 7, 8};
 	int i = 0;
 
 	printf("array used to be \n");
@@ -82,6 +49,25 @@ int	main(void)
 		printf("%d", arr[i]);
 		i++;
 	}
+
+
+	printf("\narray used to be \n");
+	i = 0;
+	while (i < 8)
+	{
+		printf("%d", arr2[i]);
+		i++;
+	}
+	ft_rev_int_tab(arr2, 8);
+	printf("\narray is now reversed\n");
+	i = 0;
+	while (i < 8)
+	{
+		printf("%d", arr2[i]);
+		i++;
+	}
+
+
 
 	return (0);
 }
