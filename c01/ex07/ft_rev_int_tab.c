@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:06:50 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/11/27 12:29:26 by mtripodi         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:33:55 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ void	ft_rev_int_tab(int *tab, int size)
 
 		i = 0;
 
-		while (i < (size % 2 ))
+		while (i < (size / 2))
 			{
 				temp = tab[i];
 				tab[i] = tab[size - i - 1]; 
-				printf("%d\n", tab[i]);
 				tab[size - i - 1] = temp;
 				i++;
 			}
