@@ -1,29 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_program_name.c                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 11:36:43 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/12/01 10:28:21 by mtripodi         ###   ########.fr       */
+/*   Created: 2023/12/01 09:06:15 by mtripodi          #+#    #+#             */
+/*   Updated: 2023/12/01 11:56:06 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 
-int	main(int argc, char *argv[])
+char	*ft_strdup(char *src)
 {
-	int	i;
+	char *dup;
+	int i;
+	int len;
 
+	len = 0;
+	while (src[len] != '\0')
+		len++;
+
+	dup = malloc(len + 1);
 	i = 0;
-	if (argc > 0)
-		while (argv[0][i] != '\0')
-		{
-			write(1, &argv[0][i], 1);
-			i++;
-		}
+	if (dup == NULL)
+		return NULL;
+	while (i < len)
+	{
+		dup[i] = src[i];
+		i++;
+	}
+	dup[i] = '\0';
+
+	return (dup);
+
+
+}
+
+
+int	main(void)
+{
+	char original[] = "Sharks!";
+	char *dupog = ft_strdup(original);
+
+	printf("%s\n", original);
+	printf("%s\n", dupog);
+	free(dupog);
+
 	return (0);
 }
 
