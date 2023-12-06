@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:36:43 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/12/01 10:28:21 by mtripodi         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:54:05 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ int	main(int argc, char *argv[])
 
 	i = 0;
 	if (argc > 0)
+	{
 		while (argv[0][i] != '\0')
 		{
 			write(1, &argv[0][i], 1);
 			i++;
 		}
+	}
 	return (0);
 }
-
