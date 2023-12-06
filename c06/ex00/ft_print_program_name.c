@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:36:43 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/12/06 16:54:05 by mtripodi         ###   ########.fr       */
+/*   Updated: 2023/12/07 09:53:48 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char *argv[])
 			write(1, &argv[0][i], 1);
 			i++;
 		}
+		write(1, "\n", 1);
 	}
 	return (0);
 }
