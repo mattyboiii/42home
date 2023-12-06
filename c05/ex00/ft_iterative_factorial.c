@@ -6,14 +6,14 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:59:53 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/12/05 16:12:30 by mtripodi         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:51:31 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
 
-int	 ft_iterative_factorial(int nb)
+int	ft_iterative_factorial(int nb)
 {
 	int	sum;
 
@@ -24,7 +24,7 @@ int	 ft_iterative_factorial(int nb)
 		return (1);
 	else
 	{
-		while(nb > 0)
+		while (nb > 0)
 		{
 			sum *= nb;
 			nb--;
@@ -32,18 +32,16 @@ int	 ft_iterative_factorial(int nb)
 		return (sum);
 	}
 }
-
 int	main(void)
 {
 	ft_iterative_factorial(1);
-	write(1, '\n', 1);
+	write(1, "\n", 1);
 	ft_iterative_factorial(2);
-	write(1, '\n', 1);
+	write(1, "\n", 1);
 	ft_iterative_factorial(3);
-	write(1, '\n', 1);
+	write(1, "\n", 1);
 	ft_iterative_factorial(4);
 	write(1, "\n", 1);
 	ft_iterative_factorial(6);
 	return (0);
 }
-
