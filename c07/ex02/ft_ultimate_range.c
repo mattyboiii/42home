@@ -6,12 +6,13 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 13:42:17 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/12/07 13:54:01 by mtripodi         ###   ########.fr       */
+/*   Updated: 2023/12/07 13:59:37 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 int	ft_ultimate_range(int **range, int min, int max)
 {
@@ -20,9 +21,14 @@ int	ft_ultimate_range(int **range, int min, int max)
 	int	*out;
 	int numc;
 	
+	out = NULL;
 	numc = max - min;
 	if (min > max)
 		return (NULL);
+	out = malloc(sizeof(int) * numc);
+	i = 0;
+	while (min < max)
+		out[i++] = min++;
 	
 
 }
