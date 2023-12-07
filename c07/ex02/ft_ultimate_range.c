@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 13:42:17 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/12/07 14:45:42 by mtripodi         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:29:47 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int	ft_ultimate_range(int **range, int min, int max)
 {
 	int numc;
-	
+
 	numc = max - min;
 	if (min >= max)
 	{
@@ -39,17 +39,13 @@ int	ft_ultimate_range(int **range, int min, int max)
 
 int	main(void)
 {
-	int	 min = -10;
-	int	max = 7;
+	int	 min = 0;
+	int	max = 6;
 	int	*range;
 	int size = ft_ultimate_range(&range, min, max);
 
-	if (dupog != NULL)
-	{
-		int i = 0;
-		printf("%d", out);
-		printf("\n");
-	}
+	printf("size of range %d", size);
+	printf("\n");
 	return (0);
 }
 
