@@ -51,7 +51,7 @@ int	main(void)
 	printf("size of range %d\n", size);
 	while (i < max)
 	{
-		printf("range[%d] = %d\n", i, range[i]);
+		printf("range[%d] = %d\n", i, (*range)[i]);
 		i++;
 	}
 
