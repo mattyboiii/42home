@@ -1,48 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_range.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 09:06:15 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/12/07 12:39:46 by mtripodi         ###   ########.fr       */
+/*   Created: 2023/12/07 11:11:21 by mtripodi          #+#    #+#             */
+/*   Updated: 2023/12/07 12:35:51 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
-#include <string.h>
 #include <stdlib.h>
 
-char	*ft_strdup(char *src)
+int	*ft_range(int min, int max)
 {
-	char	*dup;
-	int		i;
-	int		len;
+	int	*out;
+	int	numc;
+	int	i;
 
-	len = 0;
-	while (src[len] != '\0')
-		len++;
-	dup = malloc(sizeof(char) * len + 1);
+	out = NULL;
+	if (min >= max)
+		return (out);
+	numc = max - min;
+	out = malloc(sizeof(int) * numc);
 	i = 0;
-	if (dup == NULL)
-		return (NULL);
-	while (*src)
-		dup[i++] = *src++;
-	dup[i] = '\0';
-	return (dup);
+	while (min < max)
+		out[i++] = min++;
+	return (out);
 }
 /*
 int	main(void)
 {
-	char original[] = "Sharks!";
-	char *dupog = ft_strdup(original);
+	int	 min = -10;
+	int	max = 7;
+	int *dupog = ft_range(min, max);
 
-	printf("%s\n", original);
-	printf("%s\n", dupog);
-	free(dupog);
-
+	if (dupog != NULL)
+	{
+		int i = 0;
+		while (i < max - min)
+		{
+			printf("%d ", dupog[i++]);
+		}
+		printf("\n");
+		free(dupog);
+	}
 	return (0);
 }
 */
