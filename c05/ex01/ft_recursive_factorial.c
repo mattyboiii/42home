@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:17:52 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/12/06 17:50:29 by mtripodi         ###   ########.fr       */
+/*   Updated: 2023/12/07 10:04:57 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_recursive_factorial(int nb)
 		return (nb *= ft_recursive_factorial(nb - 1));
 	}
 }
+/*
 int	main(void)
 {
 	int num = 2;
@@ -46,3 +47,4 @@ int	main(void)
 
 	return (0);
 }
+*/
