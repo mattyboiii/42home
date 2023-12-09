@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 13:42:17 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/12/09 13:27:43 by mtripodi         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:29:47 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 
 int	ft_ultimate_range(int **range, int min, int max)
 {
-	int	numc;
-	int	i;
+	int numc;
 
 	numc = max - min;
 	if (min >= max)
@@ -25,35 +24,28 @@ int	ft_ultimate_range(int **range, int min, int max)
 		*range = NULL;
 		return (0);
 	}
-	*range = malloc(sizeof(char) * numc);
-	if (*range == NULL)
+	*(range) = malloc(sizeof(int) * numc);
+	if (*(range) == NULL)
 	{
+		*range = NULL;
 		return (-1);
 	}
-	else
+	else 
 	{
-		i = 0;
-		while (min < max)
-			(*range)[i++] = min++;
+		*(range) = &numc;
 		return (numc);
 	}
 }
-/*
+
 int	main(void)
 {
 	int	 min = 0;
-	int	max = 15;
+	int	max = 6;
 	int	*range;
 	int size = ft_ultimate_range(&range, min, max);
 
-	printf("size of range %d\n", size);
-	 for (int i = 0; i < size; i++)
-    {
-        printf("range[%d] = %d\n", i, (*range + i));
-    }
-
+	printf("size of range %d", size);
 	printf("\n");
-	free(range);
 	return (0);
 }
-*/
+
