@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 13:28:09 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/12/09 16:18:16 by mtripodi         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:34:19 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int main()
 {
 	char *strs[] = {"Hello", "World", "123", "456"};
 	char *sep = " - ";
-	char *result = ft_strjoin(3, strs, sep);
+	char *result = ft_strjoin(4, strs, sep);
 	
 	if (result != NULL)
 	{
