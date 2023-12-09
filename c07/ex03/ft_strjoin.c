@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 13:28:09 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/12/09 14:37:21 by mtripodi         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:01:52 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,25 +77,34 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 	*result = '\0';
 	i = 0;
 	while (i < size)
-		ft_strcat(result, strs[i]);
-	if (i < size - 1)
-		ft_strcat(result, sep);
+	{
+		ft_strcat(result, strs[i++]);
+		if (i < size - 1)
+			ft_strcat(result, sep);
+	}
+	return (result);
+}
+int main()
+{
+	char *strs[] = {"Hello", "World", "123", "456"};
+	char *sep = " - ";
+	char *result = ft_strjoin(4, strs, sep);
+	*head.next;
+	x[4]
+	*(x + 4)
+
+	if (result != NULL)
+	{
+		printf("Result: %s\n", result);
+		free(result);
+	}
+
+	return 0;
 }
 
-/*
-   int main()
-   {
-   char *strs[] = {"Hello", "World", "123", "456"};
-   char *sep = " - ";
-
-   char *result = ft_strjoin(4, strs, sep);
-
-   if (result != NULL)
-   {
-   printf("Result: %s\n", result);
-   free(result);
-   }
-
-   return 0;
-   }
-   */
+struct list
+{
+	int	data;
+	list *next;
+}
+}
