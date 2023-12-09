@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 13:42:17 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/12/09 13:27:43 by mtripodi         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:11:50 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_ultimate_range(int **range, int min, int max)
 		*range = NULL;
 		return (0);
 	}
-	*range = malloc(sizeof(char) * numc);
+	*range = malloc(sizeof(int) * numc);
 	if (*range == NULL)
 	{
 		return (-1);
@@ -38,7 +38,7 @@ int	ft_ultimate_range(int **range, int min, int max)
 		return (numc);
 	}
 }
-/*
+
 int	main(void)
 {
 	int	 min = 0;
@@ -58,4 +58,3 @@ int	main(void)
 	free(range);
 	return (0);
 }
-*/
