@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 13:42:17 by mtripodi          #+#    #+#             */
-/*   Updated: 2023/12/09 16:11:50 by mtripodi         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:14:17 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	ft_ultimate_range(int **range, int min, int max)
 	}
 }
 
+/*
 int	main(void)
 {
 	int	 min = 0;
@@ -58,3 +59,4 @@ int	main(void)
 	free(range);
 	return (0);
 }
+*/
