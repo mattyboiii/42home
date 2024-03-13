@@ -13,17 +13,16 @@ INCDIR = include
 # Source funcitons (string list creators really is what these are) 
 # -------------- eg $(wildcard pattern)
 SRC = $(wildcard $(SRCDIR)/*.c)
-OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
-
+OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/.o, $(SRC))
 
 # Rules
 # 1 
 all: $(NAME)
 
-# 2
+# 2 
 $(NAME): $(OBJ)
 	@ar rc $@ $^
-	@ranlib $@
+	@ranlib $@ #this adds or updates the index within the target. often adding __.SYMDEF for SYMBOL DEFINITION
 
 # 3 remove the object files
 clean:
@@ -36,5 +35,7 @@ fclean: clean
 #5 rebuild refresh
 re: fclean all
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re
+
+
 
