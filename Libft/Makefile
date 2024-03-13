@@ -13,7 +13,7 @@ INCDIR = include
 # Source funcitons (string list creators really is what these are) 
 # -------------- eg $(wildcard pattern)
 SRC = $(wildcard $(SRCDIR)/*.c)
-OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/.o, $(SRC))
+OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 
 # Rules
 # 1 
