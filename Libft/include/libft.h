@@ -25,7 +25,7 @@ int	ft_isprint(int c);
 
 size_t	ft_strlen(const char *s);
 
-void	ft_memset(void *s, int c, size_t len);
+void	*ft_memset(void *s, int c, size_t len);
 
 #endif
 

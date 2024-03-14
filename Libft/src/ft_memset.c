@@ -1,6 +1,6 @@
 #include "libft.h"
 
-void	ft_memset(void *s, int c, size_t len)
+void	*ft_memset(void *s, int c, size_t len)
 {
 	unsigned char *ptr;
 	unsigned int i;

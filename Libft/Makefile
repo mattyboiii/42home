@@ -10,8 +10,8 @@ SRCDIR = src
 OBJDIR = obj
 INCDIR = include
 
-# Source funcitons (string list creators really is what these are) 
-# -------------- eg $(wildcard pattern)
+# assignment statements-Source funcitons (string list creators is really 
+# what these are)-------------- eg $(wildcard pattern)
 SRC = $(wildcard $(SRCDIR)/*.c)
 OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 
@@ -21,19 +21,25 @@ all: $(NAME)
 
 # 2 
 $(NAME): $(OBJ)
-	@ar rc $@ $^
+	@ar rc $@ $<
 	@ranlib $@ #this adds or updates the index within the target. often adding __.SYMDEF for SYMBOL DEFINITION
 
-# 3 remove the object files
+# 3 pattern rule creating/compiling the object files. 
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(OBJDIR)
+	@$(CC) $(CFLAGS) -I$(INCDIR) -o $@ -c $<
+
+# 4 remove the object files
 clean:
 	@rm -rf $(OBJ)
 
-# 4 removing the object files and target
+# 5 removing the object files and target
 fclean: clean
 	@rm -f $(NAME)
 
-#5 rebuild refresh
+# 6 rebuild refresh
 re: fclean all
+
 
 .PHONY: all clean fclean re
 
