@@ -36,46 +36,39 @@ void	ft_memset(void *s, int c, size_t len);
 
 #endif
 
-Makefile code is below.
 
-# Name of the library
-NAME = libft.a
+here is my ft_isalnum.c code below.
 
-# Compiler and flags
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+#include "libft.h"
 
-# Directories
-SRCDIR = src
-OBJDIR = obj
-INCDIR = include
+int	ft_isalnum(int c)
+{
+	if (ft_isdigit(c) || ft_isalpha(c))
+		return (1);
+	else
+		return (0);
+}
 
-# Source funcitons (string list creators really is what these are)
-# -------------- eg $(wildcard pattern)
-SRC = $(wildcard $(SRCDIR)/*.c)
-OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
+int main()
+{
+	printf("ft_isalnum A %d", ft_isalnum('A'));
+	printf("\nft_isalnum ; %d", ft_isalnum(';'));
+	printf("\nft_isalnum ( %d", ft_isalnum('('));
+	printf("\nft_isalnum 0 %d", ft_isalnum('0'));
+	printf("\nisalnum A %d", isalnum('A'));
+	printf("\nisalnum ; %d", isalnum(';'));
+	printf("\nisalnum ( %d", isalnum('('));
+	printf("\nisalnum 0 %d", isalnum('0'));
+}
 
-# Rules
-# 1
-all: $(NAME)
-
-# 2
-$(NAME): $(OBJ)
-	@ar rc $@ $^
-	@ranlib $@ #this adds or updates the index within the target. often adding __.SYMDEF for SYMBOL DEFINITION
-
-# 3 remove the object files
-clean:
-	@rm -rf $(OBJ)
-
-# 4 removing the object files and target
-fclean: clean
-	@rm -f $(NAME)
-
-#5 rebuild refresh
-re: fclean all
-
-.PHONY: all clean fclean re
+ALL of my .c files have "#include "libft.h". when I compile this program so that I can run the main to test the output works correclty I use the below. keep in mind um running this from terminal libft/
 
 
-When i run make in the terminal from within libft directory, I get an error. Let me know when you are ready for the error.
+cc -Wex -Wall -Werror -Iinclude src/ft_isalnum.c src/ft_isalpha src/ft_isdigit.c
+
+this creates the a.out file which i run and then excecute the program.
+
+how come when I run my Makefile the compiler process doesnt need to specify the other files when creating the .o files. eg my compiler is just running the below
+cc -Wex -Wall -Werror -Iinclude -o obj/ft_isalnum.o -c src/ft_isalnum.c
+
+and it compiles the isalnum.o file correctly without the extra files?

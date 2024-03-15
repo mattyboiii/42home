@@ -10,9 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <ctype.h>
 #include "libft.h"
 
 int	ft_isalnum(int c)
@@ -22,7 +19,7 @@ int	ft_isalnum(int c)
 	else
 		return (0);
 }
-/*
+
 int main()
 {
 	printf("ft_isalnum A %d", ft_isalnum('A'));
@@ -34,4 +31,3 @@ int main()
 	printf("\nisalnum ( %d", isalnum('('));
 	printf("\nisalnum 0 %d", isalnum('0'));
 }
-*/
