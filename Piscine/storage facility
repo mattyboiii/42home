@@ -1,7 +1,7 @@
-memory in C program is defined by a larg warehouse facility. The warehouse is primary role is storage. 
+memory in C program is defined by a larg warehouse facility. The warehouse is primary role is storage.
 
 variable names - are represented by the sliding door on a storage shed. eg, if x = 4. the sliding door will have a sign with x on it. 
-Value - is represented by whats inside the storage shed. so inside of x a 4 is inside. 
+Value - is represented by whats inside the storage shed. so inside of x there is a 4 inside.
 ALL SIGNS have (variable/pointer name - memory location). eg x-1000
 pointers - are also represented by a storage shed with the same sign and allocated memory as well. 
 logistics and system calls - are represented by the facility manager "Pointy Petra". She does not care whats inside the storage sheds/shipping containers. But she knows where they all are. and what to do with them. petra is often involved with pointers heavily. 
