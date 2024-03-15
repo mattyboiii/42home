@@ -1,9 +1,7 @@
 #include "libft.h"
-#include <stdio.h>
-#include <string.h>
 
 int main() {
-    char src[] = "Hello, world!";
+    char src[] = "Sharks Baby!!";
     char dest[20];
 
     // Test ft_memmove

@@ -1,6 +1,10 @@
 
+#all of these commands need to be run from /libft$ dir
 
+#test ft_bzero.c
+mcc -Iinclude src/ft_bzero.c test/t_bzero.c
 
 # this is the code to test t_isdigit.c (this specifically can only be run after using make as it rely's on a complete library and .o files:
+
 cc -Wall -Wextra -Werror -I../include -o isdigittest t_isdigit.c -L../ -lft
 
