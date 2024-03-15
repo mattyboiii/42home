@@ -3,7 +3,7 @@
 void *ft_memmove(void *dest, const void *src, size_t n)
 {
 	char	*ptr;
-	char	*temp;::wq:
+	char	*temp;
 	size_t	i;
 
 	ptr = (char *)src;
