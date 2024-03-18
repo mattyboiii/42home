@@ -8,10 +8,12 @@ void *ft_memcpy(void *dest, const void *src, size_t n)
 	ptr = (char *)dest;
 	i = 0;
 	while(i < n && ptr[i] == '\0')
-		i++
-	if (i < n)
-		ft_memmove(dest, src, n);
-	else
-		ft_memmove(dest, src, n);
+	{
+		if (i < n)
+			ft_memmove(dest, src, n);
+		else
+			ft_memmove(dest, src, n);
+		i++;
+	}
 	return(dest);
 }
