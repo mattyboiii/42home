@@ -19,3 +19,16 @@ isalpha
 • memcmp
 • strnstr
 • atoi
+
+
+    atoi
+
+
+    isprint
+    memcmp
+
+
+    strlcat
+    strnstr
+    strncmp
+    strrchr
