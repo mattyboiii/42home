@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 09:00:19 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/19 09:02:07 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/03/19 09:18:25 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/03/19 11:11:06 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+char	*ft_strchr(const char *s, int c)
 {
-	char	*ptr;
-	size_t	i;
+	const char	*ptr;
+	size_t		i;
 
-	ptr = (char *)s;
+	ptr = s;
 	i = 0;
-	while (i < n)
-	{
-		ptr[i] = '\0';
+	while (ptr[i] != '\0' && ptr[i] != c)
 		i++;
-	}
+	if (ptr[i] == c)
+		return ((char *)&ptr[i]);
+	else
+		return (NULL);
 }
