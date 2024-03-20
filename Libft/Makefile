@@ -8,7 +8,6 @@ CFLAGS = -Wall -Wextra -Werror
 # Directories
 SRCDIR = src
 OBJDIR = obj
-INCDIR = include
 
 # assignment statements-Source funcitons (string list creators is really 
 # what these are)-------------- eg $(wildcard pattern)
@@ -27,7 +26,7 @@ $(NAME): $(OBJ)
 # 3 pattern rule creating/compiling the object files. 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)
-	@$(CC) $(CFLAGS) -I$(INCDIR) -o $@ -c $<
+	@$(CC) $(CFLAGS) -I. -o $@ -c $<
 
 # 4 remove the object files
 clean:

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 11:52:42 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/06 14:40:52 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:17:49 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_isalnum(int c)
 	else
 		return (0);
 }
-
+/*
 int main()
 {
 	printf("ft_isalnum A %d", ft_isalnum('A'));
@@ -31,3 +31,4 @@ int main()
 	printf("\nisalnum ( %d", isalnum('('));
 	printf("\nisalnum 0 %d", isalnum('0'));
 }
+*/

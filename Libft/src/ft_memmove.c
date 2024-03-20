@@ -1,27 +1,35 @@
+//DESCRIPTION
+//     The memmove() function copies len bytes from string src to string dst.  The two strings may overlap; the copy is
+//     always done in a non-destructive manner. (this always means that it does not change the src untill the copy is done)
+//
+//RETURN VALUES
+//     The memmove() function returns the original value of dst.
+
+
 #include "libft.h"
 
-void *ft_memmove(void *dest, const void *src, size_t n)
+void *ft_memmove(void *dst, const void *src, size_t len)
 {
-	char	*ptr;
-	char	*temp;
-	size_t	i;
+	char	*dst_f;
+	char	*dst_l;
+	char	*src_f;
+	char	*src_l;
 
-	ptr = (char *)src;
-	i = 0;
-	temp = malloc(n * sizeof(char));
-	if (temp == NULL)
-		return(NULL);
-	while(i < n)
+	dst_f = (char *)dst;
+	src_f = (char *)src;
+	if(!dst && !src)
+		return (NULL);
+	if(dst_f < src_f)
 	{
-		temp[i] = ptr[i];
-		i++;
+		while(len--)
+			*dst_f++ = *src_f++;
 	}
-	i = 0;
-	while(i < n)
+	else
 	{
-		((char *)dest)[i] = temp[i];
-		i++;
-	}
-	free(temp);
-	return (dest);
+			dst_l = dst_f + (len-1);
+			src_l = src_f + (len-1);
+			while (len--)
+				*dst_l-- = *src_l--;
+		}
+		return (dst);
 }

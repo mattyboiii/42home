@@ -23,12 +23,11 @@ isalpha
 
     atoi
 
-
     isprint
     memcmp
-
-
-    strlcat
-    strnstr
     strncmp
     strrchr
+    
+dest = "abababc"
+needle = "ababc"
+

@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 11:27:59 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/20 11:38:25 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/03/20 11:40:04 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/03/20 16:50:26 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dest, const char *src, size_t destsize)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	i;
 	size_t	j;
-	size_t	dest_len;
-	size_t	src_len;
+	char	*hay;
+	char	*ndl;
 
-	dest_len = ft_strlen(dest);
-	src_len = ft_strlen(src);
-	if (destsize <= dest_len)
-		return (destsize + src_len);
-	i = dest_len;
+	hay = (char *)haystack;
+	ndl = (char *)needle;
+	i = 0;
 	j = 0;
-	while (src[j] && (i + j + 1) < destsize)
+	if (!needle[0])
+		return (hay);
+	while (hay[i] && i < len)
 	{
-		dest[i + j] = src[j];
-		j++;
+		while (hay[i + j] == ndl[j] && hay[i + j] && ndl[j] && i+j < len)
+		{
+			j++;
+			if (!ndl[j])
+				return (&hay[i]);
+		}
+		i++;
+		j = 0;
 	}
-	dest[i + j] = '\0';
-	return (dest_len + src_len);
+	return (NULL);
 }
