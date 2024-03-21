@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 11:40:04 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/21 15:17:36 by mtripodi         ###   ########.fr       */
+/*   Created: 2023/12/01 09:06:15 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/03/21 15:23:40 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#inlude "libft.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char	*ft_strdup(const char *src)
 {
-	size_t	i;
-	size_t	j;
-	char	*hay;
-	char	*ndl;
+	char	*dup;
+	int		i;
+	int		len;
 
-	hay = (char *)haystack;
-	ndl = (char *)needle;
+	len = 0;
+	while (src[len] != '\0')
+		len++;
+	dup = malloc(sizeof(char) * len + 1);
 	i = 0;
-	j = 0;
-	if (!needle[0])
-		return (hay);
-	while (hay[i] && i < len)
-	{
-		while (hay[i + j] == ndl[j] && hay[i + j] && ndl[j] && i+j < len)
-		{
-			j++;
-			if (!ndl[j])
-				return (&hay[i]);
-		}
-		i++;
-		j = 0;
-	}
-	return (NULL);
+	if (dup == NULL)
+		return (NULL);
+	while (*src)
+		dup[i++] = *src++;
+	dup[i] = '\0';
+	return (dup);
 }

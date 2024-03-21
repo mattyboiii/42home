@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:38:14 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/21 12:17:30 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:04:25 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,45 @@
 //     atoi_l() functions, especially in new code.
 
 // Recommendation:
-// The description also mentions that strtol() and strtol_l() functions are
-// recommended over atoi() and atoi_l() functions, especially in new code.
-// This is because strtol() provides more control and flexibility, making it
-// more robust for string to integer conversions.
-//
 // To recreate the atoi() function, you would essentially need to implement
 // a function that takes a string as input, parses it, and converts it into
 // an integer. You can follow the approach of strtol(), parsing the string
 // and converting it into an integer based on your requirements.
 
-int	atoi(const char *str)
+#include "libft.h"
+
+int ft_ctod(const char num)
 {
-	
+	return ((int)num - '0');
 }
+
+int ft_atoi(const char *str)
+{
+	int res;
+	int sign;
+
+	sign = 1;
+	res = 0;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '-')
+	{
+		sign = -1;
+		str++;
+	}
+	else if (*str == '+')
+		str++;
+	if (!ft_isdigit(*str))
+	{
+		while (!ft_isdigit(*str))
+			str++;
+	}
+	else 
+	{
+		res = 0;
+		while (ft_isdigit(*str))
+			res = res * 10 + (ft_ctod(*str++));
+	}
+	return (res *= sign);
+}
+
