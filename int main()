@@ -1,0 +1,11 @@
+int main()
+{
+	printf("ft_isdigit A %d", ft_isdigit('A'));
+	printf("\nft_isdigit a %d", ft_isdigit('a'));
+	printf("\nft_isdigit 1 %d", ft_isdigit('1'));
+	printf("\nft_isdigit 0 %d", ft_isdigit('0'));
+	printf("\nisdigit A %d", isdigit('A'));
+	printf("\nisdigit a %d", isdigit('a'));
+	printf("\nisdigit 1 %d", isdigit('1'));
+	printf("\nisdigit 0 %d", isdigit('0'));
+}
