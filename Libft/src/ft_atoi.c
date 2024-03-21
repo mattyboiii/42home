@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:38:14 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/21 15:04:25 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:47:27 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,14 @@
 
 #include "libft.h"
 
-int ft_ctod(const char num)
+static int	ft_isspace(int c) {
+	if(c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
+		return (1);
+	else
+		return(0);
+}
+
+static int ft_ctod(const char num)
 {
 	return ((int)num - '0');
 }
