@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:04 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/21 15:17:36 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/22 10:50:40 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		return (hay);
 	while (hay[i] && i < len)
 	{
-		while (hay[i + j] == ndl[j] && hay[i + j] && ndl[j] && i+j < len)
+		while (hay[i + j] == ndl[j] && hay[i + j] && ndl[j] && i + j < len)
 		{
 			j++;
 			if (!ndl[j])

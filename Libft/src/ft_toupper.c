@@ -6,17 +6,16 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 15:52:58 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/21 15:54:08 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/22 10:58:38 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "libft.h"
 
-int ft_toupper(int c)
+int	ft_toupper(int c)
 {
 	if (c >= 'a' && c <= 'z')
 		return (c - 32);
 	else
-		return(c);
+		return (c);
 }

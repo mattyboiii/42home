@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 15:47:40 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/21 16:37:35 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/22 10:32:38 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void	*out;
+	void		*out;
 	size_t		tsize;
 
 	tsize = count * size;
 	out = malloc(tsize);
 	if (out == NULL)
 		return (NULL);
-
 	ft_memset(out, 0, tsize);
 	return (out);
 }
