@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:23:58 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/22 12:46:16 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:18:18 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*out;
 	size_t	i;
 
-	if (!s || start >= strlen(s))
+	if (!s || start >= ft_strlen(s))
 	{
 		out = malloc(1);
 		if (out)
