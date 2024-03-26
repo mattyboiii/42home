@@ -1,16 +1,11 @@
-
 #include "libft.h"
 
-int main(int argc, char *argv[]) {
-    if (argc != 3) {
-        printf("Usage: %s <string> <delimiter>\n", argv[0]);
-        return EXIT_FAILURE;
-    }
+int main() {
+    // Define a static string to test ft_split
+    char *string = "             ";
+    char delimiter = ' '; // You can choose any delimiter you want to test with
 
-    char *string = argv[1];
-    char delimiter = argv[2][0];
-
-    // Call ft_split to split the string using the delimiter
+    // Call ft_split to split the static string using the delimiter
     char **result = ft_split(string, delimiter);
     if (result == NULL) {
         printf("ft_split failed: Memory allocation error\n");

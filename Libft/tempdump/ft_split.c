@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:10:50 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/26 13:40:07 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:50:47 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ static char	**strins(char **dst, char *str)
 	int		j;
 	char	**new_arr;
 
-	if (str == NULL)
-		return (NULL);
 	i = 0;
 	j = 0;
 	while (dst[i] != NULL)
@@ -87,6 +85,8 @@ char	**ft_split(char const *s, char c)
 	if (out == NULL)
 		return (NULL);
 	out[0] = NULL;
+	if (ft_strlen(s) == 0)
+		return (out);
 	trim = (char *)s;
 	while (ft_strlen(trim) > 0)
 	{
@@ -95,8 +95,16 @@ char	**ft_split(char const *s, char c)
 		while (trim[i] != '\0' && trim[i] != c)
 			i++;
 		str = ft_substr(trim, 0, i);
+		if (ft_strlen(str) == 0)
+		{
+			free(str);
+			free(trim);
+			return (out);
+		}
 		trim = ft_substr(trim, i, ft_strlen(trim));
 		out = strins(out, str);
 	}
+	free(str);
+	free(trim);
 	return (out);
 }
