@@ -32,9 +32,7 @@ char	*ft_strdup(const char *src)
 	int		i;
 	int		len;
 
-	len = 0;
-	while (src[len] != '\0')
-		len++;
+	len = ft_strlen(src);
 	dup = malloc(sizeof(char) * len + 1);
 	i = 0;
 	if (dup == NULL)
