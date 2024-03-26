@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:52:07 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/26 15:46:57 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:31:38 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	get_wordcount(char *str, char c)
 	{
 		while (str[i] && str[i] == c)
 			i++;
-		if(str[i])
+		if (str[i])
 			wordc++;
 		while (str[i] && str[i] != c)
 			i++;
@@ -59,7 +59,7 @@ static int	get_wordcount(char *str, char c)
 static int	get_wordlen(char *str, char c)
 {
 	int		i;
-	
+
 	i = 0;
 	while (str[i] && str[i] != c)
 		i++;
@@ -84,7 +84,6 @@ static char	*full_word(char *str, char c)
 	}
 	word[i] = 0;
 	return (word);
-
 }
 
 char	**ft_split(char const *s, char c)
@@ -92,7 +91,7 @@ char	**ft_split(char const *s, char c)
 	char	**out;
 	char	*str;
 	int		i;
-	
+
 	str = (char *)s;
 	i = 0;
 	out = malloc((sizeof(char *) * (get_wordcount(str, c) + 1)));

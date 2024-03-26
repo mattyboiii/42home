@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 14:57:54 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/22 16:23:10 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:49:34 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
-	   
+
 	i = 0;
-	if (dst == NULL)
-		return (0);
 	if (dstsize == 0)
 		return (ft_strlen(src));
 	while (src[i] != '\0' && i < dstsize - 1)

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:23:58 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/22 16:18:18 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:36:20 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		out = malloc(1);
 		if (out)
 			*out = '\0';
-		return out;
+		return (out);
 	}
 	if ((ft_strlen(s) - start) < len)
 		len = ft_strlen(s) - start;
-
 	out = malloc(len + 1);
 	if (out == NULL)
 		return (NULL);

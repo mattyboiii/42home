@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 12:47:06 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/22 13:43:19 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:33:49 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,15 @@
 
 #include "libft.h"
 
-static char *retemptys()
+static char	*retemptys(void)
 {
-	char	*str; 
+	char	*str;
+
 	str = malloc(1);
 	if (str == NULL)
-		return NULL;
+		return (NULL);
 	*str = '\0';
-	return str;
+	return (str);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -51,7 +52,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	s1l = ft_strlen(s1);
 	s2l = ft_strlen(s2);
-	if (s1l == 0 && s2l == 0) 
+	if (s1l == 0 && s2l == 0)
 		return (retemptys());
 	str = malloc ((s1l + s2l) + 1);
 	start = str;

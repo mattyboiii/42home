@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 13:08:48 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/23 13:50:58 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:35:22 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	//get string length of s
 	char	*str;
 	size_t	strlen;
 	size_t	i;
-	
+
 	strlen = ft_strlen(s);
 	str = malloc((sizeof(char) * strlen) + 1);
 	if (str == NULL)
