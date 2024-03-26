@@ -2,7 +2,7 @@
 
 int main() {
     // Define a static string to test ft_split
-    char *string = "             ";
+    char *string = "     split       this for   me  !";
     char delimiter = ' '; // You can choose any delimiter you want to test with
 
     // Call ft_split to split the static string using the delimiter

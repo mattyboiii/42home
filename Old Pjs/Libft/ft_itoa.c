@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:34:07 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/23 15:12:47 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/23 09:51:00 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,12 @@
 
 #include "libft.h"
 
-static long	digcount(long n)
+static int countdig(int n)
 {
-	long	count;
+	int	count;
 
 	count = 0;
-	if (n == 0)
-		return (1);
-	else if (n < 0)
+	if (n < 0)
 	{
 		count++;
 		n *= -1;
@@ -56,27 +54,37 @@ static long	digcount(long n)
 char	*ft_itoa(int n)
 {
 	char	*num;
-	long	nb;
-	long	digc;
+	int		count;
+	int		i;
+	int		nn;
 
-	nb = n;
-	digc = digcount(nb);
-	num = malloc(sizeof(char) * (digc + 1));
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	if (n == 2147483647)
+		return (ft_strdup("2147483647"));
+	if (n == 0)
+		return (ft_strdup("0"));
+	count = countdig(n);
+	num = (char *)malloc(sizeof(char) * (count + 1));
 	if (num == NULL)
 		return (NULL);
-	num[digc--] = '\0';
-	if (nb == 0)
-		num[0] = '0';
-	else if (nb < 0)
+
+//	printf("len of count + 1: %d\n", count + 1);
+	if (n < 0)
 	{
+		nn = 1;
+		n = -n;
+	}
+	num[count] = '\0';
+
+	i = count - 1;
+	while (i >= 0)
+	{
+		num[i] = '0' + (n % 10);
+		n /= 10;
+		i--;
+	}
+	if (nn == 1)
 		num[0] = '-';
-		nb *= -1;
-	}
-	while (nb > 0)
-	{
-		num[digc] = '0' + (nb % 10);
-		nb /= 10;
-		digc--;
-	}
 	return (num);
 }
