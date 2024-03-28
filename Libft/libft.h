@@ -61,4 +61,14 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
+// bonus 
+typedef struct s_list
+{
+    void *content;
+    struct s_list *next;
+} t_list;
+
+t_list	*ft_lsnew(void *content);
+void	ft_lstadd_front(t_list **lst, t_list *new);
+
 #endif

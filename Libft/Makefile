@@ -21,7 +21,6 @@ SRC = ft_atoi.c \
       ft_memcmp.c \
       ft_memcpy.c \
       ft_memmove.c \
-      ft_memrchr.c \
       ft_memset.c \
       ft_putchar_fd.c \
       ft_putendl_fd.c \
@@ -44,7 +43,10 @@ SRC = ft_atoi.c \
       ft_tolower.c \
       ft_toupper.c
 
+BONUS_SRC = ft_lstnew.c \
+			ft_lstadd_front
 OBJ = $(SRC:.c=.o)
+BONUS_OBJ = $(BONUS_SRC:.c=.o)
 
 # Rules
 # 1 
@@ -52,8 +54,10 @@ all: $(NAME)
 
 # 2 
 $(NAME): $(OBJ)
-	@ar rc $@ $^
-	@ranlib $@ #this line updates or creates a symbol index within the file its pointing to. in this case it is an archived library file.
+	@ar rcs $@ $^ #the s flag runs a ranlib equivelent.
+
+bonus: $(NAME) $(BONUS_OBJ)
+	@ar rcs $(NAME) $(BONUS_OBJ)
 
 # 3 pattern rule creating/compiling the object files. 
 %.o: %.c
