@@ -33,6 +33,8 @@
 // *new_node.content == node->content
 // *new_node.next = NULL == node-next = NULL
 
+#include "lift.h"
+
 t_list *ft_lstnew(void *content)
 {
 	t_list	node;
