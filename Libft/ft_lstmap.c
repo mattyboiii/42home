@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 12:13:41 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/31 13:01:02 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/03/31 13:04:12 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,29 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
+	t_list	*new_lst;
+	t_list	*elem;
+
+	if (!lst)
+		return (NULL);
+	new_lst = NULL;
+	while (lst)
+	{
+		elem = ft_lstnew(f(lst->content));
+		if (!elem)
+		{
+			ft_lstclear(&new_lst, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&new_lst, elem);
+		lst = lst->next;
+	}
+	return (new_lst);
+}
+
+/*
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+{
 	t_list	*newlist;
 	t_list	*node;
 
@@ -57,3 +80,4 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	}
 	return (newlist);
 }
+*/
