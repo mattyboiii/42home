@@ -32,7 +32,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
 	if (!lst || !del)
 		return ;
-	del(lst->content);
+	del(lst->buffer);
 	free(lst);
 }
 
@@ -63,7 +63,13 @@ t_list	*ft_lstnew(void *content)
 	node = malloc(sizeof(t_list));
 	if (node == NULL)
 		return (NULL);
-	node->content = content;
+	node->buffer = content;
 	node->next = NULL;
 	return (node);
+}
+
+void	delete_content(void *content)
+{
+    if (content)
+        free(content);
 }

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:10:32 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/04/09 13:00:17 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/04/09 15:03:15 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,26 @@
 
 #include "get_next_line.h"
 
-int	read_bytes(int fd, char *buffer, t_list *head)
+ssize_t	read_bytes(int fd, char *buffer, t_list *head)
 {
-	int		*bytes_read;
+	ssize_t		bytes_read;
 
 	bytes_read = read(fd, buffer, BUFFER_SIZE);
 	if (bytes_read == -1)
 	{
 		free(buffer);
-		ft_lstclear(&head, 
+		ft_lstclear(&head, delete_content); 
+		return (-1);
 	}
+	else if (bytes_read == 0)
+	{
+		free(buffer);
+		return (0);
+	}
+
+	buffer[bytes_read] = '\0';
+	return (bytes_read);
+
 }
 
 t_list	*read_to_node(int fd, size_t *total_bytes_read)
@@ -57,24 +67,32 @@ t_list	*read_to_node(int fd, size_t *total_bytes_read)
 	t_list		*head;
 
 	head = NULL;
-	current = NULL;
 	*total_bytes_read = 0;
-
-	while (1)
+	while ((buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))) != NULL)
 	{
-		buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (buffer == NULL)
 			return (NULL);
-		bytes_read = read_bytes(fd, buffer, BUFFER_SIZE, head);
-	}
+		bytes_read = read_bytes(fd, buffer, head);
+		if (bytes_read == -1)
+			return (NULL);
+		else if (bytes_read == 0)
+			break;
+		*total_bytes_read += bytes_read;
+		if (!ft_lstadd_back(&head, ft_lstnew(buffer)))
+		{
+			ft_lstclear(&head, free);
+			return (NULL);
+		}
 
+	}
+	return (head);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*buffer;
 	t_list		*head;
-	t_list		*current;
+	size_t		*total_bytes_read;
 
 	// Check if the file descriptor is valid
 	if (fd <= -1 || fd == STDOUT_FILENO || fd == STDERR_FILENO || fd >= OPEN_MAX
@@ -89,7 +107,7 @@ char	*get_next_line(int fd)
 
 	// Loop to read data from the file and process it line by line
 
-	head = read_to_node(
+	head = read_to_node(fd, total_bytes_read);
 			// You might use a while loop that continues until the end of file or an error occurs
 
 			// Read data from the file into the buffer

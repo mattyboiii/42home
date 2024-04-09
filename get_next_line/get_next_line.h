@@ -11,10 +11,11 @@
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE
+# define GET_NEXT_LINE_H
 
 #include <unistd.h> // this is so I can use STDOUT_FILENO, STDERR_FILENO
 #include <limits.h> // so i can use OPEN_MAX which check max files allowed open
+#include <stdlib.h> //malloc, freee
 
 //Definitions
 /*
@@ -33,9 +34,9 @@
 
 typedef struct s_list
 {
-	char *buffer;
-	struct s_list *next;
-} t_list;
+	char	*buffer;
+	struct	s_list *next;
+}			t_list;
 
 char	*get_next_line(int fd);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
@@ -44,8 +45,6 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstnew(void *content);
 void	delete_content(void *content);
-
-
 
 
 #endif
