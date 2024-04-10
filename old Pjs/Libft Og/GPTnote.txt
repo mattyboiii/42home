@@ -1,0 +1,74 @@
+I have a directory called libft.
+
+inside libft is
+Makefile
+obj
+src
+    ft_isalnum.c
+    ft_isalpha.c
+    ft_isascii.c
+    ft_isdigit.c
+    ft_isprint.c
+    ft_memset.c
+    ft_strelen.c
+include
+    libft.h
+
+
+libft.h code is below for troubleshooting reasons.
+
+#ifndef LIBFT_H
+#define LIBFT_H
+
+#include <stdio.h>
+#include <unistd.h>
+#include <ctype.h>
+
+int ft_isalpha(int c);
+int ft_isdigit(int c);
+int	ft_isalnum(int c);
+int	ft_isascii(int c);
+int	ft_isprint(int c);
+
+size_t	ft_strlen(const char *s);
+
+void	ft_memset(void *s, int c, size_t len);
+
+#endif
+
+
+here is my ft_isalnum.c code below.
+
+#include "libft.h"
+
+int	ft_isalnum(int c)
+{
+	if (ft_isdigit(c) || ft_isalpha(c))
+		return (1);
+	else
+		return (0);
+}
+
+int main()
+{
+	printf("ft_isalnum A %d", ft_isalnum('A'));
+	printf("\nft_isalnum ; %d", ft_isalnum(';'));
+	printf("\nft_isalnum ( %d", ft_isalnum('('));
+	printf("\nft_isalnum 0 %d", ft_isalnum('0'));
+	printf("\nisalnum A %d", isalnum('A'));
+	printf("\nisalnum ; %d", isalnum(';'));
+	printf("\nisalnum ( %d", isalnum('('));
+	printf("\nisalnum 0 %d", isalnum('0'));
+}
+
+ALL of my .c files have "#include "libft.h". when I compile this program so that I can run the main to test the output works correclty I use the below. keep in mind um running this from terminal libft/
+
+
+cc -Wex -Wall -Werror -Iinclude src/ft_isalnum.c src/ft_isalpha src/ft_isdigit.c
+
+this creates the a.out file which i run and then excecute the program.
+
+how come when I run my Makefile the compiler process doesnt need to specify the other files when creating the .o files. eg my compiler is just running the below
+cc -Wex -Wall -Werror -Iinclude -o obj/ft_isalnum.o -c src/ft_isalnum.c
+
+and it compiles the isalnum.o file correctly without the extra files?

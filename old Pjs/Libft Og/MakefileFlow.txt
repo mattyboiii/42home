@@ -1,0 +1,17 @@
+ok so, the invokation of my current makefile if I run make will.
+
+1. run the default rule all. creating the file libft.a as the variable $(NAME)
+2. it will then run the first (in this case only) specifier rule matching the default rule prerequisite which is rule 2.
+3. while running rule # 2 it will notice that the $(OBJ) varialbe is being called, but can not be completed because $(OBJDIR) has not been made and neither has $(SRC). eg in line 16 of my makefile " 16 OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))".
+4. The Makefile will then look for any missing involvement for the function. This will then have the makefile create both $(SRC) and $(OBJ) lists.
+5. Then it will trigger rule 6, which is a pattern rule telling the program how to make $(OBJDIR) if it does not exist. Then compile
+
+
+1. in line 24. its making an archive of members, with the members being the files specified by $(OBJ). after typing ar is the first argument always the name. then the second argument the collection of members?
+
+2. if i didnt run line 25. what would be wrong with the libft.a file. Is ranlib only used because its a libft.a file. or is ranlib commonly used after creating an archive.
+
+3. line 29 tell me what -p is.
+
+4. line 34 you previously used rm -rf. why use -rf keyletters instead of just f.
+

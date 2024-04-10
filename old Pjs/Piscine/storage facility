@@ -1,0 +1,15 @@
+memory in C program is defined by a large warehouse facility. The warehouse is primary role is storage.
+
+variable names - are represented by the sliding door on a storage shed. eg, if x = 4. the sliding door will have a sign with x on it. 
+Value - is represented by whats inside the storage shed. so inside of x there is a 4 inside.
+ALL SIGNS have (variable/pointer name - memory location). eg x-1000
+pointers - are also represented by a storage shed with the same sign and allocated memory as well. 
+logistics and system calls - are represented by the facility manager "Pointy Petra". She does not care whats inside the storage sheds/shipping containers. But she knows where they all are. and what to do with them. petra is often involved with pointers heavily. 
+arrays - arrays are a combination of storage sheds and pointers. If an array is created petra will put a yellow sign on the storage sheds assigned to the array. The signs will have the array name and their location. if the army is arr[] = {1, 2, 3} petra will put a sign saying arr.0 on the one with "1" inside and arr.1, arr.2 on the following. representing their location in the array. Again petra puts yellow signs on arrays. 
+dynamic memory - Dynamic memory is represented by RED storage containers, these storage containers can be lifted in and out of the facility when they are needed as dynamic memory is. They are red to represent the need of their removal when done eg. free the assigned storage by malloc. 
+null pointers - are assigned by spray painted area on the floor with 'NULL' in the middle symbolizing null. 
+null terminators - I dont quite understand how/what memory these take up. please aid with this. I understand that they are used with strings and the symbol is '\0', but i dont understand if its assigned memory eg. if char string[] = "hi" and h is in storage shed string.0-1000, i sign is string.1-1001 does '\0' have a sign of string.2-1002? 
+
+In my analogy a storage shed the facility is memory. a storage shed, spray painted area or shipping container. is ONLY given to things that DO take up memory in the system. eg takes up bytes. I dont care if its a pointer, or a variable. if it takes up bytes it MUST be assigned a storage shed, spray painted area or shipping container. As you just said that ptr takes up 4 bytes for 32 bit and 8 bytes for 64 bit. then a pointer WILL be given a storage shed, and its sign WILL have (name of pointer-memory address)
+
+one question i do have is lets say that 4 is stored at memory location 1000. does x also get assigned memory. I understand that a pointer gets memory assigned to it
