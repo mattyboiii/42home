@@ -72,11 +72,15 @@ t_list	*read_to_node(int fd, size_t *total_bytes_read)
 	{
 		if (buffer == NULL)
 			return (NULL);
-		bytes_read = read_bytes(fd, buffer, head);
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
 			return (NULL);
 		else if (bytes_read == 0)
+		{
+			free(buffer);
 			break;
+		}
+		buffer[bytes_read] = '\0';
 		*total_bytes_read += bytes_read;
 		if (!ft_lstadd_back(&head, ft_lstnew(buffer)))
 		{
@@ -108,23 +112,23 @@ char	*get_next_line(int fd)
 	// Loop to read data from the file and process it line by line
 
 	head = read_to_node(fd, total_bytes_read);
-			// You might use a while loop that continues until the end of file or an error occurs
+	// You might use a while loop that continues until the end of file or an error occurs
 
-			// Read data from the file into the buffer
-			// Check for errors during reading and handle them appropriately
+	// Read data from the file into the buffer
+	// Check for errors during reading and handle them appropriately
 
-			// Process the buffer to find complete lines of text
-			// You might need to handle cases where lines span multiple chunks
+	// Process the buffer to find complete lines of text
+	// You might need to handle cases where lines span multiple chunks
 
-			// Create a new node in the linked list and store the complete line of text in it
-			// Update pointers as necessary to manage the linked list
+	// Create a new node in the linked list and store the complete line of text in it
+	// Update pointers as necessary to manage the linked list
 
-			// Check if a complete line has been found and return it if so
+	// Check if a complete line has been found and return it if so
 
-			// Free memory allocated for the buffer and any remaining nodes in the linked list
-			// Handle any cleanup operations before returning
+	// Free memory allocated for the buffer and any remaining nodes in the linked list
+	// Handle any cleanup operations before returning
 
-			// Return NULL to indicate that the end of file has been reached or an error occurred
+	// Return NULL to indicate that the end of file has been reached or an error occurred
 
 
-			}
+}
