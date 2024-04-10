@@ -36,7 +36,7 @@ typedef struct s_list
 {
 	char	*buffer;
 	struct	s_list *next;
-}			t_list;
+}		t_list;
 
 char	*get_next_line(int fd);
 void	ft_lstclear(t_list **lst, void (*del)(void *));

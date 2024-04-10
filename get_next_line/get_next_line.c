@@ -45,7 +45,8 @@ t_list	*read_to_node(int fd, size_t *total_bytes_read)
 	t_list		*head;
 
 	head = NULL;
-	while ((buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))) != NULL)
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	while (!buffer)
 	{
 		if (buffer == NULL)
 			return (NULL);
@@ -58,7 +59,7 @@ t_list	*read_to_node(int fd, size_t *total_bytes_read)
 		else if (bytes_read == 0)
 		{
 			free(buffer);
-			break;
+			break ;
 		}
 		buffer[bytes_read] = '\0';
 		*total_bytes_read += bytes_read;
@@ -79,7 +80,7 @@ char	*get_next_line(int fd)
 
 	total_bytes_read = 0;
 	// Check if the file descriptor is valid
-	if (fd <= -1 || fd == STDOUT_FILENO || fd == STDERR_FILENO || fd >= OPEN_MAX
+	if (fd <= -1 || fd == STDOUT_FILENO || fd == STDERR_FILENO
 			|| read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0)
 		return (GNL_ERROR);
 
@@ -87,28 +88,19 @@ char	*get_next_line(int fd)
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
 		return (GNL_ERROR);
-
-
-	// Loop to read data from the file and process it line by line
-
 	head = read_to_node(fd, &total_bytes_read);
-	// You might use a while loop that continues until the end of file or an error occurs
-
-	// Read data from the file into the buffer
-	// Check for errors during reading and handle them appropriately
-
 	// Process the buffer to find complete lines of text
 	// You might need to handle cases where lines span multiple chunks
 
-	// Create a new node in the linked list and store the complete line of text in it
 	// Update pointers as necessary to manage the linked list
 
 	// Check if a complete line has been found and return it if so
 
-	// Free memory allocated for the buffer and any remaining nodes in the linked list
+	// Free memory allocated for the buffer and any remaining nodes in 
+	// the linked list
 	// Handle any cleanup operations before returning
 
-	// Return NULL to indicate that the end of file has been reached or an error occurred
-
-
+	// Return NULL to indicate that the end of file has been reached or 
+	// an error occurred
+	return (head->buffer);
 }
