@@ -38,28 +38,6 @@
 
 #include "get_next_line.h"
 
-ssize_t	read_bytes(int fd, char *buffer, t_list *head)
-{
-	ssize_t		bytes_read;
-
-	bytes_read = read(fd, buffer, BUFFER_SIZE);
-	if (bytes_read == -1)
-	{
-		free(buffer);
-		ft_lstclear(&head, delete_content); 
-		return (-1);
-	}
-	else if (bytes_read == 0)
-	{
-		free(buffer);
-		return (0);
-	}
-
-	buffer[bytes_read] = '\0';
-	return (bytes_read);
-
-}
-
 t_list	*read_to_node(int fd, size_t *total_bytes_read)
 {
 	char		*buffer;
