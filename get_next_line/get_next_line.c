@@ -45,14 +45,16 @@ t_list	*read_to_node(int fd, size_t *total_bytes_read)
 	t_list		*head;
 
 	head = NULL;
-	*total_bytes_read = 0;
 	while ((buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))) != NULL)
 	{
 		if (buffer == NULL)
 			return (NULL);
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
+		{
+			free(buffer);
 			return (NULL);
+		}
 		else if (bytes_read == 0)
 		{
 			free(buffer);
@@ -62,10 +64,9 @@ t_list	*read_to_node(int fd, size_t *total_bytes_read)
 		*total_bytes_read += bytes_read;
 		if (!ft_lstadd_back(&head, ft_lstnew(buffer)))
 		{
-			ft_lstclear(&head, free);
+			ft_lstclear(&head, delete_content);
 			return (NULL);
 		}
-
 	}
 	return (head);
 }
@@ -74,8 +75,9 @@ char	*get_next_line(int fd)
 {
 	char		*buffer;
 	t_list		*head;
-	size_t		*total_bytes_read;
+	size_t		total_bytes_read;
 
+	total_bytes_read = 0;
 	// Check if the file descriptor is valid
 	if (fd <= -1 || fd == STDOUT_FILENO || fd == STDERR_FILENO || fd >= OPEN_MAX
 			|| read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0)
@@ -89,7 +91,7 @@ char	*get_next_line(int fd)
 
 	// Loop to read data from the file and process it line by line
 
-	head = read_to_node(fd, total_bytes_read);
+	head = read_to_node(fd, &total_bytes_read);
 	// You might use a while loop that continues until the end of file or an error occurs
 
 	// Read data from the file into the buffer
