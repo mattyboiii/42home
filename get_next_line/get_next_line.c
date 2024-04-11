@@ -37,23 +37,21 @@
  */
 
 #include "get_next_line.h"
-/*
-   t_lit	process_nodes(t_list *head)
-   {
-   char	*tmp;
-   char	*line;
-   int	nextline;
 
-   nextline = 0;
-//look inside of the first node and make tmp =  head->buffer
-tmp = head->buffer;
-while (*tmp != '\n' || *tmp != '\0' && nextline <= BUFFER_SIZE)
-nextline++;
+t_lit	process_nodes(t_list *head)
+{
+	char	*tmp;
+	char	*line;
+	int	nextline;
+
+	nextline = 0;
+	//look inside of the first node and make tmp =  head->buffer
+	tmp = head->buffer;
+	while (*tmp != '\n' || *tmp != '\0' && nextline <= BUFFER_SIZE)
+		nextline++;
 
 
 }
- */
-
 
 void	buffer_into_linkedlist(t_list **lst, char *str)
 {
@@ -63,11 +61,12 @@ void	buffer_into_linkedlist(t_list **lst, char *str)
 	node = NULL;
 	temp = ft_strdup(str);
 	node = ft_lstnew((char *)temp);
-	if (!ft_lstadd_back(lst, node))
+	ft_lstadd_back(lst, node)
 	{
-		free(temp);
 		ft_lstclear(&node, delete_content);
 	}
+	free(node);
+	free(temp);
 }
 
 t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
