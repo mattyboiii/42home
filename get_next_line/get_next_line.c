@@ -62,7 +62,7 @@ void	null_free(char *ptr)
 }
 */
 
-t_list	*read_to_node(int fd, size_t *total_bytes_read)
+t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
 {
 	char		*buffer;
 	char		*tempbuff;
@@ -116,7 +116,7 @@ char	*get_next_line(int fd)
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
 		return (GNL_ERROR);
-	head = read_to_node(fd, &total_bytes_read);
+	head = read_to_nodes(fd, &total_bytes_read);
 	// Process the buffer to find complete lines of text
 
 	// head = process_nodes(head);
