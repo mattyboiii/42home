@@ -54,20 +54,26 @@ nextline++;
 }
  */
 
-/*
-void	null_free(char *ptr)
+
+void	buffer_into_linkedlist(t_list **lst, char *str)
 {
-	free(ptr);
-	ptr = NULL;
+	t_list		*node;
+	char		*temp;
+
+	node = NULL;
+	temp = ft_strdup(str);
+	node = ft_lstnew((char *)temp);
+	if (!ft_lstadd_back(lst, node))
+	{
+		free(temp);
+		ft_lstclear(&node, delete_content);
+	}
 }
-*/
 
 t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
 {
 	char		*buffer;
-	char		*tempbuff;
 	ssize_t		bytes_read;
-	t_list		*node;
 	t_list		*start;
 
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -79,23 +85,16 @@ t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
 		if (bytes_read == -1)
 		{
 			free(buffer);
-			return (NULL);
+			return (GNL_ERROR);
 		}
 		else if (bytes_read == 0)
 		{
 			free(buffer);
-			free(tempbuff);
 			break ;
 		}
 		buffer[bytes_read] = '\0';
 		*total_bytes_read += bytes_read;
-		tempbuff = ft_strdup(buffer);
-		node = ft_lstnew((char*)tempbuff);
-		if (!ft_lstadd_back(&start, node))
-		{
-			ft_lstclear(&node, delete_content);
-			return (NULL);
-		}
+		buffer_into_linkedlist(&start, buffer);
 	}
 	return (start);
 }
