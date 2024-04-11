@@ -37,39 +37,68 @@
  */
 
 #include "get_next_line.h"
+/*
+   t_lit	process_nodes(t_list *head)
+   {
+   char	*tmp;
+   char	*line;
+   int	nextline;
+
+   nextline = 0;
+//look inside of the first node and make tmp =  head->buffer
+tmp = head->buffer;
+while (*tmp != '\n' || *tmp != '\0' && nextline <= BUFFER_SIZE)
+nextline++;
+
+
+}
+ */
+
+void	null_free(void *ptr)
+{
+	free(ptr);
+	ptr = NULL;
+}
 
 t_list	*read_to_node(int fd, size_t *total_bytes_read)
 {
 	char		*buffer;
+	char		*tempbuff;
 	ssize_t		bytes_read;
-	t_list		*head;
+	t_list		*node;
+	t_list		*start;
 
-	head = NULL;
+	node = NULL;
+	start = NULL;
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	while (!buffer)
+	if (buffer == NULL)
+		return (GNL_ERROR);
+	while (1)
 	{
-		if (buffer == NULL)
-			return (NULL);
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
 		{
-			free(buffer);
+			null_free(buffer);
 			return (NULL);
 		}
 		else if (bytes_read == 0)
 		{
-			free(buffer);
+			null_free(buffer);
+			null_free(tempbuff);
 			break ;
 		}
 		buffer[bytes_read] = '\0';
 		*total_bytes_read += bytes_read;
-		if (!ft_lstadd_back(&head, ft_lstnew(buffer)))
+		tempbuff = ft_strdup(buffer);
+		node = ft_lstnew((char*)tempbuff);
+		if (!ft_lstadd_back(&start, node))
 		{
-			ft_lstclear(&head, delete_content);
+			ft_lstclear(&node, delete_content);
 			return (NULL);
 		}
+		node = node->next;
 	}
-	return (head);
+	return (start);
 }
 
 char	*get_next_line(int fd)
@@ -90,6 +119,9 @@ char	*get_next_line(int fd)
 		return (GNL_ERROR);
 	head = read_to_node(fd, &total_bytes_read);
 	// Process the buffer to find complete lines of text
+
+	// head = process_nodes(head);
+
 	// You might need to handle cases where lines span multiple chunks
 
 	// Update pointers as necessary to manage the linked list

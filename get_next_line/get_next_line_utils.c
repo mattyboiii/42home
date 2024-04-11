@@ -13,6 +13,33 @@
 
 #include "get_next_line.h"
 
+size_t	ft_strlen(const char *s)
+{
+	unsigned char	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+char	*ft_strdup(const char *src)
+{
+	char		*dup;
+	int		i;
+	int		len;
+
+	len = ft_strlen(src);
+	dup = malloc(sizeof(char) * len + 1);
+	i = 0;
+	if (dup == NULL)
+		return (NULL);
+	while (*src)
+		dup[i++] = *src++;
+	dup[i] = '\0';
+	return (dup);
+}
+
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*node;
@@ -22,18 +49,13 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	while (*lst)
 	{
 		node = (*lst)->next;
-		ft_lstdelone(*lst, del);
+		if (!lst || !del)
+			return ;
+		del((*lst)->buffer);
+		free(lst);
 		*lst = node;
 	}
 	*lst = NULL;
-}
-
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
-{
-	if (!lst || !del)
-		return ;
-	del(lst->buffer);
-	free(lst);
 }
 
 int	ft_lstadd_back(t_list **lst, t_list *new)
@@ -47,19 +69,16 @@ int	ft_lstadd_back(t_list **lst, t_list *new)
 		*lst = new;
 		return (1);
 	}
-	last = ft_lstlast(*lst);
+	while (*lst && (*lst)->next != NULL)
+		*lst = (*lst)->next;
+
+	last = *lst;
 	if (!last)
 		return (0);
 	last->next = new;
 	return (1);
 }
 
-t_list	*ft_lstlast(t_list *lst)
-{
-	while (lst && lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
 
 t_list	*ft_lstnew(void *content)
 {

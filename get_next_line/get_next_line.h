@@ -38,13 +38,14 @@ typedef struct s_list
 	struct	s_list *next;
 }		t_list;
 
+char	*ft_strdup(const char *src);
+size_t	ft_strlen(const char *s);
+
 char	*get_next_line(int fd);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
 int	ft_lstadd_back(t_list **lst, t_list *new);
-t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstnew(void *content);
 void	delete_content(void *content);
-
 
 #endif
