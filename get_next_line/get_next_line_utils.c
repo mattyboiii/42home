@@ -60,25 +60,25 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 
 int	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list		*last;
+	t_list		*head;
 
 	if (!lst || !new)
 		return (0);
+	head = *lst;
 	if (*lst == NULL)
 	{
 		*lst = new;
+		head = *lst;
 		return (1);
 	}
 	while (*lst && (*lst)->next != NULL)
 		*lst = (*lst)->next;
-
-	last = *lst;
-	if (!last)
+	if (!*lst)
 		return (0);
-	last->next = new;
+	(*lst)->next = new;
+	*lst = head;
 	return (1);
 }
-
 
 t_list	*ft_lstnew(void *content)
 {

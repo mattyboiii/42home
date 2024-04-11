@@ -54,11 +54,13 @@ nextline++;
 }
  */
 
-void	null_free(void *ptr)
+/*
+void	null_free(char *ptr)
 {
 	free(ptr);
 	ptr = NULL;
 }
+*/
 
 t_list	*read_to_node(int fd, size_t *total_bytes_read)
 {
@@ -68,8 +70,6 @@ t_list	*read_to_node(int fd, size_t *total_bytes_read)
 	t_list		*node;
 	t_list		*start;
 
-	node = NULL;
-	start = NULL;
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
 		return (GNL_ERROR);
@@ -78,13 +78,13 @@ t_list	*read_to_node(int fd, size_t *total_bytes_read)
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
 		{
-			null_free(buffer);
+			free(buffer);
 			return (NULL);
 		}
 		else if (bytes_read == 0)
 		{
-			null_free(buffer);
-			null_free(tempbuff);
+			free(buffer);
+			free(tempbuff);
 			break ;
 		}
 		buffer[bytes_read] = '\0';
@@ -96,7 +96,6 @@ t_list	*read_to_node(int fd, size_t *total_bytes_read)
 			ft_lstclear(&node, delete_content);
 			return (NULL);
 		}
-		node = node->next;
 	}
 	return (start);
 }
