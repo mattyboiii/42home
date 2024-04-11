@@ -38,22 +38,9 @@
 
 #include "get_next_line.h"
 
-t_lit	process_nodes(t_list *head)
-{
-	char	*tmp;
-	char	*line;
-	int	nextline;
-
-	nextline = 0;
-	//look inside of the first node and make tmp =  head->buffer
-	tmp = head->buffer;
-	while (*tmp != '\n' || *tmp != '\0' && nextline <= BUFFER_SIZE)
-		nextline++;
 
 
-}
-
-void	buffer_into_linkedlist(t_list **lst, char *str)
+void	string_into_linkedlist(t_list **lst, char *str)
 {
 	t_list		*node;
 	char		*temp;
@@ -61,12 +48,42 @@ void	buffer_into_linkedlist(t_list **lst, char *str)
 	node = NULL;
 	temp = ft_strdup(str);
 	node = ft_lstnew((char *)temp);
-	ft_lstadd_back(lst, node)
+	if (!node)
+	{
+		free(temp);
+		return ;
+	}
+	if (!ft_lstadd_back(lst, node))
 	{
 		ft_lstclear(&node, delete_content);
 	}
-	free(node);
-	free(temp);
+}
+
+t_list	*process_nodes(t_list *head)
+{
+	char		*tmp;
+	int		nextline;
+	t_list		*freshlines;
+
+	freshlines = NULL;
+	while (head->next != NULL)
+	{
+		tmp = head->buffer;
+		nextline = ft_strlen(tmp);
+		// if the buffer on the last node's last char != '\n'. then tmp = strdup buffer with the head->next catonated. then do the below code again. 
+
+		while (tmp[nextline] != '\n' && nextline >= 0)
+			nextline--;
+		if (tmp[nextline] == '\n')
+		{
+			string_into_linkedlist(&freshlines, (ft_substr(tmp, 0, nextline))); 
+		}
+		if (!tmp[nextline + 1])
+			string_into_linkedlist(&freshlines, (ft_substr(tmp, nextline,
+						ft_strlen(tmp);
+		head = head->next;
+	}
+	return (freshlines);
 }
 
 t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
@@ -93,7 +110,7 @@ t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
 		}
 		buffer[bytes_read] = '\0';
 		*total_bytes_read += bytes_read;
-		buffer_into_linkedlist(&start, buffer);
+		string_into_linkedlist(&start, buffer);
 	}
 	return (start);
 }
@@ -117,7 +134,7 @@ char	*get_next_line(int fd)
 	head = read_to_nodes(fd, &total_bytes_read);
 	// Process the buffer to find complete lines of text
 
-	// head = process_nodes(head);
+	head = process_nodes(head);
 
 	// You might need to handle cases where lines span multiple chunks
 

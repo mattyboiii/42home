@@ -13,6 +13,34 @@
 
 #include "get_next_line.h"
 
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*out;
+	size_t	i;
+
+	if (!s || start >= ft_strlen(s))
+	{
+		out = malloc(1);
+		if (out)
+			*out = '\0';
+		return out;
+	}
+	if ((ft_strlen(s) - start) < len)
+		len = ft_strlen(s) - start;
+
+	out = malloc(len + 1);
+	if (out == NULL)
+		return (NULL);
+	i = 0;
+	while (*s && i < len && start < ft_strlen(s))
+	{
+		out[i] = s[i + start];
+		i++;
+	}
+	out[i] = '\0';
+	return (out);
+}
+
 size_t	ft_strlen(const char *s)
 {
 	unsigned char	i;
