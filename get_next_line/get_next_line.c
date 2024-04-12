@@ -67,8 +67,6 @@ t_list	*process_nodes(t_list *lst)
 	t_list		*freshlines;
 
 	freshlines = NULL;
-	afternextline = NULL;
-	tmp = NULL;
 	while (lst)
 	{
 		nextline = 0;
@@ -90,6 +88,7 @@ t_list	*process_nodes(t_list *lst)
 		afternextline = NULL;
 		if (tmp[nextline + 1])
 			afternextline = ft_substr(tmp, nextline, ft_strlen(tmp)); 
+		tmp = NULL;
 		free(tmp);
 		lst = lst->next;
 	}
