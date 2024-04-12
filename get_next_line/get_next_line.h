@@ -16,6 +16,7 @@
 #include <unistd.h> // this is so I can use STDOUT_FILENO, STDERR_FILENO
 #include <limits.h> // so i can use OPEN_MAX which check max files allowed open
 #include <stdlib.h> //malloc, freee
+#include <string.h> //
 
 //Definitions
 /*
@@ -41,6 +42,7 @@ typedef struct s_list
 char	*ft_strdup(const char *src);
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strcatmal(char *dest, const char *src, char *address);
 
 char	*get_next_line(int fd);
 void	ft_lstclear(t_list **lst, void (*del)(void *));

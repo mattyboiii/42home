@@ -59,30 +59,42 @@ void	string_into_linkedlist(t_list **lst, char *str)
 	}
 }
 
-t_list	*process_nodes(t_list *head)
+t_list	*process_nodes(t_list *lst)
 {
 	char		*tmp;
+	char		*afternextline;
 	int		nextline;
 	t_list		*freshlines;
 
 	freshlines = NULL;
-	while (head->next != NULL)
+	afternextline = NULL;
+	tmp = NULL;
+	while (lst)
 	{
-		tmp = head->buffer;
+		nextline = 0;
+		if (afternextline)
+			ft_strcatmal(afternextline, lst->buffer, tmp); 
+		else
+			tmp = lst->buffer;
+		free(afternextline);
 		nextline = ft_strlen(tmp);
-		// if the buffer on the last node's last char != '\n'. then tmp = strdup buffer with the head->next catonated. then do the below code again. 
-
 		while (tmp[nextline] != '\n' && nextline >= 0)
 			nextline--;
 		if (tmp[nextline] == '\n')
 		{
-			string_into_linkedlist(&freshlines, (ft_substr(tmp, 0, nextline))); 
+			string_into_linkedlist(&freshlines, (ft_substr(tmp, 0,
+			nextline))); 
 		}
-		if (!tmp[nextline + 1])
-			string_into_linkedlist(&freshlines, (ft_substr(tmp, nextline,
-						ft_strlen(tmp);
-		head = head->next;
+		while (tmp[nextline] == '\n')
+			nextline++;
+		afternextline = NULL;
+		if (tmp[nextline + 1])
+			afternextline = ft_substr(tmp, nextline, ft_strlen(tmp)); 
+		free(tmp);
+		lst = lst->next;
 	}
+	free(tmp);
+	free(afternextline);
 	return (freshlines);
 }
 

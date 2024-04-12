@@ -13,11 +13,32 @@
 
 #include "get_next_line.h"
 
+char	*ft_strcatmal(char *dest, const char *src, char *address)
+{
+	char	*start;
+	int	len;
+	int	src_len;
+	
+	src_len = ft_strlen(src);
+	while (!src_len && src[src_len - 1] == '\n')
+		src_len--;
+	len = ft_strlen(dest) + src_len + 1;
+	address = malloc(sizeof(char) * len);
+	start = address;
+	while (*dest)
+		*address++ = *dest++;
+	while (*src && src_len-- > 0)
+		*address++ = *src++;
+	*address = '\0';
+	return (start);
+}
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*out;
 	size_t	i;
 
+	i = 0;
 	if (!s || start >= ft_strlen(s))
 	{
 		out = malloc(1);
@@ -31,7 +52,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	out = malloc(len + 1);
 	if (out == NULL)
 		return (NULL);
-	i = 0;
 	while (*s && i < len && start < ft_strlen(s))
 	{
 		out[i] = s[i + start];
