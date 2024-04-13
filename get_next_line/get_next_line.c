@@ -64,27 +64,35 @@ t_list	*process_nodes(t_list *lst)
 	char		*tmp;
 	char		*afternextline;
 	size_t		i;
+	size_t		nl;
 	t_list		*freshlines;
 
 	freshlines = NULL;
+	afternextline = NULL;
 	while (lst)
 	{
 		i = 0;
+		nl = 0;
 		if (afternextline)
 			ft_strcatmal(afternextline, lst->buffer, &tmp); 
 		else
 			tmp = lst->buffer;
 		free(afternextline);
-		while (tmp && i < ft_strlen(tmp))
+		while (tmp[nl] != '\0' && i < ft_strlen(tmp))
 		{
-			if (tmp && tmp[i] == '\n')
+			while (tmp[nl] != '\0' && tmp[nl] == '\n')
+			{
 				string_into_linkedlist(&freshlines,
-						(ft_substr(tmp, 0, 1))); 
-			while (tmp && tmp[i++] == '\n')
+					(ft_substr(tmp, nl, 1)));
+				nl++;
+			}
+			i = nl;
+			while (tmp[nl] != '\0' && tmp[nl + 1] != '\n')
+				nl++;
+			if (tmp[nl] != '\0' && tmp[i] != '\n')
 				string_into_linkedlist(&freshlines,
-						(ft_substr(tmp, 0, i))); 
-			while (tmp && tmp[i++] != '\n')
-				i++;
+					(ft_substr(tmp, i, nl))); 
+			i = nl + 1;
 		}
 		while (tmp && tmp[i - 1] != '\n')
 			i--;
