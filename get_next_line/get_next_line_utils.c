@@ -17,7 +17,6 @@ void	ft_strcatmal(char *dest, const char *src, char **address)
 {
 	char	*start;
 	int	len;
-	int	src_len;
 
 	len = ft_strlen(dest) + ft_strlen(src) + 1;
 	*address = malloc(sizeof(char) * len);

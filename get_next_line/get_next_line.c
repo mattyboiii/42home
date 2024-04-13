@@ -81,13 +81,18 @@ t_list	*process_nodes(t_list *lst)
 		if (tmp[nextline] == '\n')
 		{
 			string_into_linkedlist(&freshlines, (ft_substr(tmp, 0,
-			nextline))); 
+				nextline))); 
 		}
+		while (tmp && tmp[nextline++] == '\n')
+			string_into_linkedlist(&freshlines, (ft_substr(tmp,
+				nextline + 1, nextline + 2)));
+			/*
 		while (tmp[nextline] == '\n')
 			nextline++;
-		afternextline = NULL;
+			*/
 		if (tmp[nextline + 1])
-			afternextline = ft_substr(tmp, nextline, ft_strlen(tmp)); 
+			afternextline = ft_substr(tmp, nextline,
+				ft_strlen(tmp)); 
 		free(tmp);
 		lst = lst->next;
 	}
