@@ -63,38 +63,36 @@ t_list	*process_nodes(t_list *lst)
 {
 	char		*tmp;
 	char		*afternextline;
-	int		nextline;
+	size_t		i;
 	t_list		*freshlines;
 
 	freshlines = NULL;
 	while (lst)
 	{
-		nextline = 0;
+		i = 0;
 		if (afternextline)
 			ft_strcatmal(afternextline, lst->buffer, &tmp); 
 		else
 			tmp = lst->buffer;
 		free(afternextline);
-		nextline = 0;
-		while (tmp && tmp[nextline + 1] != '\n' && nextline > 0)
-			nextline++;
-		if (tmp[nextline] == '\n')
+		while (tmp && i < ft_strlen(tmp))
 		{
-			string_into_linkedlist(&freshlines, (ft_substr(tmp, 0,
-				nextline))); 
+			if (tmp && tmp[i] == '\n')
+				string_into_linkedlist(&freshlines,
+						(ft_substr(tmp, 0, 1))); 
+			while (tmp && tmp[i++] == '\n')
+				string_into_linkedlist(&freshlines,
+						(ft_substr(tmp, 0, i))); 
+			while (tmp && tmp[i++] != '\n')
+				i++;
 		}
-		while (tmp && tmp[nextline++] == '\n')
-			string_into_linkedlist(&freshlines, (ft_substr(tmp,
-				nextline + 1, nextline + 2)));
-			/*
-		while (tmp[nextline] == '\n')
-			nextline++;
-			*/
-		if (tmp[nextline + 1])
-			afternextline = ft_substr(tmp, nextline,
-				ft_strlen(tmp)); 
-		free(tmp);
-		lst = lst->next;
+		while (tmp && tmp[i - 1] != '\n')
+			i--;
+		afternextline = ft_substr(tmp, i, ft_strlen(tmp)); 
+		if (lst->next == NULL)
+			string_into_linkedlist(&freshlines, afternextline);
+		else
+			lst = lst->next;
 	}
 	free(tmp);
 	free(afternextline);
