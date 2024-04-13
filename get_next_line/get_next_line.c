@@ -71,12 +71,12 @@ t_list	*process_nodes(t_list *lst)
 	{
 		nextline = 0;
 		if (afternextline)
-			ft_strcatmal(afternextline, lst->buffer, tmp); 
+			ft_strcatmal(afternextline, lst->buffer, &tmp); 
 		else
 			tmp = lst->buffer;
 		free(afternextline);
 		nextline = ft_strlen(tmp);
-		while (tmp[nextline] != '\n' && nextline >= 0)
+		while (tmp && tmp[nextline - 1] != '\n' && nextline > 0)
 			nextline--;
 		if (tmp[nextline] == '\n')
 		{
