@@ -13,6 +13,25 @@
 
 #include "get_next_line.h"
 
+int	ft_strchr(const char *s, int c)
+{
+	char	*ptr;
+	char	ch;
+
+	ch = (char)c;
+	ptr = (char *)s;
+	while (*ptr != '\0')
+	{
+		if (*ptr == ch)
+			return (1);
+		ptr++;
+	}
+	if (ch == '\0')
+		return (0);
+	else
+		return (0);
+}
+
 void	ft_strcatmal(char *dest, const char *src, char **address)
 {
 	char	*start;
@@ -67,41 +86,6 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strdup(const char *src)
-{
-	char		*dup;
-	int		i;
-	int		len;
-
-	len = ft_strlen(src);
-	dup = malloc(sizeof(char) * len + 1);
-	i = 0;
-	if (dup == NULL)
-		return (NULL);
-	while (*src)
-		dup[i++] = *src++;
-	dup[i] = '\0';
-	return (dup);
-}
-
-void	ft_lstclear(t_list **lst, void (*del)(void *))
-{
-	t_list	*node;
-
-	if (!*lst || !del)
-		return ;
-	while (*lst)
-	{
-		node = (*lst)->next;
-		if (!lst || !del)
-			return ;
-		del((*lst)->buffer);
-		free(lst);
-		*lst = node;
-	}
-	*lst = NULL;
-}
-
 int	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list		*head;
@@ -124,20 +108,3 @@ int	ft_lstadd_back(t_list **lst, t_list *new)
 	return (1);
 }
 
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*node;
-
-	node = malloc(sizeof(t_list));
-	if (node == NULL)
-		return (NULL);
-	node->buffer = content;
-	node->next = NULL;
-	return (node);
-}
-
-void	delete_content(void *content)
-{
-    if (content)
-        free(content);
-}

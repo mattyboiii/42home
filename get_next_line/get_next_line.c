@@ -46,41 +46,45 @@ void	string_into_linkedlist(t_list **lst, char *str)
 	char		*temp;
 
 	node = NULL;
-	temp = ft_strdup(str);
-	node = ft_lstnew((char *)temp);
+	temp = ft_substr(str, 0, ft_strlen(str));
+	node = malloc(sizeof(t_list));
+	if (node == NULL)
+	{
+		free(temp);
+		return ;
+	}
+	node->buffer = temp;
+	node->next = NULL;
 	if (!node)
 	{
 		free(temp);
 		return ;
 	}
 	if (!ft_lstadd_back(lst, node))
-	{
-		ft_lstclear(&node, delete_content);
-	}
+		free(node->buffer);
 }
 
 t_list	*process_nodes(t_list *lst)
 {
 	char		*tmp;
-	char		*afternextline;
+	//char		*afternextline;
 	size_t		nl;
 	t_list		*freshlines;
 
 	freshlines = NULL;
-	afternextline = NULL;
+	tmp = NULL;
 	while (lst)
 	{
-		if (afternextline)
-			ft_strcatmal(afternextline, lst->buffer, &tmp); 
+		if (tmp != NULL)
+			ft_strcatmal(tmp, lst->buffer, &tmp); 
 		else
 			tmp = lst->buffer;
-		free(afternextline);
 		while (*tmp)
 		{
 			while (*tmp != '\0' && *tmp == '\n')
 			{
 				string_into_linkedlist(&freshlines,
-					(ft_substr(tmp, 0, 1)));
+						(ft_substr(tmp, 0, 1)));
 				tmp++;
 			}
 			nl = 0;
@@ -89,27 +93,23 @@ t_list	*process_nodes(t_list *lst)
 			nl++;
 			if (*tmp != '\0' && *tmp != '\n')
 				string_into_linkedlist(&freshlines,
-					(ft_substr(tmp, 0, nl))); 
+						(ft_substr(tmp, 0, nl))); 
 			while (*tmp != '\0' && nl > 0)
 			{
 				tmp++;
 				nl--;
 			}
+			if (ft_strchr(tmp, '\n') != 1)
+				break ;
 		}
-		nl = 1;
-		while (*tmp && *(tmp - 1) != '\n')
-		{
-			tmp--;
-			nl++;
-		}
-		afternextline = ft_substr(tmp, *tmp, nl); 
+		if (!*tmp)
+			tmp = NULL;
 		if (lst->next == NULL)
-			string_into_linkedlist(&freshlines, afternextline);
-		else
-			lst = lst->next;
+			break ;
+		lst = lst->next;
 	}
 	free(tmp);
-	free(afternextline);
+	//free(afternextline);
 	return (freshlines);
 }
 

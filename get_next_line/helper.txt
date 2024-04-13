@@ -1,100 +1,36 @@
 b get_next_line.c:69
 b get_next_line.c:78
 b get_next_line.c:82
-b get_next_line.c:86
-b get_next_line.c:91
+
+b get_next_line.c:79
+b get_next_line.c:102
 
 b get_next_line_utils.c:35
 
- int>    ft_lstadd_back(t_list **lst, t_list *new)
-103 {
-104 >       t_list> >       *head;
-105 
-106 >       if (!lst || !new)
-107 >       >       return (0);
-108 >       head = *lst;
-109 >       if (*lst == NULL)
-110 >       {
-111 >       >       *lst = new;
-112 >       >       head = *lst;
-113 >       >       return (1);
-114 >       }
-115 >       while (*lst && (*lst)->next != NULL)
-116 >       >       *lst = (*lst)->next;
-117 >       if (!*lst)
-118 >       >       return (0);
-119 >       (*lst)->next = new;
-120 >       *lst = head;
-121 >       return (1);
-122 }
 
 
-this is my lstadd_back function. It does the same thing however, it always returns the start of the pointer.
-
-it is called within the string_into_linkedlist function. As you can see as long as I have a string. I can call this function to create the node with the string as its content, and then append it to the back. 
-
- 43 void>   string_into_linkedlist(t_list **lst, char *str)
- 44 {
- 45 >       t_list> >       *node;
- 46 >       char>   >       *temp;
- 47 
- 48 >       node = NULL;
- 49 >       temp = ft_strdup(str);
- 50 >       node = ft_lstnew((char *)temp);
- 51 >       if (!node)
- 52 >       {
- 53 >       >       free(temp);
- 54 >       >       return ;
- 55 >       }
- 56 >       if (!ft_lstadd_back(lst, node))
- 57 >       {
- 58 >       >       ft_lstclear(&node, delete_content);
- 59 >       }
- 60 }
+b get_next_line.c:76
+b get_next_line.c:80
+b get_next_line.c:85
+b get_next_line.c:94
+b get_next_line.c:98
 
 
-the current issue im having is that when i catonate the chars after a \n it doesnt allocate memory. Now I was considering adding malloc to the strcat. But i was just seeing if there was a more efficient cleaner way of organising the buffers inside the *lst into freshlines. 
+lets say i wanted to put all newline characters into a linked list. assuming that string_into_linked list does that and all it needs is the string, the starting point, and length of node string. 
 
- 62 t_list> *process_nodes(t_list *lst)
- 63 {
- 64 >       char>   >       *tmp;
- 65 >       char>   >       *afternextline;
- 66 >       int>    >       nextline;
- 67 >       t_list> >       *freshlines;
- 68 
- 69 >       freshlines = NULL;
- 70 >       afternextline = NULL;
- 71 >       tmp = NULL;
- 72 >       while (lst && lst->next != NULL)
- 73 >       {
- 74 >       >       nextline = 0;
- 75 >       >       if (afternextline)
- 76 >       >       >       tmp = ft_strcat(afternextline, lst->buffer);
- 77 >       >       else
- 78 >       >       >       tmp = lst->buffer;
- 79 >       >       nextline = ft_strlen(tmp);
- 80 >       >       while (tmp[nextline] != '\n' && nextline >= 0)
- 81 >       >       >       nextline--;
- 82 >       >       if (tmp[nextline] == '\n')
- 83 >       >       {
- 84 >       >       >       string_into_linkedlist(&freshlines, (ft_substr(tmp, 0,
- 85 >       >       >       nextline)));
- 86 >       >       }
- 87 >       >       while (tmp[nextline] == '\n')
- 88 >       >       >       nextline++;
- 89 >       >       afternextline = NULL;
- 90 >       >       if (tmp[nextline + 1])
- 91 >       >       {
- 92 >       >       >       while (tmp[nextline] != '\0')
- 93 >       >       >       >       *afternextline++ = tmp[nextline++];
- 94 >       >       >       *afternextline = '\0';
- 95 >       >       }
- 96 >       >       tmp = NULL;
- 97 >       >       lst = lst->next;
- 98 >       }
- 99 >       return (freshlines);
-100 }
+tmp = "\n1\n2\n3 
 
+while (*tmp != '\0' && *tmp == '\n')
+ 84 >       >       >       {
+ 85 >       >       >       >       string_into_linkedlist(&freshlines,
+ 86 >       >       >       >       >       (ft_substr(tmp, *tmp, 1)));
+ 87 >       >       >       >       *tmp++;
+ 88 >       >       >       }
 
+  while (*tmp != '\0' && *tmp++ == '\n')
+ 84 >       >       >       >       string_into_linkedlist(&freshlines,
+ 85 >       >       >       >       >       (ft_substr(tmp, *tmp, 1)));
+
+do these work the same? 
 
 
