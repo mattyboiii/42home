@@ -63,7 +63,6 @@ t_list	*process_nodes(t_list *lst)
 {
 	char		*tmp;
 	char		*afternextline;
-	size_t		i;
 	size_t		nl;
 	t_list		*freshlines;
 
@@ -71,32 +70,39 @@ t_list	*process_nodes(t_list *lst)
 	afternextline = NULL;
 	while (lst)
 	{
-		i = 0;
-		nl = 0;
 		if (afternextline)
 			ft_strcatmal(afternextline, lst->buffer, &tmp); 
 		else
 			tmp = lst->buffer;
 		free(afternextline);
-		while (tmp[nl] != '\0' && i < ft_strlen(tmp))
+		while (*tmp)
 		{
-			while (tmp[nl] != '\0' && tmp[nl] == '\n')
+			while (*tmp != '\0' && *tmp == '\n')
 			{
 				string_into_linkedlist(&freshlines,
-					(ft_substr(tmp, nl, 1)));
-				nl++;
+					(ft_substr(tmp, 0, 1)));
+				tmp++;
 			}
-			i = nl;
-			while (tmp[nl] != '\0' && tmp[nl + 1] != '\n')
+			nl = 0;
+			while (*(tmp + nl) != '\0' && *(tmp + nl) != '\n')
 				nl++;
-			if (tmp[nl] != '\0' && tmp[i] != '\n')
+			nl++;
+			if (*tmp != '\0' && *tmp != '\n')
 				string_into_linkedlist(&freshlines,
-					(ft_substr(tmp, i, nl))); 
-			i = nl + 1;
+					(ft_substr(tmp, 0, nl))); 
+			while (*tmp != '\0' && nl > 0)
+			{
+				tmp++;
+				nl--;
+			}
 		}
-		while (tmp && tmp[i - 1] != '\n')
-			i--;
-		afternextline = ft_substr(tmp, i, ft_strlen(tmp)); 
+		nl = 1;
+		while (*tmp && *(tmp - 1) != '\n')
+		{
+			tmp--;
+			nl++;
+		}
+		afternextline = ft_substr(tmp, *tmp, nl); 
 		if (lst->next == NULL)
 			string_into_linkedlist(&freshlines, afternextline);
 		else
