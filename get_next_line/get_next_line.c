@@ -75,9 +75,9 @@ t_list	*process_nodes(t_list *lst)
 		else
 			tmp = lst->buffer;
 		free(afternextline);
-		nextline = ft_strlen(tmp);
-		while (tmp && tmp[nextline - 1] != '\n' && nextline > 0)
-			nextline--;
+		nextline = 0;
+		while (tmp && tmp[nextline + 1] != '\n' && nextline > 0)
+			nextline++;
 		if (tmp[nextline] == '\n')
 		{
 			string_into_linkedlist(&freshlines, (ft_substr(tmp, 0,
