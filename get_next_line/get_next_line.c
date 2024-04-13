@@ -39,6 +39,7 @@
 #include "get_next_line.h"
 
 
+static t_list	*current_node;
 
 void	string_into_linkedlist(t_list **lst, char *str)
 {
@@ -58,10 +59,14 @@ void	string_into_linkedlist(t_list **lst, char *str)
 	if (!node)
 	{
 		free(temp);
+		free(node);
 		return ;
 	}
 	if (!ft_lstadd_back(lst, node))
+	{
 		free(node->buffer);
+		free(node);
+	}
 }
 
 t_list	*process_nodes(t_list *lst)
@@ -105,11 +110,13 @@ t_list	*process_nodes(t_list *lst)
 		if (!*tmp)
 			tmp = NULL;
 		if (lst->next == NULL)
+		{
+			free(tmp);
 			break ;
+		}
 		lst = lst->next;
 	}
 	free(tmp);
-	//free(afternextline);
 	return (freshlines);
 }
 
@@ -144,36 +151,27 @@ t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
 
 char	*get_next_line(int fd)
 {
-	char		*buffer;
-	t_list		*head;
 	size_t		total_bytes_read;
+	char		*line;
+
 
 	total_bytes_read = 0;
-	// Check if the file descriptor is valid
-	if (fd <= -1 || fd == STDOUT_FILENO || fd == STDERR_FILENO
+	if (current_node == NULL)
+	{
+		if (fd <= -1 || fd == STDOUT_FILENO || fd == STDERR_FILENO
 			|| read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0)
+			return (GNL_ERROR);
+		current_node = read_to_nodes(fd, &total_bytes_read);
+		if (current_node == NULL)
+			return (GNL_ERROR);
+		current_node = process_nodes(current_node);
+		if (current_node == NULL)
+			return (GNL_ERROR);
+	}
+	if (current_node == NULL)
 		return (GNL_ERROR);
-
-	// Allocate memory for the buffer to read data from the file
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (buffer == NULL)
-		return (GNL_ERROR);
-	head = read_to_nodes(fd, &total_bytes_read);
-	// Process the buffer to find complete lines of text
-
-	head = process_nodes(head);
-
-	// You might need to handle cases where lines span multiple chunks
-
-	// Update pointers as necessary to manage the linked list
-
-	// Check if a complete line has been found and return it if so
-
-	// Free memory allocated for the buffer and any remaining nodes in 
-	// the linked list
-	// Handle any cleanup operations before returning
-
-	// Return NULL to indicate that the end of file has been reached or 
-	// an error occurred
-	return (head->buffer);
+	
+	line = current_node->buffer;
+	current_node = current_node->next;
+	return (line);
 }
