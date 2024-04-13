@@ -42,7 +42,7 @@ typedef struct s_list
 char	*ft_strdup(const char *src);
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strcatmal(char *dest, const char *src, char *address);
+void	ft_strcatmal(char *dest, const char *src, char *address);
 
 char	*get_next_line(int fd);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
