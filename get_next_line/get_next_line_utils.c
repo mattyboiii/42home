@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "get_next_line.h"
 
 int	ft_strchr(const char *s, int c)
@@ -30,26 +29,6 @@ int	ft_strchr(const char *s, int c)
 		return (0);
 	else
 		return (0);
-}
-
-t_list	update_list_buffer(t_list *lst, t_list *new)
-{
-	char	*start;
-	size_t	bufflen;
-
-	bufflen = ft_strlen(lst->buffer) + ft_strlen(new->buffer) + 1;
-	start = malloc(sizeof(char) * len);
-	if (*address == NULL)
-		return (NULL);
-	while (*lst->buffer)
-		*start++ = (*lst->buffer)++;
-	while (*new->buffer)
-		*start++ = (*new->buffer)++;
-	*start = '\0';
-	
-	free(lst->buffer)
-	lst->buffer = start;
-	return (lst->buffer);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -90,6 +69,30 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
+t_list	*update_list_buffer(t_list *lst, t_list *new)
+{
+	char	*start;
+	char	*ptr;
+	size_t	len;
+	size_t	i;
+	
+	i = 0;
+	len = ft_strlen(lst->buffer) + ft_strlen(new->buffer) + 1;
+	start = malloc(sizeof(char) * len);
+	ptr = start;
+	while (i < ft_strlen(lst->buffer))
+		*ptr++ = lst->buffer[i++];
+	i = 0;
+	while (i < ft_strlen(new->buffer))
+		*ptr++ = new->buffer[i++];
+	*ptr = '\0';
+
+	free(lst->buffer);
+	free(new->buffer);
+	lst->buffer = start;
+	return (lst);
+}
+
 int	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list		*head;
@@ -115,7 +118,7 @@ int	ft_lstadd_back(t_list **lst, t_list *new)
 	}
 	else
 	{
-		*(lst)->buffer = update_list_buffer(*lst, new); 
+		*lst = update_list_buffer(*lst, new); 
 		*lst = head;
 		return (1);
 	}

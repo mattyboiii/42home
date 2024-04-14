@@ -136,11 +136,6 @@ char	*get_next_line(int fd)
 		current_node = read_to_nodes(fd, &total_bytes_read);
 		if (current_node == NULL)
 			return (GNL_ERROR);
-		/*
-		   current_node = process_nodes(current_node);
-		   if (current_node == NULL)
-		   return (GNL_ERROR);
-		 */
 	}
 	if (current_node == NULL)
 		return (GNL_ERROR);
