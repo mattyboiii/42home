@@ -38,9 +38,6 @@
 
 #include "get_next_line.h"
 
-
-static t_list	*current_node;
-
 void	string_into_linkedlist(t_list **lst, char *str)
 {
 	t_list		*node;
@@ -69,56 +66,31 @@ void	string_into_linkedlist(t_list **lst, char *str)
 	}
 }
 
-t_list	*process_nodes(t_list *lst)
+t_list	*process_linked_list(t_list **lst, char *buffer)
 {
-	char		*tmp;
-	//char		*afternextline;
-	size_t		nl;
-	t_list		*freshlines;
+	int		nl;
 
-	freshlines = NULL;
-	tmp = NULL;
-	while (lst)
+	while (*buffer)
 	{
-		if (tmp != NULL)
-			ft_strcatmal(tmp, lst->buffer, &tmp); 
+		nl = 0;
+		if (*buffer == '\n')
+		{
+			string_into_linkedlist(lst, ft_substr(buffer, 0, 1));
+			buffer++;
+		}
 		else
-			tmp = lst->buffer;
-		while (*tmp)
 		{
-			while (*tmp != '\0' && *tmp == '\n')
-			{
-				string_into_linkedlist(&freshlines,
-						(ft_substr(tmp, 0, 1)));
-				tmp++;
-			}
-			nl = 0;
-			while (*(tmp + nl) != '\0' && *(tmp + nl) != '\n')
+			while (buffer[nl] && buffer[nl] != '\n')
 				nl++;
-			nl++;
-			if (*tmp != '\0' && *tmp != '\n')
-				string_into_linkedlist(&freshlines,
-						(ft_substr(tmp, 0, nl))); 
-			while (*tmp != '\0' && nl > 0)
-			{
-				tmp++;
-				nl--;
-			}
-			if (ft_strchr(tmp, '\n') != 1)
-				break ;
+			string_into_linkedlist(lst, ft_substr(buffer, 0, nl + 1));
+			while (*buffer && nl-- > -1)
+				buffer++;
 		}
-		if (!*tmp)
-			tmp = NULL;
-		if (lst->next == NULL)
-		{
-			free(tmp);
-			break ;
-		}
-		lst = lst->next;
 	}
-	free(tmp);
-	return (freshlines);
+	return (*lst);
 }
+
+
 
 t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
 {
@@ -144,33 +116,35 @@ t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
 		}
 		buffer[bytes_read] = '\0';
 		*total_bytes_read += bytes_read;
-		string_into_linkedlist(&start, buffer);
+		start = process_linked_list(&start, buffer);
 	}
 	return (start);
 }
 
 char	*get_next_line(int fd)
 {
+	static t_list	*current_node;
 	size_t		total_bytes_read;
 	char		*line;
-
 
 	total_bytes_read = 0;
 	if (current_node == NULL)
 	{
 		if (fd <= -1 || fd == STDOUT_FILENO || fd == STDERR_FILENO
-			|| read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0)
+				|| read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0)
 			return (GNL_ERROR);
 		current_node = read_to_nodes(fd, &total_bytes_read);
 		if (current_node == NULL)
 			return (GNL_ERROR);
-		current_node = process_nodes(current_node);
-		if (current_node == NULL)
-			return (GNL_ERROR);
+		/*
+		   current_node = process_nodes(current_node);
+		   if (current_node == NULL)
+		   return (GNL_ERROR);
+		 */
 	}
 	if (current_node == NULL)
 		return (GNL_ERROR);
-	
+
 	line = current_node->buffer;
 	current_node = current_node->next;
 	return (line);

@@ -9,12 +9,9 @@ b get_next_line_utils.c:35
 
 
 
-b get_next_line.c:76
-b get_next_line.c:80
-b get_next_line.c:85
-b get_next_line.c:94
-b get_next_line.c:98
-
+b get_next_line.c:75
+b get_next_line.c:87
+b get_next_line.c:88
 
 lets say i wanted to put all newline characters into a linked list. assuming that string_into_linked list does that and all it needs is the string, the starting point, and length of node string. 
 

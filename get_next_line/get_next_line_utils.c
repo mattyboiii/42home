@@ -32,20 +32,24 @@ int	ft_strchr(const char *s, int c)
 		return (0);
 }
 
-void	ft_strcatmal(char *dest, const char *src, char **address)
+t_list	update_list_buffer(t_list *lst, t_list *new)
 {
 	char	*start;
-	int	len;
+	size_t	bufflen;
 
-	len = ft_strlen(dest) + ft_strlen(src) + 1;
-	*address = malloc(sizeof(char) * len);
-	start = *address;
-	while (*dest)
-		*(*address)++ = *dest++;
-	while (*src)
-		*(*address)++ = *src++;
-	*(*address) = '\0';
-	*address = start;
+	bufflen = ft_strlen(lst->buffer) + ft_strlen(new->buffer) + 1;
+	start = malloc(sizeof(char) * len);
+	if (*address == NULL)
+		return (NULL);
+	while (*lst->buffer)
+		*start++ = (*lst->buffer)++;
+	while (*new->buffer)
+		*start++ = (*new->buffer)++;
+	*start = '\0';
+	
+	free(lst->buffer)
+	lst->buffer = start;
+	return (lst->buffer);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -101,10 +105,19 @@ int	ft_lstadd_back(t_list **lst, t_list *new)
 	}
 	while (*lst && (*lst)->next != NULL)
 		*lst = (*lst)->next;
-	if (!*lst)
+	if (!(*lst))
 		return (0);
-	(*lst)->next = new;
-	*lst = head;
-	return (1);
+	if ((*lst)->buffer[ft_strlen((*lst)->buffer) - 1] == '\n')
+	{
+		(*lst)->next = new;
+		*lst = head;
+		return (1);
+	}
+	else
+	{
+		*(lst)->buffer = update_list_buffer(*lst, new); 
+		*lst = head;
+		return (1);
+	}
 }
 
