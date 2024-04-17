@@ -53,13 +53,16 @@ static t_list	*update_node(t_list **lst, char *buffer)
 	node = *lst;
 	while (node != NULL && node->next != NULL)
 		node = node->next;
-	if (node->buffer[ft_strlen(node->buffer) - 1] != '\n')
+	if (node && node->buffer)
 	{
-		new_buffer = ft_strjoin(node->buffer, (char *)buffer);
-		if (!new_buffer)
-			return (NULL);
-		free(node->buffer);
-		node->buffer = new_buffer;
+		if (node->buffer[ft_strlen(node->buffer) - 1] != '\n')
+		{
+			new_buffer = ft_strjoin(node->buffer, (char *)buffer);
+			if (!new_buffer)
+				return (NULL);
+			free(node->buffer);
+			node->buffer = new_buffer;
+		}
 	}
 	return (node);
 }
