@@ -43,12 +43,15 @@ static t_list	*update_node(t_list **lst, char *buffer)
 	char	*new_buffer;
 	t_list	*node;
 
-	if (!lst)
+	if (!*lst)
+		*lst = (NULL);
+	if (!buffer && *lst)
+	{
+		node = *lst;
 		return (NULL);
-	if (!buffer)
-		return (*lst);
+	}
 	node = *lst;
-	while (node && node->next != NULL)
+	while (node != NULL && node->next != NULL)
 		node = node->next;
 	if (node->buffer[ft_strlen(node->buffer) - 1] != '\n')
 	{
@@ -60,6 +63,7 @@ static t_list	*update_node(t_list **lst, char *buffer)
 	}
 	return (node);
 }
+
 static t_list	*newline_nodes(t_list **lst, char *buffer)
 {
 	t_list	*node;
@@ -78,7 +82,7 @@ static t_list	*newline_nodes(t_list **lst, char *buffer)
 		{
 			while (str[nl] && str[nl] != '\n')
 				nl++;
-			node = ft_lstnew(ft_substr(str, 0, nl + 1)); 
+			node = ft_lstnew(ft_substr(str, 0, nl + 1));
 			*str = nl + 1;
 		}
 		current = node;
@@ -87,11 +91,10 @@ static t_list	*newline_nodes(t_list **lst, char *buffer)
 	return (current);
 }
 
-static t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
+static t_list	*read_to_nodes(int fd, size_t *total_bytes_read, t_list **head)
 {
-	char	*buffer;
-	int	bytes_read;
-	t_list	*head;
+	char		*buffer;
+	int			bytes_read;
 
 	bytes_read = 0;
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -102,7 +105,7 @@ static t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
 		{
-			ft_lstclear(&head, free);
+			ft_lstclear(head, free);
 			free(buffer);
 			return (NULL);
 		}
@@ -110,16 +113,16 @@ static t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
 			break ;
 		buffer[bytes_read] = '\0';
 		*total_bytes_read += bytes_read;
-		head = newline_nodes(&head, buffer);
+		*head = newline_nodes(head, buffer);
 	}
 	free(buffer);
-	return (head);
+	return (*head);
 }
 
 char	*get_next_line(int fd)
 {
 	static t_list		*head;
-		size_t				total_bytes_read;
+	size_t				total_bytes_read;
 	char				*line;
 
 	head = NULL;
@@ -128,7 +131,7 @@ char	*get_next_line(int fd)
 	{
 		if (fd < 0 || BUFFER_SIZE <= 0)
 			return (NULL);
-		head = read_to_nodes(fd, &total_bytes_read);
+		head = read_to_nodes(fd, &total_bytes_read, &head);
 		if (head == NULL)
 			return (NULL);
 	}
