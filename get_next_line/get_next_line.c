@@ -67,16 +67,10 @@ void	string_into_linkedlist(t_list **lst, char *str)
 	t_list		*node;
 	char		*temp;
 
-	node = NULL;
-	temp = ft_substr(str, 0, ft_strlen(str));
-	node = malloc(sizeof(t_list));
-	if (node == NULL)
-	{
-		clean_free(temp);
+	if (!str)
 		return ;
-	}
-	node->buffer = temp;
-	node->next = NULL;
+	temp = ft_substr(str, 0, ft_strlen(str));
+	node = ft_lstnew(str);
 	if (!node)
 	{
 		clean_free(temp);

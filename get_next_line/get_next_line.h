@@ -42,7 +42,7 @@ char	*get_next_line(int fd);
 t_list	*ft_lstnew(void *content);
 void	clean_free(void *ptr);
 size_t	ft_strlen(const char *s);
-void	update_list_buffer(t_list *lst, t_list *new);
+char	*ft_strjoin(char const *s1, char const *s2)
 int		ft_lstadd_back(t_list **lst, t_list *new);
 
 void	ft_lstclear(t_list **lst, void (*del)(void *));
