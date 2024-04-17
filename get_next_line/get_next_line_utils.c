@@ -24,6 +24,22 @@ t_list	*ft_lstnew(void *content)
 	return (node);
 }
 
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	t_list	*node;
+
+	if (!*lst || !del)
+		return ;
+	while (*lst)
+	{
+		node = (*lst)->next;
+		del((*lst)->buffer);
+		free(*lst);
+		*lst = node;
+	}
+	*lst = NULL;
+}
+
 size_t	ft_strlen(const char *s)
 {
 	unsigned char	i;
