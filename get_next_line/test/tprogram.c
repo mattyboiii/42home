@@ -19,7 +19,6 @@ int main(void)
     while ((line = get_next_line(fd)) != NULL)
     {
         printf("%s\n", line);
-        free(line); // Free memory allocated by get_next_line
     }
 
     // Close the file

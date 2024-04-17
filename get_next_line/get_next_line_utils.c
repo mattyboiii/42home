@@ -11,52 +11,25 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-int	ft_strchr(const char *s, int c)
+/*
+t_list	*ft_lstnew(void *content)
 {
-	char	*ptr;
-	char	ch;
+	t_list	*node;
 
-	ch = (char)c;
-	ptr = (char *)s;
-	while (*ptr != '\0')
-	{
-		if (*ptr == ch)
-			return (1);
-		ptr++;
-	}
-	if (ch == '\0')
-		return (0);
-	else
-		return (0);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*out;
-	size_t	i;
-
-	i = 0;
-	if (!s || start >= ft_strlen(s))
-	{
-		out = malloc(1);
-		if (out)
-			*out = '\0';
-		return out;
-	}
-	if ((ft_strlen(s) - start) < len)
-		len = ft_strlen(s) - start;
-
-	out = malloc(len + 1);
-	if (out == NULL)
+	node = malloc(sizeof(t_list));
+	if (node == NULL)
 		return (NULL);
-	while (*s && i < len && start < ft_strlen(s))
-	{
-		out[i] = s[i + start];
-		i++;
-	}
-	out[i] = '\0';
-	return (out);
+	node->buffer = content;
+	node->next = NULL;
+	return (node);
+}
+*/
+void	clean_free(void *ptr)
+{
+	if (ptr == NULL)
+		return ;
+	free(ptr);
+	ptr = NULL;
 }
 
 size_t	ft_strlen(const char *s)
@@ -69,28 +42,23 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-t_list	*update_list_buffer(t_list *lst, t_list *new)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
+	char	*str;
 	char	*start;
-	char	*ptr;
-	size_t	len;
-	size_t	i;
-	
-	i = 0;
-	len = ft_strlen(lst->buffer) + ft_strlen(new->buffer) + 1;
-	start = malloc(sizeof(char) * len);
-	ptr = start;
-	while (i < ft_strlen(lst->buffer))
-		*ptr++ = lst->buffer[i++];
-	i = 0;
-	while (i < ft_strlen(new->buffer))
-		*ptr++ = new->buffer[i++];
-	*ptr = '\0';
 
-	free(lst->buffer);
-	free(new->buffer);
-	lst->buffer = start;
-	return (lst);
+	if (!s1 || !s2)
+		return (NULL);
+	str = malloc ((ft_strlen(s1) + ft_strlen(s2)) + 1);
+	start = str;
+	if (str == NULL)
+		return (NULL);
+	while (*s1)
+		*str++ = *s1++;
+	while (*s2)
+		*str++ = *s2++;
+	*str = '\0';
+	return (start);
 }
 
 int	ft_lstadd_back(t_list **lst, t_list *new)
@@ -106,21 +74,11 @@ int	ft_lstadd_back(t_list **lst, t_list *new)
 		head = *lst;
 		return (1);
 	}
-	while (*lst && (*lst)->next != NULL)
+	while (*lst && *lst != NULL && (*lst)->next != NULL)
 		*lst = (*lst)->next;
 	if (!(*lst))
 		return (0);
-	if ((*lst)->buffer[ft_strlen((*lst)->buffer) - 1] == '\n')
-	{
-		(*lst)->next = new;
-		*lst = head;
-		return (1);
-	}
-	else
-	{
-		*lst = update_list_buffer(*lst, new); 
-		*lst = head;
-		return (1);
-	}
+	(*lst)->next = new;
+	*lst = head;
+	return (1);
 }
-

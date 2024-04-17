@@ -13,10 +13,10 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#include <unistd.h> // this is so I can use STDOUT_FILENO, STDERR_FILENO
-#include <limits.h> // so i can use OPEN_MAX which check max files allowed open
-#include <stdlib.h> //malloc, freee
-#include <string.h> //
+# include <unistd.h> // this is so I can use STDOUT_FILENO, STDERR_FILENO
+# include <limits.h> // so i can use OPEN_MAX which check max files allowed open
+# include <stdlib.h> //malloc, freee
+# include <string.h> //
 
 //Definitions
 /*
@@ -26,27 +26,25 @@
  */
 
 # ifndef BUFFER_SIZE
-#	define BUFFER_SIZE 42
+#  define BUFFER_SIZE 42
 # endif
-
-# define GNL_ERROR NULL
-# define GNL_END_OF_FILE 0
-# define GNL_NEWLINE 1
 
 typedef struct s_list
 {
-	char	*buffer;
-	struct	s_list *next;
-}		t_list;
-
-size_t	ft_strlen(const char *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-t_list	*update_list_buffer(t_list *lst, t_list *new);
-int	ft_strchr(const char *s, int c);
+	char			*buffer;
+	struct s_list	*next;
+}	t_list;
 
 char	*get_next_line(int fd);
+
+// Functions in my get_next_line_utils.c
+// ---  ------------------------- ------
+t_list	*ft_lstnew(void *content);
+void	clean_free(void *ptr);
+size_t	ft_strlen(const char *s);
+void	update_list_buffer(t_list *lst, t_list *new);
+int		ft_lstadd_back(t_list **lst, t_list *new);
+
 void	ft_lstclear(t_list **lst, void (*del)(void *));
-void	ft_lstdelone(t_list *lst, void (*del)(void*));
-int	ft_lstadd_back(t_list **lst, t_list *new);
 
 #endif

@@ -31,7 +31,6 @@
      end of dst. It will append at most size - strlen(dst) - 1 bytes,
      NUL-terminating the result.
 
-/*  
     Return Values
 
      The strlcpy() and strlcat() functions return the total length of

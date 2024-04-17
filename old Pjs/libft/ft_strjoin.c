@@ -32,29 +32,14 @@
 
 #include "libft.h"
 
-static char	*retemptys(void)
-{
-	char	*str;
-
-	str = malloc(1);
-	if (str == NULL)
-		return (NULL);
-	*str = '\0';
-	return (str);
-}
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
 	char	*start;
-	size_t	s1l;
-	size_t	s2l;
 
-	s1l = ft_strlen(s1);
-	s2l = ft_strlen(s2);
-	if (s1l == 0 && s2l == 0)
-		return (retemptys());
-	str = malloc ((s1l + s2l) + 1);
+	if (!s1 || !s2)
+		return (NULL);
+	str = malloc ((ft_strlen(s1) + ft_strlen(s2)) + 1);
 	start = str;
 	if (str == NULL)
 		return (NULL);

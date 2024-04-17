@@ -38,6 +38,30 @@
 
 #include "get_next_line.h"
 
+// if ((*lst)->buffer[ft_strlen((*lst)->buffer) - 1] == '\n')
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*out;
+	size_t	i;
+
+	i = 0;
+	if (!s || start >= ft_strlen(s))
+		return (NULL);
+	if ((ft_strlen(s) - start) < len)
+		len = ft_strlen(s) - start;
+	out = malloc(len + 1);
+	if (out == NULL)
+		return (NULL);
+	while (*s && i < len && start < ft_strlen(s))
+	{
+		out[i] = s[i + start];
+		i++;
+	}
+	out[i] = '\0';
+	return (out);
+}
+
 void	string_into_linkedlist(t_list **lst, char *str)
 {
 	t_list		*node;
@@ -48,49 +72,51 @@ void	string_into_linkedlist(t_list **lst, char *str)
 	node = malloc(sizeof(t_list));
 	if (node == NULL)
 	{
-		free(temp);
+		clean_free(temp);
 		return ;
 	}
 	node->buffer = temp;
 	node->next = NULL;
 	if (!node)
 	{
-		free(temp);
-		free(node);
+		clean_free(temp);
+		clean_free(node);
 		return ;
 	}
 	if (!ft_lstadd_back(lst, node))
 	{
-		free(node->buffer);
-		free(node);
+		clean_free(node->buffer);
+		clean_free(node);
 	}
 }
 
 t_list	*process_linked_list(t_list **lst, char *buffer)
 {
+	char	*str;
+	char	*start;
 	int		nl;
 
-	while (*buffer)
+	str = ft_substr(buffer, 0, ft_strlen(buffer));
+	start = str;
+	while (*str)
 	{
 		nl = 0;
-		if (*buffer == '\n')
+		if (*str == '\n')
 		{
-			string_into_linkedlist(lst, ft_substr(buffer, 0, 1));
-			buffer++;
+			string_into_linkedlist(lst, ft_substr(str, 0, 1));
+			str++;
 		}
 		else
 		{
-			while (buffer[nl] && buffer[nl] != '\n')
+			while (str[nl] && str[nl] != '\n')
 				nl++;
-			string_into_linkedlist(lst, ft_substr(buffer, 0, nl + 1));
-			while (*buffer && nl-- > -1)
-				buffer++;
+			string_into_linkedlist(lst, ft_substr(str, 0, nl + 1));
+			str += nl + 1;
 		}
 	}
+	clean_free(start);
 	return (*lst);
 }
-
-
 
 t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
 {
@@ -100,18 +126,18 @@ t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
 
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
-		return (GNL_ERROR);
+		return (NULL);
 	while (1)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
 		{
-			free(buffer);
-			return (GNL_ERROR);
+			clean_free(buffer);
+			return (NULL);
 		}
 		else if (bytes_read == 0)
 		{
-			free(buffer);
+			clean_free(buffer);
 			break ;
 		}
 		buffer[bytes_read] = '\0';
@@ -123,24 +149,26 @@ t_list	*read_to_nodes(int fd, size_t *total_bytes_read)
 
 char	*get_next_line(int fd)
 {
-	static t_list	*current_node;
-	size_t		total_bytes_read;
-	char		*line;
+	static t_list		*current_node;
+	size_t				total_bytes_read;
+	char				*line;
 
 	total_bytes_read = 0;
 	if (current_node == NULL)
 	{
 		if (fd <= -1 || fd == STDOUT_FILENO || fd == STDERR_FILENO
-				|| read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0)
-			return (GNL_ERROR);
+			|| read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0)
+			return (NULL);
 		current_node = read_to_nodes(fd, &total_bytes_read);
 		if (current_node == NULL)
-			return (GNL_ERROR);
+			return (NULL);
 	}
-	if (current_node == NULL)
-		return (GNL_ERROR);
-
-	line = current_node->buffer;
-	current_node = current_node->next;
-	return (line);
+	if (current_node != NULL)
+	{
+		line = current_node->buffer;
+		current_node = current_node->next;
+		return (line);
+	}
+	else
+		return (NULL);
 }
