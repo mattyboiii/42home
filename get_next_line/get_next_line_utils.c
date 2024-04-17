@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-/*
+
 t_list	*ft_lstnew(void *content)
 {
 	t_list	*node;
@@ -22,14 +22,6 @@ t_list	*ft_lstnew(void *content)
 	node->buffer = content;
 	node->next = NULL;
 	return (node);
-}
-*/
-void	clean_free(void *ptr)
-{
-	if (ptr == NULL)
-		return ;
-	free(ptr);
-	ptr = NULL;
 }
 
 size_t	ft_strlen(const char *s)
@@ -42,6 +34,28 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*out;
+	size_t	i;
+
+	i = 0;
+	if (!s || start >= ft_strlen(s))
+		return (NULL);
+	if ((ft_strlen(s) - start) < len)
+		len = ft_strlen(s) - start;
+	out = malloc(len + 1);
+	if (out == NULL)
+		return (NULL);
+	while (*s && i < len && start < ft_strlen(s))
+	{
+		out[i] = s[i + start];
+		i++;
+	}
+	out[i] = '\0';
+	return (out);
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
@@ -49,7 +63,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	str = malloc ((ft_strlen(s1) + ft_strlen(s2)) + 1);
+	str = malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
 	start = str;
 	if (str == NULL)
 		return (NULL);
@@ -59,26 +73,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		*str++ = *s2++;
 	*str = '\0';
 	return (start);
-}
-
-int	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	t_list		*head;
-
-	if (!lst || !new)
-		return (0);
-	head = *lst;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		head = *lst;
-		return (1);
-	}
-	while (*lst && *lst != NULL && (*lst)->next != NULL)
-		*lst = (*lst)->next;
-	if (!(*lst))
-		return (0);
-	(*lst)->next = new;
-	*lst = head;
-	return (1);
 }
