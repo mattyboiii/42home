@@ -1,0 +1,34 @@
+User
+ets say I have a struct which I am turning into linked lists. 
+
+typedef struct s_list
+{
+	char	*buffer;
+	struct	s_list *next;
+}		t_list;
+
+and I hand in a new node. lstadd_back(**lst, *new)
+
+lst 300
+
+**lst 200
+
+*lst 201
+{
+	buffer = 203 "hello "
+	next NULL;
+}
+
+
+new 100
+{
+	buffer = 101 "bob"
+	next NULL;
+}
+
+
+
+can you visualise this for me. Understanding any numbers i use are metaphorical memory addresses. i understand a char string = "sup" is visualised as. 
+
+100	101	102	103
+string	[s]	[u]	[p]
