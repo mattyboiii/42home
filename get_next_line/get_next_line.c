@@ -38,60 +38,60 @@
 
 #include "get_next_line.h"
 
-static t_list	*update_node(t_list **lst, char *buffer)
+static char	*update_node(t_list **lst, char *buffer, t_list **footnode)
 {
 	char	*new_buffer;
-	t_list	*node;
 
+	new_buffer = buffer;
 	if (!*lst)
 		*lst = (NULL);
 	if (!buffer && *lst)
 	{
-		node = *lst;
+		*footnode = *lst;
 		return (NULL);
 	}
-	node = *lst;
-	while (node != NULL && node->next != NULL)
-		node = node->next;
-	if (node && node->buffer)
+	while (*lst != NULL && (*lst)->next != NULL)
+		*lst = (*lst)->next;
+	if (*lst && (*lst)->buffer)
 	{
-		if (node->buffer[ft_strlen(node->buffer) - 1] != '\n')
+		if ((*lst)->buffer[ft_strlen((*lst)->buffer) - 1] != '\n')
 		{
-			new_buffer = ft_strjoin(node->buffer, (char *)buffer);
+			new_buffer = ft_strjoin((*lst)->buffer, (char *)buffer);
 			if (!new_buffer)
 				return (NULL);
-			free(node->buffer);
-			node->buffer = new_buffer;
+			free((*lst)->buffer);
 		}
 	}
-	return (node);
+	*footnode = *lst;
+	return (new_buffer);
 }
 
 static t_list	*newline_nodes(t_list **lst, char *buffer)
 {
-	t_list	*node;
-	t_list	*current;
+	t_list	*footnode;
+	t_list	*head;
 	char	*str;
 	size_t	nl;
-
-	current = update_node(lst, buffer);
-	str = current->buffer;
+	
+	head = *lst;
+	str = update_node(lst, buffer, &footnode);
 	while (*str)
 	{
 		nl = 0;
 		if (*str == '\n')
-			node = ft_lstnew(ft_substr(str, 0, 1));
+			footnode->next = ft_lstnew(ft_substr(str, 0, 1));
 		else
 		{
 			while (str[nl] && str[nl] != '\n')
 				nl++;
-			node = ft_lstnew(ft_substr(str, 0, nl + 1));
-			*str = nl + 1;
+			footnode = ft_lstnew(ft_substr(str, 0, nl + 1));
+			str += nl + 1;
 		}
-		current = node;
-		current = node->next;
+		if (!*lst)
+			head = footnode;
+		footnode = footnode->next;
 	}
-	return (current);
+	return (head);
 }
 
 static t_list	*read_to_nodes(int fd, size_t *total_bytes_read, t_list **head)
