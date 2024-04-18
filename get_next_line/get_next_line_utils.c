@@ -29,15 +29,20 @@ t_list	*string_into_linkedlist(t_list **lst, char *str)
 	t_list	*node;
 	t_list	*head;
 
-	if (!lst || !str)
-		return (NULL);
 	head = *lst;
 	node = ft_lstnew(str);
 	if (node == NULL)
 		return (NULL);
+	if (*lst && (*lst)->next == NULL)
+	{
+		if ((*lst)->buffer[ft_strlen((*lst)->buffer) - 1] == '\n')
+			head->next = node;
+		else
+			head = node;
+	}
 	if (!*lst)
 		return(*lst = node);
-	while (*lst && (*lst)->next != NULL)
+	while (*lst && (*lst)->next)
 		*lst = (*lst)->next;
 	(*lst)->next = node;
 	*lst = head;

@@ -63,22 +63,26 @@ static char	*ft_substr(char const *s, unsigned int start, size_t len)
 static char	*update_node(t_list **lst, char *buffer)
 {
 	char	*new_buffer;
+	t_list	*prevnode;
 
-	new_buffer = buffer;
-	if (!*lst)
-		*lst = (NULL);
-	if (!buffer && *lst)
-		return (NULL);
+	if (*lst && (*lst)->buffer && (*lst)->next == NULL)
+	{
+		new_buffer = ft_strjoin((*lst)->buffer, (char *)buffer);
+		free((*lst)->buffer);
+		return (new_buffer);
+	}
 	while (*lst != NULL && (*lst)->next != NULL)
+	{
+		prevnode = *lst;
 		*lst = (*lst)->next;
+	}
 	if (*lst && (*lst)->buffer)
 	{
 		if ((*lst)->buffer[ft_strlen((*lst)->buffer) - 1] != '\n')
 		{
 			new_buffer = ft_strjoin((*lst)->buffer, (char *)buffer);
-			if (!new_buffer)
-				return (NULL);
-			free((*lst)->buffer);
+			ft_lstclear(&(*lst), free);
+			prevnode->next = NULL;
 		}
 	}
 	return (new_buffer);
@@ -91,17 +95,20 @@ static t_list	*newline_nodes(t_list **lst, char *buffer)
 	size_t	nl;
 
 	head = *lst;
-	str = update_node(lst, buffer);
+	if (*lst == NULL)
+		str = buffer;
+	else
+		str = update_node(lst, buffer);
 	while (*str)
 	{
 		nl = 0;
 		if (*str == '\n')
-			head = string_into_linkedlist(&head, ft_substr(str, 0, 1));
+			head = string_into_linkedlist(&head, (ft_substr(str, 0, 1)));
 		else
 		{
 			while (str[nl] && str[nl] != '\n')
 				nl++;
-			head = string_into_linkedlist(&head, ft_substr(str, 0, nl + 1));
+			head = string_into_linkedlist(&head, (ft_substr(str, 0, nl + 1)));
 			str += nl + 1;
 		}
 	}
@@ -142,12 +149,12 @@ char	*get_next_line(int fd)
 	size_t				total_bytes_read;
 	char				*line;
 
-	head = NULL;
 	total_bytes_read = 0;
 	if (head == NULL)
 	{
 		if (fd < 0 || BUFFER_SIZE <= 0)
 			return (NULL);
+		head = NULL;
 		head = read_to_nodes(fd, &total_bytes_read, &head);
 		if (head == NULL)
 			return (NULL);

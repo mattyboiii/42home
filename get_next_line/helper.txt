@@ -1,38 +1,4 @@
-b get_next_line.c:69
-b get_next_line.c:78
-b get_next_line.c:82
-
-b get_next_line.c:79
-b get_next_line.c:102
-
-b get_next_line_utils.c:35
-
-
-
-b get_next_line.c:75
-b get_next_line.c:85
-
-b get_next_line.c:88
-
-Potential issues. 
-I am returning a node completed buffer instead of just a string with the latest buffer catonated. I should  make it a char. 
-I am not returning the original starting point of the list. 
-
-lets say i wanted to put all newline characters into a linked list. assuming that string_into_linked list does that and all it needs is the string, the starting point, and length of node string. 
-
-tmp = "\n1\n2\n3 
-
-while (*tmp != '\0' && *tmp == '\n')
- 84 >       >       >       {
- 85 >       >       >       >       string_into_linkedlist(&freshlines,
- 86 >       >       >       >       >       (ft_substr(tmp, *tmp, 1)));
- 87 >       >       >       >       *tmp++;
- 88 >       >       >       }
-
-  while (*tmp != '\0' && *tmp++ == '\n')
- 84 >       >       >       >       string_into_linkedlist(&freshlines,
- 85 >       >       >       >       >       (ft_substr(tmp, *tmp, 1)));
-
-do these work the same? 
-
+b get_next_line.c:77
+b get_next_line.c:95
+b get_next_line_utils.c:34
 
