@@ -38,6 +38,28 @@
 
 #include "get_next_line.h"
 
+static char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*out;
+	size_t	i;
+
+	i = 0;
+	if (!s || start >= ft_strlen(s))
+		return (NULL);
+	if ((ft_strlen(s) - start) < len)
+		len = ft_strlen(s) - start;
+	out = malloc(len + 1);
+	if (out == NULL)
+		return (NULL);
+	while (*s && i < len && start < ft_strlen(s))
+	{
+		out[i] = s[i + start];
+		i++;
+	}
+	out[i] = '\0';
+	return (out);
+}
+
 static char	*update_node(t_list **lst, char *buffer, t_list **footnode)
 {
 	char	*new_buffer;
@@ -68,28 +90,24 @@ static char	*update_node(t_list **lst, char *buffer, t_list **footnode)
 
 static t_list	*newline_nodes(t_list **lst, char *buffer)
 {
-	t_list	*footnode;
 	t_list	*head;
 	char	*str;
 	size_t	nl;
-	
+
 	head = *lst;
-	str = update_node(lst, buffer, &footnode);
+	str = update_node(lst, buffer);
 	while (*str)
 	{
 		nl = 0;
 		if (*str == '\n')
-			footnode->next = ft_lstnew(ft_substr(str, 0, 1));
+			head = string_into_linkedlist(&head, ft_substr(str, 0, 1));
 		else
 		{
 			while (str[nl] && str[nl] != '\n')
 				nl++;
-			footnode = ft_lstnew(ft_substr(str, 0, nl + 1));
+			head = string_into_linkedlist(&head, ft_substr(str, 0, nl + 1));
 			str += nl + 1;
 		}
-		if (!*lst)
-			head = footnode;
-		footnode = footnode->next;
 	}
 	return (head);
 }

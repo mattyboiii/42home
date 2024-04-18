@@ -24,6 +24,26 @@ t_list	*ft_lstnew(void *content)
 	return (node);
 }
 
+t_list	*string_into_linkedlist(t_list **lst, char *str)
+{
+	t_list	*node;
+	t_list	*head;
+
+	if (!lst || !str)
+		return (NULL);
+	head = *lst;
+	node = ft_lstnew(str);
+	if (node == NULL)
+		return (NULL);
+	if (!*lst)
+		return(*lst = node);
+	while (*lst && (*lst)->next != NULL)
+		*lst = (*lst)->next;
+	(*lst)->next = node;
+	*lst = head;
+	return (head);
+}
+
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*node;
@@ -48,28 +68,6 @@ size_t	ft_strlen(const char *s)
 	while (s[i] != '\0')
 		i++;
 	return (i);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*out;
-	size_t	i;
-
-	i = 0;
-	if (!s || start >= ft_strlen(s))
-		return (NULL);
-	if ((ft_strlen(s) - start) < len)
-		len = ft_strlen(s) - start;
-	out = malloc(len + 1);
-	if (out == NULL)
-		return (NULL);
-	while (*s && i < len && start < ft_strlen(s))
-	{
-		out[i] = s[i + start];
-		i++;
-	}
-	out[i] = '\0';
-	return (out);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
