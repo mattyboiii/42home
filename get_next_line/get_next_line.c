@@ -60,7 +60,7 @@ static char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (out);
 }
 
-static char	*update_node(t_list **lst, char *buffer, t_list **footnode)
+static char	*update_node(t_list **lst, char *buffer)
 {
 	char	*new_buffer;
 
@@ -68,10 +68,7 @@ static char	*update_node(t_list **lst, char *buffer, t_list **footnode)
 	if (!*lst)
 		*lst = (NULL);
 	if (!buffer && *lst)
-	{
-		*footnode = *lst;
 		return (NULL);
-	}
 	while (*lst != NULL && (*lst)->next != NULL)
 		*lst = (*lst)->next;
 	if (*lst && (*lst)->buffer)
@@ -84,7 +81,6 @@ static char	*update_node(t_list **lst, char *buffer, t_list **footnode)
 			free((*lst)->buffer);
 		}
 	}
-	*footnode = *lst;
 	return (new_buffer);
 }
 
