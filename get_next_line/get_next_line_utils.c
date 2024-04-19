@@ -62,7 +62,7 @@ void	ft_lstclear(t_list **lst, t_list **prevnode, void (*del)(void *))
 
 size_t	ft_strlen(const char *s)
 {
-	unsigned char	i;
+	size_t	i;
 
 	i = 0;
 	while (s[i] != '\0')
