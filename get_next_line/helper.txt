@@ -1,4 +1,6 @@
-b get_next_line.c:77
-b get_next_line.c:95
+b get_next_line.c:138
+b get_next_line.c:96
+b get_next_line.c:69
+b get_next_line.c:83
 b get_next_line_utils.c:34
 

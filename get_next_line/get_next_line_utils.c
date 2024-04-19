@@ -34,7 +34,7 @@ t_list	*string_into_linkedlist(t_list **lst, char *str)
 	if (node == NULL)
 		return (NULL);
 	if (!*lst)
-		return(*lst = node);
+		return (*lst = node);
 	while (*lst && (*lst)->next)
 		*lst = (*lst)->next;
 	(*lst)->next = node;
@@ -42,10 +42,12 @@ t_list	*string_into_linkedlist(t_list **lst, char *str)
 	return (head);
 }
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_lstclear(t_list **lst, t_list **prevnode, void (*del)(void *))
 {
 	t_list	*node;
 
+	if (*prevnode != NULL)
+		(*prevnode)->next = NULL;
 	if (!*lst || !del)
 		return ;
 	while (*lst)

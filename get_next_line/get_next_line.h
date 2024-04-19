@@ -41,6 +41,6 @@ t_list	*ft_lstnew(void *content);
 t_list	*string_into_linkedlist(t_list **lst, char *str);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
-void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_lstclear(t_list **lst, t_list **prevnode, void (*del)(void *));
 
 #endif
