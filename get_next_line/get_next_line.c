@@ -106,7 +106,7 @@ static void	update_node_buffer(t_list **lst, char *buffer)
 	}
 	new_buffer = ft_strjoin((*lst)->buffer, (char *)buffer);
 	ft_lstclear(&(*lst), free);
-	if (prevnode)
+	if (prevnode != NULL)
 	{
 		prevnode->next = NULL;
 		*lst = prevnode;
