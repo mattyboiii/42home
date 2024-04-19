@@ -60,45 +60,7 @@ static char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (out);
 }
 
-static void	update_node_buffer(t_list **lst, char *buffer)
-{
-	char	*new_buffer;
-	t_list	*head;
-	t_list	*prevnode;
-
-	head = *lst;
-	if (!*lst)
-	{
-		*lst = ft_lstnew(buffer);
-		break ;
-	}
-	while (*lst && (*lst)->next != NULL)
-	{
-		prevnode = *lst;
-		*lst = (*lst)->next;
-	}
-	new_buffer = ft_strjoin((*lst)->buffer, (char *)buffer);
-	ft_lstclear(&(*lst), free);
-	prevnode->next = NULL;
-	*lst = prevnode;
-	*lst = newline_nodes(&(*lst), new_buffer);
-
-	/*
-	if (*lst && (*lst)->buffer && (*lst)->buffer[ft_strlen((*lst)->buffer) - 1]
-		!= '\n')
-	{
-		free((*lst)->buffer);
-		(*lst)->buffer = new_buffer;
-		*lst = head;
-		return ;
-	}
-	else
-		(*lst)->next = ft_lstnew(buffer);
-	*/
-	*lst = head;
-}
-
-static t_list	*newline_nodes(t_list **lst, char buffer)
+static t_list	*newline_nodes(t_list **lst, char *buffer)
 {
 	t_list	*head;
 	char	*str;
@@ -125,6 +87,34 @@ static t_list	*newline_nodes(t_list **lst, char buffer)
 	return (head);
 }
 
+static void	update_node_buffer(t_list **lst, char *buffer)
+{
+	char	*new_buffer;
+	t_list	*head;
+	t_list	*prevnode;
+
+	head = *lst;
+	if (!*lst)
+	{
+		*lst = ft_lstnew(ft_substr(buffer, 0, ft_strlen(buffer)));
+		return ;
+	}
+	while (*lst && (*lst)->next != NULL)
+	{
+		prevnode = *lst;
+		*lst = (*lst)->next;
+	}
+	new_buffer = ft_strjoin((*lst)->buffer, (char *)buffer);
+	ft_lstclear(&(*lst), free);
+	if (prevnode)
+	{
+		prevnode->next = NULL;
+		*lst = prevnode;
+	}
+	*lst = newline_nodes(&(*lst), new_buffer);
+	*lst = head;
+}
+
 static t_list	*read_to_nodes(int fd, size_t *total_b_re, t_list **head)
 {
 	char		*buffer;
@@ -145,7 +135,7 @@ static t_list	*read_to_nodes(int fd, size_t *total_b_re, t_list **head)
 			break ;
 		buffer[bytes_read] = '\0';
 		*total_b_re += bytes_read;
-		update_node_buffer(&head, buffer);
+		update_node_buffer(head, buffer);
 	}
 	free(buffer);
 	return (*head);
@@ -155,7 +145,7 @@ char	*get_next_line(int fd)
 {
 	static t_list		*head;
 	char				*line;
-
+	size_t				total_b_re;
 
 	total_b_re = 0;
 	if (head == NULL)
