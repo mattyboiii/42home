@@ -64,13 +64,26 @@ static void	update_node_buffer(t_list **lst, char *buffer)
 {
 	char	*new_buffer;
 	t_list	*head;
+	t_list	*prevnode;
 
-	new_buffer = ft_strjoin((*lst)->buffer, (char *)buffer);
 	head = *lst;
 	if (!*lst)
+	{
 		*lst = ft_lstnew(buffer);
+		break ;
+	}
 	while (*lst && (*lst)->next != NULL)
+	{
+		prevnode = *lst;
 		*lst = (*lst)->next;
+	}
+	new_buffer = ft_strjoin((*lst)->buffer, (char *)buffer);
+	ft_lstclear(&(*lst), free);
+	prevnode->next = NULL;
+	*lst = prevnode;
+	*lst = newline_nodes(&(*lst), new_buffer);
+
+	/*
 	if (*lst && (*lst)->buffer && (*lst)->buffer[ft_strlen((*lst)->buffer) - 1]
 		!= '\n')
 	{
@@ -81,10 +94,11 @@ static void	update_node_buffer(t_list **lst, char *buffer)
 	}
 	else
 		(*lst)->next = ft_lstnew(buffer);
+	*/
 	*lst = head;
 }
 
-static t_list	*newline_nodes(t_list **lst, char *buffer)
+static t_list	*newline_nodes(t_list **lst, char buffer)
 {
 	t_list	*head;
 	char	*str;
@@ -131,7 +145,7 @@ static t_list	*read_to_nodes(int fd, size_t *total_b_re, t_list **head)
 			break ;
 		buffer[bytes_read] = '\0';
 		*total_b_re += bytes_read;
-		*head = (head, buffer);
+		update_node_buffer(&head, buffer);
 	}
 	free(buffer);
 	return (*head);
@@ -140,8 +154,8 @@ static t_list	*read_to_nodes(int fd, size_t *total_b_re, t_list **head)
 char	*get_next_line(int fd)
 {
 	static t_list		*head;
-	size_t				total_b_re;
 	char				*line;
+
 
 	total_b_re = 0;
 	if (head == NULL)
@@ -149,8 +163,7 @@ char	*get_next_line(int fd)
 		if (fd < 0 || BUFFER_SIZE <= 0)
 			return (NULL);
 		head = NULL;
-		tmpn = NULL;
-		head = read_to_nodes(fd, &total_b_re, &head, &tmpn);
+		head = read_to_nodes(fd, &total_b_re, &head);
 		if (head == NULL)
 			return (NULL);
 	}
