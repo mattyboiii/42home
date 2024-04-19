@@ -71,7 +71,8 @@ static void	update_node_buffer(t_list **lst, char *buffer)
 		*lst = ft_lstnew(buffer);
 	while (*lst && (*lst)->next != NULL)
 		*lst = (*lst)->next;
-	if (*lst && (*lst)->buffer && (*lst)->buffer[ft_strlen((*lst)->buffer) - 1] != '\n')
+	if (*lst && (*lst)->buffer && (*lst)->buffer[ft_strlen((*lst)->buffer) - 1]
+		!= '\n')
 	{
 		free((*lst)->buffer);
 		(*lst)->buffer = new_buffer;
