@@ -14,7 +14,8 @@
 # define GET_NEXT_LINE_H
 
 # include <stdlib.h> //malloc, freee
-# include <unistd.h>  //read
+# include <unistd.h> //read
+# include <stdint.h> //SIZE_MAX
 
 //Definitions
 /*
@@ -27,6 +28,10 @@
 #  define BUFFER_SIZE 42
 # endif
 
+# if BUFFER_SIZE > 1000
+#  undef BUFFER_SIZE  // Undefine the existing macro
+#  define BUFFER_SIZE 1000  // Redefine with the maximum value
+# endif
 typedef struct s_list
 {
 	char			*buffer;
