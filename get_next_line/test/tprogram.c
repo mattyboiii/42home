@@ -18,7 +18,7 @@ int main(void)
     // Read lines from the file using get_next_line
     while ((line = get_next_line(fd)) != NULL)
     {
-        printf("%s\n", line);
+        printf("%s", line);
     }
 
     // Close the file
