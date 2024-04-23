@@ -18,7 +18,10 @@ t_list	*ft_lstnew(void *content)
 
 	node = malloc(sizeof(t_list));
 	if (node == NULL)
+	{
+		free(node);
 		return (NULL);
+	}
 	node->buffer = content;
 	node->next = NULL;
 	return (node);
@@ -55,6 +58,7 @@ void	ft_lstclear(t_list **lst, t_list **prevnode, void (*del)(void *))
 		node = (*lst)->next;
 		del((*lst)->buffer);
 		free(*lst);
+		*lst = NULL;
 		*lst = node;
 	}
 	*lst = NULL;

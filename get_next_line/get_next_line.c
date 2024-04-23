@@ -78,9 +78,11 @@ static t_list	*newline_nodes(t_list **lst, char *buffer)
 		}
 		else
 		{
-			while (str[nl] && str[nl] != '\n')
+			while (str[nl] != '\0' && str[nl] != '\n')
 				nl++;
 			head = string_into_linkedlist(&head, (ft_substr(str, 0, nl + 1)));
+			if (nl == ft_strlen(str))
+				nl--;
 			str += nl + 1;
 		}
 	}
@@ -118,7 +120,7 @@ static void	update_node_buffer(t_list **lst, char *buffer)
 static t_list	*read_to_nodes(int fd, size_t *total_b_re, t_list **head)
 {
 	char		*buffer;
-	int			bytes_read;
+	ssize_t			bytes_read;
 
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
@@ -144,6 +146,7 @@ static t_list	*read_to_nodes(int fd, size_t *total_b_re, t_list **head)
 char	*get_next_line(int fd)
 {
 	static t_list		*head;
+	t_list		*current;
 	char				*line;
 	size_t				total_b_re;
 
@@ -156,13 +159,15 @@ char	*get_next_line(int fd)
 		head = read_to_nodes(fd, &total_b_re, &head);
 		if (head == NULL)
 			return (NULL);
+		current = head;
 	}
 	if (head)
 	{
-		line = head->buffer;
+		current = head;
+		line = current->buffer;
 		head = head->next;
+		free(current);
 		return (line);
 	}
-	ft_lstclear(&head, NULL, free);
 	return (NULL);
 }
