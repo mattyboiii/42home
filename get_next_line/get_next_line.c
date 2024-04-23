@@ -113,6 +113,7 @@ static void	update_node_buffer(t_list **lst, char *buffer)
 	if (prevnode != NULL)
 		*lst = prevnode;
 	*lst = newline_nodes(&(*lst), new_buffer);
+	free(new_buffer);
 	if (prevnode != NULL)
 		*lst = head;
 }
@@ -120,7 +121,7 @@ static void	update_node_buffer(t_list **lst, char *buffer)
 static t_list	*read_to_nodes(int fd, size_t *total_b_re, t_list **head)
 {
 	char		*buffer;
-	ssize_t			bytes_read;
+	ssize_t		bytes_read;
 
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
@@ -146,7 +147,7 @@ static t_list	*read_to_nodes(int fd, size_t *total_b_re, t_list **head)
 char	*get_next_line(int fd)
 {
 	static t_list		*head;
-	t_list		*current;
+	t_list				*current;
 	char				*line;
 	size_t				total_b_re;
 
