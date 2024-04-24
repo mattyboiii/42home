@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:10:32 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/04/09 15:16:47 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:01:49 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static t_list	*newline_nodes(t_list **lst, char *buffer)
 		if (*str == '\n')
 		{
 			head = string_into_linkedlist(&head, (ft_substr(str, 0, 1)));
-			str++;
+			return(head);
 		}
 		else
 		{
@@ -99,7 +99,7 @@ static void	update_node_buffer(t_list **lst, char *buffer)
 	head = *lst;
 	if (!*lst)
 	{
-		*lst = ft_lstnew(ft_substr(buffer, 0, ft_strlen(buffer)));
+		*lst = newline_nodes(&(*lst), buffer);
 		return ;
 	}
 	while (*lst && (*lst)->next != NULL)
