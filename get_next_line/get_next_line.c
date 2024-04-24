@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:10:32 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/04/24 12:01:49 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:55:17 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static t_list	*newline_nodes(t_list **lst, char *buffer)
 		if (*str == '\n')
 		{
 			head = string_into_linkedlist(&head, (ft_substr(str, 0, 1)));
-			return(head);
+			str++;
 		}
 		else
 		{
@@ -93,32 +93,28 @@ static void	update_node_buffer(t_list **lst, char *buffer)
 {
 	char	*new_buffer;
 	t_list	*head;
-	t_list	*prevnode;
 
-	prevnode = NULL;
 	head = *lst;
 	if (!*lst)
 	{
 		*lst = newline_nodes(&(*lst), buffer);
 		return ;
 	}
+	if ((*lst)->buffer && (*lst)->buffer[ft_strlen((*lst)->buffer) - 1] == '\n')
+		return ;
 	while (*lst && (*lst)->next != NULL)
 	{
-		prevnode = *lst;
-		*lst = (*lst)->next;
+		ft_lstdelone(&(*lst), free);
+		if ((*lst)->buffer && (*lst)->buffer[ft_strlen((*lst)->buffer) - 1] == '\n')
+			return ;
 	}
 	new_buffer = ft_strjoin((*lst)->buffer, (char *)buffer);
-	ft_lstclear(&(*lst), &prevnode, free);
-	*lst = NULL;
-	if (prevnode != NULL)
-		*lst = prevnode;
+	ft_lstdelone(&(*lst), free);
 	*lst = newline_nodes(&(*lst), new_buffer);
 	free(new_buffer);
-	if (prevnode != NULL)
-		*lst = head;
 }
 
-static t_list	*read_to_nodes(int fd, size_t *total_b_re, t_list **head)
+static t_list	*read_to_node(int fd, size_t *total_b_re, t_list **head)
 {
 	char		*buffer;
 	ssize_t		bytes_read;
@@ -139,6 +135,8 @@ static t_list	*read_to_nodes(int fd, size_t *total_b_re, t_list **head)
 		buffer[bytes_read] = '\0';
 		*total_b_re += bytes_read;
 		update_node_buffer(head, buffer);
+		if ((*head)->buffer && (*head)->buffer[ft_strlen((*head)->buffer) - 1] == '\n')
+			break;
 	}
 	free(buffer);
 	return (*head);
@@ -149,24 +147,20 @@ char	*get_next_line(int fd)
 	static t_list		*head;
 	t_list				*current;
 	char				*line;
-	size_t				total_b_re;
+	size_t			total_b_re;
+
 
 	total_b_re = 0;
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	head = read_to_node(fd, &total_b_re, &head);
 	if (head == NULL)
-	{
-		if (fd < 0 || BUFFER_SIZE <= 0)
-			return (NULL);
-		head = NULL;
-		head = read_to_nodes(fd, &total_b_re, &head);
-		if (head == NULL)
-			return (NULL);
-		current = head;
-	}
+		return (NULL);
 	if (head)
 	{
 		current = head;
-		line = current->buffer;
 		head = head->next;
+		line = current->buffer;
 		free(current);
 		return (line);
 	}

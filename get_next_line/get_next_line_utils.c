@@ -6,26 +6,11 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:11:23 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/04/04 11:11:25 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:57:49 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*node;
-
-	node = malloc(sizeof(t_list));
-	if (node == NULL)
-	{
-		free(node);
-		return (NULL);
-	}
-	node->buffer = content;
-	node->next = NULL;
-	return (node);
-}
 
 t_list	*string_into_linkedlist(t_list **lst, char *str)
 {
@@ -33,9 +18,14 @@ t_list	*string_into_linkedlist(t_list **lst, char *str)
 	t_list	*head;
 
 	head = *lst;
-	node = ft_lstnew(str);
+	node = malloc(sizeof(t_list));
 	if (node == NULL)
+	{
+		free(node);
 		return (NULL);
+	}
+	node->buffer = str;
+	node->next = NULL;
 	if (!*lst)
 		return (*lst = node);
 	while (*lst && (*lst)->next)
@@ -45,23 +35,19 @@ t_list	*string_into_linkedlist(t_list **lst, char *str)
 	return (head);
 }
 
-void	ft_lstclear(t_list **lst, t_list **prevnode, void (*del)(void *))
+void	ft_lstdelone(t_list **lst, void (*del)(void*))
 {
-	t_list	*node;
+	t_list	*next;
+	t_list	*old;
 
-	if (*prevnode != NULL)
-		(*prevnode)->next = NULL;
 	if (!*lst || !del)
 		return ;
-	while (*lst)
-	{
-		node = (*lst)->next;
-		del((*lst)->buffer);
-		free(*lst);
-		*lst = NULL;
-		*lst = node;
-	}
-	*lst = NULL;
+	next = (*lst)->next;
+	old = *lst;
+	del((*lst)->buffer);
+	(*lst)->buffer = NULL;
+	*lst = next;
+	del(old);
 }
 
 size_t	ft_strlen(const char *s)
