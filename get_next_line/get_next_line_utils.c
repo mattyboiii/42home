@@ -57,12 +57,11 @@ void	ft_lstdelone(t_list **lst, void (*del)(void*))
 
 	if (!*lst || !del)
 		return ;
-	next = (*lst)->next;
 	old = *lst;
 	del((*lst)->buffer);
 	(*lst)->buffer = NULL;
-	*lst = next;
 	del(old);
+	*lst = NULL;
 }
 
 size_t	ft_strlen(const char *s)
