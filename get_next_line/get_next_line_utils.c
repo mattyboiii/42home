@@ -12,6 +12,21 @@
 
 #include "get_next_line.h"
 
+char	*ft_getline(t_list **lst)
+{
+	t_list	*current;
+	char	*line;
+
+	if (!*lst || !(*lst)->buffer)
+		return (NULL);
+	current = *lst;
+	*lst = (*lst)->next;
+	line = current->buffer;
+	free(current);
+	current = NULL;
+	return(line);
+}
+
 t_list	*string_into_linkedlist(t_list **lst, char *str)
 {
 	t_list	*node;

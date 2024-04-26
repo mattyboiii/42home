@@ -68,47 +68,33 @@ static t_list	*newline_nodes(t_list **lst, char *buffer)
 
 	head = *lst;
 	str = buffer;
-	while (*str)
-	{
-		nl = 0;
-		if (*str == '\n')
-		{
-			head = string_into_linkedlist(&head, (ft_substr(str, 0, 1)));
-			str++;
-		}
-		else
-		{
-			while (str[nl] != '\0' && str[nl] != '\n')
-				nl++;
-			head = string_into_linkedlist(&head, (ft_substr(str, 0, nl + 1)));
-			if (nl == ft_strlen(str))
-				nl--;
-			str += nl + 1;
-		}
-	}
+	nl = 0;
+	while (str[nl] != '\0' && str[nl] != '\n')
+		nl++;
+	head = string_into_linkedlist(&head, (ft_substr(str, 0, nl + 1)));
+	if (nl == ft_strlen(str))
+		nl--;
+	str += nl + 1;
+	if(*str)
+		head = string_into_linkedlist(&head, (ft_substr(str, 0, ft_strlen(str))));
 	return (head);
 }
 
-static void	update_node_buffer(t_list **lst, char *buffer)
+static void	update_list(t_list **lst, char *buffer)
 {
 	char	*new_buffer;
-	t_list	*head;
 
-	head = *lst;
 	if (!*lst)
 	{
 		*lst = newline_nodes(&(*lst), buffer);
 		return ;
 	}
-	if ((*lst)->buffer && (*lst)->buffer[ft_strlen((*lst)->buffer) - 1] == '\n')
-		return ;
-	while (*lst && (*lst)->next != NULL)
+	if ((*lst)->buffer[0] == '\n')
 	{
-		ft_lstdelone(&(*lst), free);
-		if ((*lst)->buffer && (*lst)->buffer[ft_strlen((*lst)->buffer) - 1] == '\n')
-			return ;
+		new_buffer = ft_substr((*lst)->buffer, 0, ft_strlen((*lst)->buffer));
 	}
-	new_buffer = ft_strjoin((*lst)->buffer, (char *)buffer);
+	else
+		new_buffer = ft_strjoin((*lst)->buffer, (char *)buffer);
 	ft_lstdelone(&(*lst), free);
 	*lst = newline_nodes(&(*lst), new_buffer);
 	free(new_buffer);
@@ -134,7 +120,7 @@ static t_list	*read_to_node(int fd, size_t *total_b_re, t_list **head)
 			break ;
 		buffer[bytes_read] = '\0';
 		*total_b_re += bytes_read;
-		update_node_buffer(head, buffer);
+		update_list(head, buffer);
 		if ((*head)->buffer && (*head)->buffer[ft_strlen((*head)->buffer) - 1] == '\n')
 			break;
 	}
@@ -145,24 +131,24 @@ static t_list	*read_to_node(int fd, size_t *total_b_re, t_list **head)
 char	*get_next_line(int fd)
 {
 	static t_list		*head;
-	t_list				*current;
-	char				*line;
 	size_t			total_b_re;
-
 
 	total_b_re = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	head = read_to_node(fd, &total_b_re, &head);
-	if (head == NULL)
-		return (NULL);
-	if (head)
+	while(1)
 	{
-		current = head;
-		head = head->next;
-		line = current->buffer;
-		free(current);
-		return (line);
+		if(head && head->buffer[0] == '\n')
+		{
+			update_list(&head, NULL);
+			return (ft_getline(&head));
+		}
+		if(head && head->buffer[ft_strlen((head->buffer) - 1)] == '\n')
+			return (ft_getline(&head));
+		head = read_to_node(fd, &total_b_re, &head);
+		if(head == NULL)
+			return NULL;
+		if(head)
+			return (ft_getline(&head));
 	}
-	return (NULL);
 }
