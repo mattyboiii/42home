@@ -12,19 +12,18 @@
 
 #include "get_next_line.h"
 
-char	*ft_getline(t_list **lst)
+int	isnewl(char *str, char c)
 {
-	t_list	*current;
-	char	*line;
+	int	i;
 
-	if (!*lst || !(*lst)->buffer)
-		return (NULL);
-	current = *lst;
-	*lst = (*lst)->next;
-	line = current->buffer;
-	free(current);
-	current = NULL;
-	return(line);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 t_list	*string_into_linkedlist(t_list **lst, char *str)
@@ -52,15 +51,12 @@ t_list	*string_into_linkedlist(t_list **lst, char *str)
 
 void	ft_lstdelone(t_list **lst, void (*del)(void*))
 {
-	t_list	*next;
-	t_list	*old;
 
 	if (!*lst || !del)
 		return ;
-	old = *lst;
 	del((*lst)->buffer);
 	(*lst)->buffer = NULL;
-	del(old);
+	free(*lst);
 	*lst = NULL;
 }
 
