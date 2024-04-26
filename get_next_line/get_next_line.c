@@ -69,8 +69,7 @@ static char	*newline(t_list **lst)
 	if (!*lst)
 		return (NULL);
 	line = NULL;
-	str = ft_substr((*lst)->buffer, 0, ft_strlen((*lst)->buffer));
-	ft_lstdelone(lst, free);
+	str = (*lst)->buffer;
 	nl = 0;
 	while (str[nl] != '\0' && str[nl] != '\n')
 		nl++;
@@ -81,7 +80,6 @@ static char	*newline(t_list **lst)
 	if(*str)
 		*lst = string_into_linkedlist(lst, (ft_substr(str, 0, ft_strlen(str))));
 	str = NULL;
-	free(str);
 	return (line);
 }
 
@@ -89,7 +87,6 @@ static void	update_list(t_list **lst, char *buffer)
 {
 	char	*new_buffer;
 
-	new_buffer = NULL;
 	if (buffer == NULL)
 		return ;
 	if (!*lst)
