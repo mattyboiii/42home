@@ -40,7 +40,7 @@ char	*get_next_line(int fd);
 // ---  ------------------------- ------
 t_list	*ft_lstnew(void *content);
 t_list	*string_into_linkedlist(t_list **lst, char *str);
-int	isnewl(char *str, char c);
+int	ischar(char *str, char c);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	ft_lstdelone(t_list **lst, void (*del)(void*));

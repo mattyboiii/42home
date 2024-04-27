@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int	isnewl(char *str, char c)
+int	ischar(char *str, char c)
 {
 	int	i;
 

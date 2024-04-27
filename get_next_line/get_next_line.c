@@ -64,12 +64,16 @@ static char	*newline(t_list **lst)
 {
 	size_t	nl;
 	char	*str;
+	char	*strhead;
 	char	*line;
 
 	if (!*lst)
 		return (NULL);
 	line = NULL;
-	str = (*lst)->buffer;
+	str = NULL;
+	str = ft_substr((*lst)->buffer, 0, ft_strlen((*lst)->buffer));
+	strhead = str;
+	ft_lstdelone(lst, free);
 	nl = 0;
 	while (str[nl] != '\0' && str[nl] != '\n')
 		nl++;
@@ -79,7 +83,8 @@ static char	*newline(t_list **lst)
 	str += nl + 1;
 	if(*str)
 		*lst = string_into_linkedlist(lst, (ft_substr(str, 0, ft_strlen(str))));
-	str = NULL;
+	free(strhead);
+	strhead = NULL;
 	return (line);
 }
 
@@ -87,8 +92,9 @@ static void	update_list(t_list **lst, char *buffer)
 {
 	char	*new_buffer;
 
-	if (buffer == NULL)
+	if (!*buffer)
 		return ;
+
 	if (!*lst)
 	{
 		*lst = string_into_linkedlist(lst, ft_substr(buffer, 0, ft_strlen(buffer)));
@@ -98,33 +104,25 @@ static void	update_list(t_list **lst, char *buffer)
 	ft_lstdelone(&(*lst), free);
 	*lst = string_into_linkedlist(lst, ft_substr(new_buffer, 0, ft_strlen(new_buffer)));
 	free(new_buffer);
+	new_buffer = NULL;
 }
 
-static t_list	*read_to_node(int fd, t_list **lst)
+static t_list	*read_to_node(int fd, t_list **lst, char *buffer) 
 {
-	char		*buffer;
 	ssize_t		bytes_read;
 
-
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (buffer == NULL)
-		return (NULL);
 	while (1)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-		{
-			free(buffer);
 			return (NULL);
-		}
-		else if (bytes_read == 0)
-			break ;
 		buffer[bytes_read] = '\0';
+		if (bytes_read == 0)
+			break ;
 		update_list(lst, buffer);
-		if (isnewl((*lst)->buffer, '\n') == 1)
+		if (ischar((*lst)->buffer, '\n') == 1)
 			break ;
 	}
-	free(buffer);
 	return (*lst);
 }
 
@@ -132,13 +130,25 @@ char	*get_next_line(int fd)
 {
 	static t_list		*lst;
 	char			*line;
+	char			*buffer;
 
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	lst = read_to_node(fd, &lst);
-	line = newline(&lst);
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (buffer == NULL)
+		return (NULL);
+	lst = read_to_node(fd, &lst, buffer);
+	if (!lst)
+	{
+		free(buffer);
+		buffer = NULL;
+		return (NULL);
+	}
+	if (lst)
+		line = newline(&lst);
 	if (line)
 		return (line);
+	free(buffer);
 	return (NULL);
 }
