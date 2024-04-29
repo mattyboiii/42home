@@ -15,7 +15,6 @@
 
 # include <stdlib.h> //malloc, freee
 # include <unistd.h> //read
-# include <stdint.h> //SIZE_MAX
 
 //Definitions
 /*

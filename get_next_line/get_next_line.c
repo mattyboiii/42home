@@ -110,6 +110,7 @@ static t_list	*read_to_node(int fd, t_list **lst)
 	ssize_t		bytes_read;
 	char		*buffer;
 
+	buffer = NULL;
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
 		return (NULL);
@@ -119,11 +120,12 @@ static t_list	*read_to_node(int fd, t_list **lst)
 		if (bytes_read == -1)
 		{
 			free(buffer);
+			ft_lstdelone(lst, free);
 			return (NULL);
 		}
-		buffer[bytes_read] = '\0';
 		if (bytes_read == 0)
 			break ;
+		buffer[bytes_read] = '\0';
 		update_list(lst, buffer);
 		if (ischar((*lst)->buffer, '\n') == 1)
 			break ;
