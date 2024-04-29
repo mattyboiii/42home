@@ -51,7 +51,6 @@ t_list	*string_into_linkedlist(t_list **lst, char *str)
 
 void	ft_lstdelone(t_list **lst, void (*del)(void*))
 {
-
 	if (!*lst || !del)
 		return ;
 	del((*lst)->buffer);

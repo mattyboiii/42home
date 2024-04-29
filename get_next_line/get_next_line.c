@@ -79,7 +79,7 @@ static char	*newline(t_list **lst)
 	if (nl > 0 && nl == ft_strlen(str))
 		nl--;
 	str += nl + 1;
-	if(*str)
+	if (*str)
 		*lst = string_into_linkedlist(lst, (ft_substr(str, 0, ft_strlen(str))));
 	free(strhead);
 	strhead = NULL;
@@ -92,20 +92,21 @@ static void	update_list(t_list **lst, char *buffer)
 
 	if (!*buffer)
 		return ;
-
 	if (!*lst)
 	{
-		*lst = string_into_linkedlist(lst, ft_substr(buffer, 0, ft_strlen(buffer)));
+		*lst = string_into_linkedlist(lst, ft_substr(buffer, 0,
+					ft_strlen(buffer)));
 		return ;
 	}
 	new_buffer = ft_strjoin((*lst)->buffer, (char *)buffer);
 	ft_lstdelone(&(*lst), free);
-	*lst = string_into_linkedlist(lst, ft_substr(new_buffer, 0, ft_strlen(new_buffer)));
+	*lst = string_into_linkedlist(lst, ft_substr(new_buffer, 0,
+				ft_strlen(new_buffer)));
 	free(new_buffer);
 	new_buffer = NULL;
 }
 
-static t_list	*read_to_node(int fd, t_list **lst) 
+static t_list	*read_to_node(int fd, t_list **lst)
 {
 	ssize_t		bytes_read;
 	char		*buffer;
@@ -137,7 +138,7 @@ static t_list	*read_to_node(int fd, t_list **lst)
 char	*get_next_line(int fd)
 {
 	static t_list		*lst;
-	char			*line;
+	char				*line;
 
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
