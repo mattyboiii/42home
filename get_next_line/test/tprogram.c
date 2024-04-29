@@ -8,7 +8,7 @@ int main(void)
     char *line;
 
     // Open the file for reading
-    fd = open("test/test.txt", O_RDONLY);
+    fd = open("test/nl", O_RDONLY);
     if (fd == -1)
     {
         perror("Error opening file");

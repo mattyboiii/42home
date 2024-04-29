@@ -67,18 +67,16 @@ static char	*newline(t_list **lst)
 	char	*strhead;
 	char	*line;
 
-	if (!*lst)
-		return (NULL);
 	line = NULL;
-	str = NULL;
 	str = ft_substr((*lst)->buffer, 0, ft_strlen((*lst)->buffer));
 	strhead = str;
 	ft_lstdelone(lst, free);
 	nl = 0;
 	while (str[nl] != '\0' && str[nl] != '\n')
 		nl++;
-	line = ft_substr(str, 0, nl + 1);
-	if (nl == ft_strlen(str))
+	if (!line)
+		line = ft_substr(str, 0, nl + 1);
+	if (nl > 0 && nl == ft_strlen(str))
 		nl--;
 	str += nl + 1;
 	if(*str)
@@ -107,15 +105,22 @@ static void	update_list(t_list **lst, char *buffer)
 	new_buffer = NULL;
 }
 
-static t_list	*read_to_node(int fd, t_list **lst, char *buffer) 
+static t_list	*read_to_node(int fd, t_list **lst) 
 {
 	ssize_t		bytes_read;
+	char		*buffer;
 
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (buffer == NULL)
+		return (NULL);
 	while (1)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
+		{
+			free(buffer);
 			return (NULL);
+		}
 		buffer[bytes_read] = '\0';
 		if (bytes_read == 0)
 			break ;
@@ -123,6 +128,7 @@ static t_list	*read_to_node(int fd, t_list **lst, char *buffer)
 		if (ischar((*lst)->buffer, '\n') == 1)
 			break ;
 	}
+	free(buffer);
 	return (*lst);
 }
 
@@ -130,25 +136,16 @@ char	*get_next_line(int fd)
 {
 	static t_list		*lst;
 	char			*line;
-	char			*buffer;
 
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (buffer == NULL)
-		return (NULL);
-	lst = read_to_node(fd, &lst, buffer);
+	lst = read_to_node(fd, &lst);
 	if (!lst)
-	{
-		free(buffer);
-		buffer = NULL;
 		return (NULL);
-	}
 	if (lst)
 		line = newline(&lst);
-	if (line)
+	if (line != NULL)
 		return (line);
-	free(buffer);
 	return (NULL);
 }
