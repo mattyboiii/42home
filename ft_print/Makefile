@@ -9,7 +9,9 @@ CFLAGS = -Wall -Wextra -Werror
 SRC =	ft_printf.c \
 	ft_putchar.c \
 	ft_putstr.c \
-	ft_strlen.c
+	ft_strlen.c \
+	ft_putptr.c \
+	ft_putnbr.c
 
 
 
@@ -40,9 +42,10 @@ fclean: clean
 # 6 rebuild refresh
 re: fclean all
 
+
 # Additional rule for compiling and running the test program
 test: $(NAME)
 	$(CC) $(CFLAGS) -o test main.c $(NAME)
 	./test
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re

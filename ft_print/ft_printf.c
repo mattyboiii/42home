@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:01:35 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/05/22 08:24:15 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/05/22 11:24:49 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	int	print_c;
-	int	i;
+	int		print_c;
+	int		i;
 
 	va_start(args, format);
 	print_c = 0;
@@ -33,7 +33,7 @@ int	ft_printf(const char *format, ...)
 		i++;
 	}
 	va_end(args);
-	return(print_c);
+	return (print_c);
 }
 
 int	format_handler(char format, va_list args)
@@ -45,14 +45,14 @@ int	format_handler(char format, va_list args)
 		print_c += ft_putchar(va_arg(args, int));
 	else if (format == 's')
 		print_c += ft_putstr(va_arg(args, char *));
-	/*
 	else if (format == 'p')
 	{
 		print_c += ft_putstr("0x");
-		print_c += ft_putptr(va_arg(args, uintptr_t), BASE16LOWER);
+		print_c += ft_putptr(va_arg(args, unsigned long), "0123456789abcdef");
 	}
 	else if (format == 'd' || format == 'i')
 		print_c += ft_putnbr(va_arg(args, int));
+	/*
 	else if (format == 'u')
 		print_c += ft_u_putnbr_base(va_arg(args, unsigned int), BASE10);
 	else if (format == 'x')
