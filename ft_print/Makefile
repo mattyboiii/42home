@@ -11,7 +11,8 @@ SRC =	ft_printf.c \
 	ft_putstr.c \
 	ft_strlen.c \
 	ft_putptr.c \
-	ft_putnbr.c
+	ft_putnbr.c \
+	ft_putnbr_base.c
 
 
 

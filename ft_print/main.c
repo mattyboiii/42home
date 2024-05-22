@@ -24,21 +24,19 @@ int main(void) {
     count = ft_printf("Decimal: %i\n", 422);
     printf("Custom printf: %d characters printed.\n", count);
     
-    /*
-    
-
-    count = ft_printf("Unsigned: %u\n", 42);
+    count = ft_printf("Unsigned: %u\n", -42);
+    printf("regular printf: %u\n", -42);
     printf("Custom printf: %d characters printed.\n", count);
 
-    count = ft_printf("Hex lower: %x\n", 42);
+    count = ft_printf("Hex lower: %x\n", 60);
     printf("Custom printf: %d characters printed.\n", count);
 
-    count = ft_printf("Hex upper: %X\n", 42);
+    count = ft_printf("Hex upper: %X\n", 60);
     printf("Custom printf: %d characters printed.\n", count);
 
     count = ft_printf("Percent: %%\n");
     printf("Custom printf: %d characters printed.\n", count);
-    */
+    
     return 0;
 }
 

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:01:35 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/05/22 11:24:49 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:12:45 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,13 @@ int	format_handler(char format, va_list args)
 	}
 	else if (format == 'd' || format == 'i')
 		print_c += ft_putnbr(va_arg(args, int));
-	/*
 	else if (format == 'u')
-		print_c += ft_u_putnbr_base(va_arg(args, unsigned int), BASE10);
+		print_c += ft_putnbr_base(va_arg(args, unsigned int), "0123456789");
 	else if (format == 'x')
-		print_c += ft_u_putnbr_base(va_arg(args, unsigned int), BASE16LOWER);
+		print_c += ft_putnbr_base(va_arg(args, unsigned int), "0123456789abcdef");
 	else if (format == 'X')
-		print_c += ft_u_putnbr_base(va_arg(args, unsigned int), BASE16UPPER);
+		print_c += ft_putnbr_base(va_arg(args, unsigned int), "0123456789ABCDEF");
 	else if (format == '%')
 		print_c += ft_putchar('%');
-	*/
 	return (print_c);
 }

@@ -28,5 +28,6 @@ int		ft_putchar(char c);
 int		ft_putstr(char *s);
 int		ft_putptr(unsigned long n, char *base);
 int		ft_putnbr(int n);
+int		ft_putnbr_base(unsigned int n, char *base);
 size_t	ft_strlen(const char *s);
 #endif
