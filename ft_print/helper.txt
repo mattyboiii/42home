@@ -1,1 +1,3 @@
 (char *) ptr = 0x0000555555556008 "hey"
+
+mcc -g main.c -L. -lftprintf -o test
