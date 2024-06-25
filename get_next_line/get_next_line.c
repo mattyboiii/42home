@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:10:32 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/25 16:14:34 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:53:02 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@
 
 #include "get_next_line.h"
 
-char	*readtime(int fd, char sav, char buf, char tmp)
+char	*readtime(int fd, char *sav, char *buf, char *tmp)
 {
 	int			bytes_read;
 
 	while (1)
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		bytes_read = read(fd, buf, BUFFER_SIZE);
 		if (bytes_read == -1)
 			return (NULL); 
 		buf[bytes_read] = '\0';
-		tmp = str;
+		tmp = sav;
 		if (!tmp)
 		{
 			tmp = malloc(sizeof(char));
@@ -56,9 +56,13 @@ char	*readtime(int fd, char sav, char buf, char tmp)
 				return (NULL);
 			tmp[0] = '\0';
 		}
-		str = ft_strjoin(tmp, buf);
-
+		sav = ft_strjoin(tmp, buf);
+		null_free(tmp);
+		if(ischar(sav, '\n') == 1 || bytes_read == 0)
+			break ;
 	}
+	null_free(buf);
+	return (sav);
 }
 
 char	*get_next_line(int fd)
@@ -70,6 +74,13 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
 		return (NULL);
+	buf = malloc((sizeof(char) * BUFFER_SIZE + 1));
+	if (buf == NULL)
+		return (NULL);
+	tmp = NULL;
 	sav[fd] = readtime(fd, sav[fd], buf, tmp);
-	return (NULL);
+	if (sav[fd] == NULL)
+		return (NULL);
+	lin = NULL;
+	return (lin);
 }

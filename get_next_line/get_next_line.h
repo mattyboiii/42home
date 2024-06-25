@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:11:33 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/04/09 10:49:56 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/25 17:16:05 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdlib.h> //malloc, freee
 # include <unistd.h> //read
-
+# include <limits.h> //OPEN_MAX
 //Definitions
 /*
  * Because im checking buffer size on first call of the function, I decided
@@ -37,10 +37,9 @@ char	*get_next_line(int fd);
 
 // Functions in my get_next_line_utils.c
 // ---  ------------------------- ------
-t_list	*string_into_linkedlist(t_list **lst, char *str);
 int		ischar(char *str, char c);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
-void	ft_lstdelone(t_list **lst, void (*del)(void*));
+void	null_free(char *ptr);
 
 #endif
