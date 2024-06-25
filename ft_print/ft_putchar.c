@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 14:27:12 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/23 14:35:10 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:35:06 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 int	ft_putchar(char c)
 {
 	int	bytes;
-	
+
 	bytes = write(1, &c, 1);
-		if (bytes == -1)
-			return (-1);
+	if (bytes == -1)
+		return (-1);
 	return (bytes);
 }

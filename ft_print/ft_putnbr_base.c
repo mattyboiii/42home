@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 12:34:33 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/05/22 13:09:25 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:47:25 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 
 int	ft_putnbr_base(unsigned int n, char *base)
 {
-	size_t					print_c;
-	unsigned long long					base_len;
+	size_t				print_c;
+	unsigned long long	base_len;
 	unsigned long long	num;
 
 	print_c = 0;

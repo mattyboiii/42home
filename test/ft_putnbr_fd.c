@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 11:27:34 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/18 11:50:23 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/03/23 15:00:30 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/03/26 16:30:00 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
- ** Function name: ft_putnbr
+ ** Function name: ft_putnbr_fd
  ** ----------------------------
- ** Prototype: void ft_putnbr(int n);
+ ** Prototype: void ft_putnbr_fd(int n, int fd);
  **
  ** Parameters:
  **    n: The integer to output.
+ **    fd: The file descriptor on which to write.
  **
- ** Return value: integer of the amount of bytes written.
+ ** Return value: None
  **
  ** External functions: write
  **
@@ -26,27 +27,23 @@
  **    Outputs the integer 'n' to the given file descriptor.
  */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnbr(int n)
+void	ft_putnbr_fd(int n, int fd)
 {
-	size_t			print_c;
-	unsigned int	number;
-
-	print_c = 0;
+	if (n < -10)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putnbr_fd(((n / 10) * -1), fd);
+		ft_putchar_fd(((n % 10) * -1 + '0'), fd);
+		return ;
+	}
 	if (n < 0)
 	{
-		print_c += ft_putchar('-');
-		number = -n;
+		ft_putchar_fd('-', fd);
+		n *= -1;
 	}
-	else
-	{
-		number = n;
-	}
-	if (number >= 10)
-	{
-		print_c += ft_putnbr(number / 10);
-	}
-	print_c += ft_putchar((number % 10) + '0');
-	return (print_c);
+	if (n >= 10)
+		ft_putnbr_fd(n / 10, fd);
+	ft_putchar_fd((n % 10) + '0', fd);
 }

@@ -5,32 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 08:26:53 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/18 11:49:26 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/03/22 10:48:40 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/03/22 10:48:43 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** Function name: ft_strlen
-** ----------------------------
-** Prototype: size_t ft_strlen(const char *s);
-**
-** Parameters:
-**    s: pointer to a string.
-**
-** Return value: size_t that is the length of the string
-**
-** External functions: none
-**
-** Description:
-**    returns the length of the string passed in as an argument. 
-*/
-
-#include "ft_printf.h"
+#include "libft.h"
 
 size_t	ft_strlen(const char *s)
 {
-	size_t	i;
+	unsigned char	i;
 
 	i = 0;
 	while (s[i] != '\0')

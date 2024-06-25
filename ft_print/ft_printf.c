@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:01:35 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/05/22 13:12:45 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:33:06 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ int	format_handler(char format, va_list args)
 	else if (format == 'u')
 		print_c += ft_putnbr_base(va_arg(args, unsigned int), "0123456789");
 	else if (format == 'x')
-		print_c += ft_putnbr_base(va_arg(args, unsigned int), "0123456789abcdef");
+		print_c += ft_putnbr_base(va_arg(args, unsigned int),
+				"0123456789abcdef");
 	else if (format == 'X')
-		print_c += ft_putnbr_base(va_arg(args, unsigned int), "0123456789ABCDEF");
+		print_c += ft_putnbr_base(va_arg(args, unsigned int),
+				"0123456789ABCDEF");
 	else if (format == '%')
 		print_c += ft_putchar('%');
 	return (print_c);

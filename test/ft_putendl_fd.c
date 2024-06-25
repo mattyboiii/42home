@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/23 14:41:13 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/18 11:49:03 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/03/23 14:45:09 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/03/26 16:27:02 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** Function name: ft_putstr
-** ----------------------------
-** Prototype: void ft_putstr(char *s);
+** Function name: ft_putendl_fd
+** -----------------------------
+** Prototype: void ft_putendl_fd(char *s, int fd);
 **
 ** Parameters:
 **    s: The string to output.
+**    fd: The file descriptor on which to write.
 **
-** Return value: the number of bytes written to fd.
+** Return value: None
 **
 ** External functions: write
 **
 ** Description:
-**    Outputs the string 's' to the given file descriptor.
+**    Outputs the string 's' to the given file descriptor followed by a newline.
 */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstr(char *s)
+void	ft_putendl_fd(char *s, int fd)
 {
-	int	bytes;
-
-	bytes = 0;
 	if (s)
-		bytes = write(1, s, ft_strlen(s));
-	else
-		bytes = write(1, "(null)", 6);
-	return (bytes);
+		write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
 }

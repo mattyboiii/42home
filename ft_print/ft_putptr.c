@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:24:07 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/05/22 11:38:00 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:48:15 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 int	ft_putptr(unsigned long n, char *base)
 {
-	size_t	print_c;
+	size_t			print_c;
 	unsigned long	base_len;
 
 	print_c = 0;

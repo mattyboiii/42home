@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/23 14:41:13 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/18 11:49:03 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/03/23 14:27:12 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/03/23 14:35:10 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** Function name: ft_putstr
-** ----------------------------
-** Prototype: void ft_putstr(char *s);
+** Function name: ft_putchar_fd
+** -----------------------------
+** Prototype: void ft_putchar_fd(char c, int fd);
 **
 ** Parameters:
-**    s: The string to output.
+**    c: The character to output.
+**    fd: The file descriptor on which to write.
 **
-** Return value: the number of bytes written to fd.
+** Return value: None
 **
 ** External functions: write
 **
 ** Description:
-**    Outputs the string 's' to the given file descriptor.
+**    Outputs the character 'c' to the given file descriptor.
 */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstr(char *s)
+void	ft_putchar_fd(char c, int fd)
 {
-	int	bytes;
-
-	bytes = 0;
-	if (s)
-		bytes = write(1, s, ft_strlen(s));
-	else
-		bytes = write(1, "(null)", 6);
-	return (bytes);
+	write(fd, &c, 1);
 }

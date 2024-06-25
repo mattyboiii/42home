@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/23 14:41:13 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/18 11:49:03 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/03/28 14:46:02 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/03/28 15:15:35 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** Function name: ft_putstr
-** ----------------------------
-** Prototype: void ft_putstr(char *s);
+** Function name: ft_lstlast
+** --------------------------
+** Prototype: t_list *ft_lstlast(t_list *lst);
 **
 ** Parameters:
-**    s: The string to output.
+**    lst: The beginning of the list.
 **
-** Return value: the number of bytes written to fd.
+** Return value:
+**    Last node of the list.
 **
-** External functions: write
+** External functions: None
 **
 ** Description:
-**    Outputs the string 's' to the given file descriptor.
+**    Returns the last node of the list.
 */
 
-#include "ft_printf.h"
+// the below code works because the node after the last node == NULL.
 
-int	ft_putstr(char *s)
+#include "libft.h"
+
+t_list	*ft_lstlast(t_list *lst)
 {
-	int	bytes;
-
-	bytes = 0;
-	if (s)
-		bytes = write(1, s, ft_strlen(s));
-	else
-		bytes = write(1, "(null)", 6);
-	return (bytes);
+	while (lst && lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }
