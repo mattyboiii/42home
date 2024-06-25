@@ -1,24 +1,24 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
+	/* ************************************************************************** */
+	/*                                                                            */
+	/*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 11:27:34 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/05/22 12:13:27 by mtripodi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+	/*                                                    +:+ +:+         +:+     */
+	/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
+	/*                                                +#+#+#+#+#+   +#+           */
+	/*   Created: 2024/05/22 11:27:34 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/06/23 20:59:36 by mtripodi         ###   ########.fr       */
+	/*                                                                            */
+	/* ************************************************************************** */
 
-/*
- ** Function name: ft_putnbr
- ** ----------------------------
- ** Prototype: void ft_putnbr(int n);
- **
- ** Parameters:
- **    n: The integer to output.
- **
- ** Return value: integer of the amount of bytes written.
+	/*
+	 ** Function name: ft_putnbr
+	 ** ----------------------------
+	 ** Prototype: void ft_putnbr(int n);
+	 **
+	 ** Parameters:
+	 **    n: The integer to output.
+	 **
+	 ** Return value: integer of the amount of bytes written.
  **
  ** External functions: write
  **
