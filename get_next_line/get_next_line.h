@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:11:33 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/25 17:16:05 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/26 11:59:00 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
  * to make the default buffer size 42. Setting the buffer size here is will
  * make it the defualt buffer size if the user does not set one. 
  */
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 256
+# endif
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42

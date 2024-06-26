@@ -6,26 +6,26 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:10:32 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/25 16:53:02 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:28:28 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
- ** Function name: get_next_line
+ ** Function name: get_next_bfre
  ** -----------------------------
- ** Prototype: char *get_next_line(int fd);
+ ** Prototype: char *get_next_bfre(int fd);
  **
  ** Parameters:
  **    fd: The file descriptor to read from.
  **
  ** Return value:
- **    Read line: correct behavior
+ **    Read bfre: correct behavior
  **    NULL: there is nothing else to read, or an error occurred.
  **
  ** External functions: read, malloc, free
  **
  ** Description:
- **    Write a function that returns a line read from a file descriptor.
+ **    Write a function that returns a bfre read from a file descriptor.
  */
 
 /*
@@ -37,6 +37,62 @@
  */
 
 #include "get_next_line.h"
+
+
+char	*bfrnewline(char *sav)
+{
+	int		i;
+	char	*bfr;
+
+	if (!sav)
+		return (NULL);
+	i = 0;
+	while (sav[i] != '\n' && sav[i] != '\0')
+		i++;
+	bfr = malloc(sizeof(char) * (i + 1));
+	if (bfr == NULL)
+		return (NULL);
+	i = 0;
+	while (sav[i] && sav[i] != '\n')
+	{
+		bfr[i] = sav[i];
+		i++;
+	}
+	if (sav[i] == '\n')
+	{
+		bfr[i] = '\n';
+		i++;
+	}
+	bfr[i] = '\0';
+	return (bfr);
+}
+
+char	*aftnewline(char *sav)
+{
+	int		i;
+	int		j;
+	char	*aft;
+
+	if (!sav)
+		return (NULL);
+	if (ischar(sav, '\n') == 0)
+	{
+		null_free(sav);
+		return (NULL);
+	}
+	while (sav[i] && sav[i] != '\n')
+		i++;
+	aft = malloc((sizeof(char) * ((ft_strlen(sav) - i) + 1)));
+	if (aft == NULL)
+		return (NULL);
+	i++;
+	j = 0;
+	while (sav[i])
+		aft[j++] = sav[i++];
+	aft[j] = '\0';
+	null_free(sav);
+	return (aft);
+}
 
 char	*readtime(int fd, char *sav, char *buf, char *tmp)
 {
@@ -68,7 +124,7 @@ char	*readtime(int fd, char *sav, char *buf, char *tmp)
 char	*get_next_line(int fd)
 {
 	static char *sav[OPEN_MAX];
-	char				*lin;
+	char				*bfr;
 	char				*buf;
 	char				*tmp;
 
@@ -81,6 +137,7 @@ char	*get_next_line(int fd)
 	sav[fd] = readtime(fd, sav[fd], buf, tmp);
 	if (sav[fd] == NULL)
 		return (NULL);
-	lin = NULL;
-	return (lin);
+	bfr = bfrnewline(sav[fd]);
+	sav[fd] = aftnewline(sav[fd]);
+	return (bfr);
 }
