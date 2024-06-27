@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:11:23 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/25 16:34:09 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/27 12:20:07 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (start);
 }
 
-int	ischar(char *str, char c)
+int	ischar(char *str, int start, char c)
 {
 	int	i;
-
-	i = 0;
+	
+	i = start;
+	if((int)ft_strlen(str) <= start)
+		i = 0;
 	while (str[i])
 	{
 		if (str[i] == c)

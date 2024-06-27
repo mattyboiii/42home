@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:11:33 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/26 11:59:00 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/27 12:10:40 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*get_next_line(int fd);
 
 // Functions in my get_next_line_utils.c
 // ---  ------------------------- ------
-int		ischar(char *str, char c);
+int		ischar(char *str, int start, char c);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	null_free(char *ptr);
