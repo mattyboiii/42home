@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:11:23 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/27 12:20:07 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:06:04 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ischar(char *str, int start, char c)
 	
 	i = start;
 	if((int)ft_strlen(str) <= start)
-		i = 0;
+		return (0);
 	while (str[i])
 	{
 		if (str[i] == c)

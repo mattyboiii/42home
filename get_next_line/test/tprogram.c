@@ -8,7 +8,7 @@ int main(void)
     char *line;
 
     // Open the file for reading
-    fd = open("test/41_no_nl", O_RDONLY);
+    fd = open("test/multiple_nlx5", O_RDONLY);
     if (fd == -1)
     {
         perror("Error opening file");

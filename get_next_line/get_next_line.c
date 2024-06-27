@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:10:32 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/27 12:33:17 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/28 08:53:45 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,65 +37,132 @@
  */
 
 #include "get_next_line.h"
+/*
+   char	*bfrmalloc(char *sav)
+   {
+   char	*bfr;
+   int	i;
+   int	j;
 
-char	*bfrnewline(char *sav)
+   bfr = NULL;
+   if (!sav)
+   return (NULL);
+   i = 0;
+   j = 0;
+   if (ischar(sav, 0, '\n') == 1)
+   j++;
+   while (sav[i] != '\n' && sav[i] != '\0')
+   i++;
+   bfr = malloc(sizeof(char) * (i + j + 1));
+   if (bfr == NULL)
+   return (NULL);
+   return (bfr);
+   }
+ */
+/*
+   char	*bfrnewline(char *sav)
+   {
+   int		i;
+   char	*bfr;
+
+   if (!sav || sav[0] == '\0')
+   return (NULL);
+   bfr = bfrmalloc(sav);
+   i = 0;
+   while (sav[i] && sav[i] != '\n')
+   {
+   bfr[i] = sav[i];
+   i++;
+   }
+   if (sav[0] == '\n')
+   {
+   bfr[i] = '\n';
+   i++;
+   }
+   if (ischar(sav, 0, '\n') && sav[0] != '\n')
+   i++;
+   bfr[i] = '\0';
+   return (bfr);
+   }
+ */
+
+/*
+   char	*aftnewline(char *sav)
+   {
+   int		i;
+   int		j;
+   char	*aft;
+
+   if (!sav)
+   return (NULL);
+   if (ischar(sav, 1, '\n') == 0)
+   {
+   null_free(sav);
+   return (NULL);
+   }
+   i = 0;
+   while (sav[i] && sav[i] != '\n')
+   i++;
+   aft = malloc((sizeof(char) * (ft_strlen(sav) - i)));
+   if (aft == NULL)
+   return (NULL);
+   i++;
+   j = 0;
+   while (sav[i])
+   aft[j++] = sav[i++];
+   aft[j] = '\0';
+   null_free(sav);
+   return (aft);
+   }
+ */
+ 
+static char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int		i;
-	char	*bfr;
+	char	*out;
+	size_t	i;
 
-	if (!sav)
-		return (NULL);
 	i = 0;
-	while (sav[i] != '\n' && sav[i] != '\0')
-		i++;
-	bfr = malloc(sizeof(char) * (i + 2));
-	if (bfr == NULL)
+	if (!s || start >= ft_strlen(s))
 		return (NULL);
-	if (sav[0] == '\n')
+	if ((ft_strlen(s) - start) < len)
+		len = ft_strlen(s) - start;
+	out = malloc((sizeof(char)) * (len + 1));
+	if (out == NULL)
+		return (NULL);
+	while (*s && i < len && start < ft_strlen(s))
 	{
-		bfr[i] = '\n';
+		out[i] = s[i + start];
 		i++;
 	}
+	out[i] = '\0';
+	return (out);
+}
+
+static char	*get_freshline(char **sav)
+{
+	size_t	nl;
+	char	*str;
+	char	*strhead;
+	char	*line;
+
+	str = ft_substr(*sav, 0, ft_strlen(*sav));
+	strhead = str;
+	null_free(*sav);
+	nl = 0;
+	while (str[nl] != '\0' && str[nl] != '\n')
+		nl++;
+	if (str[0] == '\n')
+		line = ft_substr(str, 0, 1);
 	else
-	{
-		while (sav[i] && sav[i] != '\n')
-		{
-			bfr[i] = sav[i];
-			i++;
-		}
-	}
-	bfr[i] = '\0';
-	return (bfr);
+		line = ft_substr(str, 0, nl + 1);
+	if (nl > 0 && nl == ft_strlen(str))
+		nl--;
+	str += nl + 1;
+	*sav = ft_substr(str, 0, ft_strlen(str));
+	null_free(strhead);
+	strhead = NULL;
+	return (line);
 }
-
-char	*aftnewline(char *sav)
-{
-	int		i;
-	int		j;
-	char	*aft;
-
-	if (!sav)
-		return (NULL);
-	if (ischar(sav, 1, '\n') == 0)
-	{
-		null_free(sav);
-		return (NULL);
-	}
-	i = 0;
-	while (sav[i] && sav[i] != '\n')
-		i++;
-	aft = malloc((sizeof(char) * (ft_strlen(sav) - i)));
-	if (aft == NULL)
-		return (NULL);
-	i++;
-	j = 0;
-	while (sav[i])
-		aft[j++] = sav[i++];
-	aft[j] = '\0';
-	null_free(sav);
-	return (aft);
-}
-
 char	*readtime(int fd, char *sav, char *buf, char *tmp)
 {
 	ssize_t			bytes_read;
@@ -105,9 +172,9 @@ char	*readtime(int fd, char *sav, char *buf, char *tmp)
 		bytes_read = read(fd, buf, BUFFER_SIZE);
 		if (bytes_read == -1)
 			return (NULL); 
-		buf[bytes_read] = '\0';
 		if(bytes_read == 0)
 			break ;
+		buf[bytes_read] = '\0';
 		tmp = sav;
 		if (!tmp)
 		{
@@ -128,7 +195,7 @@ char	*readtime(int fd, char *sav, char *buf, char *tmp)
 char	*get_next_line(int fd)
 {
 	static char *sav[OPEN_MAX];
-	char				*bfr;
+	char				*line;
 	char				*buf;
 	char				*tmp;
 
@@ -141,7 +208,8 @@ char	*get_next_line(int fd)
 	sav[fd] = readtime(fd, sav[fd], buf, tmp);
 	if (sav[fd] == NULL)
 		return (NULL);
-	bfr = bfrnewline(sav[fd]);
-	sav[fd] = aftnewline(sav[fd]);
-	return (bfr);
+	//bfr = bfrnewline(sav[fd]);
+	//sav[fd] = aftnewline(sav[fd]);
+	line = get_freshline(&sav[fd]);
+	return (line);
 }
