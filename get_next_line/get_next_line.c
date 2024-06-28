@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:10:32 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/28 10:39:29 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/28 10:46:11 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,14 +128,16 @@ char	*get_next_line(int fd)
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buf == NULL)
 		return (NULL);
+	if (read(fd, 0, 0) == -1)
+	{
+		null_free(sav[fd]);
+		null_free(buf);
+		return (NULL);
+	}
 	tmp = NULL;
 	sav[fd] = readtime(fd, sav[fd], buf, tmp);
 	if (sav[fd] == NULL)
-	{
-		free(sav[fd]);
-		sav[fd] = NULL;
 		return (NULL);
-	}
 	line = get_freshline(&sav[fd]);
 	return (line);
 }
