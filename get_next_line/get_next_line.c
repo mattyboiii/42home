@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:10:32 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/28 13:02:25 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/28 13:20:58 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,12 @@ char	*readtime(int fd, char *sav, char **buf, char *tmp)
 	return (sav);
 }
 
+//  IMPORTANT NOTE
+//      I kept making the mistake of having line 130 inside of line 127 if
+//      statement. This meant that the read check would happen before buffer
+//      was made, not allowing it to be free'd after the fact. Creating the
+//      separate check for the file read error after line 129 passed the final
+//      read errors.
 char	*get_next_line(int fd)
 {
 	static char	*sav[OPEN_MAX];
