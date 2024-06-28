@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:10:32 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/28 10:46:11 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/06/28 13:02:25 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static char	*get_freshline(char **sav)
 
 	str = ft_substr(*sav, 0, ft_strlen(*sav));
 	strhead = str;
-	null_free(*sav);
+	null_free(sav);
 	nl = 0;
 	while (str[nl] != '\0' && str[nl] != '\n')
 		nl++;
@@ -82,23 +82,23 @@ static char	*get_freshline(char **sav)
 	str += nl + 1;
 	if (str)
 		*sav = ft_substr(str, 0, ft_strlen(str));
-	null_free(strhead);
+	null_free(&strhead);
 	strhead = NULL;
 	return (line);
 }
 
-char	*readtime(int fd, char *sav, char *buf, char *tmp)
+char	*readtime(int fd, char *sav, char **buf, char *tmp)
 {
 	ssize_t			bytes_read;
 
 	while (1)
 	{
-		bytes_read = read(fd, buf, BUFFER_SIZE);
+		bytes_read = read(fd, *buf, BUFFER_SIZE);
 		if (bytes_read == -1)
 			return (NULL);
 		if (bytes_read == 0)
 			break ;
-		buf[bytes_read] = '\0';
+		(*buf)[bytes_read] = '\0';
 		tmp = sav;
 		if (!tmp)
 		{
@@ -107,8 +107,8 @@ char	*readtime(int fd, char *sav, char *buf, char *tmp)
 				return (NULL);
 			tmp[0] = '\0';
 		}
-		sav = ft_strjoin(tmp, buf);
-		null_free(tmp);
+		sav = ft_strjoin(tmp, *buf);
+		null_free(&tmp);
 		if (ischar(sav, 0, '\n') == 1)
 			break ;
 	}
@@ -123,19 +123,20 @@ char	*get_next_line(int fd)
 	char		*buf;
 	char		*tmp;
 
-	if (fd < 0 || read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
 		return (NULL);
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (buf == NULL)
-		return (NULL);
 	if (read(fd, 0, 0) == -1)
 	{
-		null_free(sav[fd]);
-		null_free(buf);
+		null_free(&buf);
+		if (sav[fd])
+			null_free(&sav[fd]);
 		return (NULL);
 	}
+	if (buf == NULL)
+		return (NULL);
 	tmp = NULL;
-	sav[fd] = readtime(fd, sav[fd], buf, tmp);
+	sav[fd] = readtime(fd, sav[fd], &buf, tmp);
 	if (sav[fd] == NULL)
 		return (NULL);
 	line = get_freshline(&sav[fd]);
