@@ -1,28 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tprogram.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/28 10:14:36 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/06/28 10:16:24 by mtripodi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <fcntl.h>
 #include "../get_next_line.h"
 
-int main(void)
+int	main(void)
 {
-    int fd;
-    char *line;
+	int		fd;
+	char	*line;
 
-    // Open the file for reading
-    fd = open("test/multiple_nlx5", O_RDONLY);
-    if (fd == -1)
-    {
-        perror("Error opening file");
-        return 1;
-    }
-
-    // Read lines from the file using get_next_line
-    while ((line = get_next_line(fd)) != NULL)
-    {
-        printf("%s", line);
-    }
-
-    // Close the file
-    close(fd);
-
-    return 0;
+	fd = open("test/multiple_nlx5", O_RDONLY);
+	if (fd == -1)
+	{
+		perror("Error opening file");
+		return (1);
+	}
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		printf("%s", line);
+	}
+	close(fd);
+	return (0);
 }
