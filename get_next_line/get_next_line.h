@@ -16,6 +16,7 @@
 # include <stdlib.h> //malloc, freee
 # include <unistd.h> //read
 # include <limits.h> //OPEN_MAX
+
 //Definitions
 /*
  * Because im checking buffer size on first call of the function, I decided
