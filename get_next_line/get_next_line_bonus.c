@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bouns.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 11:10:32 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/07/23 12:22:58 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:36:15 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
  **     by the descriptor fildes into the buffer pointed to by buf.
  */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*ft_substr(char const *s, int start, int len)
 {
@@ -124,7 +124,7 @@ static char	*readtime(int fd, char *sav, char **buf, char *tmp)
 //      read errors.
 char	*get_next_line(int fd)
 {
-	static char	*sav;
+	static char	*sav[OPEN_MAX];
 	char		*line;
 	char		*buf;
 	char		*tmp;
@@ -135,16 +135,16 @@ char	*get_next_line(int fd)
 	if (read(fd, 0, 0) == -1)
 	{
 		null_free(&buf);
-		if (sav)
-			null_free(&sav);
+		if (sav[fd])
+			null_free(&sav[fd]);
 		return (NULL);
 	}
 	if (buf == NULL)
 		return (NULL);
 	tmp = NULL;
-	sav = readtime(fd, sav, &buf, tmp);
-	if (sav == NULL)
+	sav[fd] = readtime(fd, sav[fd], &buf, tmp);
+	if (sav[fd] == NULL)
 		return (NULL);
-	line = get_freshline(&sav);
+	line = get_freshline(&sav[fd]);
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 10:14:36 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/06/28 10:16:24 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:03:09 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(void)
 	int		fd;
 	char	*line;
 
+	fd = 0;
 	fd = open("test/multiple_nlx5", O_RDONLY);
 	if (fd == -1)
 	{
@@ -29,7 +30,8 @@ int	main(void)
 	while (line != NULL)
 	{
 		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
 	}
-	close(fd);
 	return (0);
 }
