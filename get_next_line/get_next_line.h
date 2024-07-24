@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 11:11:33 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/07/23 12:36:44 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/07/24 12:48:41 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/07/24 12:48:46 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stdlib.h> //malloc, freee
+# include <stdlib.h> //malloc, free
 # include <unistd.h> //read
-# include <limits.h> //OPEN_MAX
 
 //Definitions
 /*
@@ -23,10 +22,6 @@
  * to make the default buffer size 42. Setting the buffer size here is will
  * make it the defualt buffer size if the user does not set one. 
  */
-
-# ifndef OPEN_MAX
-#  define OPEN_MAX 256
-# endif
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42

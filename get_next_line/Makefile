@@ -4,7 +4,10 @@ CFLAGS = -Wall -Wextra -Werror -g -I.
 
 # Source files
 SRC = get_next_line.c \
-      get_next_line_utils.c \
+      get_next_line_utils.c
+	  
+SRC_BONUS = get_next_line_bonus.c \
+			get_next_line_utils_bonus.c
 
 # Test program
 TEST_SRC = test/tprogram.c
@@ -26,8 +29,12 @@ clean:
 # 4 Rebuild
 re: clean all
 
+# 5 full clean
+fclean: clean
+
 # 5 Run the test program
 run: $(TEST_EXEC)
 	./$(TEST_EXEC)
+
 
 .PHONY: all clean re run

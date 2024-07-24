@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 11:11:23 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/07/23 11:59:42 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/07/24 12:49:32 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/07/24 12:51:03 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ischar(char *str, int start, char c)
 	int	i;
 
 	i = start;
-	if ((int)ft_strlen(str) <= start)
+	if (ft_strlen(str) <= start)
 		return (0);
 	while (str[i])
 	{
