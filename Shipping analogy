@@ -1,0 +1,6 @@
+For this analogy I will simplify C addresses using 3 numbers etc 100. 
+
+1. The storage facility is the computer memory/storage. 
+2. Value's are stored inside shipping containers. 
+3. shipping containers can naturally contain pointers as their value. eg inside might be memory address 100. 
+4. a simple value like int x = 6. would be represented by the int 6 being inside of the shipping container. The 
