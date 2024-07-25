@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/13 16:32:59 by pvaladar          #+#    #+#             */
-/*   Updated: 2022/06/20 23:33:18 by pvaladar         ###   ########.fr       */
+/*   Created: 2024/07/25 13:48:50 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/07/25 13:48:54 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-// Function retrieves the length of the string passed
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
@@ -25,8 +24,6 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-// This function concatenates s1 and s2 strings into a new string
-// Malloc is used to create the string
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*new_str;
@@ -55,8 +52,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (new_str);
 }
 
-// Then the value of the pointer is set to NULL so it does not point to some
-// random value in memory if dereferenced
 void	null_free(char **ptr)
 {
 	free(*ptr);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/13 16:32:54 by pvaladar          #+#    #+#             */
-/*   Updated: 2024/07/25 12:57:23 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/07/25 13:47:52 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/07/25 14:29:57 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,6 @@ char	*ft_after(char *str)
 	return (ptr);
 }
 
-// Function checks if the charater NEW LINE is present within the
-// passed string
-// RETURNS '-1' in case the string pointer is defined
-// RETURNS '1' in case '\n' is found
-// RETURNS '0' in case '\n' is not found
 int	ft_newline(const char *str)
 {
 	int	i;
@@ -94,14 +89,6 @@ int	ft_newline(const char *str)
 	return (0);
 }
 
-// Function attempts to retrieve all bytes from `fd` to `buffer` until
-// EOF is reached
-// In case there is an error reading the `fd` it is returned `NULL`
-// In case it is the first iteration allocate memory in the heap
-// and create an emtpy string with null terminator `tmp`; (in the next
-// loops `tmp` is assigned with the address of the recently joined `str`)
-// Concatenate the `buffer` with the `tmp` variable
-// Loop the above until a NEW LINE is found (or EOF is reached)
 char	*ft_read(int fd, char *buffer, char *tmp, char *str)
 {
 	int		bytes_read;

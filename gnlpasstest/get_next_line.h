@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvaladar <pvaladar@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/13 16:33:01 by pvaladar          #+#    #+#             */
-/*   Updated: 2024/07/25 12:57:26 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/07/25 13:48:07 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/07/25 13:48:13 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
