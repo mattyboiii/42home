@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 08:26:28 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/08/02 09:14:32 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:47:32 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,18 @@
 int main()
 {
 	int fid = fork();
+	int wre;
+
 	if (fid != 0)
 	{
-		wait(NULL);
-		printf("--Parent Process--\n");
+		wre = wait(NULL);
+		if (wre != -1)
+			printf("--Parent Waited for child--\n");
+		else 
+			printf("Error in wait()\n");
 	}
-	else 
-		printf("--Child Process--\n");
+	else
+		printf("--I am the child--\n");
 	printf("Process ID: %d\nParent ID: %d\n", getpid(), getppid());
 	printf("fid: %d\n\n", fid);
 	return(0);
