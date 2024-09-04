@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include "get_next_line.h"
+#include "libft.h"
 
 int	main(void)
 {
@@ -18,7 +19,7 @@ int	main(void)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		printf("%s", line);
+		ft_printf("%s", line);
 		free(line);
 		line = get_next_line(fd);
 	}

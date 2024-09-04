@@ -19,6 +19,7 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <string.h>
+# include <stdarg.h> // va_start, va_arg, va_end, va_copy
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -60,6 +61,10 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+
+// New Functions
+char	*get_next_line(int fd);
+int	ft_printf(const char *format, ...);
 
 // bonus 
 typedef struct s_list

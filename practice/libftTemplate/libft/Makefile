@@ -52,7 +52,8 @@ SRC = ft_atoi.c \
       ft_lstiter.c \
       ft_lstmap.c \
       get_next_line.c \
-      get_next_line_utils.c
+      get_next_line_utils.c \
+      ft_printf.c
 
 BONUS_SRC = 		
 
