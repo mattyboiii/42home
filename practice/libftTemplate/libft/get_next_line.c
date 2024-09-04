@@ -29,40 +29,18 @@
  */
 
 /*
- ** int read(int fildes, void *buf, int nbyte);
+ ** size_t read(int fildes, void *buf, size_t nbyte);
  **
  ** DESCRIPTION
  **     read() attempts to read nbyte bytes of data from the object referenced
- **     by the descriptor fildes into the buffer pointed to by buf.
+ **     by the descriptor fildes size_to the buffer posize_ted to by buf.
  */
 
-#include "get_next_line.h"
-
-static char	*ft_substr(char const *s, int start, int len)
-{
-	char	*out;
-	int		i;
-
-	i = 0;
-	if (!s || start >= ft_strlen(s))
-		return (NULL);
-	if ((ft_strlen(s) - start) < len)
-		len = ft_strlen(s) - start;
-	out = malloc((sizeof(char)) * (len + 1));
-	if (out == NULL)
-		return (NULL);
-	while (*s && i < len && start < ft_strlen(s))
-	{
-		out[i] = s[i + start];
-		i++;
-	}
-	out[i] = '\0';
-	return (out);
-}
+#include "libft.h"
 
 static char	*get_freshline(char **sav)
 {
-	int		nl;
+	size_t		nl;
 	char	*str;
 	char	*strhead;
 	char	*line;
@@ -87,9 +65,9 @@ static char	*get_freshline(char **sav)
 	return (line);
 }
 
-static char	*readtime(int fd, char *sav, char **buf, char *tmp)
+static char	*readtime(size_t fd, char *sav, char **buf, char *tmp)
 {
-	int			bytes_read;
+	ssize_t			bytes_read;
 
 	while (1)
 	{
@@ -117,7 +95,7 @@ static char	*readtime(int fd, char *sav, char **buf, char *tmp)
 }
 
 //  IMPORTANT NOTE
-//      I kept making the mistake of having line 135 inside of line 132 if
+//      I kept making the mistake of having line 114 inside of line 111 if
 //      statement. This meant that the read check would happen before buffer
 //      was made, not allowing it to be free'd after the fact. Creating the
 //      separate check for the file read error after line 134 passed the final

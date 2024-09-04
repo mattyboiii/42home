@@ -13,13 +13,17 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stdio.h>
-# include <unistd.h>
+# include <unistd.h> //read
 # include <limits.h>
 # include <ctype.h>
 # include <stddef.h>
-# include <stdlib.h>
+# include <stdlib.h> //malloc, free
 # include <string.h>
 # include <stdarg.h> // va_start, va_arg, va_end, va_copy
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -62,7 +66,11 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
-// New Functions
+// Personal small Functions
+void	null_free(char **ptr);
+size_t	ischar(char *str, size_t start, char c);
+
+// Personal BIG Functions
 char	*get_next_line(int fd);
 int	ft_printf(const char *format, ...);
 
