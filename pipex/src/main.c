@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/02 08:26:28 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/10 14:23:54 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/09/10 14:10:16 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/09/10 16:13:59 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,34 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-/*
- ** --I am the child--
- ** Process ID: 58025
- ** Parent ID: 58024
- ** fid: 0
- **
- ** --Parent Waited for child--
- ** Process ID: 58024
- ** Parent ID: 57222
- ** fid: 58025
- */
-
-
-// fork() assigns
-// the child process ID, from the parent process is assigned to 'id'
-// 0 to 'id' from the child process
-// wre = wait result
 int main()
 {
-	int fid = fork();
-	int wre;
+	int fd[2];
+	//fd[0] - read
+	//fd[1] - write
 
-	if (fid != 0)
+	if (pipe(fd) == -1)
 	{
-		wre = wait(NULL);
-		if (wre != -1)
-			printf("--Parent Waited for child--\n");
-		else 
-			printf("Error in wait()\n");
+		printf("Error occured");
+		return (1);
+	}
+
+	int fid = fork();
+	if (!fid)
+	{
+		close(fd[0]);
+		int x;
+		printf("Input a number: ");
+		scanf("%d", &x);
+		write(fd[1], &x, sizeof(int));
+		close(fd[1]);
 	}
 	else
-		printf("--I am the child--\n");
-	printf("Process ID: %d\nParent ID: %d\n", getpid(), getppid());
-	printf("fid: %d\n\n", fid);
-	return(0);
+	{
+		close(fd[1]);
+		int y;
+		read(fd[0], &y, sizeof(int));
+		close(fd[0]);
+		printf("got num from child: %d", y);
+	}
 }

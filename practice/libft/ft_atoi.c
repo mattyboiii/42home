@@ -5,76 +5,62 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 11:38:14 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/22 10:30:38 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/07/26 13:59:35 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/07/26 15:51:28 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DESCRIPTION
-//     The atoi() function converts the initial portion of the string
-//     pointed to by str to int representation.
-//
-//     It is equivalent to:
-//
-//           (int)strtol(str, (char **)NULL, 10);
-//
-//    While the atoi() function uses the current locale, the atoi_l()
-//    function may be passed a locale directly. See xlocale(3) for more
-//    information.
-//
-// IMPLEMENTATION NOTES
-//     The atoi() and atoi_l() functions are thread-safe and async-cancel-
-//     safe.
-//
-//     The strtol() and strtol_l() functions are recommended instead of
-//     atoi() and atoi_l() functions, especially in new code.
+/*
+Assignment name  : ft_atoi_base
+Expected files   : ft_atoi_base.c
+Allowed functions: None
+--------------------------------------------------------------------------------
 
-// Recommendation:
-// To recreate the atoi() function, you would essentially need to implement
-// a function that takes a string as input, parses it, and converts it into
-// an integer. You can follow the approach of strtol(), parsing the string
-// and converting it into an integer based on your requirements.
+Write a function that converts the string argument str (base N <= 16)
+to an integer (base 10) and returns it.
 
-#include "libft.h"
+The characters recognized in the input are: 0123456789abcdef
+Those are, of course, to be trimmed according to the requested base. For
+example, base 4 recognizes "0123" and base 16 recognizes "0123456789abcdef".
 
-static int	ft_isspace(int c)
+Uppercase letters must also be recognized: "12fdb3" is the same as "12FDB3".
+
+Minus signs ('-') are interpreted only if they are the first character of the
+string.
+
+Your function must be declared as follows:
+*/
+
+#include <stdio.h>
+#include <unistd.h>
+
+int	ft_strlen(char *s)
 {
-	if (c == ' ' || c == '\t' || c == '\n' || c == '\v'
-		|| c == '\f' || c == '\r')
-		return (1);
-	else
-		return (0);
+	int i;
+
+	i = 0;
+	if (!s)
+		return (0)
+	while (s)
+		i++;
+	return (i);
 }
 
-static int	ft_ctod(const char num)
+char	ft_tolower(char c)
 {
-	return ((int)num - '0');
-}
-
-int	ft_atoi(const char *str)
-{
-	int	res;
-	int	sign;
-
-	sign = 1;
-	res = 0;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '-')
+	if (c >= 'A' && c <= 'Z')
 	{
-		sign = -1;
-		str++;
+		c = c - 'A' + 'a';
 	}
-	else if (*str == '+')
-		str++;
-	if (!ft_isdigit(*str))
-		while (!ft_isdigit(*str))
-			str++;
-	else
-	{
-		res = 0;
-		while (ft_isdigit(*str))
-			res = res * 10 + (ft_ctod(*str++));
-	}
-	return (res *= sign);
+	return (c);
 }
+
+int	ft_atoi_base(const char *str, int str_base);
+{
+		int	strlen;
+		int	baselen;
+
+		strlen = ft_strlen(str);
+		
+}
+
