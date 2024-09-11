@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/11 16:03:56 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:24:02 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
  ** Parent ID: 57222
  ** fid: 58025
  */
-
 
 #include "pipex.h"
 #include <stdio.h>
@@ -38,12 +37,43 @@
 //take the new fd and link it to the stdin. 
 //link the write end of the pipe to the stdout
 
+void child(char **arv, int *pfd, char **env)
+{
+	int		fid;
+
+	fid = openup(arv[2], 0);
+}
+
 //PARENT a funciton for when the parent process is called. The parent process will have a fid
 //greater than 0
 //it will take in the second argument of arv[3] open this file. If it does not exist it should
 //be created. using the open function. 
 //take the new fd and link it to the stdout
 
+void parent(char **arv, int *pfd, char **env)
+{
+	int		fid;
+}
+
+
+//openup
+//int openup(char *file, 
+//if the file exists, it should open it using  int open(const char *path, int oflag, ...);
+//if the file does not exist, it should create it using open() with the right oflags
+//if the file has an error opening it should handle this. 
+int openup(char *filename, int read_write)
+{
+	int		ret;
+
+	if(read_write == 0)
+		ret = open(filename, 0_RDONLY, 0777);
+	if read_write == 1)
+		ret = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0777);
+	if (ret == -1)
+	{
+		ret = -1;
+	}
+}
 
 //main function should
 //create a pipe and apply its ids to an int array. 
@@ -52,15 +82,21 @@
 //if its child, run child process
 //if parent run the parent after child.
 
+	//pfd[1] = write
+	//pfd[0] = read
 int main(int arc, char **arv, char **env)
 {
 	int		pfd[2];
-	pfd[1] = write
-	pfd[0] = read
-	
-	printf("%d\n", arc);
-	printf("%s\n", *arv);
-	
+	pid_t fid; 
+
+	if(pipe(pfd) == -1)
+		exit(-1);
+	fid = fork();
+	if (fid == -1)
+		exit(-1);
+	if (fid == 0)
+		child(arv, pfd, env);
+	parent(arv[2], pfd, env);
 }
 
 /*
