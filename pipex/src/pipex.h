@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:17 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/10 16:25:56 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:50:26 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PIPEX_H
 # include <unistd.h> //dup, dup2, 
 # include <sys/types.h> //pid_t
+# include <stdlib.h> //free, malloc
+# include "../libft/libft.h"
 
 
 

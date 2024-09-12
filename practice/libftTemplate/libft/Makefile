@@ -52,6 +52,7 @@ SRC = ft_atoi.c \
       ft_lstiter.c \
       ft_lstmap.c \
       ft_printf.c \
+      ft_strstr.c \
       null_free.c \
       ischar.c \
       get_next_line.c

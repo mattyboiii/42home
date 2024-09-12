@@ -6,11 +6,12 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:27 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/11 16:08:10 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:48:36 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <stdio.h>
 
 //openup
 //int openup(char *file, 
@@ -24,7 +25,33 @@
 //Frameworks/Mono.framework/Versions/Current/Commands and return
 //"/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Frameworks/Mono.framework/Versions/Current/Commands"
 //
-//ft_getenv(char *evname, char **env)
+//ft_getenv(char *name, char **env)
+char *ft_getenv(char *name, char **env)
+{
+	int	i;
+	char *paths;
+	
+	i = 0;
+	paths = ft_strstr(*env, name);
+	while (paths[i] && paths[i] != '=')
+		i++;
+	return (paths);
+	
+}
+
+int main(int arc, char **arv, char **env)
+{
+	char cmd[10];
+	char *paths;
+
+	printf("%d\n", arc);
+	printf("%s\n", arv[0]);
+
+	printf("which cmd are you looking for?\n");
+	scanf("%s", cmd);
+	paths = ft_getenv("PATH", env);
+	printf("%s\n", paths);
+}
 
 //need a function which looks in all of the paths, for a file which matches the name of cmd
 //and finds it, then appends it to the end of the path, returning the path. This function has to look in all of the locations. this function might use access.

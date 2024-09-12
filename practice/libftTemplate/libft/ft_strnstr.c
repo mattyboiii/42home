@@ -10,6 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+ ** DESCRIPTION
+ **
+ **    The strnstr() function finds the first occurrence of the substring
+ **    needle in the string haystack. Without going further than the length.
+ **    The terminating null bytes ('\0') are not compared.
+ **
+ ** RETURN VALUE
+ **
+ **    These functions return a pointer to the beginning of the located
+ **    substring, or NULL if the substring is not found.
+ **
+ */
+
 #include "libft.h"
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)

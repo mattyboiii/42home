@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/11 18:24:02 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:12:00 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@
 //this function should execute the cmd used in arv[1] using execve(path, arv, env)
 //if the execute errors out I should send the error to stderror.
 //free all of the memory used.  
+void exe_cmd(char *cmdarv, char **env)
+{
+	char *cmd_pth;
+	char *cmd
+	
+	cmd = ft_strtrim(cmdarv, ' ');
+	cmd_pth = ft_strjoin(getpath(cmd, env);
+
+}
+
 
 //CHILD a function for when the child process is called. The child process will have an fid
 //of 0
@@ -41,7 +51,12 @@ void child(char **arv, int *pfd, char **env)
 {
 	int		fid;
 
-	fid = openup(arv[2], 0);
+	fid = openup(arv[1], 0);
+	close(pfd[0]);
+	dup2(fid, 0);
+	dup2(pfd[1], 1);
+	exe_cmd(arv[2], env);
+
 }
 
 //PARENT a funciton for when the parent process is called. The parent process will have a fid
@@ -53,6 +68,8 @@ void child(char **arv, int *pfd, char **env)
 void parent(char **arv, int *pfd, char **env)
 {
 	int		fid;
+
+	fid = openup(arv[5], 1);
 }
 
 
@@ -67,12 +84,11 @@ int openup(char *filename, int read_write)
 
 	if(read_write == 0)
 		ret = open(filename, 0_RDONLY, 0777);
-	if read_write == 1)
+	if(read_write == 1)
 		ret = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0777);
 	if (ret == -1)
-	{
-		ret = -1;
-	}
+		exit(-1);
+	return (ret);
 }
 
 //main function should
@@ -81,13 +97,14 @@ int openup(char *filename, int read_write)
 //check for failures or -1 returns for both fork and pipe
 //if its child, run child process
 //if parent run the parent after child.
-
 	//pfd[1] = write
 	//pfd[0] = read
 int main(int arc, char **arv, char **env)
 {
 	int		pfd[2];
 	pid_t fid; 
+	
+	//if (arc < 5)
 
 	if(pipe(pfd) == -1)
 		exit(-1);
@@ -96,7 +113,7 @@ int main(int arc, char **arv, char **env)
 		exit(-1);
 	if (fid == 0)
 		child(arv, pfd, env);
-	parent(arv[2], pfd, env);
+	parent(arv, pfd, env);
 }
 
 /*

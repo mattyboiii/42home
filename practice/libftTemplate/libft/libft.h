@@ -69,6 +69,7 @@ void	ft_putnbr_fd(int n, int fd);
 // Personal small Functions
 void	null_free(char **ptr);
 size_t	ischar(char *str, size_t start, char c);
+char	*ft_strstr(const char *haystack, const char *needle);
 
 // Personal BIG Functions
 char	*get_next_line(int fd);
