@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:27 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/12 18:48:36 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:55:17 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,39 @@
 char *ft_getenv(char *name, char **env)
 {
 	int	i;
+	int	match;
 	char *paths;
 	
 	i = 0;
-	paths = ft_strstr(*env, name);
-	while (paths[i] && paths[i] != '=')
-		i++;
+	match = -1;
+	while (match != 0)
+	{
+		match = ft_strncmp(name, env[i], 1);
+		if (match == 0)
+			match = ft_strncmp(name, env[i], ft_strlen(name));
+		if (match == 0)
+			break ;
+		else
+		{
+			i++;
+			paths = env[i];
+		}
+	}
+	paths = env[i];
 	return (paths);
 	
 }
 
 int main(int arc, char **arv, char **env)
 {
-	char cmd[10];
+	//char cmd[10];
 	char *paths;
 
 	printf("%d\n", arc);
 	printf("%s\n", arv[0]);
 
-	printf("which cmd are you looking for?\n");
-	scanf("%s", cmd);
+	//printf("which cmd are you looking for?\n");
+	//scanf("%s", cmd);
 	paths = ft_getenv("PATH", env);
 	printf("%s\n", paths);
 }

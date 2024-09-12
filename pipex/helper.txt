@@ -1,0 +1,2 @@
+gcc -o pipex_utils src/pipex_utils.c -Llibft -lft -Ilibft
+
