@@ -1,6 +1,11 @@
-For this analogy I will simplify C addresses using 3 numbers etc 100. 
+I have an analogy which helps me picture how memory in C works. For this analogy I will simplify C addresses using 3 numbers etc 100. 
+
 
 1. The storage facility is the computer memory/storage. 
 2. Value's are stored inside shipping containers. 
 3. shipping containers can naturally contain pointers as their value. eg inside might be memory address 100. 
-4. a simple value like int x = 6. would be represented by the int 6 being inside of the shipping container. The 
+4. a simple value like int x = 6. would be represented by the 6 being inside of the shipping container. 
+5. All shipping containers have a sign. The format of the sign is alsways. The memory address. The variable name. = value. Eg. using the container with int x = 6 the sign would be. 100: x = 6. 
+6. Arrays are multiple shipping containers which are painted yellow. Their signs corrospond to which section of the shipping container they are in. Eg if char name = "Sue" the first container would have the "s" inside it and its sign would be 200: name[0] = "S", the next container would have "u" inside. And the sign would be 201: name[1] = "u" etc. 
+7. Double pointers follow the same format. But lets say char **nums is an array of pointer arrays. nums[0] = "1" nums[1] = "2" nums[2] = "3". A shipping container would just be a container with the addresses of others inside. The sign would be 300 nums. Inside it would be 3 containers signed. 400, 401, 402. Which are the memory addresses of the containers with signs. 400: nums[0] = "1" (inside this container would be "1").
+8. malloc is represented by spray paint on the floor of the warehouse. Eg malloc(3) would draw 3 containers worth of space. 
