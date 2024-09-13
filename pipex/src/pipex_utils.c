@@ -6,22 +6,17 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:27 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/13 16:38:05 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:28:35 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <stdio.h>
 
-//openup
-//int openup(char *file, 
-//if the file exists, it should open it using  int open(const char *path, int 
-//oflag, ...);
-//if the file does not exist, it should create it using open() with the right
-// oflags
-//if the file has an error opening it should handle this. 
-//home/matthew/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:
-//need a function which can collect the path. Meaning look in the **env
+// Function to collect the path of the variable at argument name. It will 
+// Search though the environment variables till it finds a match, then 
+// it will return a double pointer with each of the dir paths referenced
+// by the name argument. I used this to find everthing after "PATH="
 char	**ft_getenv(char *name, char **env)
 {
 	int		i;
@@ -45,6 +40,9 @@ char	**ft_getenv(char *name, char **env)
 	return (NULL);
 }
 
+// Function to free memory, but most importanly set the pointers to NULL after
+// freeing. This helps me debug my programs. That is why this one is a triple
+// ptr eg ***ptr. As i want to set **ptr to NULL.
 void dp_free(char ***dp)
 {
 	int i;
