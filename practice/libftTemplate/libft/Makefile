@@ -54,6 +54,8 @@ SRC = ft_atoi.c \
       ft_printf.c \
       ft_strstr.c \
       null_free.c \
+      dp_free.c \
+      dp_strcat.c \
       ischar.c \
       get_next_line.c
 

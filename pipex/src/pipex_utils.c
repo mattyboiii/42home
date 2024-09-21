@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:27 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/13 17:28:35 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/21 10:54:03 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,23 @@ char	**ft_getenv(char *name, char **env)
 		{
 			if (ft_strncmp(env[i], name, ft_strlen(name)) == 0)
 			{
-				split_paths = ft_split(env[i] +
-					ft_strlen(name) + 1, ':');
+				split_paths = ft_split(env[i] + ft_strlen(name)
+						+ 1, ':');
 				return (split_paths);
 			}
 		}
 		i++;
 	}
-	
 	return (NULL);
 }
 
 // Function to free memory, but most importanly set the pointers to NULL after
-// freeing. This helps me debug my programs. That is why this one is a triple
-// ptr eg ***ptr. As i want to set **ptr to NULL.
-void dp_free(char ***dp)
+// freeing. This helps me debug my programs. Freeing the pointers to NULL
+// is the reason the function is a tripple ptr eg ***ptr. As i want to 
+// set **ptr to NULL.
+void	dp_free(char ***dp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while ((*dp)[i])
@@ -57,17 +57,17 @@ void dp_free(char ***dp)
 	*dp = NULL;
 }
 
-char **dp_strcat(char **paths, char *str)
+char	**dp_strcat(char **paths, char *str)
 {
-	int	i;
-	char **dp_strcat;
+	int		i;
+	char	**dp_strcat;
 
 	i = 0;
 	while (paths[i])
 		i++;
 	dp_strcat = malloc((sizeof(char *) * (i + 1)));
 	if (dp_strcat == NULL)
-		exit(-1);
+		return (NULL);
 	i = 0;
 	while (paths[i])
 	{
@@ -77,43 +77,6 @@ char **dp_strcat(char **paths, char *str)
 	dp_strcat[i] = NULL;
 	dp_free(&paths);
 	return (dp_strcat);
-}
-char *get_cmdpath(char *cmd, char **env)
-{
-	int		i;
-	char	**paths;
-	char	*exec;
-
-	i = 0;
-	exec = NULL;
-	paths = ft_getenv("PATH", env);
-	paths = dp_strcat(paths, ft_strjoin("/", cmd));
-	while (paths[i])
-	{
-		if(access(paths[i], F_OK | X_OK) == 0)
-		{
-			exec = ft_strdup(paths[i]);
-			dp_free(&paths);
-			return (exec);
-		}
-		i++;
-	}
-	dp_free(&paths);
-	return (exec);
-}
-
-int main(int arc, char **arv, char **env)
-{
-	char cmd[10];
-	char *path;
-
-	printf("%d\n", arc);
-	printf("%s\n", arv[0]);
-
-	printf("which cmd are you looking for?\n");
-	scanf("%s", cmd);
-	path = get_cmdpath(cmd, env);
-	printf("%s\n", path);
 }
 
 //need a function which looks in all of the paths, for a file which matches 
@@ -131,4 +94,41 @@ int main(int arc, char **arv, char **env)
  **   W_OK: Check if the file is writable.
  **   X_OK: Check if the file is executable.
  */
+char	*get_cmdpath(char *cmd, char **env)
+{
+	int		i;
+	char	**paths;
+	char	*exec;
 
+	i = 0;
+	exec = NULL;
+	paths = ft_getenv("PATH", env);
+	paths = dp_strcat(paths, ft_strjoin("/", cmd));
+	while (paths[i])
+	{
+		if (access(paths[i], F_OK | X_OK) == 0)
+		{
+			exec = ft_strdup(paths[i]);
+			dp_free(&paths);
+			return (exec);
+		}
+		i++;
+	}
+	dp_free(&paths);
+	return (exec);
+}
+/*
+int main(int arc, char **arv, char **env)
+{
+	char cmd[10];
+	char *path;
+
+	printf("%d\n", arc);
+	printf("%s\n", arv[0]);
+
+	printf("which cmd are you looking for?\n");
+	scanf("%s", cmd);
+	path = get_cmdpath(cmd, env);
+	printf("%s\n", path);
+}
+*/

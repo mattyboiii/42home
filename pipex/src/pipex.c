@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/12 17:12:00 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/21 11:06:31 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,37 +25,47 @@
 #include "pipex.h"
 #include <stdio.h>
 
-//Execute function
-//first this needs to get the path of the cmd used looking inside of the env
-//this function should execute the cmd used in arv[1] using execve(path, arv, env)
-//if the execute errors out I should send the error to stderror.
-//free all of the memory used.  
+
+
+// Execute function
+// first this needs to get the path of the cmd used looking inside of the env
+// this function should execute the cmd used in arv[1] using
+// execve(path, arv, env). If the execute errors out I should send the error
+// to stderror and Free all of the memory used.  
+// int execve(const char *path, char *const argv[], char *const envp[]);
 void exe_cmd(char *cmdarv, char **env)
 {
 	char *cmd_pth;
 	char *cmd
 	
-	cmd = ft_strtrim(cmdarv, ' ');
-	cmd_pth = ft_strjoin(getpath(cmd, env);
+	cmd = ft_split(cmdarv, ' ');
+	cmd_pth = get_cmdpath(cmd, env);
+	if (execve(cmd_pth, cmd, env) == -1)
+	{
+		ft_putstr_fd("hello", 2);
+	}
+
 
 }
 
 
-//CHILD a function for when the child process is called. The child process will have an fid
-//of 0
-//it will need to take in the first set of arguments arv[1]. open this file. if the file does not exist, it should be created. Apply this to a fd. 
-//take the new fd and link it to the stdin. 
-//link the write end of the pipe to the stdout
+// CHILD a function for when the child process is called. The child process
+// will have an fid of 0.
+// It will need to take in the first set of arguments arv[1] then open the
+// file. if the file does not exist, it should be created. Apply this to
+// a fd. Take the new fd and link it to the stdin. link the write end of
+// the pipe to the stdout
 
 void child(char **arv, int *pfd, char **env)
 {
 	int		fid;
 
 	fid = openup(arv[1], 0);
-	close(pfd[0]);
 	dup2(fid, 0);
 	dup2(pfd[1], 1);
-	exe_cmd(arv[2], env);
+	close(pfd[0]);
+	cmd_exe(arv[2], env);
+
 
 }
 
