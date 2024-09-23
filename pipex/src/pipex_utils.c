@@ -6,12 +6,22 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:27 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/21 10:54:03 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:40:19 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <stdio.h>
+
+void	ft_exit(int n)
+{
+	if (n == 5)
+	{
+		ft_putendl_fd("Incorrect number of arguments", 2);
+		ft_putendl_fd("./pipex file1 cmd cmd file2", 2);
+		exit(5);
+	}
+}
 
 // Function to collect the path of the variable at argument name. It will 
 // Search though the environment variables till it finds a match, then 
@@ -39,61 +49,11 @@ char	**ft_getenv(char *name, char **env)
 	return (NULL);
 }
 
-// Function to free memory, but most importanly set the pointers to NULL after
-// freeing. This helps me debug my programs. Freeing the pointers to NULL
-// is the reason the function is a tripple ptr eg ***ptr. As i want to 
-// set **ptr to NULL.
-void	dp_free(char ***dp)
-{
-	int	i;
-
-	i = 0;
-	while ((*dp)[i])
-	{
-		null_free(&(*dp)[i]);
-		i++;
-	}
-	free(*dp);
-	*dp = NULL;
-}
-
-char	**dp_strcat(char **paths, char *str)
-{
-	int		i;
-	char	**dp_strcat;
-
-	i = 0;
-	while (paths[i])
-		i++;
-	dp_strcat = malloc((sizeof(char *) * (i + 1)));
-	if (dp_strcat == NULL)
-		return (NULL);
-	i = 0;
-	while (paths[i])
-	{
-		dp_strcat[i] = ft_strjoin(paths[i], str);
-		i++;
-	}
-	dp_strcat[i] = NULL;
-	dp_free(&paths);
-	return (dp_strcat);
-}
-
-//need a function which looks in all of the paths, for a file which matches 
-//the name of cmd
-// and finds it, then appends it to the end of the path, returning the path. 
-// This function has to look in all of the locations. this function might 
-// use access.
-/*
- ** mode: The access mode to check, which can be one or more of the
- **        following flags combined with a bitwise OR (|):
- **
- **
- **   F_OK: Check if the file exists.
- **   R_OK: Check if the file is readable.
- **   W_OK: Check if the file is writable.
- **   X_OK: Check if the file is executable.
- */
+// Funciton to check the path from ft_getenv. The file at this path needs
+// to be checked to ensure its available and does not cause errors. I will
+// need to use F_OK | X_OK 
+// F_OK: This flag checks if the file exists.
+// X_OK: This flag checks if the file is executable by the current process.
 char	*get_cmdpath(char *cmd, char **env)
 {
 	int		i;
@@ -117,18 +77,3 @@ char	*get_cmdpath(char *cmd, char **env)
 	dp_free(&paths);
 	return (exec);
 }
-/*
-int main(int arc, char **arv, char **env)
-{
-	char cmd[10];
-	char *path;
-
-	printf("%d\n", arc);
-	printf("%s\n", arv[0]);
-
-	printf("which cmd are you looking for?\n");
-	scanf("%s", cmd);
-	path = get_cmdpath(cmd, env);
-	printf("%s\n", path);
-}
-*/

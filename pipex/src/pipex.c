@@ -6,26 +6,12 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/23 10:21:44 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:48:10 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
- ** --I am the child--
- ** Process ID: 58025
- ** Parent ID: 58024
- ** fid: 0
- **
- ** --Parent Waited for child--
- ** Process ID: 58024
- ** Parent ID: 57222
- ** fid: 58025
- */
-
 #include "pipex.h"
 #include <stdio.h>
-
-
 
 // openupV
 // int openup(char *file, 
@@ -33,16 +19,32 @@
 // int open(const char *path, int oflag, ...);
 // if the file does not exist, it should create it using open() with the
 // right oflags if the file has an error opening it should handle this. 
-int openup(char *filename, int read_write)
+/*
+ ** mode: The access mode to check, which can be one or more of the
+ **        following flags combined with a bitwise OR (|):
+ **
+ **
+ **   F_OK: Check if the file exists.
+ **   R_OK: Check if the file is readable.
+ **   W_OK: Check if the file is writable.
+ **   X_OK: Check if the file is executable.
+ */
+int	openup(char *filename, int read_write)
 {
 	int		ret;
+	char	*err_mes;
 
-	if(read_write == 0)
+	if (read_write == 0)
 		ret = open(filename, O_RDONLY, 0777);
-	if(read_write == 1)
+	if (read_write == 1)
 		ret = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0777);
 	if (ret == -1)
+	{
+		err_mes = ft_strjoin("Error opening file: ", filename);
+		perror(err_mes);
+		null_free(&err_mes);
 		exit(-1);
+	}
 	return (ret);
 }
 
@@ -52,17 +54,18 @@ int openup(char *filename, int read_write)
 // execve(path, arv, env). If the execute errors out I should send the error
 // to stderror and Free all of the memory used.  
 // int execve(const char *path, char *const argv[], char *const envp[]);
-void cmd_exe(char *cmdarv, char **env)
+void	cmd_exe(char *cmdarv, char **env)
 {
-	char *cmd_pth;
-	char **cmd;
+	char	*cmd_pth;
+	char	**cmd;
 
 	cmd = ft_split(cmdarv, ' ');
 	cmd_pth = get_cmdpath(*cmd, env);
 	if (execve(cmd_pth, cmd, env) == -1)
 	{
-		ft_putstr_fd("hello", 2);
-		dp_free(cmd);
+		perror(*cmd);
+		dp_free(&cmd);
+		null_free(&cmd_pth);
 	}
 }
 
@@ -72,11 +75,10 @@ void cmd_exe(char *cmdarv, char **env)
 // file. if the file does not exist, it should be created. Apply this to
 // a fd. Take the new fd and link it to the stdin. link the write end of
 // the pipe to the stdout
-void child(char **arv, int *pfd, char **env)
+void	child(char **arv, int *pfd, char **env)
 {
 	int		fid;
 
-	ft_putendl_fd("Child Process Running", 1);
 	fid = openup(arv[1], 0);
 	dup2(fid, 0);
 	dup2(pfd[1], 1);
@@ -89,12 +91,10 @@ void child(char **arv, int *pfd, char **env)
 // argument of arv[3] open this file. If it does not exist it should
 // be created. using the open function. Take the new fd and link it to
 // the stdout
-void parent(char **arv, int *pfd, char **env)
+void	parent(char **arv, int *pfd, char **env)
 {
 	int		fid;
 
-	ft_putendl_fd("Parent Process Running", 1);
-	fid = openup(arv[1], 0);
 	fid = openup(arv[4], 1);
 	dup2(fid, 1);
 	dup2(pfd[0], 0);
@@ -102,55 +102,40 @@ void parent(char **arv, int *pfd, char **env)
 	cmd_exe(arv[3], env);
 }
 
-//main function should
-//create a pipe and apply its ids to an int array. 
-//create a child and a parent process using fork
-//check for failures or -1 returns for both fork and pipe
-//if its child, run child process
-//if parent run the parent after child.
-//pfd[1] = write
-//pfd[0] = read
-int main(int arc, char **arv, char **env)
+// main function should
+// create a pipe and apply its ids to an int array. 
+// create a child and a parent process using fork
+// check for failures or -1 returns for both fork and pipe
+// if its child, run child process
+// if parent run the parent function. Parent PROCESS will
+// always run first.
+// pfd[1] = write
+// pfd[0] = read
+/*
+ ** --I am the child--
+ ** Process ID: 58025
+ ** Parent ID: 58024
+ ** fid: 0
+ **
+ ** --Parent Waited for child--
+ ** Process ID: 58024
+ ** Parent ID: 57222
+ ** fid: 58025
+ */
+int	main(int arc, char **arv, char **env)
 {
 	int		pfd[2];
-	pid_t fid; 
+	pid_t	fid;
 
-	if (arc < 5)
-		ft_putendl_fd("Not Enough Args", 2);
-	else
-	{
-		if(pipe(pfd) == -1)
-			exit(-1);
-		fid = fork();
-		if (fid == -1)
-			exit(-1);
-		if (fid == 0)
-			child(arv, pfd, env);
-		waitpid(fid, NULL, 0);
-		parent(arv, pfd, env);
-	}
+	if (arc != 5)
+		ft_exit(5);
+	if (pipe(pfd) == -1)
+		exit(-1);
+	fid = fork();
+	if (fid == -1)
+		exit(-1);
+	if (fid == 0)
+		child(arv, pfd, env);
+	waitpid(fid, NULL, 0);
+	parent(arv, pfd, env);
 }
-
-/*
- ** SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.7jfxMsFT5n/Listeners
- ** LC_TERMINAL_VERSION=3.4.4
- ** COLORFGBG=7;0
- ** ITERM_PROFILE=Default
- ** XPC_FLAGS=0x0
- ** LANG=en_US.UTF-8
- ** PWD=/Users/mtripodi/desktop/42home/pipex/src
- ** SHELL=/bin/zsh
- ** SECURITYSESSIONID=18805
- ** TERM_PROGRAM_VERSION=3.4.4
- ** TERM_PROGRAM=iTerm.app
- ** PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
- ** :/Library/Frameworks/Mono.framework/Versions/Current/Commands
- ** LC_TERMINAL=iTerm2
- ** COLORTERM=truecolor
- ** COMMAND_MODE=unix2003
- ** TERM=xterm-256color
- ** HOME=/Users/mtripodi
- ** TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n000cgv80033yt/T/
- ** USER=mtripodi
- ** XPC_SERVICE_NAME=0
- */
