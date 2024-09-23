@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/23 10:16:18 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:21:44 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void cmd_exe(char *cmdarv, char **env)
 	if (execve(cmd_pth, cmd, env) == -1)
 	{
 		ft_putstr_fd("hello", 2);
+		dp_free(cmd);
 	}
 }
 
