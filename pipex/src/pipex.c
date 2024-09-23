@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/21 11:06:31 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:16:18 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,43 @@
 
 
 
+// openupV
+// int openup(char *file, 
+// if the file exists, it should open it using 
+// int open(const char *path, int oflag, ...);
+// if the file does not exist, it should create it using open() with the
+// right oflags if the file has an error opening it should handle this. 
+int openup(char *filename, int read_write)
+{
+	int		ret;
+
+	if(read_write == 0)
+		ret = open(filename, O_RDONLY, 0777);
+	if(read_write == 1)
+		ret = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0777);
+	if (ret == -1)
+		exit(-1);
+	return (ret);
+}
+
 // Execute function
 // first this needs to get the path of the cmd used looking inside of the env
 // this function should execute the cmd used in arv[1] using
 // execve(path, arv, env). If the execute errors out I should send the error
 // to stderror and Free all of the memory used.  
 // int execve(const char *path, char *const argv[], char *const envp[]);
-void exe_cmd(char *cmdarv, char **env)
+void cmd_exe(char *cmdarv, char **env)
 {
 	char *cmd_pth;
-	char *cmd
-	
+	char **cmd;
+
 	cmd = ft_split(cmdarv, ' ');
-	cmd_pth = get_cmdpath(cmd, env);
+	cmd_pth = get_cmdpath(*cmd, env);
 	if (execve(cmd_pth, cmd, env) == -1)
 	{
 		ft_putstr_fd("hello", 2);
 	}
-
-
 }
-
 
 // CHILD a function for when the child process is called. The child process
 // will have an fid of 0.
@@ -55,50 +71,34 @@ void exe_cmd(char *cmdarv, char **env)
 // file. if the file does not exist, it should be created. Apply this to
 // a fd. Take the new fd and link it to the stdin. link the write end of
 // the pipe to the stdout
-
 void child(char **arv, int *pfd, char **env)
 {
 	int		fid;
 
+	ft_putendl_fd("Child Process Running", 1);
 	fid = openup(arv[1], 0);
 	dup2(fid, 0);
 	dup2(pfd[1], 1);
 	close(pfd[0]);
 	cmd_exe(arv[2], env);
-
-
 }
 
-//PARENT a funciton for when the parent process is called. The parent process will have a fid
-//greater than 0
-//it will take in the second argument of arv[3] open this file. If it does not exist it should
-//be created. using the open function. 
-//take the new fd and link it to the stdout
-
+// PARENT a funciton for when the parent process is called. The parent
+// process will have a fid greater than 0. It will take in the second 
+// argument of arv[3] open this file. If it does not exist it should
+// be created. using the open function. Take the new fd and link it to
+// the stdout
 void parent(char **arv, int *pfd, char **env)
 {
 	int		fid;
 
-	fid = openup(arv[5], 1);
-}
-
-
-//openup
-//int openup(char *file, 
-//if the file exists, it should open it using  int open(const char *path, int oflag, ...);
-//if the file does not exist, it should create it using open() with the right oflags
-//if the file has an error opening it should handle this. 
-int openup(char *filename, int read_write)
-{
-	int		ret;
-
-	if(read_write == 0)
-		ret = open(filename, 0_RDONLY, 0777);
-	if(read_write == 1)
-		ret = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0777);
-	if (ret == -1)
-		exit(-1);
-	return (ret);
+	ft_putendl_fd("Parent Process Running", 1);
+	fid = openup(arv[1], 0);
+	fid = openup(arv[4], 1);
+	dup2(fid, 1);
+	dup2(pfd[0], 0);
+	close(pfd[1]);
+	cmd_exe(arv[3], env);
 }
 
 //main function should
@@ -107,23 +107,27 @@ int openup(char *filename, int read_write)
 //check for failures or -1 returns for both fork and pipe
 //if its child, run child process
 //if parent run the parent after child.
-	//pfd[1] = write
-	//pfd[0] = read
+//pfd[1] = write
+//pfd[0] = read
 int main(int arc, char **arv, char **env)
 {
 	int		pfd[2];
 	pid_t fid; 
-	
-	//if (arc < 5)
 
-	if(pipe(pfd) == -1)
-		exit(-1);
-	fid = fork();
-	if (fid == -1)
-		exit(-1);
-	if (fid == 0)
-		child(arv, pfd, env);
-	parent(arv, pfd, env);
+	if (arc < 5)
+		ft_putendl_fd("Not Enough Args", 2);
+	else
+	{
+		if(pipe(pfd) == -1)
+			exit(-1);
+		fid = fork();
+		if (fid == -1)
+			exit(-1);
+		if (fid == 0)
+			child(arv, pfd, env);
+		waitpid(fid, NULL, 0);
+		parent(arv, pfd, env);
+	}
 }
 
 /*
@@ -149,4 +153,3 @@ int main(int arc, char **arv, char **env)
  ** USER=mtripodi
  ** XPC_SERVICE_NAME=0
  */
-

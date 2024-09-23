@@ -3,7 +3,7 @@ NAME = pipex
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 # assignment statements-Source funcitons (string list creators is really 
 # what these are)-------------- eg $(wildcard pattern)
@@ -18,15 +18,11 @@ BONUS_SRC =
 # 1 
 all: $(NAME)
 
-# 2 
-$(NAME): $(SRC)
-	CC
-
-#4 NAME rule
+#2 NAME rule
 $(NAME): $(SRC) libft
-	CC CFLAGS -o $@ $(SRC) -Llibft -lft
+	$(CC) $(CFLAGS) -o $@ $(SRC) -Llibft -lft
 
-#5 creating the libft library. 
+#3 creating the libft library. 
 libft:
 	$(MAKE) -C libft
 
