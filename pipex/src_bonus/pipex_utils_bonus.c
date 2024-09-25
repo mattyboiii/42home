@@ -6,11 +6,11 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:27 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/25 15:26:57 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:48:16 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bouns.h"
+#include "pipex_bonus.h"
 
 // openupV
 // int openup(char *file, 
@@ -37,7 +37,9 @@ int	openup(char *filename, int read_write)
 	if (read_write == 0)
 		ret = open(filename, O_RDONLY, 0777);
 	if (read_write == 1)
-		ret = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0777);
+		ret = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (read_write == 2)
+		ret = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (ret == -1)
 	{
 		err_mes = ft_strjoin("Error opening file: ", filename);
@@ -55,6 +57,12 @@ void	ft_exit(int n)
 		ft_putendl_fd("Incorrect number of arguments", 2);
 		ft_putendl_fd("./pipex file1 cmd cmd file2", 2);
 		exit(5);
+	}
+	if (n == 6)
+	{
+		ft_putendl_fd("Incorrect number of arguments", 2);
+		ft_putendl_fd("./pipex here_doc LIMITER cmd cmd1 file", 2);
+		exit(6);
 	}
 }
 

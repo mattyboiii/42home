@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:01:31 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/03/26 16:37:08 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:18:53 by matthew          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
 // Personal small Functions
+int	ft_strcmp(const char *s1, const char *s2);
 void	null_free(char **ptr);
-void    dp_free(char ***dp);
-char    **dp_strcat(char **paths, char *str);
+void	dp_free(char ***dp);
+char	**dp_strcat(char **paths, char *str);
 size_t	ischar(char *str, size_t start, char c);
 char	*ft_strstr(const char *haystack, const char *needle);
 

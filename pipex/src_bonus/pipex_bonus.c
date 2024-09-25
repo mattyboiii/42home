@@ -6,46 +6,11 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/25 15:24:46 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:53:46 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bouns.h"
-
-// openupV
-// int openup(char *file, 
-// if the file exists, it should open it using 
-// int open(const char *path, int oflag, ...);
-// if the file does not exist, it should create it using open() with the
-// right oflags if the file has an error opening it should handle this. 
-/*
- ** mode: The access mode to check, which can be one or more of the
- **        following flags combined with a bitwise OR (|):
- **
- **
- **   F_OK: Check if the file exists.
- **   R_OK: Check if the file is readable.
- **   W_OK: Check if the file is writable.
- **   X_OK: Check if the file is executable.
- */
-int	openup(char *filename, int read_write)
-{
-	int		ret;
-	char	*err_mes;
-
-	if (read_write == 0)
-		ret = open(filename, O_RDONLY, 0777);
-	if (read_write == 1)
-		ret = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0777);
-	if (ret == -1)
-	{
-		err_mes = ft_strjoin("Error opening file: ", filename);
-		perror(err_mes);
-		null_free(&err_mes);
-		exit(-1);
-	}
-	return (ret);
-}
+#include "pipex_bonus.h"
 
 // Execute function
 // first this needs to get the path of the cmd used looking inside of the env
@@ -67,6 +32,44 @@ void	cmd_exe(char *cmdarv, char **env)
 		null_free(&cmd_pth);
 	}
 }
+
+void make_heredoc(char **arv, int *pfd)
+{
+	char *str;
+
+	close(pfd[0]);
+	while (1)
+	{
+		str = get_next_line(0);
+		if (ft_strcmp(str, arv[2]) == 0)
+		{
+			null_free(&str);
+			exit(0);
+		}
+		ft_putstr_fd(str, pfd[1]);
+		free(str);
+	}
+}
+
+void here_doc(char **arv)
+{
+	int	pfd[2];
+	int	fid;
+
+	if (pipe(pfd) == 0)
+		exit(-2);
+	fid = fork();
+	if (fid == 0)
+		make_heredoc(arv, pfd);
+	else
+	{
+		close(pfd[1]);
+		wait(NULL);
+		dup2(pfd[0], 0);
+	}
+	
+}
+
 /*
  ** By default, a child process inherits its standard input from the parent
  ** process. This means that if the parent process has redirected standard
@@ -74,25 +77,24 @@ void	cmd_exe(char *cmdarv, char **env)
  ** will also be reading from that source unless it explicitly redirects its
  ** own standard input.
  */
-void	piping_hot(char *cmd, char **arv)
+void	piping_hot(char *cmd, char **env)
 {
 	int	pfd[2];
-	pid_t	fid;
+	p_id	fid;
 
-	if(pipe(pfd) == -1)
+	if (pipe(pfd) == -1)
 		exit(-1);
 	fid = fork();
 	if (fid == 0)
 	{
-		close(pfd[0])
-			dup2(pfd[1], 1);
+		close(pfd[0]);
+		dup2(pfd[1], 1);
 		cmd_exe(cmd, env);
 	}
 	else
 	{
-		wait();
-		close(pfd[1])
-			dup2(pfd[0], 0);
+		close(1);
+		dup2(pfd[0], 0);
 	}
 }
 
@@ -117,20 +119,23 @@ int	main(int arc, char **arv, char **env)
 
 	if (arc < 5)
 		ft_exit(5);
-
 	if (ft_strcmp(arv[1], "here_doc") == 0)
 	{
+		if (arc < 6)
+			ft_exit(6);
 		i = 3;
+		outfile = openup(arv[arc - 1], 2);
+		here_doc(arv);
 	}
 	else
 	{
 		i = 2;
 		infile = openup(arv[1], 0);
-		outfile = openup(arv[arc -1], 1);
+		outfile = openup(arv[arc - 1], 1);
 		dup2(infile, 0);
 	}
 	while (i < arc - 2)
-		piping_hot(av[i++], env);
+		piping_hot(arv[i++], env);
 	dup2(outfile, 1);
-	cmd_exe(arv[arc -2], env);
+	cmd_exe(arv[arc - 2], env);
 }

@@ -9,44 +9,36 @@ CFLAGS = -Wall -Wextra -Werror -g
 # what these are)-------------- eg $(wildcard pattern)
 
 SRC = src/pipex.c \
-      src/pipex_utils.c \
-      libft/libft.a
+	src/pipex_utils.c \
+	libft/libft.a
 
-BONUS_SRC = 		
+BONUS_SRC = src_bonus/pipex_bonus.c \
+	    src_bonus/pipex_utils_bonus.c \
+	    libft/libft.a
 
 # Rules
 # 1 
 all: $(NAME)
 
 #2 NAME rule
-$(NAME): $(SRC) libft
+$(NAME): libft $(SRC)
 	$(CC) $(CFLAGS) -o $@ $(SRC) -Llibft -lft
 
 #3 creating the libft library. 
 libft:
 	$(MAKE) -C libft
 
-.PHONY: all bonus
-#bonus: $(BONUS_OBJ)
-#	@ar rcs $(NAME) $(BONUS_OBJ)
+# 4 Bonus
+bonus: libft
+	$(CC) $(CFLAGS) -o $(NAME) $(BONUS_SRC) -Llibft -lft
 
-# 3 pattern rule creating/compiling the object files. 
-#%.o: %.c
-#	$(CC) $(CFLAGS) -o $@ -c $<
+# 5 remove the object files
+clean:
+	@rm $(NAME)
+	@echo "all files removed!!"
 
-# 4 remove the object files
-#clean:
-#	@rm -rf $(OBJ)
-#	@rm -rf $(BONUS_OBJ)
-#	@echo "obj directory and all files removed!!"
+re: clean all
 
-# 5 removing the object files and default target
-#fclean: clean
-#	@rm -f $(NAME)
-#	@echo "fclean has completed!!"
+rebonus: clean bonus
 
-# 6 rebuild refresh
-#re: fclean all
-
-# 7 rebuild refresh bonus
-#rebonus: fclean bonus
+.PHONY: all bonus clean re rebonus
