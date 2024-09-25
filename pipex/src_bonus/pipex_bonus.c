@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/23 12:48:10 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:24:46 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bouns.h"
 
 // openupV
 // int openup(char *file, 
@@ -67,47 +67,35 @@ void	cmd_exe(char *cmdarv, char **env)
 		null_free(&cmd_pth);
 	}
 }
-
-// CHILD a function for when the child process is called. The child process
-// will have an fid of 0.
-// It will need to take in the first set of arguments arv[1] then open the
-// file. if the file does not exist, it should be created. Apply this to
-// a fd. Take the new fd and link it to the stdin. link the write end of
-// the pipe to the stdout
-void	child(char **arv, int *pfd, char **env)
+/*
+ ** By default, a child process inherits its standard input from the parent
+ ** process. This means that if the parent process has redirected standard
+ ** input to a specific source (like a file or another pipe), the child process
+ ** will also be reading from that source unless it explicitly redirects its
+ ** own standard input.
+ */
+void	piping_hot(char *cmd, char **arv)
 {
-	int		fid;
+	int	pfd[2];
+	pid_t	fid;
 
-	fid = openup(arv[1], 0);
-	dup2(fid, 0);
-	dup2(pfd[1], 1);
-	close(pfd[0]);
-	cmd_exe(arv[2], env);
+	if(pipe(pfd) == -1)
+		exit(-1);
+	fid = fork();
+	if (fid == 0)
+	{
+		close(pfd[0])
+			dup2(pfd[1], 1);
+		cmd_exe(cmd, env);
+	}
+	else
+	{
+		wait();
+		close(pfd[1])
+			dup2(pfd[0], 0);
+	}
 }
 
-// PARENT a funciton for when the parent process is called. The parent
-// process will have a fid greater than 0. It will take in the second 
-// argument of arv[3] open this file. If it does not exist it should
-// be created. using the open function. Take the new fd and link it to
-// the stdout
-void	parent(char **arv, int *pfd, char **env)
-{
-	int		fid;
-
-	fid = openup(arv[4], 1);
-	dup2(fid, 1);
-	dup2(pfd[0], 0);
-	close(pfd[1]);
-	cmd_exe(arv[3], env);
-}
-
-// main function should
-// create a pipe and apply its ids to an int array. 
-// create a child and a parent process using fork
-// check for failures or -1 returns for both fork and pipe
-// if its child, run child process
-// if parent run the parent function. Parent PROCESS will
-// always run first.
 // pfd[1] = write
 // pfd[0] = read
 /*
@@ -123,18 +111,26 @@ void	parent(char **arv, int *pfd, char **env)
  */
 int	main(int arc, char **arv, char **env)
 {
-	int		pfd[2];
-	pid_t	pid;
+	int i;
+	int infile;
+	int outfile;
 
-	if (arc != 5)
+	if (arc < 5)
 		ft_exit(5);
-	if (pipe(pfd) == -1)
-		exit(-1);
-	pid = fork();
-	if (pid == -1)
-		exit(-1);
-	if (pid == 0)
-		child(arv, pfd, env);
-	waitpid(pid, NULL, 0);
-	parent(arv, pfd, env);
+
+	if (ft_strcmp(arv[1], "here_doc") == 0)
+	{
+		i = 3;
+	}
+	else
+	{
+		i = 2;
+		infile = openup(arv[1], 0);
+		outfile = openup(arv[arc -1], 1);
+		dup2(infile, 0);
+	}
+	while (i < arc - 2)
+		piping_hot(av[i++], env);
+	dup2(outfile, 1);
+	cmd_exe(arv[arc -2], env);
 }

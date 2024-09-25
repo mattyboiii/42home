@@ -1,16 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:27 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/23 12:40:19 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:26:57 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bouns.h"
+
+// openupV
+// int openup(char *file, 
+// if the file exists, it should open it using 
+// int open(const char *path, int oflag, ...);
+// if the file does not exist, it should create it using open() with the
+// right oflags if the file has an error opening it should handle this. 
+/*
+ ** mode: The access mode to check, which can be one or more of the
+ **        following flags combined with a bitwise OR (|):
+ **
+ **
+ **   F_OK: Check if the file exists.
+ **   R_OK: Check if the file is readable.
+ **   W_OK: Check if the file is writable.
+ **   X_OK: Check if the file is executable.
+ */
+
+int	openup(char *filename, int read_write)
+{
+	int		ret;
+	char	*err_mes;
+
+	if (read_write == 0)
+		ret = open(filename, O_RDONLY, 0777);
+	if (read_write == 1)
+		ret = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0777);
+	if (ret == -1)
+	{
+		err_mes = ft_strjoin("Error opening file: ", filename);
+		perror(err_mes);
+		null_free(&err_mes);
+		exit(-1);
+	}
+	return (ret);
+}
 
 void	ft_exit(int n)
 {
