@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/26 10:52:23 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:48:53 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void make_heredoc(char **arv, int *pfd)
 	while (1)
 	{
 		str = get_next_line(0);
-		if (ft_strcmp(str, arv[2]) == 0)
+		if (ft_strncmp(str, arv[2], ft_strlen(arv[2]) - 1) == 0)
 		{
 			null_free(&str);
 			exit(0);
@@ -56,7 +56,7 @@ void here_doc(char **arv)
 	int	pfd[2];
 	int	fid;
 
-	if (pipe(pfd) == 0)
+	if (pipe(pfd) == -1)
 		exit(-2);
 	fid = fork();
 	if (fid == 0)
@@ -64,10 +64,9 @@ void here_doc(char **arv)
 	else
 	{
 		close(pfd[1]);
-		wait(NULL);
 		dup2(pfd[0], 0);
+		wait(NULL);
 	}
-	
 }
 
 /*
@@ -121,6 +120,16 @@ int	main(int arc, char **arv, char **env)
 	{
 		if (arc < 6)
 			ft_exit(6);
+		/*
+		if (ft_strcmp(arv[1], "infile") == 0)
+		{
+			i = 3;
+			infile = openup(arv[1], 0);
+			dup2(infile, 0);
+			outfile = openup(arv[arc - 2], 2);
+			here_doc(arv);
+		}
+		*/
 		i = 3;
 		outfile = openup(arv[arc - 1], 2);
 		here_doc(arv);

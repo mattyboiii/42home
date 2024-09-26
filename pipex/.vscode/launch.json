@@ -5,16 +5,23 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(lldb) Launch",
+            "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/Users/mtripodi/desktop/42home/pipex/pipex",
+            "program": "${workspaceFolder}/pipex",
             "args": ["infile", "STOP", "sort", "uniq -c", "sort -r", "mcount"],
             "stopAtEntry": true,
-            "cwd": "/Users/mtripodi/desktop/42home/pipex",
+            "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": true,
-            "MIMode": "lldb",
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printfing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
         }
     ]
 }
