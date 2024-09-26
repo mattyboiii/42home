@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/25 18:53:46 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/26 10:52:23 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void here_doc(char **arv)
 void	piping_hot(char *cmd, char **env)
 {
 	int	pfd[2];
-	p_id	fid;
+	pid_t	fid;
 
 	if (pipe(pfd) == -1)
 		exit(-1);
@@ -93,13 +93,11 @@ void	piping_hot(char *cmd, char **env)
 	}
 	else
 	{
-		close(1);
+		close(pfd[1]);
 		dup2(pfd[0], 0);
 	}
 }
 
-// pfd[1] = write
-// pfd[0] = read
 /*
  ** --I am the child--
  ** Process ID: 58025
