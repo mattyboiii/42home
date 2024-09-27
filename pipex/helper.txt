@@ -1,20 +1,17 @@
-{
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "(lldb) Launch",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "/Users/mtripodi/desktop/42home/pipex/pipex",
-            "args": ["infile", "STOP", "sort", "uniq -c", "sort -r", "mcount"],
-            "stopAtEntry": true,
-            "cwd": "/Users/mtripodi/desktop/42home/pipex",
-            "environment": [],
-            "externalConsole": true,
-            "MIMode": "lldb",
-        }
-    ]
-}
+To test out "here_doc"
+1- make clean
+2- make bonus
+3- ./pipex "here_doc" STOP sort "uniq -c" "sort -r" file4
+./pipex "here_doc" LIMITER cmd cmd cmd... cmd file2
+
+To test out bonus not here doc. 
+1- make clean
+2- make a file with text or letters or somthing in it (file1)
+3- ./pipex file1 sort "uniq -c" "sort -r" file2
+./pipex file1 cmd cmd cmd... cmd file2
+
+To test out regular project. 
+1- make clean
+2- make
+3- ./pipex file1 cmd cmd file2
+
