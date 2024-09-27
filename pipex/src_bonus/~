@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/27 10:32:06 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:48:53 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	cmd_exe(char *cmdarv, char **env)
 	}
 }
 
-void	make_heredoc(char **arv, int *pfd)
+void make_heredoc(char **arv, int *pfd)
 {
-	char	*str;
+	char *str;
 
 	close(pfd[0]);
 	while (1)
@@ -51,7 +51,7 @@ void	make_heredoc(char **arv, int *pfd)
 	}
 }
 
-void	here_doc(char **arv)
+void here_doc(char **arv)
 {
 	int	pfd[2];
 	int	fid;
@@ -78,7 +78,7 @@ void	here_doc(char **arv)
  */
 void	piping_hot(char *cmd, char **env)
 {
-	int		pfd[2];
+	int	pfd[2];
 	pid_t	fid;
 
 	if (pipe(pfd) == -1)
@@ -110,9 +110,9 @@ void	piping_hot(char *cmd, char **env)
  */
 int	main(int arc, char **arv, char **env)
 {
-	int		i;
-	int		infile;
-	int		outfile;
+	int i;
+	int infile;
+	int outfile;
 
 	if (arc < 5)
 		ft_exit(5);
@@ -120,6 +120,16 @@ int	main(int arc, char **arv, char **env)
 	{
 		if (arc < 6)
 			ft_exit(6);
+		/*
+		if (ft_strcmp(arv[1], "infile") == 0)
+		{
+			i = 3;
+			infile = openup(arv[1], 0);
+			dup2(infile, 0);
+			outfile = openup(arv[arc - 2], 2);
+			here_doc(arv);
+		}
+		*/
 		i = 3;
 		outfile = openup(arv[arc - 1], 2);
 		here_doc(arv);
