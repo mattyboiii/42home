@@ -10,7 +10,9 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 SRC = src/push_swap.c \
 	src/push_swap.c \
-	libft/libft.a
+	src/utils/ft_lstfunk.c \
+	src/utils/ft_stackfunk.C \
+	ps_libft/libft.a
 
 # Rules
 # 1 
@@ -18,7 +20,7 @@ all: $(NAME)
 
 #2 NAME rule
 $(NAME): libft $(SRC)
-	$(CC) $(CFLAGS) -o $@ $(SRC) -Llibft -lft
+	$(CC) $(CFLAGS) -o $@ $(SRC) -Lps_libft -lft
 
 #3 creating the libft library. 
 libft:

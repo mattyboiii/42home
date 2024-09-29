@@ -12,9 +12,16 @@
 
 #include "../push_swap.h"
 
-m_node	*ft_lstnew(int num, int pos)
+s_node *ft_lstlast(s_node *lst)
 {
-	s_node	*node;
+	while (lst && lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}
+
+s_node *ft_lstnew(int num, int pos)
+{
+	s_node *node;
 
 	node = malloc(sizeof(s_node));
 	if (node == NULL)
@@ -28,7 +35,8 @@ m_node	*ft_lstnew(int num, int pos)
 
 void ft_lstadd_front(s_node **lst, s_node *new)
 {
-	if (*lst != NULL) {
+	if (*lst != NULL)
+	{
 		(*lst)->prev = new;
 	}
 	new->next = *lst;
@@ -40,7 +48,8 @@ void ft_lstadd_back(s_node **lst, s_node *new)
 {
 	s_node *last;
 
-	if (*lst == NULL) {
+	if (*lst == NULL)
+	{
 		*lst = new;
 		new->prev = NULL;
 		new->next = NULL;
@@ -51,4 +60,17 @@ void ft_lstadd_back(s_node **lst, s_node *new)
 	last->next = new;
 	new->prev = last;
 	new->next = NULL;
+}
+
+int ft_lstsize(s_node *lst)
+{
+	int len;
+
+	len = 0;
+	while (lst)
+	{
+		len++;
+		lst = lst->next;
+	}
+	return (len);
 }
