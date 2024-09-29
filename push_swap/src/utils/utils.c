@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stackfunk.c                                     :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 12:15:49 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/29 12:16:15 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/09/29 14:31:05 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/09/29 14:31:08 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-s_node *fill_a(char **arv)
+void ft_exit(int n)
 {
-    s_node *lst;
-    s_node *node;
-    int i;
-
-    i = 0;
-    lst = NULL;
-    while (arv[i])
+    if (n == 3)
     {
-        node = ft_lstnew(ft_atoi(arv[i]), i);
-        if (node == NULL)
-            return (NULL);
-        ft_lstadd_back(&lst, node);
-        i++;
+        ft_putendl_fd("Incorrect number of arguments", 3);
+        exit(3);
     }
-    return (lst);
 }

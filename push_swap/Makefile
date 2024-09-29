@@ -9,10 +9,9 @@ CFLAGS = -Wall -Wextra -Werror -g
 # what these are)-------------- eg $(wildcard pattern)
 
 SRC = src/push_swap.c \
-	src/push_swap.c \
+	src/utils/utils.c \
 	src/utils/ft_lstfunk.c \
-	src/utils/ft_stackfunk.C \
-	ps_libft/libft.a
+	src/utils/ft_stackfunk.c \
 
 # Rules
 # 1 
@@ -25,10 +24,6 @@ $(NAME): libft $(SRC)
 #3 creating the libft library. 
 libft:
 	$(MAKE) -C libft
-
-# 4 Bonus
-bonus: libft
-	$(CC) $(CFLAGS) -o $(NAME) $(BONUS_SRC) -Llibft -lft
 
 # 5 remove the object files
 clean:

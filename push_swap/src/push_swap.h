@@ -14,20 +14,22 @@
 #define PUSH_SWAP_H
 #include <unistd.h> //dup, dup2, access
 #include <stdlib.h> //free, malloc
-#include "../libft/libft.h"
+#include "../ps_libft/libft.h"
 
 typedef struct s_stack_node
 {
 	int num;
 	int pos;
-	struct s_stack_node *next;
 	struct s_stack_node *prev;
+	struct s_stack_node *next;
 } s_node;
 
 // Functions in my utils dir
 // ---  --------------------
 void ft_exit(int n);
-s_node ft_lstnew(int num, int pos);
+
+s_node *fill_a(char **arv);
+s_node *ft_lstnew(int num, int pos);
 void ft_lstadd_front(s_node **lst, s_node *new);
 void ft_lstadd_back(s_node **lst, s_node *new);
 

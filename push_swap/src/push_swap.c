@@ -12,31 +12,15 @@
 
 #include "push_swap.h"
 
-/*
-int	*fill_a(int arc, char **arv)
-{
-	int		a*;
-	int		i;
-
-	a = malloc(sizeof(int) * (arc - 1));
-	i = 1;
-	while (arv[i])
-	{
-		a[i - 1] = ft_atoi(arv[i]);
-		i++;
-	}
-	return (a);
-}
-*/
-
 int main(int arc, char **arv)
 {
 	s_node *a;
 	// s_node *b;
 
-	if (arc == 1)
+	if (arc == 2)
 		arv = ft_split(arv[1], ' ');
 	else if (arc < 3)
 		ft_exit(3);
-	a = fill_a(arc, arv);
+	a = fill_a(arv);
+	ft_printf("first num %d", a->num);
 }
