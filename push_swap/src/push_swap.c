@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:56:54 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/27 14:14:31 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/29 12:31:37 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ int	*fill_a(int arc, char **arv)
 
 int	main(int arc, char **arv)
 {
-	node	*a;
-	node	*b;
+	s_node	*a;
+	s_node	*b;
 
-	if (arc < 3)
+	if (arc == 1)
+		arv = ft_split(arv[1], ' ');
+	else if (arc < 3)
 		ft_exit(3);
 	a = fill_a(arc, arv);
 	

@@ -1,22 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_utils.c                                       :+:      :+:    :+:   */
+/*   ft_stackfunk.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 10:57:30 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/27 10:57:45 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/09/29 12:15:49 by mtripodi          #+#    #+#             */
+/*   Updated: 2024/09/29 12:16:15 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-void	ft_exit(int n)
-{
-	if (n == 3)
-	{
-		ft_putendl_fd("Incorrect number of arguments", 2);
-		exit(3);
-	}
-}
+#include "../push_swap.h"

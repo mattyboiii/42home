@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:58:12 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/27 12:33:53 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/29 12:15:18 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include <stdlib.h> //free, malloc
 # include "../libft/libft.h"
 
-// Functions in my pipex_utils.c
-// ---  ------------------------
 void	ft_exit(int n);
 
 typedef struct s_stack_node
@@ -26,5 +24,12 @@ typedef struct s_stack_node
 	int	pos;
 	struct s_stack_node *next;
 	struct s_stack_node *prev;
-}		node;
+}		s_node;
+
+// Functions in my utils dir
+// ---  --------------------
+s_node  ft_lstnew(int num, int pos);
+void ft_lstadd_front(s_node **lst, s_node *new);
+
+
 #endif
