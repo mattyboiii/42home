@@ -1,18 +1,18 @@
 {
-    "configurations": [
-        {
-            "type": "lldb-dap",
-            "request": "launch",
-            "name": "Launch",
-            "program": "${workspaceRoot}/push_swap",
-            "args": [
-                "5",
-                "1",
-                "4",
-                "3",
-                "2"
-            ],
-            "cwd": "${workspaceRoot}"
-        }
-    ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Launch push_swap with LLDB",
+			"type": "lldb",
+			"request": "launch",
+			"program": "${workspaceFolder}/push_swap",
+			"args": [
+				"1",
+				"2",
+				"3"
+			],
+			"cwd": "${workspaceFolder}",
+			"preLaunchTask": "Make Rebuild"
+		}
+	]
 }

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:31:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/29 14:31:08 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:42:33 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void ft_exit(int n)
 {
-    if (n == 3)
-    {
-        ft_putendl_fd("Incorrect number of arguments", 3);
-        exit(3);
-    }
+	if (n == 3)
+	{
+		ft_putendl_fd("Incorrect number of arguments", 3);
+		exit(3);
+	}
 }
