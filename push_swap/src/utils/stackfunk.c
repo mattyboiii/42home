@@ -63,19 +63,17 @@ void	ra(t_node *node)
 	last->num = swap;
 }
 
-void	pa(t_node *a, t_node *b)
+void	pa(t_node **a, t_node **b)
 {
-	t_node	*ahead;
 	t_node	*bhead;
 
-	ahead = a;
-	bhead = b;
-	if (!b)
+	bhead = NULL;
+	if (!(*b))
 		return ;
-	ft_nodedel(b);
-	ft_lstadd_front(&ahead, bhead);
-	a = ahead;
-
+	bhead = ft_nodedel(*b);
+	*b = (*b)->next;
+	ft_lstadd_front(b, bhead);
+	ft_stackposupdate(*b);
 }
 
 void	pb(t_node **a, t_node **b)
