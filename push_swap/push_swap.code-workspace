@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../libftTemplate"
+		}
+	],
+	"settings": {
+		"C_Cpp.autocomplete": "disabled",
+		"makefile.makePath": "",
+		"indentRainbow.excludedLanguages": [
+			"plaintext"
+		],
+		"editor.insertSpaces": false,
+		"C_Cpp.vcFormat.indent.caseLabels": true,
+		"C_Cpp.vcFormat.indent.caseContentsWhenBlock": true,
+		"C_Cpp.vcFormat.indent.caseContents": false
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": []
+	}
+}

@@ -15,16 +15,20 @@
 int	main(int arc, char **arv)
 {
 	t_node	*a;
-	// t_node *b;
+	t_node	*b;
 
 	a = NULL;
+	b = NULL;
 	if (arc == 2)
 		arv = ft_split(arv[1], ' ');
 	else if (arc < 3)
 		ft_exit(3);
 	a = fill_a(arv);
 	// sa(a);
-	ra(a);
+	pb(&a, &b);
+	pb(&a, &b);
+	pb(&a, &b);
+	pb(&a, &b);
 	ft_printf("first num %d", a->num);
 }
 // the next thing you need to do is ad rra and rrb. This will probably need

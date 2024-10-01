@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstfunk.c                                       :+:      :+:    :+:   */
+/*   lstfunk.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 11:13:47 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/29 11:43:08 by mtripodi         ###   ########.fr       */
+/*   Created: 2024-09-30 12:48:25 by mtripodi          #+#    #+#             */
+/*   Updated: 2024-09-30 12:48:25 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,16 @@ t_node	*ft_lstnew(int num, int pos)
 
 void	ft_lstadd_front(t_node **lst, t_node *new)
 {
-	if (*lst != NULL)
-	{
-		(*lst)->prev = new;
-	}
-	new->next = *lst;
+	new->next = NULL;
 	new->prev = NULL;
-	*lst = new;
+	if (*lst == NULL)
+		*lst = new;
+	else
+	{
+		new->next = *lst;
+		(*lst)->prev = new;
+		*lst = new;
+	}
 }
 
 void	ft_lstadd_back(t_node **lst, t_node *new)

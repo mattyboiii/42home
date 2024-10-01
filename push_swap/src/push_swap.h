@@ -30,6 +30,11 @@ void	ft_exit(int n);
 
 void	sa(t_node *node);
 void	ra(t_node *node);
+void	pa(t_node *a, t_node *b);
+void	pb(t_node **a, t_node **b);
+
+t_node	*ft_nodedel(t_node *node);
+void	ft_stackposupdate(t_node *node);
 
 t_node	*fill_a(char **arv);
 t_node	*ft_lstlast(t_node *lst);

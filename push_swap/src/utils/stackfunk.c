@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stackfunk.c                                     :+:      :+:    :+:   */
+/*   stackfunk.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 12:15:49 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/30 16:40:59 by mtripodi         ###   ########.fr       */
+/*   Created: 2024-09-30 12:49:12 by mtripodi          #+#    #+#             */
+/*   Updated: 2024-09-30 12:49:12 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 
 t_node	*fill_a(char **arv)
 {
-	int		i;
-	t_node	*lst;
-	t_node	*node;
+	int			i;
+	int			j;
+	t_node		*lst;
+	t_node		*node;
 
 	i = 0;
+	j = 0;
 	lst = NULL;
-	while (arv[i])
+	while (arv[i] && arv[i + j])
 	{
 		if (arv[i][0] == '/')
 		{
-			i++;
-			node = ft_lstnew(ft_atoi(arv[i]), i - 1);
+			node = ft_lstnew(ft_atoi(arv[i + 1]), i);
+			j++;
 		}
 		else
-			node = ft_lstnew(ft_atoi(arv[i]), i - 1);
+			node = ft_lstnew(ft_atoi(arv[i + j]), i);
 		if (node == NULL)
 			return (NULL);
 		ft_lstadd_back(&lst, node);
@@ -59,4 +61,32 @@ void	ra(t_node *node)
 	swap = node->num;
 	node->num = last->num;
 	last->num = swap;
+}
+
+void	pa(t_node *a, t_node *b)
+{
+	t_node	*ahead;
+	t_node	*bhead;
+
+	ahead = a;
+	bhead = b;
+	if (!b)
+		return ;
+	ft_nodedel(b);
+	ft_lstadd_front(&ahead, bhead);
+	a = ahead;
+
+}
+
+void	pb(t_node **a, t_node **b)
+{
+	t_node	*ahead;
+
+	ahead = NULL;
+	if (!(*a))
+		return ;
+	ahead = ft_nodedel(*a);
+	*a = (*a)->next;
+	ft_lstadd_front(b, ahead);
+	ft_stackposupdate(*b);
 }
