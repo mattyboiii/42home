@@ -12,7 +12,8 @@ SRC = src/push_swap.c \
 	src/utils/utils.c \
 	src/utils/lstfunk.c \
 	src/utils/lstfunk2.c \
-	src/utils/stackfunk.c
+	src/utils/stackfunk.c \
+	src/utils/stackfunk2.c
 
 # Rules
 # 1

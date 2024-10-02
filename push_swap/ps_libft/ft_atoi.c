@@ -51,10 +51,10 @@ static int	ft_ctod(const char num)
 	return ((int)num - '0');
 }
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int	res;
-	int	sign;
+	int		sign;
+	long	res;
 
 	sign = 1;
 	res = 0;
@@ -71,10 +71,7 @@ int	ft_atoi(const char *str)
 		while (!ft_isdigit(*str))
 			str++;
 	else
-	{
-		res = 0;
 		while (ft_isdigit(*str))
 			res = res * 10 + (ft_ctod(*str++));
-	}
 	return (res *= sign);
 }

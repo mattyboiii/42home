@@ -23,11 +23,19 @@ int	main(int arc, char **arv)
 		arv = ft_split(arv[1], ' ');
 	else if (arc < 3)
 		ft_exit(3);
+	error_check_arv(arv);
 	a = fill_a(arv);
-	// sa(a);
 	pb(&a, &b);
 	pb(&a, &b);
+	r(a);
+	rrs(a);
 	pb(&a, &b);
+	rr(a, b);
+	rrr(a, b);
+	pa(&a, &b);
+	pa(&a, &b);
+	pb(&a, &b);
+	pa(&a, &b);
 	pb(&a, &b);
 	ft_printf("first num %d", a->num);
 }

@@ -18,8 +18,8 @@
 
 typedef struct s_stack_node
 {
-	int					num;
-	int					pos;
+	long				num;
+	long				pos;
 	struct s_stack_node	*prev;
 	struct s_stack_node	*next;
 }	t_node;
@@ -27,11 +27,17 @@ typedef struct s_stack_node
 // Functions in my utils dir
 // ---  --------------------
 void	ft_exit(int n);
+void	error_check_arv(char **arv);
 
-void	sa(t_node *node);
-void	ra(t_node *node);
+void	s(t_node *node);
+void	r(t_node *node);
 void	pa(t_node **a, t_node **b);
 void	pb(t_node **a, t_node **b);
+
+void	ss(t_node *a, t_node *b);
+void	rr(t_node *a, t_node *b);
+void	rrs(t_node *node);
+void	rrr(t_node *a, t_node *b);
 
 t_node	*ft_nodedel(t_node *node);
 void	ft_stackposupdate(t_node *node);

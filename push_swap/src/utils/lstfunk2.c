@@ -12,6 +12,33 @@
 
 #include "../push_swap.h"
 
+t_node	*fill_a(char **arv)
+{
+	int			i;
+	int			j;
+	t_node		*lst;
+	t_node		*node;
+
+	i = 0;
+	j = 0;
+	lst = NULL;
+	while (arv[i] && arv[i + j])
+	{
+		if (arv[i][0] == '/')
+		{
+			node = ft_lstnew(ft_atoi(arv[i + 1]), i);
+			j++;
+		}
+		else
+			node = ft_lstnew(ft_atoi(arv[i + j]), i);
+		if (node == NULL)
+			return (NULL);
+		ft_lstadd_back(&lst, node);
+		i++;
+	}
+	return (lst);
+}
+
 void	ft_stackposupdate(t_node *node)
 {
 	int		i;
@@ -29,6 +56,11 @@ void	ft_stackposupdate(t_node *node)
 		node = node->next;
 	}
 }
+/*
+nodedel returns the deleted node.
+the list is updated to simpy forget the node variable ever existed.
+it does not actually do any deleting/freeing of memory.
+*/
 
 t_node	*ft_nodedel(t_node *node)
 {

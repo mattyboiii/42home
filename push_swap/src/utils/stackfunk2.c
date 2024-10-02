@@ -12,23 +12,24 @@
 
 #include "../push_swap.h"
 
-void	s(t_node *node)
+void	ss(t_node *a, t_node *b)
 {
-	int		swap;
-
-	if (node == NULL || node->next == NULL)
-		return ;
-	swap = node->num;
-	node->num = node->next->num;
-	node->next->num = swap;
+	s(a);
+	s(b);
 }
 
-void	r(t_node *node)
+void	rr(t_node *a, t_node *b)
+{
+	r(a);
+	r(b);
+}
+
+void	rrs(t_node *node)
 {
 	int		swap;
 	t_node	*last;
 
-	if (node == NULL || node->next == NULL)
+	if (node == NULL)
 		return ;
 	last = ft_lstlast(node);
 	swap = node->num;
@@ -36,29 +37,8 @@ void	r(t_node *node)
 	last->num = swap;
 }
 
-
-void	pa(t_node **a, t_node **b)
+void	rrr(t_node *a, t_node *b)
 {
-		t_node	*bhead;
-
-	bhead = NULL;
-	if (!(*b))
-		return ;
-	bhead = ft_nodedel(*b);
-	*b = (*b)->next;
-	ft_lstadd_front(a, bhead);
-	ft_stackposupdate(*a);
-}
-
-void	pb(t_node **a, t_node **b)
-{
-	t_node	*ahead;
-
-	ahead = NULL;
-	if (!(*a))
-		return ;
-	ahead = ft_nodedel(*a);
-	*a = (*a)->next;
-	ft_lstadd_front(b, ahead);
-	ft_stackposupdate(*b);
+	rrs(a);
+	rrs(b);
 }
