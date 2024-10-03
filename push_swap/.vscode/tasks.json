@@ -4,7 +4,7 @@
     {
       "label": "Make Rebuild",
       "type": "shell",
-      "command": "make re",
+      "command": "make",
       "group": "build",
       "problemMatcher": [],
       "detail": "Rebuild the project using make re"
