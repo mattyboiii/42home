@@ -11,13 +11,17 @@
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-/*
-void	checklogic(char *cur_act)
+
+void	check_logic(char *cur_act)
 {
-	static char *pre_act;
+	static char	*pre_act;
+
+	pre_act = "hello";
+	ft_putendl_fd(pre_act, 1);
+	ft_putendl_fd(cur_act, 1);
 }
-*/
-void	s(t_node *node)
+
+void	s(t_node *node, int print)
 {
 	int		swap;
 
@@ -26,9 +30,14 @@ void	s(t_node *node)
 	swap = node->num;
 	node->num = node->next->num;
 	node->next->num = swap;
+	if (print == 1)
+	{
+		ft_putchar_fd('s', 1);
+		ft_putendl_fd(node->stack, 1);
+	}
 }
 
-void	r(t_node *node)
+void	r(t_node *node, int print)
 {
 	int		swap;
 	t_node	*last;
@@ -39,13 +48,17 @@ void	r(t_node *node)
 	swap = node->num;
 	node->num = last->num;
 	last->num = swap;
-	
+	if (print == 1)
+	{
+		ft_putchar_fd('r', 1);
+		ft_putendl_fd(node->stack, 1);
+	}
 }
 
 
-void	pa(t_node **a, t_node **b)
+void	pa(t_node **a, t_node **b, int	print)
 {
-		t_node	*bhead;
+	t_node	*bhead;
 
 	bhead = NULL;
 	if (!(*b))
@@ -55,9 +68,11 @@ void	pa(t_node **a, t_node **b)
 	bhead->stack[0] = 'a';
 	ft_lstadd_front(a, bhead);
 	ft_stackposupdate(*a);
+	if (print == 1)
+		ft_putendl_fd("pa", 1);
 }
 
-void	pb(t_node **a, t_node **b)
+void	pb(t_node **a, t_node **b, int print)
 {
 	t_node	*ahead;
 
@@ -69,4 +84,6 @@ void	pb(t_node **a, t_node **b)
 	ahead->stack[0] = 'b';
 	ft_lstadd_front(b, ahead);
 	ft_stackposupdate(*b);
+	if (print == 1)
+		ft_putendl_fd("pb", 1);
 }

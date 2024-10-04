@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-																									
+
 int	main(int arc, char **arv)
 {
 	t_node	*a;
@@ -25,24 +25,10 @@ int	main(int arc, char **arv)
 		ft_exit(3);
 	error_check_arv(arv);
 	a = fill_a(arv);
-	pb(&a, &b);
-	ft_putendl_fd(ft_lstlast(a)->stack, 1);
-	pb(&a, &b);
-	r(a);
-	rrs(a);
-	pb(&a, &b);
-	ft_putendl_fd(ft_lstlast(b)->stack, 1);
-	pb(&a, &b);
-	rr(a, b)								;
-	ft_putendl_fd(ft_lstlast(b)->stack, 1);
-	pb(&a, &b);
-	rrr(a, b);
-	pa(&a, &b);
-	pa(&a, &b);
-	pb(&a, &b);
-	pa(&a, &b);
-	pb(&a, &b);
 	ft_printf("first num %d", a->num);
+	b = ft_lstnew(1, 0, 'b');
+	ft_printf("first num %d", b->num);
+	sort3(a);
 }
 // the next thing you need to do is ad rra and rrb. This will probably need
 // lst del functions, because you are moving them from a to b now.

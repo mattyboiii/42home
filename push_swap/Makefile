@@ -10,6 +10,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 SRC = src/push_swap.c \
 	src/utils/utils.c \
+	src/utils/logicfunk.c \
 	src/utils/lstfunk.c \
 	src/utils/lstfunk2.c \
 	src/utils/stackfunk.c \

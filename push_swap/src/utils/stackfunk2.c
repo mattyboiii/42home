@@ -14,17 +14,18 @@
 
 void	ss(t_node *a, t_node *b)
 {
-	s(a);
-	s(b);
+	s(a, 0);
+	s(b, 0);
+	ft_putendl_fd("ss", 1);
 }
 
 void	rr(t_node *a, t_node *b)
 {
-	r(a);
-	r(b);
+	r(a, 0);
+	r(b, 0);
 }
 
-void	rrs(t_node *node)
+void	rrs(t_node *node, int print)
 {
 	int		swap;
 	t_node	*last;
@@ -35,10 +36,16 @@ void	rrs(t_node *node)
 	swap = node->num;
 	node->num = last->num;
 	last->num = swap;
+	if (print == 1)
+	{
+		ft_putstr_fd("rr", 1);
+		ft_putendl_fd(node->stack, 1);
+	}
 }
 
 void	rrr(t_node *a, t_node *b)
 {
-	rrs(a);
-	rrs(b);
+	rrs(a, 0);
+	rrs(b, 0);
+	ft_putendl_fd("rrr", 1);
 }

@@ -1,14 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   logicfunk.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024-10-04 07:33:29 by mtripodi          #+#    #+#             */
+/*   Updated: 2024-10-04 07:33:29 by mtripodi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
 void	sort3(t_node *a)
 {
 	t_node		*small;
 	t_node		*big;
+	t_node		*head;
 
+	head = a;
+	small = a;
+	big = a;
 	while (a->next)
 	{
-		small = a;
-		big = a;
 		a = a->next;
 		if (a->num < small->num)
 			small = a;
@@ -17,12 +31,11 @@ void	sort3(t_node *a)
 	}
 	if (big->pos < 2)
 	{
-		
-	// make sure that if a number is bigger than one, and smaller than anotehr its the middle number. 
+		if (small->pos == 0)
+		{
+			check_logic("sa");
+			check_logic("ra");
+		}
 
-	// if top number is the smallest. 
-
-	// if the middle number is the biggest
-
-	// if the bottom number is the biggest?
+	}
 }
