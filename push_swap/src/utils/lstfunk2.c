@@ -26,11 +26,11 @@ t_node	*fill_a(char **arv)
 	{
 		if (arv[i][0] == '/')
 		{
-			node = ft_lstnew(ft_atoi(arv[i + 1]), i);
+			node = ft_lstnew(ft_atoi(arv[i + 1]), i, 'a');
 			j++;
 		}
 		else
-			node = ft_lstnew(ft_atoi(arv[i + j]), i);
+			node = ft_lstnew(ft_atoi(arv[i + j]), i, 'a');
 		if (node == NULL)
 			return (NULL);
 		ft_lstadd_back(&lst, node);

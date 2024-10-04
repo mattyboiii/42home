@@ -11,7 +11,12 @@
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-
+/*
+void	checklogic(char *cur_act)
+{
+	static char *pre_act;
+}
+*/
 void	s(t_node *node)
 {
 	int		swap;
@@ -34,6 +39,7 @@ void	r(t_node *node)
 	swap = node->num;
 	node->num = last->num;
 	last->num = swap;
+	
 }
 
 
@@ -46,6 +52,7 @@ void	pa(t_node **a, t_node **b)
 		return ;
 	bhead = ft_nodedel(*b);
 	*b = (*b)->next;
+	bhead->stack[0] = 'a';
 	ft_lstadd_front(a, bhead);
 	ft_stackposupdate(*a);
 }
@@ -59,6 +66,7 @@ void	pb(t_node **a, t_node **b)
 		return ;
 	ahead = ft_nodedel(*a);
 	*a = (*a)->next;
+	ahead->stack[0] = 'b';
 	ft_lstadd_front(b, ahead);
 	ft_stackposupdate(*b);
 }

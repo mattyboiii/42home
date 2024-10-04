@@ -6,7 +6,7 @@
 			"type": "lldb",
 			"request": "launch",
 			"program": "${workspaceFolder}/push_swap",
-			"args":["1 66 66 4 5"],
+			"args":["1 66 4 5"],
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "Make Rebuild"
 		}

@@ -19,7 +19,7 @@ t_node	*ft_lstlast(t_node *lst)
 	return (lst);
 }
 
-t_node	*ft_lstnew(int num, int pos)
+t_node	*ft_lstnew(int num, int pos, char c)
 {
 	t_node	*node;
 
@@ -28,6 +28,8 @@ t_node	*ft_lstnew(int num, int pos)
 		return (NULL);
 	node->num = num;
 	node->pos = pos;
+	node->stack[0] = c;
+	node->stack[1] = '\0';
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);

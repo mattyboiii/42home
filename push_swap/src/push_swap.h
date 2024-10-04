@@ -19,7 +19,8 @@
 typedef struct s_stack_node
 {
 	long				num;
-	long				pos;
+	long				pos;	
+	char				stack[2];
 	struct s_stack_node	*prev;
 	struct s_stack_node	*next;
 }	t_node;
@@ -44,7 +45,7 @@ void	ft_stackposupdate(t_node *node);
 
 t_node	*fill_a(char **arv);
 t_node	*ft_lstlast(t_node *lst);
-t_node	*ft_lstnew(int num, int pos);
+t_node	*ft_lstnew(int num, int pos, char c);
 void	ft_lstadd_front(t_node **lst, t_node *new);
 void	ft_lstadd_back(t_node **lst, t_node *new);
 
