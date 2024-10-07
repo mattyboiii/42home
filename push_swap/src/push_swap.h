@@ -29,6 +29,8 @@ typedef struct s_stack_node
 // ---  --------------------
 void	ft_exit(int n);
 void	error_check_arv(char **arv);
+void	numswap(t_node *na, t_node *nb);
+int		sorted(t_node *lst);
 
 void	sort3(t_node *a);
 
@@ -43,10 +45,11 @@ void	rr(t_node *a, t_node *b);
 void	rrs(t_node *node, int print);
 void	rrr(t_node *a, t_node *b);
 
+t_node	*get_head(t_node *lst);
+t_node	*fill_a(char **arv);
 t_node	*ft_nodedel(t_node *node);
 void	ft_stackposupdate(t_node *node);
 
-t_node	*fill_a(char **arv);
 t_node	*ft_lstlast(t_node *lst);
 t_node	*ft_lstnew(int num, int pos, char c);
 void	ft_lstadd_front(t_node **lst, t_node *new);

@@ -12,6 +12,18 @@
 
 #include "../push_swap.h"
 
+t_node	*get_head(t_node *lst)
+{
+	t_node *head;
+
+	if (lst == NULL)
+		return (NULL);
+	head = lst;
+	while (head->prev != NULL)
+		head = head->prev;
+	return (head);
+}
+
 t_node	*fill_a(char **arv)
 {
 	int			i;
@@ -89,4 +101,15 @@ t_node	*ft_nodedel(t_node *node)
 		node = npre;
 	ft_stackposupdate(node);
 	return (chopped);
+}
+
+t_node	*ft_quicksort(t_node *lst)
+{
+	t_node		*i;
+	t_node		*j;
+	t_node		*pivot;
+
+	while (
+
+
 }

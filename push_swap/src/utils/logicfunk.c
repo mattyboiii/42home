@@ -16,9 +16,7 @@ void	sort3(t_node *a)
 {
 	t_node		*small;
 	t_node		*big;
-	t_node		*head;
 
-	head = a;
 	small = a;
 	big = a;
 	while (a->next)
@@ -33,9 +31,8 @@ void	sort3(t_node *a)
 	{
 		if (small->pos == 0)
 		{
-			check_logic("sa");
-			check_logic("ra");
+			s(a, 1);
+			r(a, 1);
 		}
-
 	}
 }

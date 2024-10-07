@@ -23,6 +23,7 @@ void	rr(t_node *a, t_node *b)
 {
 	r(a, 0);
 	r(b, 0);
+	ft_putendl_fd("rr", 1);
 }
 
 void	rrs(t_node *node, int print)

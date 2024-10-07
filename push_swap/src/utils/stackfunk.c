@@ -16,9 +16,8 @@ void	check_logic(char *cur_act)
 {
 	static char	*pre_act;
 
-	pre_act = "hello";
-	ft_putendl_fd(pre_act, 1);
-	ft_putendl_fd(cur_act, 1);
+	if (pre_act == "sa" || "sb" && cur_act == "sa" || "sb")
+		r
 }
 
 void	s(t_node *node, int print)
