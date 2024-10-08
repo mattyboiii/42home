@@ -12,41 +12,91 @@
 
 #include "../push_swap.h"
 
+void	numswap(t_node *bigger, t_node *smaller)
+{
+	int		swap;
+
+	swap = bigger->num;
+	bigger->num = smaller->num;
+	smaller->num = swap;
+}
+
 int	sorted(t_node *lst)
 {
 	t_node	*head;
 
-	if (lst == NULL || lst->next == NULL)
-		return (1);
 	head = lst;
 	while (lst->next != NULL)
 	{
-		if (lst->num > lst->next->num)
+		if (lst->num < lst->next->num)
+			lst = lst->next;
+		else
 		{
 			lst = head;
 			return (0);
 		}
-		lst = lst->next;
 	}
 	lst = head;
 	return (1);
 }
 
-int	sorted_array(int *array)
+int	sorted_pivot(t_node *lst, int max_pos)
 {
-	int		i;
-	int		size;
+	int		*i;
+	t_node	*head;
 
-	size = sizeof(array) / sizeof(array[0]);
-	i = 0;
-	if (size <= 1)
-		return (1);
-	while (i < size - 1)
+	head = lst;
+	if (max_pos < 2)
+		return (sorted(lst));
+	while (lst->next != NULL && lst->pos < max_pos)
 	{
-		if (array[i] > array[i + 1])
+		if (lst->next->num > lst->num)
+			lst = lst->next;
+		else
+		{
+			lst = head;
 			return (0);
-		i++;
+		}
 	}
+	lst = head;
 	return (1);
+}
+
+t_node	*ft_quicksort(t_node *lst)
+{
+	t_node		*bigger;
+	t_node		*pivot;
+
+	bigger = lst;
+	pivot = ft_lstlast(lst);
+	while (lst->next != NULL && lst->num)
+	{
+		if (lst->num < pivot->num)
+		{
+			numswap(bigger, lst);
+			bigger = bigger->next;
+		}
+		lst = lst->next;
+	}
+	if (bigger->num > pivot->num)
+		numswap(bigger, pivot);
+	pivot = bigger;
+	while (sorted(get_head(lst) == 0))
+	{
+		ft_quicksort_pivot(lst, pivot);
+	}
+	return (get_head(lst));
+}
+
+t_node	*ft_quicksort_pivot(t_node *lst, t_node *prev_pivot)
+{
+	int		*i;
+	t_node	*bigger;
+	t_node	*pivot;
+
+	if (prev_pivot == ft_lstlast(lst))
+
+
+
 }
 
