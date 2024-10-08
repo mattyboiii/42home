@@ -50,7 +50,9 @@ void	ft_stackposupdate(t_node *node);
 
 void	numswap(t_node *bigger, t_node *smaller);
 int		sorted(t_node *lst);
+int		sorted_pivot(t_node *lst, int max_pos);
 t_node	*ft_quicksort(t_node *lst);
+t_node	*ft_quicksort_pivot(t_node *lst, t_node *prev_pivot);
 
 t_node	*ft_lstlast(t_node *lst);
 t_node	*ft_lstnew(int num, int pos, char c);
