@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-
+/*
 void	check_logic(char *cur_act)
 {
 	static char	*pre_act;
 
 	if (pre_act == "sa" || "sb" && cur_act == "sa" || "sb")
-		r
 }
+*/
 
 void	s(t_node *node, int print)
 {
@@ -55,7 +55,7 @@ void	r(t_node *node, int print)
 }
 
 
-void	pa(t_node **a, t_node **b, int	print)
+void	pa(t_node **a, t_node **b, int print)
 {
 	t_node	*bhead;
 

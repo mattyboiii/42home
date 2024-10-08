@@ -89,29 +89,3 @@ void	error_check_arv(char **arv)
 	}
 }
 
-void	numswap(t_node *na, t_node *nb)
-{
-	int		swap;
-
-	swap = na->num;
-	na->num = nb->num;
-	nb->num = swap;
-}
-
-int	sorted(t_node *lst)
-{
-	int	i;
-	t_node	*head;
-	head = lst;
-
-	i = 0;
-	while (lst->next != NULL)
-	{
-		if (lst->next->num > lst->num)
-			lst = lst->next;
-		else
-			return (0);
-	}
-	lst = head;
-	return (1);
-}

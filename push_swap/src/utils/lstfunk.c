@@ -66,6 +66,34 @@ void	ft_lstadd_back(t_node **lst, t_node *new)
 	new->next = NULL;
 }
 
+
+t_node	*get_node(t_node *lst, int index)
+{
+	t_node	*node;
+
+	node = lst;
+	if (lst == NULL)
+		return (NULL);
+	while (node->pos < index && node->next != NULL)
+		node = node->next;
+	return (node);
+}
+/*
+t_node	*copy_addback(t_node **lst, t_node *node)
+{
+	t_node	*dupnode;
+
+	if (node == NULL)
+		return (NULL);
+	dupnode->num = node->num;
+	dupnode->pos = node->pos;
+	*(dupnode)->stack = *(node)->stack;
+	ft_lstadd_back(lst, dupnode);
+	ft_stackposupdate(*lst);
+	return (*lst);
+}
+*/
+/*
 int	ft_lstsize(t_node *lst)
 {
 	int	len;
@@ -78,3 +106,4 @@ int	ft_lstsize(t_node *lst)
 	}
 	return (len);
 }
+*/

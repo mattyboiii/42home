@@ -102,14 +102,3 @@ t_node	*ft_nodedel(t_node *node)
 	ft_stackposupdate(node);
 	return (chopped);
 }
-
-t_node	*ft_quicksort(t_node *lst)
-{
-	t_node		*i;
-	t_node		*j;
-	t_node		*pivot;
-
-	while (
-
-
-}

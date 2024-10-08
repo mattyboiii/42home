@@ -25,6 +25,7 @@ int	main(int arc, char **arv)
 		ft_exit(3);
 	error_check_arv(arv);
 	a = fill_a(arv);
+	a = ft_quicksort(a);
 	ft_printf("first num %d", a->num);
 	b = ft_lstnew(1, 0, 'b');
 	ft_printf("first num %d", b->num);
