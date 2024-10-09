@@ -12,10 +12,22 @@
 
 #include "push_swap.h"
 
+int	sizeofa(int *array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
+}
+
 int	main(int arc, char **arv)
 {
 	t_node	*a;
 	t_node	*b;
+	int		*numa;
+
 
 	a = NULL;
 	b = NULL;
@@ -25,7 +37,9 @@ int	main(int arc, char **arv)
 		ft_exit(3);
 	error_check_arv(arv);
 	a = fill_a(arv);
-	a = ft_quicksort(a);
+	numa = node_to_array(a);
+	numa = quicksort(numa, sizeofa(numa), 0);
+	ft_printf("numa %d", numa);
 	ft_printf("first num %d", a->num);
 	b = ft_lstnew(1, 0, 'b');
 	ft_printf("first num %d", b->num);

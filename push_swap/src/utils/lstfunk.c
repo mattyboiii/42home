@@ -99,7 +99,7 @@ int	ft_lstsize(t_node *lst)
 	int	len;
 
 	len = 0;
-	while (lst)
+	while (lst)gT
 	{
 		len++;
 		lst = lst->next;

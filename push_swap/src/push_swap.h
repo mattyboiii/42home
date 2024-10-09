@@ -46,10 +46,15 @@ void	rrr(t_node *a, t_node *b);
 t_node	*get_head(t_node *lst);
 t_node	*fill_a(char **arv);
 t_node	*ft_nodedel(t_node *node);
-void	ft_stackposupdate(t_node *node);
-
+void	ft_stackposupdate(t_node *lst);
 int		sorted(t_node *lst);
 
+
+int		is_sorted(int *array, int start, int size);
+void	numswap(int *big, int *small);
+int		*node_to_array(t_node *lst);
+int		*quicksort(int *numa, int size, int pivot);
+void	quicksort_pivot(int *numa, int size, int pivot);
 
 t_node	*ft_lstlast(t_node *lst);
 t_node	*ft_lstnew(int num, int pos, char c);

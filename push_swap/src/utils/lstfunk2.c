@@ -102,3 +102,23 @@ t_node	*ft_nodedel(t_node *node)
 	ft_stackposupdate(node);
 	return (chopped);
 }
+
+int	sorted(t_node *lst)
+{
+	t_node	*head;
+
+	if (lst == NULL || lst->next == NULL)
+		return (1);
+	head = lst;
+	while (lst->next != NULL)
+	{
+		if (lst->num > lst->next->num)
+		{
+			lst = head;
+			return (0);
+		}
+		lst = lst->next;
+	}
+	lst = head;
+	return (1);
+}

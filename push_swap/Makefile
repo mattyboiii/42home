@@ -3,7 +3,7 @@ NAME = push_swap
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -g
 
 # assignment statements-Source funcitons (string list creators is really
 # what these are)-------------- eg $(wildcard pattern)
@@ -13,7 +13,7 @@ SRC = src/push_swap.c \
 	src/utils/logicfunk.c \
 	src/utils/lstfunk.c \
 	src/utils/lstfunk2.c \
-	src/utils/lstfunk3.c \
+	src/utils/quicksort.c \
 	src/utils/stackfunk.c \
 	src/utils/stackfunk2.c
 
