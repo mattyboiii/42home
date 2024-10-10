@@ -100,3 +100,6 @@ t_node	*ft_quicksort_pivot(t_node *lst, t_node *prev_pivot)
 
 }
 
+3, 4, 1, 2, 5
+
+1, 3, 2, 4, 5
