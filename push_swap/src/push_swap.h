@@ -51,8 +51,8 @@ void	ft_stackposupdate(t_node *node);
 void	numswap(t_node **bigger, t_node **smaller, int swap);
 int		is_sorted(t_node *lst, t_node *start, t_node *stop);
 t_node	*quicksort(t_node *lst, t_node *pivot, t_node *prev_pivot,
-			t_node *stop);
-void	quicksort_pivot(t_node *lst, t_node *smallest, t_node *prev_pivot);
+			t_node *start, t_node *stop);
+void	quicksort_pivot(t_node *lst, t_node *start, t_node *prev_pivot);
 void	print_lstnums(t_node *lst);
 
 t_node	*ft_lstlast(t_node *lst);

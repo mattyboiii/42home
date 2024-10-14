@@ -74,39 +74,43 @@ void	print_lstnums(t_node *lst)
 	ft_putchar_fd('\n', 1);
 }
 
-t_node	*quicksort(t_node *lst, t_node *pivot, t_node *prev_pivot, t_node *stop)
+t_node	*quicksort(t_node *lst, t_node *pivot, t_node *prev_pivot, t_node *start, t_node *stop)
 {
 	t_node		*bigger;
 
+	if (start == NULL)
+		start = lst;
+	else if (start)
+		lst = start;
 	bigger = lst;
 	if (stop == NULL)
 		stop = ft_lstlast(lst);
 	if (pivot == NULL)
 		pivot = ft_lstlast(lst);
-	print_lstnums(lst);
+	print_lstnums(start);
 	while (lst->next->next != NULL && lst->next != stop)
 	{
 		if (lst->num < pivot->num && lst->num != bigger->num)
 		{
 			numswap(&bigger, &lst, 0);
 			bigger = bigger->next;
-			print_lstnums(get_head(lst));
+			print_lstnums(start);
 		}
 		lst = lst->next;
 	}
-	print_lstnums(get_head(lst));
+	print_lstnums(start);
 	if (bigger->num < pivot->num)
 		numswap(&bigger->next, &pivot, 1);
 	else if (bigger->num > pivot->num)
 		numswap(&bigger, &pivot, 1);
-	lst = get_head(lst);
-	print_lstnums(lst);
+	lst = start;
+	print_lstnums(start);
 	while (is_sorted(lst, lst, stop) == 0)
-		quicksort_pivot(lst, lst, pivot);
+		quicksort_pivot(lst, start, pivot);
 	return (get_head(lst));
 }
 
-void	quicksort_pivot(t_node *lst, t_node *smallest, t_node *prev_pivot)
+void	quicksort_pivot(t_node *lst, t_node *start, t_node *prev_pivot)
 {
 	t_node				*new_pivot;
 	t_node				*lastnode;
@@ -117,16 +121,18 @@ void	quicksort_pivot(t_node *lst, t_node *smallest, t_node *prev_pivot)
 		og_pivot = prev_pivot;
 	if (lst == prev_pivot || prev_pivot > og_pivot)
 		prev_pivot = og_pivot;
-	if (is_sorted(lst, lst, prev_pivot) == 0)
+	if (is_sorted(lst, start, prev_pivot) == 0)
 	{
 		new_pivot = get_node(lst, (prev_pivot->pos - 1));
-		lst = quicksort(lst, new_pivot, prev_pivot, prev_pivot);
+		lst = quicksort(lst, new_pivot, prev_pivot, start, prev_pivot);
 	}
 	else
 	{
-		smallest = og_pivot;
-		og_pivot = get_node(lst, lastnode);
-		/*
+		start = og_pivot;
+		og_pivot = lastnode;
+		new_pivot = ft_lstlast(lst);
+		lst = quicksort(lst, new_pivot, prev_pivot, start, og_pivot);
+/*
 		if (is_sorted(lst, smallest, lastnode) == 0)
 		{
 			lst = prev_pivot->next;
