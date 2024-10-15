@@ -102,3 +102,15 @@ t_node	*ft_nodedel(t_node *node)
 	ft_stackposupdate(node);
 	return (chopped);
 }
+
+t_node	*get_node(t_node *lst, int index)
+{
+	t_node	*node;
+
+	node = lst;
+	if (lst == NULL)
+		return (NULL);
+	while (node->pos < index && node->next != NULL)
+		node = node->next;
+	return (node);
+}

@@ -47,6 +47,7 @@ t_node	*get_head(t_node *lst);
 t_node	*fill_a(char **arv);
 t_node	*ft_nodedel(t_node *node);
 void	ft_stackposupdate(t_node *node);
+t_node	*get_node(t_node *lst, int index);
 
 void	numswap(t_node **bigger, t_node **smaller, int swap);
 int		is_sorted(t_node *lst, t_node *start, t_node *stop);
@@ -59,7 +60,6 @@ t_node	*ft_lstlast(t_node *lst);
 t_node	*ft_lstnew(int num, int pos, char c);
 void	ft_lstadd_front(t_node **lst, t_node *new);
 void	ft_lstadd_back(t_node **lst, t_node *new);
-// t_node	*get_node(t_node *lst, int index)
 // t_node	*copy_addback(t_node **lst, t_node *node);
 
 #endif

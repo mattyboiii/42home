@@ -22,7 +22,10 @@ void	numswap(t_node **bigger, t_node **smaller, int n)
 	(*smaller)->num = swap;
 
 	if (n == 1)
-		*smaller = *bigger;
+	{
+		swapnode = *bigger;
+	}
+
 }
 
 
@@ -46,17 +49,6 @@ int	is_sorted(t_node *lst, t_node *start, t_node *stop)
 	return (1);
 }
 
-t_node	*get_node(t_node *lst, int index)
-{
-	t_node	*node;
-
-	node = lst;
-	if (lst == NULL)
-		return (NULL);
-	while (node->pos < index && node->next != NULL)
-		node = node->next;
-	return (node);
-}
 
 void	print_lstnums(t_node *lst)
 {
@@ -74,20 +66,25 @@ void	print_lstnums(t_node *lst)
 	ft_putchar_fd('\n', 1);
 }
 
+void	check_variables(t_node *lst, t_node **pivot, t_node **start, t_node **stop)
+{
+	if (*start == NULL)
+		*start = lst;
+	else if (*start)
+		lst = *start;
+	if (*stop == NULL)
+		*stop = ft_lstlast(lst);
+	if (*pivot == NULL)
+		*pivot = ft_lstlast(lst);
+}
+
 t_node	*quicksort(t_node *lst, t_node *pivot, t_node *prev_pivot, t_node *start, t_node *stop)
 {
 	t_node		*bigger;
 
-	if (start == NULL)
-		start = lst;
-	else if (start)
-		lst = start;
-	bigger = lst;
-	if (stop == NULL)
-		stop = ft_lstlast(lst);
-	if (pivot == NULL)
-		pivot = ft_lstlast(lst);
+	check_variables(lst, &pivot, &start, &stop);
 	print_lstnums(start);
+	bigger = lst;
 	while (lst->next->next != NULL && lst->next != stop)
 	{
 		if (lst->num < pivot->num && lst->num != bigger->num)
@@ -98,6 +95,9 @@ t_node	*quicksort(t_node *lst, t_node *pivot, t_node *prev_pivot, t_node *start,
 		}
 		lst = lst->next;
 	}
+	print_lstnums(start);
+	if (bigger->next->num < bigger->num)
+		numswap(&bigger, &bigger->next, 1);
 	print_lstnums(start);
 	if (bigger->num < pivot->num)
 		numswap(&bigger->next, &pivot, 1);
@@ -123,23 +123,17 @@ void	quicksort_pivot(t_node *lst, t_node *start, t_node *prev_pivot)
 		prev_pivot = og_pivot;
 	if (is_sorted(lst, start, prev_pivot) == 0)
 	{
-		new_pivot = get_node(lst, (prev_pivot->pos - 1));
+		new_pivot = prev_pivot->prev;
 		lst = quicksort(lst, new_pivot, prev_pivot, start, prev_pivot);
 	}
 	else
 	{
-		start = og_pivot;
-		og_pivot = lastnode;
-		new_pivot = ft_lstlast(lst);
-		lst = quicksort(lst, new_pivot, prev_pivot, start, og_pivot);
-/*
-		if (is_sorted(lst, smallest, lastnode) == 0)
-		{
-			lst = prev_pivot->next;
-			new_pivot = get_node(lst, (lastnode->pos - 1));
-			numswap(&lastnode, &new_pivot, 1);
-			lst = quicksort(smallest, new_pivot, prev_pivot, lastnode);
-		}
-		*/
+		if (start->num <= og_pivot->num)
+			start = og_pivot->next;
+		new_pivot = ft_lstlast(lst)->prev;
+		if (new_pivot->num > new_pivot->next->num)
+			numswap(&new_pivot, &new_pivot->next, 0);
+		og_pivot = ft_lstlast(lst);
+		lst = quicksort(lst, new_pivot, prev_pivot, start, ft_lstlast(lst));
 	}
 }
