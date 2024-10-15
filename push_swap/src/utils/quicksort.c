@@ -12,20 +12,17 @@
 
 #include "../push_swap.h"
 
-void	numswap(t_node **bigger, t_node **smaller, int n)
+void	numswap(t_node **bigger, t_node **smaller, t_node **pivot, int n)
 {
 	int		swap;
-	t_node	*swapnode;
 
 	swap = (*bigger)->num;
 	(*bigger)->num = (*smaller)->num;
 	(*smaller)->num = swap;
-
 	if (n == 1)
 	{
-		swapnode = *bigger;
+		*pivot = *bigger;
 	}
-
 }
 
 
@@ -89,7 +86,7 @@ t_node	*quicksort(t_node *lst, t_node *pivot, t_node *prev_pivot, t_node *start,
 	{
 		if (lst->num < pivot->num && lst->num != bigger->num)
 		{
-			numswap(&bigger, &lst, 0);
+			numswap(&bigger, &lst, &pivot, 0);
 			bigger = bigger->next;
 			print_lstnums(start);
 		}
@@ -97,13 +94,13 @@ t_node	*quicksort(t_node *lst, t_node *pivot, t_node *prev_pivot, t_node *start,
 	}
 	print_lstnums(start);
 	if (bigger->next->num < bigger->num)
-		numswap(&bigger, &bigger->next, 1);
+		numswap(&bigger, &bigger->next, &pivot, 0);
 	print_lstnums(start);
 	if (bigger->num < pivot->num)
-		numswap(&bigger->next, &pivot, 1);
+		numswap(&bigger->next, &pivot, &pivot, 1);
 	else if (bigger->num > pivot->num)
-		numswap(&bigger, &pivot, 1);
-	lst = start;
+		numswap(&bigger, &pivot, &pivot, 1);
+	lst = get_head(pivot);
 	print_lstnums(start);
 	while (is_sorted(lst, lst, stop) == 0)
 		quicksort_pivot(lst, start, pivot);
@@ -132,7 +129,7 @@ void	quicksort_pivot(t_node *lst, t_node *start, t_node *prev_pivot)
 			start = og_pivot->next;
 		new_pivot = ft_lstlast(lst)->prev;
 		if (new_pivot->num > new_pivot->next->num)
-			numswap(&new_pivot, &new_pivot->next, 0);
+			numswap(&new_pivot, &new_pivot->next, &new_pivot, 0);
 		og_pivot = ft_lstlast(lst);
 		lst = quicksort(lst, new_pivot, prev_pivot, start, ft_lstlast(lst));
 	}

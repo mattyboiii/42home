@@ -49,7 +49,7 @@ t_node	*ft_nodedel(t_node *node);
 void	ft_stackposupdate(t_node *node);
 t_node	*get_node(t_node *lst, int index);
 
-void	numswap(t_node **bigger, t_node **smaller, int swap);
+void	numswap(t_node **bigger, t_node **smaller, t_node **pivot, int n);
 int		is_sorted(t_node *lst, t_node *start, t_node *stop);
 t_node	*quicksort(t_node *lst, t_node *pivot, t_node *prev_pivot,
 			t_node *start, t_node *stop);
