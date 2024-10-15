@@ -12,17 +12,13 @@
 
 #include "../push_swap.h"
 
-void	numswap(t_node **bigger, t_node **smaller, t_node **pivot, int n)
+void	numswap(t_node *bigger, t_node *smaller)
 {
 	int		swap;
 
-	swap = (*bigger)->num;
-	(*bigger)->num = (*smaller)->num;
-	(*smaller)->num = swap;
-	if (n == 1)
-	{
-		*pivot = *bigger;
-	}
+	swap = bigger->num;
+	bigger->num = smaller->num;
+	smaller->num = swap;
 }
 
 
@@ -63,74 +59,29 @@ void	print_lstnums(t_node *lst)
 	ft_putchar_fd('\n', 1);
 }
 
-void	check_variables(t_node *lst, t_node **pivot, t_node **start, t_node **stop)
+t_node	*simple_sort(t_node *lst)
 {
-	if (*start == NULL)
-		*start = lst;
-	else if (*start)
-		lst = *start;
-	if (*stop == NULL)
-		*stop = ft_lstlast(lst);
-	if (*pivot == NULL)
-		*pivot = ft_lstlast(lst);
-}
+	t_node	*current;
+	t_node	*next_node;
+	t_node	*head;
 
-t_node	*quicksort(t_node *lst, t_node *pivot, t_node *prev_pivot, t_node *start, t_node *stop)
-{
-	t_node		*bigger;
+	head = lst;
+	if (!lst)
+		return;
 
-	check_variables(lst, &pivot, &start, &stop);
-	print_lstnums(start);
-	bigger = lst;
-	while (lst->next->next != NULL && lst->next != stop)
+	current = lst;
+	print_lstnums(head);
+	while (current->next)
 	{
-		if (lst->num < pivot->num && lst->num != bigger->num)
+		next_node = current->next;
+		while (next_node)
 		{
-			numswap(&bigger, &lst, &pivot, 0);
-			bigger = bigger->next;
-			print_lstnums(start);
+			if (current->num > next_node->num)
+				numswap(current, next_node);
+			next_node = next_node->next;
 		}
-		lst = lst->next;
+		current = current->next;
 	}
-	print_lstnums(start);
-	if (bigger->next->num < bigger->num)
-		numswap(&bigger, &bigger->next, &pivot, 0);
-	print_lstnums(start);
-	if (bigger->num < pivot->num)
-		numswap(&bigger->next, &pivot, &pivot, 1);
-	else if (bigger->num > pivot->num)
-		numswap(&bigger, &pivot, &pivot, 1);
-	lst = get_head(pivot);
-	print_lstnums(start);
-	while (is_sorted(lst, lst, stop) == 0)
-		quicksort_pivot(lst, start, pivot);
-	return (get_head(lst));
-}
-
-void	quicksort_pivot(t_node *lst, t_node *start, t_node *prev_pivot)
-{
-	t_node				*new_pivot;
-	t_node				*lastnode;
-	static t_node		*og_pivot;
-
-	lastnode = ft_lstlast(lst);
-	if (og_pivot == NULL)
-		og_pivot = prev_pivot;
-	if (lst == prev_pivot || prev_pivot > og_pivot)
-		prev_pivot = og_pivot;
-	if (is_sorted(lst, start, prev_pivot) == 0)
-	{
-		new_pivot = prev_pivot->prev;
-		lst = quicksort(lst, new_pivot, prev_pivot, start, prev_pivot);
-	}
-	else
-	{
-		if (start->num <= og_pivot->num)
-			start = og_pivot->next;
-		new_pivot = ft_lstlast(lst)->prev;
-		if (new_pivot->num > new_pivot->next->num)
-			numswap(&new_pivot, &new_pivot->next, &new_pivot, 0);
-		og_pivot = ft_lstlast(lst);
-		lst = quicksort(lst, new_pivot, prev_pivot, start, ft_lstlast(lst));
-	}
+	print_lstnums(head);
+	return (head);
 }

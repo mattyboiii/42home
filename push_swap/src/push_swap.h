@@ -49,8 +49,9 @@ t_node	*ft_nodedel(t_node *node);
 void	ft_stackposupdate(t_node *node);
 t_node	*get_node(t_node *lst, int index);
 
-void	numswap(t_node **bigger, t_node **smaller, t_node **pivot, int n);
+void	numswap(t_node *bigger, t_node *smaller);
 int		is_sorted(t_node *lst, t_node *start, t_node *stop);
+t_node	*simple_sort(t_node *lst);
 t_node	*quicksort(t_node *lst, t_node *pivot, t_node *prev_pivot,
 			t_node *start, t_node *stop);
 void	quicksort_pivot(t_node *lst, t_node *start, t_node *prev_pivot);
