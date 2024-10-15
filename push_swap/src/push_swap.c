@@ -29,6 +29,7 @@ int	main(int arc, char **arv)
 	error_check_arv(arv);
 	a = fill_a(arv);
 	sort = fill_a(arv);
+	print_lstnums(sort);
 	sort = simple_sort(sort);
 	print_lstnums(sort);
 	ft_printf("numa %d", numa);

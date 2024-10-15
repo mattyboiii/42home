@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lstfunk2.c                                         :+:      :+:    :+:   */
+/*   quicksort.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -70,7 +70,6 @@ t_node	*simple_sort(t_node *lst)
 		return;
 
 	current = lst;
-	print_lstnums(head);
 	while (current->next)
 	{
 		next_node = current->next;
@@ -82,6 +81,5 @@ t_node	*simple_sort(t_node *lst)
 		}
 		current = current->next;
 	}
-	print_lstnums(head);
 	return (head);
 }
