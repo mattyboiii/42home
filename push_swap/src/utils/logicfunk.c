@@ -12,21 +12,25 @@
 
 #include "../push_swap.h"
 
-void	big_small_set(t_node *lst, t_node *big, t_node *small)
+void	big_small_set(t_node **lst, t_node **big, t_node **small)
 {
-	big = lst;
-	small = lst;
-	while (lst->next)
+	t_node	*head;
+
+	head = *lst;
+	*big = *lst;
+	*small = *lst;
+	while ((*lst)->next)
 	{
-		lst = lst->next;
-		if (lst->num < small->num)
-			small = lst;
-		else if (lst->num > big->num)
-			big = lst;
+		*lst = (*lst)->next;
+		if ((*lst)->num < (*small)->num)
+			*small = *lst;
+		else if ((*lst)->num > (*big)->num)
+			*big = *lst;
 	}
+	*lst = head;
 }
 
-void	big_mid(t_node *lst, t_node *big, t_node *small)
+void	big_mid(t_node **lst, t_node *big, t_node *small)
 {
 		if (small->pos == 0)
 		{
@@ -34,14 +38,16 @@ void	big_mid(t_node *lst, t_node *big, t_node *small)
 			r(lst, 1);
 		}
 		else
-			rra(lst, 1);
+			rrs(lst, 1);
 }
-void	sort3(t_node *a)
+void	sort3(t_node **a)
 {
 	t_node		*small;
 	t_node		*big;
+	t_node		*head;
 
-	big_small_set(a, big, small);
+	head = *a;
+	big_small_set(a, &big, &small);
 	if (big->pos < 2)
 		big_mid(a, big, small);
 	else if (small->pos == 1)
@@ -54,6 +60,7 @@ void	sort3(t_node *a)
 	else
 	{
 		s(a, 1);
-		rra(a, 1);
+		rrs(a, 1);
 	}
+	*a = head;
 }

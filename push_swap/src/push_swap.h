@@ -21,6 +21,8 @@ typedef struct s_stack_node
 	long				num;
 	long				pos;
 	char				stack[2];
+	struct s_stack_node	**head;
+	struct s_stack_node	**foot;
 	struct s_stack_node	*prev;
 	struct s_stack_node	*next;
 }	t_node;
@@ -30,18 +32,18 @@ typedef struct s_stack_node
 void	ft_exit(int n);
 void	error_check_arv(char **arv);
 
-void	sort3(t_node *a);
+void	sort3(t_node **a);
 
-void	s(t_node *node, int print);
-void	r(t_node *node, int print);
+void	s(t_node **lst, int print);
+void	r(t_node **lst, int print);
 void	pa(t_node **a, t_node **b, int print);
 void	pb(t_node **a, t_node **b, int print);
 
 void	check_logic(char *cur_act);
-void	ss(t_node *a, t_node *b);
-void	rr(t_node *a, t_node *b);
-void	rrs(t_node *node, int print);
-void	rrr(t_node *a, t_node *b);
+void	ss(t_node **a, t_node **b);
+void	rr(t_node **a, t_node **b);
+void	rrs(t_node **lst, int print);
+void	rrr(t_node **a, t_node **b);
 
 t_node	*get_head(t_node *lst);
 t_node	*fill_a(char **arv);

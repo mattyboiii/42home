@@ -20,37 +20,43 @@ void	check_logic(char *cur_act)
 }
 */
 
-void	s(t_node *node, int print)
+void	s(t_node **lst, int print)
 {
 	int		swap;
 
-	if (node == NULL || node->next == NULL)
+	if (*lst == NULL || (*lst)->next == NULL)
 		return ;
-	swap = node->num;
-	node->num = node->next->num;
-	node->next->num = swap;
+	swap = (*lst)->num;
+	(*lst)->num = (*lst)->next->num;
+	(*lst)->next->num = swap;
 	if (print == 1)
 	{
 		ft_putchar_fd('s', 1);
-		ft_putendl_fd(node->stack, 1);
+		ft_putendl_fd((*lst)->stack, 1);
 	}
 }
 
-void	r(t_node *node, int print)
+void	r(t_node **lst, int print)
 {
 	int		swap;
+	t_node	*swapnode;
 	t_node	*last;
 
-	if (node == NULL || node->next == NULL)
+	swapnode = *lst;
+	if (*lst == NULL || (*lst)->next == NULL)
 		return ;
-	last = ft_lstlast(node);
-	swap = node->num;
-	node->num = last->num;
-	last->num = swap;
+	swapnode = *lst;
+	*lst = (*lst)->next;
+	last = ft_lstlast(*lst);
+	(*lst)->prev = NULL;
+	last->next = swapnode;
+	swapnode->prev = last;
+	swapnode->next = NULL;
+	ft_stackposupdate(*lst);
 	if (print == 1)
 	{
 		ft_putchar_fd('r', 1);
-		ft_putendl_fd(node->stack, 1);
+		ft_putendl_fd((*lst)->stack, 1);
 	}
 }
 

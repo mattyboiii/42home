@@ -67,7 +67,7 @@ t_node	*simple_sort(t_node *lst)
 
 	head = lst;
 	if (!lst)
-		return;
+		return (NULL);
 
 	current = lst;
 	while (current->next)
