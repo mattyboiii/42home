@@ -41,7 +41,7 @@ void	ft_lstadd_front(t_node **lst, t_node *new)
 {
 	new->next = NULL;
 	new->prev = NULL;
-	new->head = new;
+	new->head = &new;
 	if (*lst == NULL)
 		*lst = new;
 	else

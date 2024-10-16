@@ -24,16 +24,15 @@ t_node	*get_head(t_node *lst)
 	return (head);
 }
 
-t_node	*fill_a(char **arv)
+void	fill_a(t_node **lst, char **arv)
 {
 	int			i;
 	int			j;
-	t_node		*lst;
 	t_node		*node;
 
 	i = 0;
 	j = 0;
-	lst = NULL;
+	*lst = NULL;
 	while (arv[i] && arv[i + j])
 	{
 		if (arv[i][0] == '/')
@@ -44,11 +43,10 @@ t_node	*fill_a(char **arv)
 		else
 			node = ft_lstnew(ft_atoi(arv[i + j]), i, 'a');
 		if (node == NULL)
-			return (NULL);
-		ft_lstadd_back(&lst, node);
+			return ;
+		ft_lstadd_back(lst, node);
 		i++;
 	}
-	return (lst);
 }
 
 void	ft_stackposupdate(t_node *node)

@@ -46,7 +46,7 @@ void	rrs(t_node **lst, int print);
 void	rrr(t_node **a, t_node **b);
 
 t_node	*get_head(t_node *lst);
-t_node	*fill_a(char **arv);
+void	fill_a(t_node **lst, char **arv);
 t_node	*ft_nodedel(t_node *node);
 void	ft_stackposupdate(t_node *node);
 t_node	*get_node(t_node *lst, int index);
