@@ -21,8 +21,6 @@ typedef struct s_stack_node
 	long				num;
 	long				pos;
 	char				stack[2];
-	struct s_stack_node	**head;
-	struct s_stack_node	**foot;
 	struct s_stack_node	*prev;
 	struct s_stack_node	*next;
 }	t_node;

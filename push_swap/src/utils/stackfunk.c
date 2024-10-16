@@ -47,8 +47,8 @@ void	r(t_node **lst, int print)
 		return ;
 	swapnode = *lst;
 	*lst = (*lst)->next;
-	last = ft_lstlast(*lst);
 	(*lst)->prev = NULL;
+	last = ft_lstlast(*lst);
 	last->next = swapnode;
 	swapnode->prev = last;
 	swapnode->next = NULL;

@@ -28,6 +28,8 @@ int	main(int arc, char **arv)
 	error_check_arv(arv);
 	fill_a(&a, arv);
 	print_lstnums(a);
+	rrs(&a, 1);
+	print_lstnums(a);
 	if (ft_lstlast(a)->pos <= 2)
 		sort3(&a);
 	print_lstnums(a);

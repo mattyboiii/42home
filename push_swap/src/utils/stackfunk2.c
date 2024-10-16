@@ -29,14 +29,21 @@ void	rr(t_node **a, t_node **b)
 void	rrs(t_node **lst, int print)
 {
 	int		swap;
+	t_node	*first;
 	t_node	*last;
-
-	if (*lst == NULL)
+	t_node	*last_prev;
+// bottom number goes to the top, pushing others down.
+	if (*lst == NULL || (*lst)->next == NULL)
 		return ;
+	first = *lst;
 	last = ft_lstlast(*lst);
-	swap = (*lst)->num;
-	(*lst)->num = last->num;
-	last->num = swap;
+	last_prev = last->prev;
+	first->prev = last;
+	last->prev = NULL;
+	last->next = first;
+	last_prev->next = NULL;
+	*lst = last;
+	ft_stackposupdate(get_head(*lst));
 	if (print == 1)
 	{
 		ft_putstr_fd("rr", 1);

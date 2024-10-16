@@ -14,6 +14,9 @@
 
 void	big_small_set(t_node **lst, t_node **big, t_node **small)
 {
+	t_node	*head;
+
+	head = *lst;
 	*big = *lst;
 	*small = *lst;
 	while ((*lst)->next)
@@ -24,18 +27,20 @@ void	big_small_set(t_node **lst, t_node **big, t_node **small)
 		else if ((*lst)->num > (*big)->num)
 			*big = *lst;
 	}
-	*lst = *(*lst)->head;
+	*lst = head;
 }
 
 void	big_mid(t_node **lst, t_node *big, t_node *small)
 {
-		if (small->pos == 0)
-		{
-			s(lst, 1);
-			r(lst, 1);
-		}
-		else
-			rrs(lst, 1);
+	t_node	*head;
+
+	if (small->pos == 0)
+	{
+		s(lst, 1);
+		r(lst, 1);
+	}
+	else
+		rrs(lst, 1);
 }
 void	sort3(t_node **a)
 {
@@ -57,5 +62,4 @@ void	sort3(t_node **a)
 		s(a, 1);
 		rrs(a, 1);
 	}
-	a = (*a)->head;
 }
