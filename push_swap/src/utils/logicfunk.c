@@ -12,8 +12,7 @@
 
 #include "../push_swap.h"
 
-
-t_node	*get_midnode(t_node **lst, int	chunk)
+t_node	*get_midnode(t_node **lst, int chunk)
 {
 	t_node	*sorted;
 	t_node	*midnode;
@@ -35,45 +34,45 @@ t_node	*get_midnode(t_node **lst, int	chunk)
 
 void	pb_chunk(t_node **a, t_node **b, t_node *midnode, int chunk)
 {
-		while ((*a)->pos != ft_lstlast(*a)->pos)
-		{
-			while ((*a)->num < midnode->num)
-			{
-				(*a)->chunk = chunk;
-				pb(a, b, 1);
-				print_lstnums(*a, *b);
-			}
-			if (ft_lstlast(*a)->num < midnode->num)
-			{
-				rrs(a, 1);
-				(*a)->chunk = chunk;
-				pb(a, b, 1);
-				print_lstnums(*a, *b);
-			}
-			while ((*a)->num > midnode->num || (*a)->num == midnode->num)
-			{
-				r(a, 1);
-				print_lstnums(*a, *b);
-			}
-		}
-		if ((*a)->num < midnode->num)
+	t_node	*last;
+
+	last = ft_lstlast(*a);
+	while ((*a)->num != last->num)
+	{
+		while ((*a)->num < midnode->num)
 		{
 			(*a)->chunk = chunk;
 			pb(a, b, 1);
-			print_lstnums(*a, *b);
 		}
+		if (ft_lstlast(*a)->num < midnode->num && (*a)->num != last->num)
+		{
+			rrs(a, 1);
+			(*a)->chunk = chunk;
+			pb(a, b, 1);
+		}
+		while (((*a)->num > midnode->num || (*a)->num == midnode->num)
+			&& (*a)->num != last->num && (*a)->next->num != last->num)
+			r(a, 1);
+			//maybe turn this into an if statement. not sure :)
+	}
+	if ((*a)->num < midnode->num && (*a)->num != last->num)
+	{
+		(*a)->chunk = chunk;
+		pb(a, b, 1);
+	}
 }
 
 void	sort_to_b(t_node **a, t_node **b, int	*chunk)
 {
-
 	t_node	*midnode;
 
+	print_lstnums(*a, *b);
 	while (ft_lstlast(*a)->pos > 2)
 	{
 		(*chunk)++;
 		midnode = get_midnode(a, 0);
 		pb_chunk(a, b, midnode, *chunk);
+		print_lstnums(*a, *b);
 	}
 }
 
