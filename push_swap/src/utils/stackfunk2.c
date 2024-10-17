@@ -43,7 +43,7 @@ void	rrs(t_node **lst, int print)
 	last->next = first;
 	last_prev->next = NULL;
 	*lst = last;
-	ft_stackposupdate(get_head(*lst));
+	ft_stackposupdate(*lst);
 	if (print == 1)
 	{
 		ft_putstr_fd("rr", 1);
