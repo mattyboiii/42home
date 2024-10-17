@@ -68,7 +68,7 @@ void ft_putnbr_fd(int n, int fd);
 
 // Personal small Functions
 int ft_strcmp(const char *s1, const char *s2);
-void null_free(char **ptr);
+void null_free(void **ptr);
 void dp_free(char ***dp);
 char **dp_strcat(char **paths, char *str);
 size_t ischar(char *str, size_t start, char c);

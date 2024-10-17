@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-void	big_small_set(t_node **lst, t_node **big, t_node **small)
+void	set_big_small(t_node **lst, t_node **big, t_node **small)
 {
 	t_node	*head;
 
@@ -35,7 +35,7 @@ void	sort3(t_node **a)
 	t_node		*small;
 	t_node		*big;
 
-	big_small_set(a, &big, &small);
+	set_big_small(a, &big, &small);
 	if (small->pos == 1 && big->pos == 2)
 		s(a, 1);
 	else if (small->pos == 1 && big->pos == 0)
@@ -53,3 +53,29 @@ void	sort3(t_node **a)
 		rrs(a, 1);
 	}
 }
+
+t_node	*get_midnode(t_node **lst, int	chunk)
+{
+	t_node	*sorted;
+	t_node	*midnode;
+	t_node	*last;
+	t_node	*out;
+
+	sorted = NULL;
+	out = *lst;
+	sorted = simple_sort(copy_lst(lst, chunk));
+	last = ft_lstlast(sorted);
+	midnode = get_node(sorted, (last->pos + 1) / 2);
+	while (out && out->num != midnode->num)
+		out = out->next;
+	ft_lstclear(&sorted);
+	return (out);
+}
+
+void	sort(t_node **a, t_node **b)
+{
+	t_node	*midnode;
+
+	midnode = get_midnode(a, 0);
+}
+

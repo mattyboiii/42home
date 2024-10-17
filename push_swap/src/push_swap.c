@@ -16,8 +16,6 @@ int	main(int arc, char **arv)
 {
 	t_node	*a;
 	t_node	*b;
-	t_node	**sort;
-	int		*numa;
 
 	a = NULL;
 	b = NULL;
@@ -27,16 +25,13 @@ int	main(int arc, char **arv)
 		ft_exit(3);
 	error_check_arv(arv);
 	fill_a(&a, arv);
+	sort(&a, &b);
 	print_lstnums(a);
 	if (ft_lstlast(a)->pos <= 2)
 		sort3(&a);
 	print_lstnums(a);
 	a = get_head(a);
 	print_lstnums(a);
-	fill_a(sort, arv);
-	print_lstnums(*sort);
-	*sort = simple_sort(*sort);
-	print_lstnums(*sort);
 }
 // the next thing you need to do is ad rra and rrb. This will probably need
 // lst del functions, because you are moving them from a to b now.

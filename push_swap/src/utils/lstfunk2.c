@@ -12,18 +12,6 @@
 
 #include "../push_swap.h"
 
-t_node	*get_head(t_node *lst)
-{
-	t_node	*head;
-
-	if (lst == NULL)
-		return (NULL);
-	head = lst;
-	while (head->prev != NULL)
-		head = head->prev;
-	return (head);
-}
-
 void	fill_a(t_node **lst, char **arv)
 {
 	int			i;
@@ -66,6 +54,35 @@ void	ft_stackposupdate(t_node *node)
 		node = node->next;
 	}
 }
+
+void	ft_lstclear(t_node **lst)
+{
+	t_node	*node;
+
+	if (!(*lst))
+		return ;
+	while (*lst)
+	{
+		node = (*lst)->next;
+		free(*lst);
+		*lst = NULL;
+		*lst = node;
+	}
+	*lst = NULL;
+}
+
+t_node	*get_head(t_node *lst)
+{
+	t_node	*head;
+
+	if (lst == NULL)
+		return (NULL);
+	head = lst;
+	while (head->prev != NULL)
+		head = head->prev;
+	return (head);
+}
+
 /*
 nodedel returns the deleted node.
 the list is updated to simpy forget the node variable ever existed.

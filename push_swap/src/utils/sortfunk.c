@@ -12,16 +12,6 @@
 
 #include "../push_swap.h"
 
-void	numswap(t_node *bigger, t_node *smaller)
-{
-	int		swap;
-
-	swap = bigger->num;
-	bigger->num = smaller->num;
-	smaller->num = swap;
-}
-
-
 int	is_sorted(t_node *lst, t_node *start, t_node *stop)
 {
 	t_node	*head;
@@ -42,6 +32,14 @@ int	is_sorted(t_node *lst, t_node *start, t_node *stop)
 	return (1);
 }
 
+void	numswap(t_node *bigger, t_node *smaller)
+{
+	int		swap;
+
+	swap = bigger->num;
+	bigger->num = smaller->num;
+	smaller->num = swap;
+}
 
 void	print_lstnums(t_node *lst)
 {
