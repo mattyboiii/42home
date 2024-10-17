@@ -12,47 +12,6 @@
 
 #include "../push_swap.h"
 
-void	set_big_small(t_node **lst, t_node **big, t_node **small)
-{
-	t_node	*head;
-
-	head = *lst;
-	*big = *lst;
-	*small = *lst;
-	while ((*lst)->next)
-	{
-		*lst = (*lst)->next;
-		if ((*lst)->num < (*small)->num)
-			*small = *lst;
-		else if ((*lst)->num > (*big)->num)
-			*big = *lst;
-	}
-	*lst = head;
-}
-
-void	sort3(t_node **a)
-{
-	t_node		*small;
-	t_node		*big;
-
-	set_big_small(a, &big, &small);
-	if (small->pos == 1 && big->pos == 2)
-		s(a, 1);
-	else if (small->pos == 1 && big->pos == 0)
-		r(a, 1);
-	else if (small->pos == 2 && big->pos == 1)
-		rrs(a, 1);
-	else if (small->pos == 0 && big->pos == 1)
-	{
-		s(a, 1);
-		r(a, 1);
-	}
-	else
-	{
-		s(a, 1);
-		rrs(a, 1);
-	}
-}
 
 t_node	*get_midnode(t_node **lst, int	chunk)
 {
@@ -69,13 +28,67 @@ t_node	*get_midnode(t_node **lst, int	chunk)
 	while (out && out->num != midnode->num)
 		out = out->next;
 	ft_lstclear(&sorted);
+	last = NULL;
+	midnode = NULL;
 	return (out);
+}
+
+void	pb_chunk(t_node **a, t_node **b, t_node *midnode, int chunk)
+{
+		while ((*a)->pos != ft_lstlast(*a)->pos)
+		{
+			while ((*a)->num < midnode->num)
+			{
+				(*a)->chunk = chunk;
+				pb(a, b, 1);
+				print_lstnums(*a, *b);
+			}
+			if (ft_lstlast(*a)->num < midnode->num)
+			{
+				rrs(a, 1);
+				(*a)->chunk = chunk;
+				pb(a, b, 1);
+				print_lstnums(*a, *b);
+			}
+			while ((*a)->num > midnode->num || (*a)->num == midnode->num)
+			{
+				r(a, 1);
+				print_lstnums(*a, *b);
+			}
+		}
+		if ((*a)->num < midnode->num)
+		{
+			(*a)->chunk = chunk;
+			pb(a, b, 1);
+			print_lstnums(*a, *b);
+		}
+}
+
+void	sort_to_b(t_node **a, t_node **b, int	*chunk)
+{
+
+	t_node	*midnode;
+
+	while (ft_lstlast(*a)->pos > 2)
+	{
+		(*chunk)++;
+		midnode = get_midnode(a, 0);
+		pb_chunk(a, b, midnode, *chunk);
+	}
+}
+
+void	sort_to_a(t_node **a, t_node **b)
+{
+
 }
 
 void	sort(t_node **a, t_node **b)
 {
-	t_node	*midnode;
+	int		chunk;
 
-	midnode = get_midnode(a, 0);
+	chunk = 0;
+	sort_to_b(a, b, &chunk);
 }
+
+
 

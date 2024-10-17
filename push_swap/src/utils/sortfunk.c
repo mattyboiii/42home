@@ -41,21 +41,87 @@ void	numswap(t_node *bigger, t_node *smaller)
 	smaller->num = swap;
 }
 
-void	print_lstnums(t_node *lst)
+/*
+void	print_lstnums(t_node *a, t_node *b)
 {
 	int		i;
-	t_node	*head;
+	t_node	*list_a;
+	t_node	*list_b;
 
-	head = lst;
+	list_a = a;
+	list_b = b;
 	i = 0;
-	while (lst)
+	while (list_a || list_b)
 	{
-		ft_printf("index [%d]: %d\n", i, lst->num);
+		if (list_a)
+		{
+			ft_printf("a[%d]: %d", i, list_a->num);
+			list_a = list_a->next;
+		}
+		if (list_b)
+		{
+			ft_printf("  -----  b[%d]: %d", i, list_b->num);
+			list_b = list_b->next;
+		}
+		ft_putchar_fd('\n', 1);
 		i++;
-		lst = lst->next;
 	}
-	ft_putchar_fd('\n', 1);
 }
+*/
+
+void	print_lstnums(t_node *a, t_node *b)
+{
+	int		i;
+	t_node	*list_a;
+	t_node	*list_b;
+
+	list_a = a;
+	list_b = b;
+	i = 0;
+	while (list_a || list_b)
+	{
+		// Print 'a' list with correct spacing for index
+		if (list_a)
+		{
+			// Handle spacing based on index size
+			if (i < 10)
+				ft_printf("a  [%d]: %d", i, list_a->num);
+			else if (i < 100)
+				ft_printf("a [%d]: %d", i, list_a->num);
+			else
+				ft_printf("a[%d]: %d", i, list_a->num);
+
+			// Handle spacing based on the number size
+			if (list_a->num < 10)
+				ft_printf("   ");  // 3 spaces after single digit
+			else if (list_a->num < 100)
+				ft_printf("  ");   // 2 spaces after two digits
+			else if (list_a->num < 1000)
+				ft_printf(" ");    // 1 space after three digits
+
+			list_a = list_a->next;
+		}
+
+		// Print 'b' list with correct formatting (if list_b is not NULL)
+		if (list_b)
+		{
+			if (i < 10)
+				ft_printf("-----  b  [%d]: %d", i, list_b->num);
+			else if (i < 100)
+				ft_printf("-----  b [%d]: %d", i, list_b->num);
+			else
+				ft_printf("-----  b[%d]: %d", i, list_b->num);
+
+			list_b = list_b->next;
+		}
+
+		ft_putchar_fd('\n', 1);
+		i++;
+	}
+		ft_putchar_fd('\n', 1);
+}
+
+
 
 t_node	*simple_sort(t_node *lst)
 {

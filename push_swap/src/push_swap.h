@@ -13,6 +13,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include <unistd.h> //dup, dup2, access
+# include <stdio.h> //printf
 # include <stdlib.h> //free, malloc
 # include "../ps_libft/libft.h"
 
@@ -50,7 +51,7 @@ t_node	*get_node(t_node *lst, int index);
 // Sortfunk
 int		is_sorted(t_node *lst, t_node *start, t_node *stop);
 void	numswap(t_node *bigger, t_node *smaller);
-void	print_lstnums(t_node *lst);
+void	print_lstnums(t_node *a, t_node *b);
 t_node	*simple_sort(t_node *lst);
 
 // Stackfunk
