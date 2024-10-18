@@ -21,6 +21,8 @@ t_node	*get_midnode(t_node **lst, int chunk)
 
 	sorted = NULL;
 	out = *lst;
+	if (ft_lstlast(*lst)->pos <= 1)
+		return (*lst);
 	sorted = simple_sort(copy_lst(lst, chunk));
 	last = ft_lstlast(sorted);
 	midnode = get_node(sorted, (last->pos + 1) / 2);
@@ -37,7 +39,7 @@ void	pb_chunk(t_node **a, t_node **b, t_node *midnode, int chunk)
 	t_node	*last;
 
 	last = ft_lstlast(*a);
-	while ((*a)->num != last->num)
+	while ((check_eq_lg(*a, midnode->num) == 0))
 	{
 		while ((*a)->num < midnode->num)
 		{
@@ -51,14 +53,10 @@ void	pb_chunk(t_node **a, t_node **b, t_node *midnode, int chunk)
 			pb(a, b, 1);
 		}
 		while (((*a)->num > midnode->num || (*a)->num == midnode->num)
-			&& (*a)->num != last->num && (*a)->next->num != last->num)
+				&& (check_eq_lg(*a, midnode->num) == 0))
+		{
 			r(a, 1);
-			//maybe turn this into an if statement. not sure :)
-	}
-	if ((*a)->num < midnode->num && (*a)->num != last->num)
-	{
-		(*a)->chunk = chunk;
-		pb(a, b, 1);
+		}
 	}
 }
 
@@ -67,18 +65,21 @@ void	sort_to_b(t_node **a, t_node **b, int	*chunk)
 	t_node	*midnode;
 
 	print_lstnums(*a, *b);
-	while (ft_lstlast(*a)->pos > 2)
+	while (ft_lstlast(*a)->pos > 1)
 	{
 		(*chunk)++;
 		midnode = get_midnode(a, 0);
 		pb_chunk(a, b, midnode, *chunk);
 		print_lstnums(*a, *b);
 	}
+	if (is_sorted(*a, *a, (*a)->chunk) == 0)
+		s(a, 1);
+	sort_to_a(a, b);
 }
 
 void	sort_to_a(t_node **a, t_node **b)
 {
-
+	t_node
 }
 
 void	sort(t_node **a, t_node **b)

@@ -12,6 +12,22 @@
 
 #include "../push_swap.h"
 
+int		check_eq_lg(t_node *lst, int n)
+{
+	t_node	*node;
+
+	if (lst == NULL)
+		return (1);
+	node = lst;
+	while (node)
+	{
+		if (node->num < n)
+			return (0);
+		node = node->next;
+	}
+	return (1);
+
+}
 void	set_big_small(t_node **lst, t_node **big, t_node **small)
 {
 	t_node	*head;

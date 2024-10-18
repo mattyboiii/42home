@@ -12,14 +12,14 @@
 
 #include "../push_swap.h"
 
-int	is_sorted(t_node *lst, t_node *start, t_node *stop)
+int	is_sorted(t_node *lst, t_node *start, int chunk)
 {
 	t_node	*head;
 
 	head = lst;
 	while (lst != start)
 		lst = lst->next;
-	while (lst->next != NULL && lst != stop)
+	while (lst->next != NULL && lst->chunk == chunk)
 	{
 		if (lst->num > lst->next->num)
 		{
@@ -41,43 +41,17 @@ void	numswap(t_node *bigger, t_node *smaller)
 	smaller->num = swap;
 }
 
-/*
 void	print_lstnums(t_node *a, t_node *b)
 {
 	int		i;
+	int		j;
 	t_node	*list_a;
 	t_node	*list_b;
 
 	list_a = a;
 	list_b = b;
 	i = 0;
-	while (list_a || list_b)
-	{
-		if (list_a)
-		{
-			ft_printf("a[%d]: %d", i, list_a->num);
-			list_a = list_a->next;
-		}
-		if (list_b)
-		{
-			ft_printf("  -----  b[%d]: %d", i, list_b->num);
-			list_b = list_b->next;
-		}
-		ft_putchar_fd('\n', 1);
-		i++;
-	}
-}
-*/
-
-void	print_lstnums(t_node *a, t_node *b)
-{
-	int		i;
-	t_node	*list_a;
-	t_node	*list_b;
-
-	list_a = a;
-	list_b = b;
-	i = 0;
+	j = 0;
 	while (list_a || list_b)
 	{
 		// Print 'a' list with correct spacing for index
@@ -102,8 +76,18 @@ void	print_lstnums(t_node *a, t_node *b)
 			list_a = list_a->next;
 		}
 
+		if (!list_a && list_b && j == 1)
+		{
+			if (i < 10)
+				ft_printf("                   b  [%d]: %d", i, list_b->num);
+			else if (i < 100)
+				ft_printf("                   b [%d]: %d", i, list_b->num);
+			else
+				ft_printf("                   b[%d]: %d", i, list_b->num);
+			list_b = list_b->next;
+		}
 		// Print 'b' list with correct formatting (if list_b is not NULL)
-		if (list_b)
+		else if ((list_a && list_b)|| (!list_a && list_b && j == 0))
 		{
 			if (i < 10)
 				ft_printf("-----  b  [%d]: %d", i, list_b->num);
@@ -114,7 +98,8 @@ void	print_lstnums(t_node *a, t_node *b)
 
 			list_b = list_b->next;
 		}
-
+		if (!list_a & j == 0)
+			j = 1;
 		ft_putchar_fd('\n', 1);
 		i++;
 	}

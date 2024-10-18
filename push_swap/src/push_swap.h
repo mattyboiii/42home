@@ -34,6 +34,7 @@ void	sort3(t_node **a);
 void	set_big_small(t_node **lst, t_node **big, t_node **small);
 void	sort(t_node **a, t_node **b);
 
+int		check_eq_lg(t_node *lst, int n);
 // Lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);
 void	ft_lstadd_back(t_node **lst, t_node *new);
@@ -49,7 +50,7 @@ t_node	*ft_nodedel(t_node *node);
 t_node	*get_node(t_node *lst, int index);
 
 // Sortfunk
-int		is_sorted(t_node *lst, t_node *start, t_node *stop);
+int		is_sorted(t_node *lst, t_node *start, int chunk);
 void	numswap(t_node *bigger, t_node *smaller);
 void	print_lstnums(t_node *a, t_node *b);
 t_node	*simple_sort(t_node *lst);
