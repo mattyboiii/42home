@@ -12,12 +12,28 @@
 
 #include "../push_swap.h"
 
-int	is_sorted(t_node *lst, t_node *start, int chunk)
+int	sorted_des(t_node *lst, int chunk)
+{
+	lst = lstlast_chunk(lst, chunk);
+	if (lst == NULL)
+		return (1);
+	if (lst->chunk != chunk)
+		return (0);
+	while (lst->chunk == chunk && lst->prev != NULL)
+	{
+		if (lst->prev->num < lst->num)
+			return (0);
+		lst = lst->prev;
+	}
+	return (1);
+}
+
+int	sorted_asc(t_node *lst, t_node *start, int chunk)
 {
 	t_node	*head;
 
 	head = lst;
-	while (lst != start)
+	while (lst != start && lst->chunk == chunk)
 		lst = lst->next;
 	while (lst->next != NULL && lst->chunk == chunk)
 	{
@@ -79,22 +95,22 @@ void	print_lstnums(t_node *a, t_node *b)
 		if (!list_a && list_b && j == 1)
 		{
 			if (i < 10)
-				ft_printf("                   b  [%d]: %d", i, list_b->num);
+				ft_printf("                   b  [%d-%d]: %d", i, list_b->chunk, list_b->num);
 			else if (i < 100)
-				ft_printf("                   b [%d]: %d", i, list_b->num);
+				ft_printf("                   b [%d-%d]: %d", i, list_b->chunk, list_b->num);
 			else
-				ft_printf("                   b[%d]: %d", i, list_b->num);
+				ft_printf("                   b[%d-%d]: %d", i, list_b->chunk, list_b->num);
 			list_b = list_b->next;
 		}
 		// Print 'b' list with correct formatting (if list_b is not NULL)
 		else if ((list_a && list_b)|| (!list_a && list_b && j == 0))
 		{
 			if (i < 10)
-				ft_printf("-----  b  [%d]: %d", i, list_b->num);
+				ft_printf("-----  b  [%d-%d]: %d", i, list_b->chunk, list_b->num);
 			else if (i < 100)
-				ft_printf("-----  b [%d]: %d", i, list_b->num);
+				ft_printf("-----  b [%d-%d]: %d", i, list_b->chunk, list_b->num);
 			else
-				ft_printf("-----  b[%d]: %d", i, list_b->num);
+				ft_printf("-----  b[%d-%d]: %d", i, list_b->chunk, list_b->num);
 
 			list_b = list_b->next;
 		}

@@ -12,21 +12,32 @@
 
 #include "../push_swap.h"
 
-int		check_eq_lg(t_node *lst, int n)
+int		check_lg_sm(t_node *lst, int midnum, int chunk, int lg_sm)
 {
 	t_node	*node;
 
 	if (lst == NULL)
 		return (1);
 	node = lst;
-	while (node)
+	if (lg_sm == 0)
 	{
-		if (node->num < n)
-			return (0);
-		node = node->next;
+		while (node && node->chunk == chunk)
+		{
+			if (node->num < midnum)
+				return (1);
+			node = node->next;
+		}
 	}
-	return (1);
-
+	else
+	{
+		while (node && node->chunk == chunk)
+		{
+			if (node->num > midnum)
+				return (1);
+			node = node->next;
+		}
+	}
+	return (0);
 }
 void	set_big_small(t_node **lst, t_node **big, t_node **small)
 {

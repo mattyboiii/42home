@@ -46,6 +46,8 @@ void	ft_lstadd_back(t_node **lst, t_node *new)
 
 t_node	*ft_lstlast(t_node *lst)
 {
+	if (lst == NULL)
+		return (NULL);
 	if (lst->next == NULL)
 		return (lst);
 	while (lst && lst->next != NULL)

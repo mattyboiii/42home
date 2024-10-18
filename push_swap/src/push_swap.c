@@ -25,8 +25,10 @@ int	main(int arc, char **arv)
 		ft_exit(3);
 	error_check_arv(arv);
 	fill_a(&a, arv);
-	sort(&a, &b);
 	print_lstnums(a, 0);
+	sort_to_b(&a, &b);
+	print_lstnums(a, 0);
+	exit (6);
 	if (ft_lstlast(a)->pos <= 2)
 		sort3(&a);
 	print_lstnums(a, 0);

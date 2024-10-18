@@ -71,6 +71,7 @@ void	pa(t_node **a, t_node **b, int print)
 	bhead = ft_nodedel(*b);
 	*b = (*b)->next;
 	bhead->stack[0] = 'a';
+	bhead->chunk = 0;
 	ft_lstadd_front(a, bhead);
 	ft_stackposupdate(*a);
 	if (print == 1)

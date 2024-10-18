@@ -32,9 +32,9 @@ typedef struct s_stack_node
 // Logicfunk
 void	sort3(t_node **a);
 void	set_big_small(t_node **lst, t_node **big, t_node **small);
-void	sort(t_node **a, t_node **b);
+void	sort_to_b(t_node **a, t_node **b);
 
-int		check_eq_lg(t_node *lst, int n);
+int		check_lg_sm(t_node *lst, int midnum, int chunk, int lg_small);
 // Lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);
 void	ft_lstadd_back(t_node **lst, t_node *new);
@@ -49,8 +49,13 @@ t_node	*get_head(t_node *lst);
 t_node	*ft_nodedel(t_node *node);
 t_node	*get_node(t_node *lst, int index);
 
+int		if_swap(t_node *lst, int chunk);
+int		chunk_size(t_node *lst, int chunk);
+t_node	*lstlast_chunk(t_node *lst, int chunk);
+
 // Sortfunk
-int		is_sorted(t_node *lst, t_node *start, int chunk);
+int		sorted_des(t_node *lst, int chunk);
+int		sorted_asc(t_node *lst, t_node *start, int chunk);
 void	numswap(t_node *bigger, t_node *smaller);
 void	print_lstnums(t_node *a, t_node *b);
 t_node	*simple_sort(t_node *lst);

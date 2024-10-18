@@ -18,10 +18,11 @@ t_node	*get_midnode(t_node **lst, int chunk)
 	t_node	*midnode;
 	t_node	*last;
 	t_node	*out;
+	t_node	*chunklast;
 
 	sorted = NULL;
 	out = *lst;
-	if (ft_lstlast(*lst)->pos <= 1)
+	if (chunk_size(*lst, chunk) <= 2 || (*lst)->next == NULL)
 		return (*lst);
 	sorted = simple_sort(copy_lst(lst, chunk));
 	last = ft_lstlast(sorted);
@@ -39,7 +40,7 @@ void	pb_chunk(t_node **a, t_node **b, t_node *midnode, int chunk)
 	t_node	*last;
 
 	last = ft_lstlast(*a);
-	while ((check_eq_lg(*a, midnode->num) == 0))
+	while ((check_lg_sm(*a, midnode->num, (*a)->chunk, 0) == 1))
 	{
 		while ((*a)->num < midnode->num)
 		{
@@ -53,42 +54,73 @@ void	pb_chunk(t_node **a, t_node **b, t_node *midnode, int chunk)
 			pb(a, b, 1);
 		}
 		while (((*a)->num > midnode->num || (*a)->num == midnode->num)
-				&& (check_eq_lg(*a, midnode->num) == 0))
-		{
+				&& (check_lg_sm(*a, midnode->num, (*a)->chunk, 0) == 1))
 			r(a, 1);
-		}
 	}
 }
 
-void	sort_to_b(t_node **a, t_node **b, int	*chunk)
+void	pa_chunk(t_node **a, t_node **b, t_node *midnode, int chunk)
 {
-	t_node	*midnode;
+	int		ra;
 
-	print_lstnums(*a, *b);
-	while (ft_lstlast(*a)->pos > 1)
+	ra = 0;
+	while ((*b) && (check_lg_sm(*b, midnode->num, (*b)->chunk, 1) == 1))
 	{
-		(*chunk)++;
-		midnode = get_midnode(a, 0);
-		pb_chunk(a, b, midnode, *chunk);
-		print_lstnums(*a, *b);
+		while ((*b)->num > midnode->num)
+			pa(a, b, 1);
+		if (if_swap(*b, chunk) == 1)
+			s(b, 1);
+		while ((*b)->num <= midnode->num && check_lg_sm(*b, midnode->num,
+			(*b)->chunk, 1) == 1)
+		{
+			r(b, 1);
+			ra++;
+		}
+		while ((*b) && sorted_des(*b, chunk) == 1)
+			pa(a, b, 1);
 	}
-	if (is_sorted(*a, *a, (*a)->chunk) == 0)
-		s(a, 1);
-	sort_to_a(a, b);
+	while (ra > 0)
+	{
+		rrs(b, 1);
+		ra--;
+	}
 }
 
-void	sort_to_a(t_node **a, t_node **b)
+void	sort_to_a(t_node **a, t_node **b, int *chunk)
 {
-	t_node
+	t_node		*midnode;
+
+	while (*b)
+	{
+		print_lstnums(*a, *b);
+		midnode = get_midnode(b, *chunk);
+		if ((chunk_size(*b, *chunk) <= 2))
+		{
+			while ((*b)->chunk == *chunk)
+				pa(a, b, 1);
+			(*chunk)--;
+			midnode = get_midnode(b, *chunk);
+		}
+		pa_chunk(a, b, midnode, *chunk);
+		if (*chunk > 1)
+			(*chunk)--;
+	}
 }
 
-void	sort(t_node **a, t_node **b)
+void	sort_to_b(t_node **a, t_node **b)
 {
 	int		chunk;
+	t_node	*midnode;
 
 	chunk = 0;
-	sort_to_b(a, b, &chunk);
+	while (ft_lstlast(*a)->pos > 1)
+	{
+		chunk++;
+		midnode = get_midnode(a, 0);
+		pb_chunk(a, b, midnode, chunk);
+	}
+	if (sorted_asc(*a, *a, (*a)->chunk) == 0)
+		s(a, 1);
+	sort_to_a(a, b, &chunk);
 }
-
-
 
