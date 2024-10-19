@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-int		check_lg_sm(t_node *lst, int midnum, int chunk, int lg_sm)
+int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_sm)
 {
 	t_node	*node;
 
@@ -21,7 +21,7 @@ int		check_lg_sm(t_node *lst, int midnum, int chunk, int lg_sm)
 	{
 		while (node && node->chunk == chunk)
 		{
-			if (node->num < midnum)
+			if (node->num < compare)
 				return (1);
 			node = node->next;
 		}
@@ -30,7 +30,7 @@ int		check_lg_sm(t_node *lst, int midnum, int chunk, int lg_sm)
 	{
 		while (node && node->chunk == chunk)
 		{
-			if (node->num > midnum)
+			if (node->num > compare)
 				return (1);
 			node = node->next;
 		}
@@ -55,27 +55,27 @@ void	set_big_small(t_node **lst, t_node **big, t_node **small)
 	*lst = head;
 }
 
-void	sort3(t_node **a)
+void	sort3(t_node **lst)
 {
 	t_node		*small;
 	t_node		*big;
 
-	set_big_small(a, &big, &small);
+	set_big_small(lst, &big, &small);
 	if (small->pos == 1 && big->pos == 2)
-		s(a, 1);
+		s(lst, 1);
 	else if (small->pos == 1 && big->pos == 0)
-		r(a, 1);
+		r(lst, 1);
 	else if (small->pos == 2 && big->pos == 1)
-		rrs(a, 1);
+		rrs(lst, 1);
 	else if (small->pos == 0 && big->pos == 1)
 	{
-		s(a, 1);
-		r(a, 1);
+		s(lst, 1);
+		r(lst, 1);
 	}
 	else
 	{
-		s(a, 1);
-		rrs(a, 1);
+		s(lst, 1);
+		rrs(lst, 1);
 	}
 }
 

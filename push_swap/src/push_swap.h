@@ -32,9 +32,9 @@ typedef struct s_stack_node
 // Logicfunk
 void	sort_to_b(t_node **a, t_node **b);
 
-int		check_lg_sm(t_node *lst, int midnum, int chunk, int lg_small);
+int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
 void	set_big_small(t_node **lst, t_node **big, t_node **small);
-void	sort3(t_node **a);
+void	sort3(t_node **lst);
 t_node	*get_midnode(t_node **lst, int chunk);
 // Lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);

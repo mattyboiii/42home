@@ -19,89 +19,79 @@ void	pb_chunk(t_node **a, t_node **b, int midnum, int chunk)
 	last = ft_lstlast(*a);
 	while ((check_lg_sm(*a, midnum, (*a)->chunk, 0) == 1))
 	{
-		print_lstnums(*a, *b);
 		while ((*a)->num < midnum)
 		{
 			(*a)->chunk = chunk;
 			pb(a, b, 1);
-			print_lstnums(*a, *b);
 		}
 		if (ft_lstlast(*a)->num < midnum && (*a)->num != last->num)
 		{
 			rrs(a, 1);
 			(*a)->chunk = chunk;
 			pb(a, b, 1);
-			print_lstnums(*a, *b);
 		}
 		if (((*a)->num > midnum || (*a)->num == midnum)
 				&& (check_lg_sm(*a, midnum, (*a)->chunk, 0) == 1))
 		{
 			r(a, 1);
-			print_lstnums(*a, *b);
 		}
 	}
 }
 
 void	pa_chunk(t_node **a, t_node **b, int midnum, int chunk)
 {
-	int		ra;
+	int		rot;
 
-	ra = 0;
-	while ((*b) && (check_lg_sm(*b, midnum, chunk, 1) == 1) && neg_lst(*b, chunk) == 0)
+	rot = 0;
+	while ((*b) && (check_lg_sm(*b, midnum, chunk, 1) == 1)
+		&& neg_lst(*b, chunk) == 0)
 	{
-
-		//check lst_neg here. If it is. change below while to start looking for the smallest number
 		while ((*b)->num > midnum && check_lg_sm(*b, (*b)->num, chunk, 1) == 0)
-		{
 			pa(a, b, 1);
-			print_lstnums(*a, *b);
-		}
 		if (if_swap(*b, chunk, 1) == 1 || check_lg_sm(*b, (*b)->next->num, chunk, 1) == 0)
-		{
 			s(b, 1);
-			print_lstnums(*a, *b);
-		}
-		if (((*b)->num <= midnum && check_lg_sm(*b, midnum, (*b)->chunk, 1) == 1
-			&& neg_lst(*b, chunk) == 0) || ((*b)->num > midnum
+		if (((*b)->num <= midnum && check_lg_sm(*b, midnum, (*b)->chunk, 1)
+			== 1 && neg_lst(*b, chunk) == 0) || ((*b)->num > midnum
 			&& check_lg_sm(*b, (*b)->num, chunk, 1) == 1))
 		{
 			r(b, 1);
-			ra++;
-			print_lstnums(*a, *b);
+			rot++;
 		}
 	}
-	while (ra > 0 && chunk != 1)
+	while (*b && rot > 0 && chunk != 1)
 	{
 		rrs(b, 1);
-		ra--;
+		rot--;
 	}
 }
 
 void	pa_chunk_neg(t_node **a, t_node **b, int midnum, int chunk)
 {
-	int		ra;
+	int		rot;
 
-	ra = 0;
-	while ((check_lg_sm(*b, midnum, chunk, 0) == 1))
+	rot = 0;
+	while (*b && (check_lg_sm(*b, midnum, chunk, 1) == 1) || *b && chunk_size(*b, chunk) <= 3)
 	{
-		print_lstnums(*a, *b);
-		while ((*b)->num < midnum && check_lg_sm(*b, (*b)->num, chunk, 1) == 0)
-		{
+		while (*b && ((*b)->num > midnum && check_lg_sm(*b, (*b)->num, chunk, 1) == 0)
+			|| (*b && check_lg_sm(*b, (*b)->num, chunk, 1) == 0))
 			pa(a, b, 1);
-			print_lstnums(*a, *b);
-		}
-		if (ft_lstlast(*b)->num < (*b)->num && check_lg_sm(*b, (*b)->num, chunk, 1) == 0)
+		if (*b && if_swap(*b, chunk, 0) == 1 || *b && check_lg_sm(*b, (*b)->next->num, chunk, 1) == 0)
+			s(b, 1);
+		else if (*b && ft_lstlast(*b)->num > (*b)->num && check_lg_sm(*b, (*b)->num, chunk, 1) == 0)
 		{
-			rrs(a, 1);
+			rrs(b, 1);
 			pa(a, b, 1);
-			print_lstnums(*a, *b);
 		}
-		if (((*b)->num > midnum || (*b)->num == midnum)
-				&& (check_lg_sm(*b, midnum, chunk, 0) == 1))
+		else if ((*b && (*b)->num < midnum || *b && (check_lg_sm(*b, (*b)->num, chunk, 1) == 1)))
 		{
 			r(b, 1);
-			print_lstnums(*a, *b);
+			rot++;
 		}
+	}
+	while (*b && rot > 0 && chunk != 1)
+	{
+		rrs(b, 1);
+		rot--;
 	}
 }
 
@@ -111,30 +101,24 @@ void	sort_to_a(t_node **a, t_node **b, int *chunk)
 
 	while (*b)
 	{
-		print_lstnums(*a, *b);
+		if (*chunk == 1 && chunk_size(*b, *chunk) == 3)
+			sort3(b);
 		midnode = get_midnode(b, *chunk);
 		if ((chunk_size(*b, *chunk) == 2))
 		{
-			if (if_swap(*b, *chunk, 1) == 1)
-			{
+			if (*b && if_swap(*b, *chunk, 1) == 1)
 				s(b, 1);
-				print_lstnums(*a, *b);
-			}
-			while ((*b)->chunk == *chunk && sorted_des(*b, *chunk) == 1)
-			{
+			while ((*b) && (*b)->chunk == *chunk && sorted_des(*b, *chunk) == 1)
 				pa(a, b, 1);
-				print_lstnums(*a, *b);
-			}
-			if (*chunk > 1 && chunk_size(*b, *chunk) == 0)
+			if (*b && *chunk > 1 && chunk_size(*b, *chunk) == 0)
 				(*chunk)--;
 			midnode = get_midnode(b, *chunk);
 		}
-		if (neg_lst(*b, *chunk) == 0)
+		if (*b && neg_lst(*b, *chunk) == 0)
 			pa_chunk(a, b, midnode->num, *chunk);
 		else
 			pa_chunk_neg(a, b, midnode->num, *chunk);
-		print_lstnums(*a, *b);
-		if (*chunk > 1 && chunk_size(*b, *chunk) == 0)
+		if (*b && *chunk > 1 && chunk_size(*b, *chunk) == 0)
 			(*chunk)--;
 	}
 }
