@@ -16,8 +16,6 @@ int		check_lg_sm(t_node *lst, int midnum, int chunk, int lg_sm)
 {
 	t_node	*node;
 
-	if (lst == NULL)
-		return (1);
 	node = lst;
 	if (lg_sm == 0)
 	{
@@ -79,4 +77,28 @@ void	sort3(t_node **a)
 		s(a, 1);
 		rrs(a, 1);
 	}
+}
+
+t_node	*get_midnode(t_node **lst, int chunk)
+{
+	t_node	*sorted;
+	t_node	*midnode;
+	t_node	*last;
+	t_node	*out;
+	t_node	*chunklast;
+
+	sorted = NULL;
+	out = *lst;
+	if (chunk_size(*lst, chunk) <= 2 || (*lst)->next == NULL)
+		return (*lst);
+	sorted = simple_sort(copy_lst(lst, chunk));
+	print_lstnums(sorted, NULL);
+	last = ft_lstlast(sorted);
+	midnode = get_node(sorted, (last->pos + 1) / 2);
+	while (out && out->num != midnode->num)
+		out = out->next;
+	ft_lstclear(&sorted);
+	last = NULL;
+	midnode = NULL;
+	return (out);
 }

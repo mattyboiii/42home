@@ -82,24 +82,31 @@ void	print_lstnums(t_node *a, t_node *b)
 				ft_printf("a[%d]: %d", i, list_a->num);
 
 			// Handle spacing based on the number size
-			if (list_a->num < 10)
-				ft_printf("   ");  // 3 spaces after single digit
-			else if (list_a->num < 100)
-				ft_printf("  ");   // 2 spaces after two digits
-			else if (list_a->num < 1000)
+			if (list_a->num < 10 && list_a->num >= 0)
+				ft_printf("    ");  // 3 spaces after single digit
+			else if (list_a->num < 100 && list_a->num > 0)
+				ft_printf("   ");   // 2 spaces after two digits
+			else if (list_a->num < 1000 && list_a->num > 0)
+				ft_printf("  ");    // 1 space after three digits
+			else if (list_a->num < 10000 && list_a->num > 0)
 				ft_printf(" ");    // 1 space after three digits
-
+			else if (list_a->num < 0 && list_a->num > -10)
+				ft_printf("   ");   // 2 spaces after two digits
+			else if (list_a->num < 0 && list_a->num > -100)
+				ft_printf("  ");   // 2 spaces after two digits
+			else if (list_a->num < 0 && list_a->num > -1000)
+				ft_printf(" ");   // 2 spaces after two digits
 			list_a = list_a->next;
 		}
 
 		if (!list_a && list_b && j == 1)
 		{
 			if (i < 10)
-				ft_printf("                   b  [%d-%d]: %d", i, list_b->chunk, list_b->num);
+				ft_printf("                    b  [%d-%d]: %d", i, list_b->chunk, list_b->num);
 			else if (i < 100)
-				ft_printf("                   b [%d-%d]: %d", i, list_b->chunk, list_b->num);
+				ft_printf("                    b [%d-%d]: %d", i, list_b->chunk, list_b->num);
 			else
-				ft_printf("                   b[%d-%d]: %d", i, list_b->chunk, list_b->num);
+				ft_printf("                    b[%d-%d]: %d", i, list_b->chunk, list_b->num);
 			list_b = list_b->next;
 		}
 		// Print 'b' list with correct formatting (if list_b is not NULL)

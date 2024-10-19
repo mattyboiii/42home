@@ -53,7 +53,7 @@ int	strdouble(char **arv)
 				break ;
 			j++;
 		}
-		if ((int)ft_strlen(str) == j)
+		if ((int)ft_strlen(str) == j && ft_strlen(arv[i + 1]) == j)
 			return (1);
 		i++;
 	}

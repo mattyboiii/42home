@@ -12,77 +12,96 @@
 
 #include "../push_swap.h"
 
-t_node	*get_midnode(t_node **lst, int chunk)
-{
-	t_node	*sorted;
-	t_node	*midnode;
-	t_node	*last;
-	t_node	*out;
-	t_node	*chunklast;
-
-	sorted = NULL;
-	out = *lst;
-	if (chunk_size(*lst, chunk) <= 2 || (*lst)->next == NULL)
-		return (*lst);
-	sorted = simple_sort(copy_lst(lst, chunk));
-	last = ft_lstlast(sorted);
-	midnode = get_node(sorted, (last->pos + 1) / 2);
-	while (out && out->num != midnode->num)
-		out = out->next;
-	ft_lstclear(&sorted);
-	last = NULL;
-	midnode = NULL;
-	return (out);
-}
-
-void	pb_chunk(t_node **a, t_node **b, t_node *midnode, int chunk)
+void	pb_chunk(t_node **a, t_node **b, int midnum, int chunk)
 {
 	t_node	*last;
 
 	last = ft_lstlast(*a);
-	while ((check_lg_sm(*a, midnode->num, (*a)->chunk, 0) == 1))
+	while ((check_lg_sm(*a, midnum, (*a)->chunk, 0) == 1))
 	{
-		while ((*a)->num < midnode->num)
+		print_lstnums(*a, *b);
+		while ((*a)->num < midnum)
 		{
 			(*a)->chunk = chunk;
 			pb(a, b, 1);
+			print_lstnums(*a, *b);
 		}
-		if (ft_lstlast(*a)->num < midnode->num && (*a)->num != last->num)
+		if (ft_lstlast(*a)->num < midnum && (*a)->num != last->num)
 		{
 			rrs(a, 1);
 			(*a)->chunk = chunk;
 			pb(a, b, 1);
+			print_lstnums(*a, *b);
 		}
-		while (((*a)->num > midnode->num || (*a)->num == midnode->num)
-				&& (check_lg_sm(*a, midnode->num, (*a)->chunk, 0) == 1))
+		if (((*a)->num > midnum || (*a)->num == midnum)
+				&& (check_lg_sm(*a, midnum, (*a)->chunk, 0) == 1))
+		{
 			r(a, 1);
+			print_lstnums(*a, *b);
+		}
 	}
 }
 
-void	pa_chunk(t_node **a, t_node **b, t_node *midnode, int chunk)
+void	pa_chunk(t_node **a, t_node **b, int midnum, int chunk)
 {
 	int		ra;
 
 	ra = 0;
-	while ((*b) && (check_lg_sm(*b, midnode->num, (*b)->chunk, 1) == 1))
+	while ((*b) && (check_lg_sm(*b, midnum, chunk, 1) == 1) && neg_lst(*b, chunk) == 0)
 	{
-		while ((*b)->num > midnode->num)
+
+		//check lst_neg here. If it is. change below while to start looking for the smallest number
+		while ((*b)->num > midnum && check_lg_sm(*b, (*b)->num, chunk, 1) == 0)
+		{
 			pa(a, b, 1);
-		if (if_swap(*b, chunk) == 1)
+			print_lstnums(*a, *b);
+		}
+		if (if_swap(*b, chunk, 1) == 1 || check_lg_sm(*b, (*b)->next->num, chunk, 1) == 0)
+		{
 			s(b, 1);
-		while ((*b)->num <= midnode->num && check_lg_sm(*b, midnode->num,
-			(*b)->chunk, 1) == 1)
+			print_lstnums(*a, *b);
+		}
+		if (((*b)->num <= midnum && check_lg_sm(*b, midnum, (*b)->chunk, 1) == 1
+			&& neg_lst(*b, chunk) == 0) || ((*b)->num > midnum
+			&& check_lg_sm(*b, (*b)->num, chunk, 1) == 1))
 		{
 			r(b, 1);
 			ra++;
+			print_lstnums(*a, *b);
 		}
-		while ((*b) && sorted_des(*b, chunk) == 1)
-			pa(a, b, 1);
 	}
-	while (ra > 0)
+	while (ra > 0 && chunk != 1)
 	{
 		rrs(b, 1);
 		ra--;
+	}
+}
+
+void	pa_chunk_neg(t_node **a, t_node **b, int midnum, int chunk)
+{
+	int		ra;
+
+	ra = 0;
+	while ((check_lg_sm(*b, midnum, chunk, 0) == 1))
+	{
+		print_lstnums(*a, *b);
+		while ((*b)->num < midnum && check_lg_sm(*b, (*b)->num, chunk, 1) == 0)
+		{
+			pa(a, b, 1);
+			print_lstnums(*a, *b);
+		}
+		if (ft_lstlast(*b)->num < (*b)->num && check_lg_sm(*b, (*b)->num, chunk, 1) == 0)
+		{
+			rrs(a, 1);
+			pa(a, b, 1);
+			print_lstnums(*a, *b);
+		}
+		if (((*b)->num > midnum || (*b)->num == midnum)
+				&& (check_lg_sm(*b, midnum, chunk, 0) == 1))
+		{
+			r(b, 1);
+			print_lstnums(*a, *b);
+		}
 	}
 }
 
@@ -94,15 +113,28 @@ void	sort_to_a(t_node **a, t_node **b, int *chunk)
 	{
 		print_lstnums(*a, *b);
 		midnode = get_midnode(b, *chunk);
-		if ((chunk_size(*b, *chunk) <= 2))
+		if ((chunk_size(*b, *chunk) == 2))
 		{
-			while ((*b)->chunk == *chunk)
+			if (if_swap(*b, *chunk, 1) == 1)
+			{
+				s(b, 1);
+				print_lstnums(*a, *b);
+			}
+			while ((*b)->chunk == *chunk && sorted_des(*b, *chunk) == 1)
+			{
 				pa(a, b, 1);
-			(*chunk)--;
+				print_lstnums(*a, *b);
+			}
+			if (*chunk > 1 && chunk_size(*b, *chunk) == 0)
+				(*chunk)--;
 			midnode = get_midnode(b, *chunk);
 		}
-		pa_chunk(a, b, midnode, *chunk);
-		if (*chunk > 1)
+		if (neg_lst(*b, *chunk) == 0)
+			pa_chunk(a, b, midnode->num, *chunk);
+		else
+			pa_chunk_neg(a, b, midnode->num, *chunk);
+		print_lstnums(*a, *b);
+		if (*chunk > 1 && chunk_size(*b, *chunk) == 0)
 			(*chunk)--;
 	}
 }
@@ -113,14 +145,19 @@ void	sort_to_b(t_node **a, t_node **b)
 	t_node	*midnode;
 
 	chunk = 0;
-	while (ft_lstlast(*a)->pos > 1)
+	while (ft_lstlast(*a)->pos > 2)
 	{
 		chunk++;
 		midnode = get_midnode(a, 0);
-		pb_chunk(a, b, midnode, chunk);
+		pb_chunk(a, b, midnode->num, chunk);
 	}
-	if (sorted_asc(*a, *a, (*a)->chunk) == 0)
-		s(a, 1);
+	if (chunk_size(*a, 0) == 3)
+		sort3(a);
+	else if (chunk_size(*a, 0) < 3)
+	{
+		if (if_swap(*a, 0, 0) == 1)
+			s(a, 1);
+	}
 	sort_to_a(a, b, &chunk);
 }
 
