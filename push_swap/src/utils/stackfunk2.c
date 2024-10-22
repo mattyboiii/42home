@@ -28,11 +28,10 @@ void	rr(t_node **a, t_node **b)
 
 void	rrs(t_node **lst, int print)
 {
-	int		swap;
 	t_node	*first;
 	t_node	*last;
 	t_node	*last_prev;
-// bottom number goes to the top, pushing others down.
+
 	if (*lst == NULL || (*lst)->next == NULL)
 		return ;
 	first = *lst;

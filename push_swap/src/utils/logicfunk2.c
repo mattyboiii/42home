@@ -12,15 +12,17 @@
 
 #include "../push_swap.h"
 
-int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_sm)
+int	check_lg_sm(t_node *lst, int compare, int chunk, int lg_sm)
 {
 	t_node	*node;
 
 	node = lst;
 	if (lg_sm == 0)
 	{
-		while (node && node->chunk == chunk)
+		while (node)
 		{
+			if (node->chunk != chunk)
+				node = node->next;
 			if (node->num < compare)
 				return (1);
 			node = node->next;
@@ -28,7 +30,7 @@ int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_sm)
 	}
 	else
 	{
-		while (node && node->chunk == chunk)
+		while (node)
 		{
 			if (node->num > compare)
 				return (1);
@@ -37,6 +39,36 @@ int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_sm)
 	}
 	return (0);
 }
+
+void	compare_bottom_num(t_node **a, t_node **b, int chunk, int lg_sm)
+{
+	int		current;
+	t_node	*last;
+
+	if (*a == NULL || *b == NULL)
+		return ;
+	current = (*b)->num;
+	last = ft_lstlast(*b);
+	if (lg_sm == 1)
+	{
+		if ((last->num > current && last->chunk == chunk) && (check_lg_sm(*b,
+					last->num, chunk, lg_sm) == 0))
+		{
+			rrs(b, 1);
+			pa(a, b, 1);
+		}
+	}
+	else
+	{
+		if ((last->num < current && last->chunk == chunk) && (check_lg_sm(*b,
+					last->num, chunk, lg_sm) == 0))
+		{
+			rrs(b, 1);
+			pa(a, b, 1);
+		}
+	}
+}
+
 void	set_big_small(t_node **lst, t_node **big, t_node **small)
 {
 	t_node	*head;
@@ -85,14 +117,12 @@ t_node	*get_midnode(t_node **lst, int chunk)
 	t_node	*midnode;
 	t_node	*last;
 	t_node	*out;
-	t_node	*chunklast;
 
 	sorted = NULL;
 	out = *lst;
 	if (chunk_size(*lst, chunk) <= 2 || (*lst)->next == NULL)
 		return (*lst);
 	sorted = simple_sort(copy_lst(lst, chunk));
-	print_lstnums(sorted, NULL);
 	last = ft_lstlast(sorted);
 	midnode = get_node(sorted, (last->pos + 1) / 2);
 	while (out && out->num != midnode->num)

@@ -11,14 +11,6 @@
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-/*
-void	check_logic(char *cur_act)
-{
-	static char	*pre_act;
-
-	if (pre_act == "sa" || "sb" && cur_act == "sa" || "sb")
-}
-*/
 
 void	s(t_node **lst, int print)
 {
@@ -38,7 +30,6 @@ void	s(t_node **lst, int print)
 
 void	r(t_node **lst, int print)
 {
-	int		swap;
 	t_node	*swapnode;
 	t_node	*last;
 
@@ -59,7 +50,6 @@ void	r(t_node **lst, int print)
 		ft_putendl_fd((*lst)->stack, 1);
 	}
 }
-
 
 void	pa(t_node **a, t_node **b, int print)
 {

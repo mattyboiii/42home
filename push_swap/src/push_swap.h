@@ -33,6 +33,7 @@ typedef struct s_stack_node
 void	sort_to_b(t_node **a, t_node **b);
 
 int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
+void	compare_bottom_num(t_node **a, t_node **b, int chunk, int lg_sm);
 void	set_big_small(t_node **lst, t_node **big, t_node **small);
 void	sort3(t_node **lst);
 t_node	*get_midnode(t_node **lst, int chunk);

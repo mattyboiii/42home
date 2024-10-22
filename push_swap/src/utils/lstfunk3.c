@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-int		if_swap(t_node *lst, int chunk, int descending)
+int	if_swap(t_node *lst, int chunk, int descending)
 {
 	int		ret;
 
@@ -37,7 +37,8 @@ int		if_swap(t_node *lst, int chunk, int descending)
 		return (ret);
 	}
 }
-int		neg_lst(t_node *lst, int chunk)
+
+int	neg_lst(t_node *lst, int chunk)
 {
 	if (lst == NULL)
 		return (0);
@@ -50,10 +51,12 @@ int		neg_lst(t_node *lst, int chunk)
 	return (1);
 }
 
-int		chunk_size(t_node *lst, int chunk)
+int	chunk_size(t_node *lst, int chunk)
 {
 	int		i;
 
+	if (lst == NULL)
+		return (0);
 	if (lst->chunk != chunk)
 		return (0);
 	i = 1;
@@ -68,7 +71,8 @@ int		chunk_size(t_node *lst, int chunk)
 	}
 	return (i);
 }
-t_node	*lstlast_chunk(t_node *lst, int	chunk)
+
+t_node	*lstlast_chunk(t_node *lst, int chunk)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -81,4 +85,14 @@ t_node	*lstlast_chunk(t_node *lst, int	chunk)
 	return (lst);
 }
 
+t_node	*get_node(t_node *lst, int index)
+{
+	t_node	*node;
 
+	node = lst;
+	if (lst == NULL)
+		return (NULL);
+	while (node->pos < index && node->next != NULL)
+		node = node->next;
+	return (node);
+}

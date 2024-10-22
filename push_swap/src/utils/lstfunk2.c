@@ -71,24 +71,9 @@ void	ft_lstclear(t_node **lst)
 	*lst = NULL;
 }
 
-t_node	*get_head(t_node *lst)
-{
-	t_node	*head;
-
-	if (lst == NULL)
-		return (NULL);
-	head = lst;
-	while (head->prev != NULL)
-		head = head->prev;
-	return (head);
-}
-
-/*
-nodedel returns the deleted node.
-the list is updated to simpy forget the node variable ever existed.
-it does not actually do any deleting/freeing of memory.
-*/
-
+// nodedel returns the deleted node.
+// the list is updated to simply forget the node variable ever existed.
+// it does not actually do any deleting/freeing of memory.
 t_node	*ft_nodedel(t_node *node)
 {
 	t_node	*nnex;
@@ -118,14 +103,16 @@ t_node	*ft_nodedel(t_node *node)
 	return (chopped);
 }
 
-t_node	*get_node(t_node *lst, int index)
+/*
+t_node	*get_head(t_node *lst)
 {
-	t_node	*node;
+	t_node	*head;
 
-	node = lst;
 	if (lst == NULL)
 		return (NULL);
-	while (node->pos < index && node->next != NULL)
-		node = node->next;
-	return (node);
+	head = lst;
+	while (head->prev != NULL)
+		head = head->prev;
+	return (head);
 }
+*/

@@ -31,7 +31,7 @@ void	pb_chunk(t_node **a, t_node **b, int midnum, int chunk)
 			pb(a, b, 1);
 		}
 		if (((*a)->num > midnum || (*a)->num == midnum)
-				&& (check_lg_sm(*a, midnum, (*a)->chunk, 0) == 1))
+			&& (check_lg_sm(*a, midnum, (*a)->chunk, 0) == 1))
 		{
 			r(a, 1);
 		}
@@ -43,22 +43,23 @@ void	pa_chunk(t_node **a, t_node **b, int midnum, int chunk)
 	int		rot;
 
 	rot = 0;
-	while ((*b) && (check_lg_sm(*b, midnum, chunk, 1) == 1)
-		&& neg_lst(*b, chunk) == 0)
+	while (*b && (*b)->chunk == chunk && neg_lst(*b, chunk) == 0)
 	{
-		while ((*b)->num > midnum && check_lg_sm(*b, (*b)->num, chunk, 1) == 0)
+		while (*b && check_lg_sm(*b, (*b)->num, chunk, 1) == 0 && (*b)->chunk
+			== chunk)
 			pa(a, b, 1);
-		if (if_swap(*b, chunk, 1) == 1 || check_lg_sm(*b, (*b)->next->num, chunk, 1) == 0)
+		if (((*b)->chunk == chunk && if_swap(*b, chunk, 1) == 1)
+			|| check_lg_sm(*b, (*b)->next->num, chunk, 1) == 0)
 			s(b, 1);
-		if (((*b)->num <= midnum && check_lg_sm(*b, midnum, (*b)->chunk, 1)
-			== 1 && neg_lst(*b, chunk) == 0) || ((*b)->num > midnum
-			&& check_lg_sm(*b, (*b)->num, chunk, 1) == 1))
+		else if ((*b)->chunk == chunk && (*b)->num <= midnum && check_lg_sm(*b,
+				midnum, chunk, 1) == 1 && neg_lst(*b, chunk) == 0)
 		{
 			r(b, 1);
 			rot++;
 		}
+		compare_bottom_num(a, b, chunk, 1);
 	}
-	while (*b && rot > 0 && chunk != 1)
+	while (*b && rot > 0 && chunk != 1 && ft_lstlast(*b)->chunk == chunk)
 	{
 		rrs(b, 1);
 		rot--;
@@ -70,23 +71,21 @@ void	pa_chunk_neg(t_node **a, t_node **b, int midnum, int chunk)
 	int		rot;
 
 	rot = 0;
-	while (*b && (check_lg_sm(*b, midnum, chunk, 1) == 1) || *b && chunk_size(*b, chunk) <= 3)
+	while ((*b && (check_lg_sm(*b, midnum, chunk, 1) == 1)) || (*b
+			&& chunk_size(*b, chunk) <= 3))
 	{
-		while (*b && ((*b)->num > midnum && check_lg_sm(*b, (*b)->num, chunk, 1) == 0)
-			|| (*b && check_lg_sm(*b, (*b)->num, chunk, 1) == 0))
+		while ((*b && check_lg_sm(*b, (*b)->num, chunk, 1) == 0))
 			pa(a, b, 1);
-		if (*b && if_swap(*b, chunk, 0) == 1 || *b && check_lg_sm(*b, (*b)->next->num, chunk, 1) == 0)
+		if ((*b && if_swap(*b, chunk, 0) == 1) || (*b && check_lg_sm(*b,
+					(*b)->next->num, chunk, 1) == 0))
 			s(b, 1);
-		else if (*b && ft_lstlast(*b)->num > (*b)->num && check_lg_sm(*b, (*b)->num, chunk, 1) == 0)
-		{
-			rrs(b, 1);
-			pa(a, b, 1);
-		}
-		else if ((*b && (*b)->num < midnum || *b && (check_lg_sm(*b, (*b)->num, chunk, 1) == 1)))
+		else if ((*b && (*b)->num < midnum) || (*b && (check_lg_sm(*b,
+						(*b)->num, chunk, 1) == 1)))
 		{
 			r(b, 1);
 			rot++;
 		}
+		compare_bottom_num(a, b, chunk, 1);
 	}
 	while (*b && rot > 0 && chunk != 1)
 	{
@@ -116,7 +115,7 @@ void	sort_to_a(t_node **a, t_node **b, int *chunk)
 		}
 		if (*b && neg_lst(*b, *chunk) == 0)
 			pa_chunk(a, b, midnode->num, *chunk);
-		else
+		else if (*b && neg_lst(*b, *chunk) == 1)
 			pa_chunk_neg(a, b, midnode->num, *chunk);
 		if (*b && *chunk > 1 && chunk_size(*b, *chunk) == 0)
 			(*chunk)--;
@@ -144,4 +143,3 @@ void	sort_to_b(t_node **a, t_node **b)
 	}
 	sort_to_a(a, b, &chunk);
 }
-

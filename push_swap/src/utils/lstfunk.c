@@ -71,7 +71,8 @@ t_node	*ft_lstnew(int num, int pos, char c)
 	node->chunk = 0;
 	return (node);
 }
-t_node	*copy_lst(t_node **lst, int	chunk)
+
+t_node	*copy_lst(t_node **lst, int chunk)
 {
 	t_node	*head;
 	t_node	*copy;
@@ -82,9 +83,10 @@ t_node	*copy_lst(t_node **lst, int	chunk)
 	head = *lst;
 	while (*lst && (*lst)->chunk == chunk)
 	{
-		ft_lstadd_back(&copy, ft_lstnew((*lst)->num, (*lst)->pos, (*lst)->stack[0]));
+		ft_lstadd_back(&copy, ft_lstnew((*lst)->num, (*lst)->pos,
+				(*lst)->stack[0]));
 		*lst = (*lst)->next;
 	}
 	*lst = head;
-	return(copy);
+	return (copy);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quicksort.c                                         :+:      :+:    :+:   */
+/*   sortfunk.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -102,18 +102,22 @@ void	print_lstnums(t_node *a, t_node *b)
 		if (!list_a && list_b && j == 1)
 		{
 			if (i < 10)
-				ft_printf("                    b  [%d-%d]: %d", i, list_b->chunk, list_b->num);
+				ft_printf("                    b  [%d-%d]: %d", i,
+				list_b->chunk, list_b->num);
 			else if (i < 100)
-				ft_printf("                    b [%d-%d]: %d", i, list_b->chunk, list_b->num);
+				ft_printf("                    b [%d-%d]: %d", i,
+				list_b->chunk, list_b->num);
 			else
-				ft_printf("                    b[%d-%d]: %d", i, list_b->chunk, list_b->num);
+				ft_printf("                    b[%d-%d]: %d", i,
+				list_b->chunk, list_b->num);
 			list_b = list_b->next;
 		}
 		// Print 'b' list with correct formatting (if list_b is not NULL)
 		else if ((list_a && list_b)|| (!list_a && list_b && j == 0))
 		{
 			if (i < 10)
-				ft_printf("-----  b  [%d-%d]: %d", i, list_b->chunk, list_b->num);
+				ft_printf("-----  b  [%d-%d]: %d", i, list_b->chunk,
+				list_b->num);
 			else if (i < 100)
 				ft_printf("-----  b [%d-%d]: %d", i, list_b->chunk, list_b->num);
 			else
@@ -121,15 +125,13 @@ void	print_lstnums(t_node *a, t_node *b)
 
 			list_b = list_b->next;
 		}
-		if (!list_a & j == 0)
+		if (!list_a && j == 0)
 			j = 1;
 		ft_putchar_fd('\n', 1);
 		i++;
 	}
 		ft_putchar_fd('\n', 1);
 }
-
-
 
 t_node	*simple_sort(t_node *lst)
 {
@@ -140,7 +142,6 @@ t_node	*simple_sort(t_node *lst)
 	head = lst;
 	if (!lst)
 		return (NULL);
-
 	current = lst;
 	while (current->next)
 	{

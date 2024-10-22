@@ -3,7 +3,7 @@ NAME = push_swap
 
 # Compiler and flags
 CC = cc
-CFLAGS = -g
+CFLAGS = -Wall -Wextra -Werror -g
 
 # assignment statements-Source funcitons (string list creators is really
 # what these are)-------------- eg $(wildcard pattern)

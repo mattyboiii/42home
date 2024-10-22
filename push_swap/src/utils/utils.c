@@ -53,7 +53,7 @@ int	strdouble(char **arv)
 				break ;
 			j++;
 		}
-		if ((int)ft_strlen(str) == j && ft_strlen(arv[i + 1]) == j)
+		if ((int)ft_strlen(str) == j && (int)ft_strlen(arv[i + 1]) == j)
 			return (1);
 		i++;
 	}
@@ -88,4 +88,3 @@ void	error_check_arv(char **arv)
 		i++;
 	}
 }
-
