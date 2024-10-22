@@ -65,7 +65,7 @@ void	error_check_arv(char **arv)
 	int		i;
 	int		j;
 
-	if (arv == NULL)
+	if (arv == NULL || *arv == NULL)
 		ft_exit(3);
 	i = 0;
 	while (arv[i])
