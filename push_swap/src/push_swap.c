@@ -27,6 +27,8 @@ int	main(int arc, char **arv)
 	fill_a(&a, arv);
 	if (sorted_asc(a, a, 0) == 1)
 		exit (100);
+	else if (chunk_size(a, 0) <= 3)
+		sort3(&a);
 	else
 		sort_to_b(&a, &b);
 }
