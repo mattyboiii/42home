@@ -71,7 +71,10 @@ long	ft_atoi(const char *str)
 		while (!ft_isdigit(*str))
 			str++;
 	else
+	{
+		res = 0;
 		while (ft_isdigit(*str))
 			res = res * 10 + (ft_ctod(*str++));
+	}
 	return (res *= sign);
 }

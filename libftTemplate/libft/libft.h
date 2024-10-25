@@ -20,9 +20,10 @@
 # include <stdlib.h> //malloc, free
 # include <string.h>
 # include <stdarg.h> // va_start, va_arg, va_end, va_copy
+# include "ft_printf/ft_printf.h"
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1000
 # endif
 
 int		ft_isalpha(int c);

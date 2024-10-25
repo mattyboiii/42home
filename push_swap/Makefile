@@ -3,7 +3,7 @@ NAME = push_swap
 
 # Compiler and flags
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g #-Wall -Wextra -Werror
 
 # assignment statements-Source funcitons (string list creators is really
 # what these are)-------------- eg $(wildcard pattern)
@@ -25,11 +25,14 @@ all: $(NAME)
 
 #2 NAME rule
 $(NAME): libft $(SRC)
-	$(CC) $(CFLAGS) -o $@ $(SRC) -Lps_libft -lft
+	$(CC) $(CFLAGS) -o $@ $(SRC) -Llibft -lft
 
 #3 creating the libft library.
 libft:
-	$(MAKE) -C ps_libft
+	$(MAKE) -C libft
+
+make:
+	make
 
 # 5 remove the object files
 clean:

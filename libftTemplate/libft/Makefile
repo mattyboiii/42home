@@ -9,14 +9,12 @@ CFLAGS = -Wall -Wextra -Werror
 # what these are)-------------- eg $(wildcard pattern)
 
 FT_PRINTF_SRC = ft_printf/ft_printf.c \
-				ft_putchar.c \
-				ft_putnbr_base.c \
-				ft_putnbr.c \
-				ft_putptr.c \
-				ft_putstr.c \
-				ft_strlen.c
-
-SRC += $(FT_PRINTF_SRC);
+				ft_printf/ft_putchar.c \
+				ft_printf/ft_putnbr_base.c \
+				ft_printf/ft_putnbr.c \
+				ft_printf/ft_putptr.c \
+				ft_printf/ft_putstr.c \
+				ft_printf/ft_strlen.c
 
 SRC = ft_atoi.c \
       ft_bzero.c \
@@ -67,7 +65,8 @@ SRC = ft_atoi.c \
       dp_free.c \
       dp_strcat.c \
       ischar.c \
-      get_next_line.c
+      get_next_line.c \
+	  $(FT_PRINTF_SRC)
 
 BONUS_SRC =
 

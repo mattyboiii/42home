@@ -92,6 +92,8 @@ void	sort3(t_node **lst)
 	t_node		*small;
 	t_node		*big;
 
+	if (sorted_asc(*lst, *lst, 0) == 1)
+		return ;
 	set_big_small(lst, &big, &small);
 	if (small->pos == 1 && big->pos == 2)
 		s(lst, 1);

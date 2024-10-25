@@ -22,7 +22,7 @@
 # include <stdarg.h> // va_start, va_arg, va_end, va_copy
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1000
 # endif
 
 int		ft_isalpha(int c);
@@ -34,7 +34,6 @@ int		ft_isascii(int c);
 int		ft_isprint(int c);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-
 long	ft_atoi(const char *str);
 
 size_t	ft_strlen(const char *s);
@@ -69,7 +68,7 @@ void	ft_putnbr_fd(int n, int fd);
 
 // Personal small Functions
 int		ft_strcmp(const char *s1, const char *s2);
-void	null_free(void **ptr);
+void	null_free(char **ptr);
 void	dp_free(char ***dp);
 char	**dp_strcat(char **paths, char *str);
 size_t	ischar(char *str, size_t start, char c);

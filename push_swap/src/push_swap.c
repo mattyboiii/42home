@@ -12,6 +12,27 @@
 
 #include "push_swap.h"
 
+// unlike the other chunk size this one checks the entire lst
+int	chunk_size_f(t_node *lst, int chunk)
+{
+	int		i;
+
+	if (lst == NULL)
+		return (0);
+	if (lst->chunk != chunk)
+		return (0);
+	i = 0;
+	if (lst->next == NULL)
+		return (1);
+	while (lst)
+	{
+		if (lst->chunk == chunk)
+			i++;
+		lst = lst->next;
+	}
+	return (i);
+}
+
 int	main(int arc, char **arv)
 {
 	t_node	*a;

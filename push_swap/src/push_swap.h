@@ -27,8 +27,11 @@ typedef struct s_stack_node
 	struct s_stack_node	*next;
 }	t_node;
 
-// Functions in my utils dir
+// Functions in my src dir
 // ---  --------------------
+// push_swap.c
+int		chunk_size_f(t_node *lst, int chunk);
+
 // Logicfunk
 void	sort_to_b(t_node **a, t_node **b);
 

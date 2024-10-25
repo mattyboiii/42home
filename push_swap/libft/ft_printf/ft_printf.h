@@ -20,6 +20,7 @@
 
 // Functions in my ft_printf.c
 // --------- -- -- -------
+
 int		ft_printf(const char *format, ...);
 int		format_handler(char format, va_list args);
 
@@ -29,5 +30,4 @@ int		ft_putptr(unsigned long n, char *base);
 int		ft_putnbr(int n);
 int		ft_putnbr_base(unsigned int n, char *base);
 size_t	ft_strlen(const char *s);
-
 #endif

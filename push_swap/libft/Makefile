@@ -5,8 +5,16 @@ NAME = libft.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-# assignment statements-Source funcitons (string list creators is really 
+# assignment statements-Source funcitons (string list creators is really
 # what these are)-------------- eg $(wildcard pattern)
+
+FT_PRINTF_SRC = ft_printf/ft_printf.c \
+				ft_printf/ft_putchar.c \
+				ft_printf/ft_putnbr_base.c \
+				ft_printf/ft_putnbr.c \
+				ft_printf/ft_putptr.c \
+				ft_printf/ft_putstr.c \
+				ft_printf/ft_strlen.c
 
 SRC = ft_atoi.c \
       ft_bzero.c \
@@ -42,32 +50,32 @@ SRC = ft_atoi.c \
       ft_substr.c \
       ft_tolower.c \
       ft_toupper.c \
-      ft_printf.c \
       ft_strstr.c \
       ft_strcmp.c \
       null_free.c \
       dp_free.c \
       dp_strcat.c \
       ischar.c \
-      get_next_line.c
+      get_next_line.c \
+	  $(FT_PRINTF_SRC)
 
-BONUS_SRC = 		
+BONUS_SRC =
 
 OBJ = $(SRC:.c=.o)
 BONUS_OBJ = $(BONUS_SRC:.c=.o)
 
 # Rules
-# 1 
+# 1
 all: $(NAME)
 
-# 2 
+# 2
 $(NAME): $(OBJ)
 	@ar rcs $@ $^ #the s flag runs a ranlib equivelent.
 
 bonus: $(BONUS_OBJ)
 	@ar rcs $(NAME) $(BONUS_OBJ)
 
-# 3 pattern rule creating/compiling the object files. 
+# 3 pattern rule creating/compiling the object files.
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 

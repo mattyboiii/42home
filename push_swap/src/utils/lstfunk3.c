@@ -17,6 +17,8 @@ int	if_swap(t_node *lst, int chunk, int descending)
 	int		ret;
 
 	ret = 0;
+	if (lst->chunk != lst->next->chunk)
+		return (0);
 	numswap(lst, lst->next);
 	if (descending == 1)
 	{
@@ -60,11 +62,9 @@ int	chunk_size(t_node *lst, int chunk)
 	if (lst->chunk != chunk)
 		return (0);
 	i = 1;
-	if (lst == NULL)
-		return (0);
 	if (lst->next == NULL)
 		return (1);
-	while (lst->next && lst->next->chunk == chunk)
+	while (lst && lst->next && lst->next->chunk == chunk)
 	{
 		i++;
 		lst = lst->next;
