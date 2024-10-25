@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-// Function to free memory, but most importanly set the pointers to NULL aft    er
+// Function to free memory, but most importanly set the pointers to NULL after
 // freeing. This helps me debug my programs. Freeing the pointers to NULL
 // is the reason the function is a tripple ptr eg ***ptr. As i want to 
 // set **ptr to NULL.

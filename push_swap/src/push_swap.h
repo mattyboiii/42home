@@ -15,7 +15,7 @@
 # include <unistd.h> //dup, dup2, access
 # include <stdio.h> //printf
 # include <stdlib.h> //free, malloc
-# include "../ps_libft/libft.h"
+# include "../libft/libft.h"
 
 typedef struct s_stack_node
 {

@@ -41,9 +41,9 @@
 static char	*get_freshline(char **sav)
 {
 	size_t		nl;
-	char	*str;
-	char	*strhead;
-	char	*line;
+	char		*str;
+	char		*strhead;
+	char		*line;
 
 	str = ft_substr(*sav, 0, ft_strlen(*sav));
 	strhead = str;

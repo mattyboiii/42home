@@ -31,4 +31,6 @@ int	main(int arc, char **arv)
 		sort3(&a);
 	else
 		sort_to_b(&a, &b);
+	ft_lstclear(&a);
+	ft_lstclear(&b);
 }
