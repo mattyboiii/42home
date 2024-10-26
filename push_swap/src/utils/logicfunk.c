@@ -43,7 +43,6 @@ void	pa_chunk(t_node **a, t_node **b, int midnum, int chunk)
 	int		rot;
 
 	rot = 0;
-	print_lstnums(*a, *b);
 	while (*b && (*b)->chunk == chunk && neg_lst(*b, chunk) == 0)
 	{
 		while (*b && check_lg_sm(*b, (*b)->num, chunk, 1) == 0 && (*b)->chunk
@@ -52,9 +51,8 @@ void	pa_chunk(t_node **a, t_node **b, int midnum, int chunk)
 			pa(a, b, 1);
 		}
 		compare_bottom_num(a, b, chunk, 1);
-		print_lstnums(*a, *b);
 		if ((*b && (*b)->chunk == chunk && if_swap(*b, chunk, 1) == 1)
-			|| check_lg_sm(*b, (*b)->next->num, chunk, 1) == 0)
+			|| (*b && check_lg_sm(*b, (*b)->next->num, chunk, 1) == 0))
 		{
 			s(b, 1);
 		}
@@ -64,7 +62,6 @@ void	pa_chunk(t_node **a, t_node **b, int midnum, int chunk)
 			r(b, 1);
 			rot++;
 		}
-		print_lstnums(*a, *b);
 	}
 	while (*b && rot > 0 && chunk != 1 && ft_lstlast(*b)->chunk == chunk)
 	{

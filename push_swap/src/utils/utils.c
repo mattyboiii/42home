@@ -95,6 +95,8 @@ int	strdouble(char **arv)
 	if (arv == NULL)
 		return (0);
 	i = 0;
+	if (arv[i][0] == '-')
+		ft_exit(0);
 	if (str_zeros(arv) == 1)
 		ft_exit(0);
 	while (arv[i])
@@ -128,8 +130,8 @@ void	error_check_arv(char **arv)
 			i++;
 		while ((arv[i][j]))
 		{
-			if (ft_isdigit(arv[i][j]) == 1 || ((arv[i][j]) == '-' &&
-						arv[i][j + 1] != '-'))
+			if (ft_isdigit(arv[i][j]) == 1 || ((arv[i][j]) == '-' && arv[i][j
+			+ 1] != '-' && arv[i][j + 1]))
 				j++;
 			else
 				ft_exit(3);
