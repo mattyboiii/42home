@@ -12,6 +12,8 @@
 
 #include "../push_swap.h"
 
+//about to update the logic. It wont use midpoint algorythm
+
 int	check_lg_sm(t_node *lst, int compare, int chunk, int lg_sm)
 {
 	t_node	*node;
