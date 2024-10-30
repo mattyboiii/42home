@@ -50,8 +50,9 @@ int	main(int arc, char **arv)
 		exit (100);
 	else if (chunk_size(a, 0) <= 3)
 		sort3(&a);
+	else if (chunk_size(a, 0) <= 5)
+		sort5(&a, &b);
 	else
-		sort_to_b(&a, &b);
 	ft_lstclear(&a);
 	ft_lstclear(&b);
 	exit(600);

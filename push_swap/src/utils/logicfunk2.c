@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   logicfunk.c                                        :+:      :+:    :+:   */
+/*   logicfunk2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,34 +13,6 @@
 #include "../push_swap.h"
 
 //about to update the logic. It wont use midpoint algorythm
-
-int	check_lg_sm(t_node *lst, int compare, int chunk, int lg_sm)
-{
-	t_node	*node;
-
-	node = lst;
-	if (lg_sm == 0)
-	{
-		while (node)
-		{
-			if (node->chunk != chunk)
-				node = node->next;
-			if (node->num < compare)
-				return (1);
-			node = node->next;
-		}
-	}
-	else
-	{
-		while (node)
-		{
-			if (node->num > compare)
-				return (1);
-			node = node->next;
-		}
-	}
-	return (0);
-}
 
 void	compare_bottom_num(t_node **a, t_node **b, int chunk, int lg_sm)
 {
@@ -115,24 +87,31 @@ void	sort3(t_node **lst)
 	}
 }
 
-t_node	*get_midnode(t_node **lst, int chunk)
+void	sort5(t_node **a, t_node **b)
 {
-	t_node	*sorted;
-	t_node	*midnode;
-	t_node	*last;
-	t_node	*out;
+	int			*midnum;
+	t_node		*small;
+	t_node		*big;
 
-	sorted = NULL;
-	out = *lst;
-	if (chunk_size(*lst, chunk) <= 2 || (*lst)->next == NULL)
-		return (*lst);
-	sorted = simple_sort(copy_lst(lst, chunk));
-	last = ft_lstlast(sorted);
-	midnode = get_node(sorted, (last->pos + 1) / 2);
-	while (out && out->num != midnode->num)
-		out = out->next;
-	ft_lstclear(&sorted);
-	last = NULL;
-	midnode = NULL;
-	return (out);
+	set_big_small(a, &big, &small);
+	midnum = get_midnode(a, 0)->num;
+	while (chunk_size(*a, 0) > 3)
+	{
+		if ((*a)->num < midnum || (*a) == big)
+			pb(a, b, 1);
+		if (ft_lstlast(*a)->num < midnum || ft_lstlast(*a) == big)
+			rrs(a, 1);
+		else if ((*a)->num >= midnum && (*a)->num < big->num)
+			r(a, 1);
+	}
+	sort3(a);
+	while (sorted_asc(*a, *a, 0) == 0 || (*b))
+	{
+		if (sorted_asc(*a, *a, 0) == 1 && (*b))
+			pa(a, b, 1);
+		if ((*a)->num > ft_lstlast(*a)->num)
+			r(a, 1);
+		else if ((*a)->num < get_node(*a, 2)->num && (*a)->num > (*a)->next->num)
+			s(a, 1);
+	}
 }
