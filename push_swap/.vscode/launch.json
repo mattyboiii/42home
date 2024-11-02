@@ -5,7 +5,7 @@
 			"name": "Launch push_swap with LLDB",
 			"type": "lldb",
 			"request": "launch",
-			"args":["5 3 1 2 4"],
+			"args":["12 20 10 26 17 13 14 2 6 16 15 0 5 19 4 21 25 8 11 27 29 24 9 3 18 22 1 28 23 7"],
 			"program": "${workspaceFolder}/push_swap",
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "Make Rebuild"

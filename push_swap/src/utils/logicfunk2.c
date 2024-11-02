@@ -89,7 +89,7 @@ void	sort3(t_node **lst)
 
 void	sort5(t_node **a, t_node **b)
 {
-	int			*midnum;
+	int			midnum;
 	t_node		*small;
 	t_node		*big;
 
@@ -114,4 +114,26 @@ void	sort5(t_node **a, t_node **b)
 		else if ((*a)->num < get_node(*a, 2)->num && (*a)->num > (*a)->next->num)
 			s(a, 1);
 	}
+}
+
+t_node	*get_midnode(t_node **lst, int chunk)
+{
+	t_node	*sorted;
+	t_node	*midnode;
+	t_node	*last;
+	t_node	*out;
+
+	sorted = NULL;
+	out = *lst;
+	if (chunk_size(*lst, chunk) <= 2 || (*lst)->next == NULL)
+		return (*lst);
+	sorted = simple_sort(copy_lst(lst, chunk));
+	last = ft_lstlast(sorted);
+	midnode = get_node(sorted, (last->pos + 1) / 2);
+	while (out && out->num != midnode->num)
+		out = out->next;
+	ft_lstclear(&sorted);
+	last = NULL;
+	midnode = NULL;
+	return (out);
 }
