@@ -41,6 +41,7 @@ void	set_big_small(t_node **lst, t_node **big, t_node **small);
 void	sort3(t_node **lst);
 void	sort5(t_node **a, t_node **b);
 
+int	get_chunk_number(t_node **lst);
 t_node	*get_midnode(t_node **lst, int chunk);
 // Lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);

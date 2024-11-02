@@ -12,3 +12,7 @@
 
 #include "../push_swap.h"
 
+void	sort_to_b(t_node **a, t_node **b)
+{
+	
+}

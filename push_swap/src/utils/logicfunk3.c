@@ -40,6 +40,53 @@ int	check_lg_sm(t_node *lst, int compare, int chunk, int lg_sm)
 	return (0);
 }
 
+int	get_chunk_number(t_node **lst)
+{
+	int	chunk_step;
+	t_node	*big;
+	t_node	*small;
+
+	set_big_small(lst, &big, &small);
+	if (ft_lstlast(lst)->pos <= 99)
+		chunk_step = ((big->num - small->num) / 5) + 1;
+	if (ft_lstlast(lst)->pos > 99)
+		chunk_step = ((big->num - small->num) / 12) + 1;
+	return (chunk_step);
+}
+
+t_node	*hold_first(t_node *lst, t_node *small, int chunk_num)
+{
+	int		chunk_range;
+	int		size;
+
+	chunk_range = small->num + chunk_num;
+	size = ft_lstlast(lst)->pos / 2;
+	while (lst && lst->pos <= size)
+	{
+		if (lst->num < chunk_range)
+			return (lst);
+		lst = lst->next;
+	}
+	return (NULL);
+}
+
+t_node	*hold_second(t_node *lst, t_node *small, int chunk_num)
+{
+	int		chunk_range;
+	int		size;
+
+	lst = ft_lstlast(lst);
+	chunk_range = small->num + chunk_num;
+	size = ft_lstlast(lst)->pos / 2;
+	while (lst && lst->pos > size)
+	{
+		if (lst->num < chunk_range)
+			return (lst);
+		lst = lst->prev;
+	}
+	return (NULL);
+}
+
 t_node	*get_midnode(t_node **lst, int chunk)
 {
 	t_node	*sorted;
