@@ -45,17 +45,26 @@ void	compare_bottom_num(t_node **a, t_node **b, int chunk, int lg_sm)
 
 void	set_big_small(t_node **lst, t_node **big, t_node **small)
 {
+	int		b;
+	int		s;
 	t_node	*head;
 
 	head = *lst;
-	*big = *lst;
-	*small = *lst;
-	while ((*lst)->next)
+	if (small)
+		*small = *lst;
+	if (head)
+		*big == *lst;
+	while (small && (*lst)->next)
 	{
 		*lst = (*lst)->next;
 		if ((*lst)->num < (*small)->num)
 			*small = *lst;
-		else if ((*lst)->num > (*big)->num)
+	}
+	*lst = head;
+	while (big && (*lst)->next)
+	{
+		*lst = (*lst)->next;
+		if ((*lst)->num > (*big)->num)
 			*big = *lst;
 	}
 	*lst = head;

@@ -12,6 +12,20 @@
 
 #include "../push_swap.h"
 
+check
+
+void	check_pb(t_node *a, t_node *b, int chunk)
+{
+	t_node	*big;
+	t_node	*small;
+
+	if (chunk_size(b, chunk) <= 2)
+		return ;
+	set_big_small(&a, &big, &small);
+	if (a->num < small)
+
+
+}
 
 void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 {
@@ -30,6 +44,7 @@ void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 		while (*a != hold_b)
 			rrs(a, 1);
 	(*a)->chunk = chunk;
+	check_pb(*a, *b, chunk);
 	pb(a, b, 1);
 	print_lstnums(*a, *b);
 }
