@@ -52,7 +52,7 @@ void	set_big_small(t_node **lst, t_node **big, t_node **small)
 	head = *lst;
 	if (small)
 		*small = *lst;
-	if (head)
+	if (big)
 		*big == *lst;
 	while (small && (*lst)->next)
 	{

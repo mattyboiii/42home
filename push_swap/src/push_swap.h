@@ -46,24 +46,32 @@ int		compare_holds(t_node *lst, t_node *hold_a, t_node *hold_b, int chunk_div);
 t_node	*hold_first(t_node *lst, int chunk_div);
 t_node	*hold_second(t_node *lst, int chunk_div);
 t_node	*get_midnode(t_node **lst, int chunk);
+
+int		order_check(t_node *lst, int chunk);
+void	cut_circle(t_node **lst, t_node *cut);
+t_node	*make_circle_lst(t_node **lst);
+
 // Lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);
 void	ft_lstadd_back(t_node **lst, t_node *new);
 t_node	*ft_lstlast(t_node *lst);
 t_node	*ft_lstnew(int num, int pos, char c);
-t_node	*copy_lst(t_node **lst, int chunk);
 
 void	fill_a(t_node **lst, char **arv);
 void	ft_stackposupdate(t_node *node);
 void	ft_lstclear(t_node **lst);
 t_node	*get_head(t_node *lst);
 t_node	*ft_nodedel(t_node *node);
-t_node	*get_node(t_node *lst, int index);
 
 int		if_swap(t_node *lst, int chunk, int descending);
 int		neg_lst(t_node *lst, int chunk);
 int		chunk_size(t_node *lst, int chunk);
 t_node	*lstlast_chunk(t_node *lst, int chunk);
+t_node	*get_node(t_node *lst, int index);
+
+t_node	*copy_lst(t_node **lst);
+t_node	*copy_lst_chunk(t_node **lst, int chunk);
+
 
 // Sortfunk
 int		sorted_des(t_node *lst, int chunk);
@@ -78,7 +86,6 @@ void	r(t_node **lst, int print);
 void	pa(t_node **a, t_node **b, int print);
 void	pb(t_node **a, t_node **b, int print);
 
-void	check_logic(char *cur_act);
 void	ss(t_node **a, t_node **b);
 void	rr(t_node **a, t_node **b);
 void	rrs(t_node **lst, int print);

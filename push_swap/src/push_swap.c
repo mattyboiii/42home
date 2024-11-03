@@ -37,6 +37,7 @@ int	main(int arc, char **arv)
 {
 	t_node	*a;
 	t_node	*b;
+	int		i;
 
 	a = NULL;
 	b = NULL;
@@ -46,6 +47,7 @@ int	main(int arc, char **arv)
 		ft_exit(3);
 	error_check_arv(arv);
 	fill_a(&a, arv);
+	i = order_check(a, b, 0);
 	if (sorted_asc(a, a, 0) == 1)
 		exit (100);
 	else if (chunk_size(a, 0) <= 3)
