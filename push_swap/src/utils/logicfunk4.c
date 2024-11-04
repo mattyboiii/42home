@@ -25,7 +25,10 @@ int	order_check(t_node *lst, int chunk)
 	while (comp != small)
 	{
 		if (comp->num < comp->prev->num)
+		{
+			cut_circle(&lst, cut);
 			return (0);
+		}
 		comp = comp->next;
 	}
 	cut_circle(&lst, cut);

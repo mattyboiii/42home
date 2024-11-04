@@ -12,17 +12,28 @@
 
 #include "../push_swap.h"
 
-void	check_pb(t_node *a, t_node *b, int chunk)
+int	check_pb(t_node **a, t_node **b, int chunk)
 {
+	int		rotates;
 	t_node	*big;
 	t_node	*small;
-	t_node	*copy;
 
-	if (chunk_size(b, chunk) <= 2)
+	rotates = 0;
+	if (chunk_size(b, chunk) < 2)
 		return ;
-	copy = copy_lst(&b);
 	set_big_small(&b, &big, &small);
-	
+	pb(a, b, 0);
+	while (order_check(*b, chunk) == 0)
+	{
+		pa(a, b, 0);
+		r(b, 0);
+		pb(a, b, 0);
+		rotates++;
+	}
+	// use my order check function, to constantly check the order given im about
+	// to push the number into the array.
+	// my idea is that. I can place them inside the stack immediately, but this
+
 
 
 
@@ -45,7 +56,7 @@ void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 		while (*a != hold_b)
 			rrs(a, 1);
 	(*a)->chunk = chunk;
-	//check_pb(*a, *b, chunk);
+	//check_pb(a, b, chunk);
 	pb(a, b, 1);
 	print_lstnums(*a, *b);
 }
