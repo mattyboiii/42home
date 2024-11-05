@@ -18,60 +18,33 @@ int	order_check(t_node *lst, int chunk)
 	t_node	*big;
 	t_node	*comp;
 	t_node	*cut;
+	t_node	*old_next;
 
 	set_big_small(&lst, &big, 0);
-	cut = make_circle_lst(&lst);
+	cut = make_circle_lst(&lst, &old_next, chunk);
 	comp = big->next;
-	while (comp != big)
+	while (comp != big && comp->chunk == chunk)
 	{
 
 		if (comp->num > comp->prev->num)
 		{
-			cut_circle(&lst, cut);
+			cut_circle(&lst, old_next, cut);
 			return (0);
 		}
 		comp = comp->next;
 	}
-	cut_circle(&lst, cut);
+	cut_circle(&lst, old_next, cut);
 	return (1);
 }
 
-void	cut_circle(t_node **lst, t_node *cut)
+int	pb_rot_push(t_node **a, t_node **b, int chunk)
 {
-	if (*lst == NULL)
-		return ;
-	if ((*lst)->prev == cut)
-		(*lst)->prev == NULL;
-	while (*lst)
-	{
-		if (*lst == cut)
-		{
-			(*lst)->next == NULL;
-			return ;
-		}
-		*lst = (*lst)->next;
-	}
-}
-
-t_node	*make_circle_lst(t_node **lst)
-{
-	t_node	*last;
-
-	last = ft_lstlast(*lst);
-	(*lst)->prev = last;
-	last->next = *lst;
-	return (last);
-}
-
-int	pb_rotate_check(t_node **a, t_node **b, int chunk)
-{
-	int		i;
 	int		rot;
 	int		push_num;
 
 	rot = 0;
-	i = 0;
 	push_num = (*a)->num;
+	(*a)->chunk == chunk;
 	pb(a, b, 0);
 	print_lstnums(*a, *b);
 	while (order_check(*b, chunk) == 0)
@@ -79,7 +52,67 @@ int	pb_rotate_check(t_node **a, t_node **b, int chunk)
 		if ((*b)->num == push_num)
 			pa(a, b, 0);
 		r(b, 0);
+		print_lstnums(*a, *b);
 		rot++;
+		(*a)->chunk == chunk;
 		pb(a, b, 0);
+		print_lstnums(*a, *b);
+	}
+	pa(a, b, 0);
+	return (rot);
+}
+
+int	pb_rev_push(t_node **a, t_node **b, int chunk)
+{
+	int		rev;
+	int		push_num;
+
+	rev = 0;
+	push_num = (*a)->num;
+	(*a)->chunk == chunk;
+	pb(a, b, 0);
+	print_lstnums(*a, *b);
+	while (order_check(*b, chunk) == 0)
+	{
+		if ((*b)->num == push_num)
+			pa(a, b, 0);
+		rrs(b, 0);
+		rev++;
+		(*a)->chunk == chunk;
+		pb(a, b, 0);
+	}
+	pa(a, b, 0);
+	return (rev);
+}
+int	make_chunk_circle(t_node **lst, t_node **old_next, int chunk)
+{
+	t_node	*last;
+
+	last = lstlast_chunk(*lst, chunk);
+	*old_next = last->next;
+	(*lst)->prev = last;
+	last->next = *lst;
+	return (last->num);
+}
+
+void	cut_circle(t_node **lst, t_node *old_next, int cut)
+{
+	if (*lst == NULL)
+		return ;
+	if ((*lst)->prev->num == cut)
+		(*lst)->prev = NULL;
+	while (*lst)
+	{
+		if ((*lst)->num == cut && !old_next)
+		{
+			(*lst)->next = NULL;
+			return ;
+		}
+		else
+		{
+			(*lst)->next == old_next;
+			return ;
+		}
+		*lst = (*lst)->next;
 	}
 }

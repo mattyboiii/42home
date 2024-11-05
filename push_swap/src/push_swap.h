@@ -49,9 +49,13 @@ t_node	*hold_second(t_node *lst, int chunk_div);
 t_node	*get_midnode(t_node **lst, int chunk);
 
 int		order_check(t_node *lst, int chunk);
-void	cut_circle(t_node **lst, t_node *cut);
-t_node	*make_circle_lst(t_node **lst);
-int		pb_rotate_check(t_node **a, t_node **b, int chunk);
+int		make_circle_lst(t_node **lst, t_node **old_next, int chunk);
+int		pb_rot_push(t_node **a, t_node **b, int chunk);
+int		pb_rev_push(t_node **a, t_node **b, int chunk);
+void	cut_circle(t_node **lst, t_node *old_next, int cut);
+
+void	rot_machine(t_node **lst, int n);
+void	rev_machine(t_node **lst, int n);
 
 // Lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);

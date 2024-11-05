@@ -14,19 +14,20 @@
 
 int	check_pb_pos(t_node **a, t_node **b, int chunk)
 {
+	int		ra;
+	int		rra;
 	t_node	*big;
 	t_node	*small;
 
 	if (chunk_size(*b, chunk) <= 2)
 		return (0);
 	set_big_small(b, &big, &small);
-	pb_rotate_check(a, b, chunk);
-	// use my order check function, to constantly check the order given im about
-	// to push the number into the array.
-	// my idea is that. I can place them inside the stack immediately, but this
-
-
-
+	ra = pb_rot_push(a, b, chunk);
+	rra = pb_rev_push(a, b, chunk);
+	if (ra <= rra)
+		rot_machine(b, ra);
+	else
+		rev_machine(b, rra);
 
 }
 
@@ -46,8 +47,8 @@ void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 	else if (hold_b && ra_rra == 1)
 		while (*a != hold_b)
 			rrs(a, 1);
-	(*a)->chunk = chunk;
 	check_pb_pos(a, b, chunk);
+	(*a)->chunk = chunk;
 	pb(a, b, 1);
 	print_lstnums(*a, *b);
 }
