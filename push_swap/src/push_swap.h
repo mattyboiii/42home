@@ -34,6 +34,7 @@ int		chunk_size_f(t_node *lst, int chunk);
 
 // Logicfunk
 void	sort_to_b(t_node **a, t_node **b);
+int		check_pb_pos(t_node **a, t_node **b, int chunk);
 
 int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
 void	compare_bottom_num(t_node **a, t_node **b, int chunk, int lg_sm);
@@ -50,6 +51,7 @@ t_node	*get_midnode(t_node **lst, int chunk);
 int		order_check(t_node *lst, int chunk);
 void	cut_circle(t_node **lst, t_node *cut);
 t_node	*make_circle_lst(t_node **lst);
+int		pb_rotate_check(t_node **a, t_node **b, int chunk);
 
 // Lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);

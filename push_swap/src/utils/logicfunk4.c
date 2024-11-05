@@ -15,16 +15,17 @@
 // comp = compare
 int	order_check(t_node *lst, int chunk)
 {
-	t_node	*small;
+	t_node	*big;
 	t_node	*comp;
 	t_node	*cut;
 
-	set_big_small(&lst, 0, &small);
-	comp = small->next;
+	set_big_small(&lst, &big, 0);
 	cut = make_circle_lst(&lst);
-	while (comp != small)
+	comp = big->next;
+	while (comp != big)
 	{
-		if (comp->num < comp->prev->num)
+
+		if (comp->num > comp->prev->num)
 		{
 			cut_circle(&lst, cut);
 			return (0);
@@ -60,4 +61,25 @@ t_node	*make_circle_lst(t_node **lst)
 	(*lst)->prev = last;
 	last->next = *lst;
 	return (last);
+}
+
+int	pb_rotate_check(t_node **a, t_node **b, int chunk)
+{
+	int		i;
+	int		rot;
+	int		push_num;
+
+	rot = 0;
+	i = 0;
+	push_num = (*a)->num;
+	pb(a, b, 0);
+	print_lstnums(*a, *b);
+	while (order_check(*b, chunk) == 0)
+	{
+		if ((*b)->num == push_num)
+			pa(a, b, 0);
+		r(b, 0);
+		rot++;
+		pb(a, b, 0);
+	}
 }

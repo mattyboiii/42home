@@ -53,7 +53,7 @@ void	set_big_small(t_node **lst, t_node **big, t_node **small)
 	if (small)
 		*small = *lst;
 	if (big)
-		*big == *lst;
+		*big = *lst;
 	while (small && (*lst)->next)
 	{
 		*lst = (*lst)->next;
@@ -136,7 +136,7 @@ t_node	*get_midnode(t_node **lst, int chunk)
 	out = *lst;
 	if (chunk_size(*lst, chunk) <= 2 || (*lst)->next == NULL)
 		return (*lst);
-	sorted = simple_sort(copy_lst(lst, chunk));
+	sorted = simple_sort(copy_lst_chunk(lst, chunk));
 	last = ft_lstlast(sorted);
 	midnode = get_node(sorted, (last->pos + 1) / 2);
 	while (out && out->num != midnode->num)
