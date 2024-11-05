@@ -48,8 +48,8 @@ t_node	*hold_first(t_node *lst, int chunk_div);
 t_node	*hold_second(t_node *lst, int chunk_div);
 t_node	*get_midnode(t_node **lst, int chunk);
 
-int		order_check(t_node *lst, int chunk);
-int		make_circle_lst(t_node **lst, t_node **old_next, int chunk);
+int		order_check(t_node **lst, int chunk);
+int		make_chunk_circle(t_node **lst, t_node **old_next, int chunk);
 int		pb_rot_push(t_node **a, t_node **b, int chunk);
 int		pb_rev_push(t_node **a, t_node **b, int chunk);
 void	cut_circle(t_node **lst, t_node *old_next, int cut);

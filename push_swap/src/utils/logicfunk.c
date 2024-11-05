@@ -19,7 +19,7 @@ int	check_pb_pos(t_node **a, t_node **b, int chunk)
 	t_node	*big;
 	t_node	*small;
 
-	if (chunk_size(*b, chunk) <= 2)
+	if (chunk_size(*b, chunk) < 2)
 		return (0);
 	set_big_small(b, &big, &small);
 	ra = pb_rot_push(a, b, chunk);
@@ -64,7 +64,7 @@ void	sort_to_b(t_node **a, t_node **b)
 	chunk_add = chunk_div;
 	while (chunk_size(*a, 0) > 5)
 	{
-		while (check_lg_sm(*a, chunk_div + 1, chunk, 0) == 1)
+		while (check_lg_sm(*a, chunk_div + 1, 0, 0) == 1)
 			ra_or_rra(a, b, chunk, chunk_div);
 		chunk++;
 		chunk_div = chunk_div + chunk_add + 1;
