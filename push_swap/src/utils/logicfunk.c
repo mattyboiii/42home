@@ -31,7 +31,7 @@ int	check_pb_pos(t_node **a, t_node **b, int chunk)
 		rev_machine(b, rra, 1);
 
 }
-
+// going to remove compare_holds
 void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 {
 	int		ra_rra;
