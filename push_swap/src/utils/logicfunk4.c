@@ -63,6 +63,9 @@ int	pb_rot_push(t_node **a, t_node **b, int chunk)
 		print_lstnums(*a, *b);
 	}
 	pa(a, b, 0);
+	print_lstnums(*a, *b);
+	rev_machine(b, rot, 0);
+	print_lstnums(*a, *b);
 	return (rot);
 }
 
@@ -73,21 +76,31 @@ int	pb_rev_push(t_node **a, t_node **b, int chunk)
 
 	rev = 0;
 	push_num = (*a)->num;
-	(*a)->chunk == chunk;
+	(*a)->chunk = chunk;
 	pb(a, b, 0);
 	print_lstnums(*a, *b);
 	while (order_check(b, chunk) == 0)
 	{
+		print_lstnums(*a, *b);
 		if ((*b)->num == push_num)
+		{
 			pa(a, b, 0);
+			print_lstnums(*a, *b);
+		}
 		rrs(b, 0);
+		print_lstnums(*a, *b);
 		rev++;
 		(*a)->chunk = chunk;
 		pb(a, b, 0);
+		print_lstnums(*a, *b);
 	}
 	pa(a, b, 0);
+	print_lstnums(*a, *b);
+	rot_machine(b, rev, 0);
+	print_lstnums(*a, *b);
 	return (rev);
 }
+
 int	make_chunk_circle(t_node **lst, t_node **old_next, int chunk)
 {
 	t_node	*last;

@@ -12,20 +12,27 @@
 
 #include "../push_swap.h"
 
-void	rot_machine(t_node **lst, int n)
+void	rot_machine(t_node **lst, int n, int print)
 {
 	while (n > 0)
 	{
-		r(lst, 1);
+		r(lst, print);
 		n--;
 	}
 }
 
-void	rev_machine(t_node **lst, int n)
+void	rev_machine(t_node **lst, int n, int print)
 {
 	while (n > 0)
 	{
-		rrs(lst, 1);
+		rrs(lst, print);
 		n--;
 	}
 }
+
+void	adv_rot_machin(t_node **lst, int n, int print)
+{
+
+}
+
+void	

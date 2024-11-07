@@ -54,8 +54,8 @@ int		pb_rot_push(t_node **a, t_node **b, int chunk);
 int		pb_rev_push(t_node **a, t_node **b, int chunk);
 void	cut_circle(t_node **lst, t_node *old_next, int cut);
 
-void	rot_machine(t_node **lst, int n);
-void	rev_machine(t_node **lst, int n);
+void	rot_machine(t_node **lst, int n, int print);
+void	rev_machine(t_node **lst, int n, int print);
 
 // Lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);

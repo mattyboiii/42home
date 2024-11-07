@@ -23,11 +23,12 @@ int	check_pb_pos(t_node **a, t_node **b, int chunk)
 		return (0);
 	set_big_small(b, &big, &small);
 	ra = pb_rot_push(a, b, chunk);
-	rra = pb_rev_push(a, b, chunk);
+	if (ra > 0 && chunk <= 1)
+		rra = pb_rev_push(a, b, chunk);
 	if (ra <= rra)
-		rot_machine(b, ra);
+		rot_machine(b, ra, 1);
 	else
-		rev_machine(b, rra);
+		rev_machine(b, rra, 1);
 
 }
 

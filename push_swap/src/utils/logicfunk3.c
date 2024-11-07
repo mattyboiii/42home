@@ -84,10 +84,7 @@ int	compare_holds(t_node *lst, t_node *hold_a, t_node *hold_b, int chunk_div)
 t_node	*hold_first(t_node *lst, int chunk_div)
 {
 	int		size;
-	t_node	*big;
-	t_node	*small;
 
-	set_big_small(&lst, &big, &small);
 	size = ft_lstlast(lst)->pos / 2;
 	while (lst && lst->pos <= size)
 	{
@@ -101,10 +98,7 @@ t_node	*hold_first(t_node *lst, int chunk_div)
 t_node	*hold_second(t_node *lst, int chunk_div)
 {
 	int		size;
-	t_node	*big;
-	t_node	*small;
 
-	set_big_small(&lst, &big, &small);
 	lst = ft_lstlast(lst);
 	size = ft_lstlast(lst)->pos / 2;
 	while (lst && lst->pos > size)
