@@ -12,43 +12,86 @@
 
 #include "../push_swap.h"
 
+int	push_prep(t_node **a, t_node **b, t_node *hold, int chunk)
+{
+	int		rb;
+	int		rrb;
+	int		size;
+	t_node	*copy;
+
+	copy = copy_node(hold);
+	size = ft_lstlast(*a)->pos + 1;
+	rb = pb_rot_push(copy, b, chunk);
+	rrb = pb_rev_push(copy, b, chunk);
+	if (hold->pos < size / 2)
+		push_prep_rr(a, b, hold, rb);
+	else if (hold->pos > size / 2)
+		push_prep_rrr(a, b, hold, rrb);
+	ft_lstclear(&copy);
+
+}
+
+void	push_prep_rr(t_node **a, t_node **b, t_node *hold, int prep_b)
+{
+	while (prep_b > 0)
+	{
+		if (*a != hold)
+			rr(a, b);
+		else
+			r(b, 1);
+		prep_b--;
+	}
+	while (*a != hold)
+		r(a, 1);
+
+}
+
+void	push_prep_rrr(t_node **a, t_node **b, t_node *hold, int prep_b)
+{
+	while (prep_b > 0)
+	{
+		if (*a != hold)
+			rrr(a, b);
+		else
+			rrs(b, 1);
+		prep_b--;
+	}
+	while (*a != hold)
+		rrs(a, 1);
+
+}
+
 int	check_pb_pos(t_node **a, t_node **b, int chunk)
 {
-	int		ra;
-	int		rra;
-	t_node	*big;
-	t_node	*small;
+	int		rb;
+	int		rrb;
 
 	if (chunk_size(*b, chunk) < 2)
 		return (0);
-	set_big_small(b, &big, &small);
-	ra = pb_rot_push(a, b, chunk);
-	if (ra > 0 && chunk <= 1)
-		rra = pb_rev_push(a, b, chunk);
-	if (ra <= rra)
-		rot_machine(b, ra, 1);
+	rb = pb_rot_push(*a, b, chunk);
+	if (rb > 0 && chunk <= 1)
+		rrb = pb_rev_push(*a, b, chunk);
+	if (rb <= rrb)
+		return (rb);
 	else
-		rev_machine(b, rra, 1);
-
+		return (rrb *= -1);
 }
-// going to remove compare_holds
+
+// going to remove compare_holds howdy
 void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 {
-	int		ra_rra;
+	t_node	*last;
 	t_node	*hold_a;
 	t_node	*hold_b;
 
 	hold_a = hold_first(*a, chunk_div);
 	hold_b = hold_second(*a, chunk_div);
+	last = ft_lstlast(*a);
 	print_lstnums(*a, *b);
-	ra_rra = compare_holds(*a, hold_a, hold_b, chunk_div);
-	if (hold_a && ra_rra == 0)
-		while (*a != hold_a)
-			r(a, 1);
-	else if (hold_b && ra_rra == 1)
-		while (*a != hold_b)
-			rrs(a, 1);
-	check_pb_pos(a, b, chunk);
+	if (hold_a->pos <= last->pos - hold_b->pos)
+		push_prep(a, b, hold_a, chunk);
+	else if (hold_a->pos > last->pos - hold_b->pos)
+		push_prep(a, b, hold_b, chunk);
 	(*a)->chunk = chunk;
 	pb(a, b, 1);
 	print_lstnums(*a, *b);

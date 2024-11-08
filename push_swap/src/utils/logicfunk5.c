@@ -29,10 +29,3 @@ void	rev_machine(t_node **lst, int n, int print)
 		n--;
 	}
 }
-
-void	adv_rot_machin(t_node **lst, int n, int print)
-{
-
-}
-
-void	

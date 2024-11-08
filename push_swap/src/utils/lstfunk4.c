@@ -32,6 +32,21 @@ t_node	*copy_lst_chunk(t_node **lst, int chunk)
 	return (copy);
 }
 
+t_node	*copy_node(t_node *node)
+{
+    t_node	*copy;
+
+    if (!node)
+        return (NULL);
+    ft_lstadd_front(&copy, ft_lstnew(node->num, node->pos,
+		node->stack[0]));
+    if (!copy)
+        return (NULL);
+    copy->prev = NULL;
+    copy->next = NULL;
+    return (copy);
+}
+
 t_node	*copy_lst(t_node **lst)
 {
 	t_node	*head;

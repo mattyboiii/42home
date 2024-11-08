@@ -3,3 +3,81 @@
 
 
 "args":["12 20 10 26 17 13 14 2 6 16 15 0 5 19 4 21 25 8 11 27 29 24 9 3 18 22 1 28 23 7"],
+
+
+this is in regards to push_swap project. So the pb and pa functions just send the top number to the other stack.
+Here i have some functions which work together. in push_prep, i have a t_node called hold
+this node. Is the number I want to test pushing into stack b, within the pb_rot_push function.
+The issue I a have at the moment, is that it is messing with the original stack **a. As thats where
+the *hold node is from. How can I just hand in a single stack with the hold node in it,
+to the pb_rot_push function.
+int	push_prep(t_node **a, t_node **b, t_node *hold, int chunk)
+{
+	int		rb;
+	int		rrb;
+	int		size;
+
+	size = ft_lstlast(*a)->pos + 1;
+	rb = pb_rot_push(hold, b, chunk);
+	rrb = pb_rev_push(&hold, b, chunk);
+	if (hold->pos < size / 2)
+		push_prep_rr(a, b, hold, rb);
+	else if (hold->pos > size / 2)
+		push_prep_rrr(a, b, hold, rrb);
+}
+
+int	pb_rot_push(t_node **a, t_node **b, int chunk)
+{
+	int		rot;
+	int		push_num;
+
+	rot = 0;
+	push_num = (*a)->num;
+	(*a)->chunk = chunk;
+	pb(a, b, 0);
+	while (order_check(b, chunk) == 0)
+	{
+		if ((*b)->num == push_num)
+			pa(a, b, 0);
+		r(b, 0);
+		rot++;
+		(*a)->chunk = chunk;
+		pb(a, b, 0);
+	}
+	pa(a, b, 0);
+	rev_machine(b, rot, 0);
+	return (rot);
+}
+
+void	pb(t_node **a, t_node **b, int print)
+{
+	t_node	*ahead;
+
+	ahead = NULL;
+	if (!(*a))
+		return ;
+	ahead = ft_nodedel(*a);
+	*a = (*a)->next;
+	ahead->stack[0] = 'b';
+	ft_lstadd_front(b, ahead);
+	ft_stackposupdate(*b);
+	if (print == 1)
+		ft_putendl_fd("pb", 1);
+}
+
+void	pa(t_node **a, t_node **b, int print)
+{
+	t_node	*bhead;
+
+	bhead = NULL;
+	if (!(*b))
+		return ;
+	bhead = ft_nodedel(*b);
+	*b = (*b)->next;
+	bhead->stack[0] = 'a';
+	bhead->chunk = 0;
+	ft_lstadd_front(a, bhead);
+	ft_stackposupdate(*a);
+	if (print == 1)
+		ft_putendl_fd("pa", 1);
+}

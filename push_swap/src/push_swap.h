@@ -35,6 +35,8 @@ int		chunk_size_f(t_node *lst, int chunk);
 // Logicfunk
 void	sort_to_b(t_node **a, t_node **b);
 int		check_pb_pos(t_node **a, t_node **b, int chunk);
+void	push_prep_rr(t_node **a, t_node **b, t_node *hold, int prep_b);
+void	push_prep_rrr(t_node **a, t_node **b, t_node *hold, int prep_b);
 
 int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
 void	compare_bottom_num(t_node **a, t_node **b, int chunk, int lg_sm);
@@ -50,8 +52,8 @@ t_node	*get_midnode(t_node **lst, int chunk);
 
 int		order_check(t_node **lst, int chunk);
 int		make_chunk_circle(t_node **lst, t_node **old_next, int chunk);
-int		pb_rot_push(t_node **a, t_node **b, int chunk);
-int		pb_rev_push(t_node **a, t_node **b, int chunk);
+int		pb_rot_push(t_node *node, t_node **b, int chunk);
+int		pb_rev_push(t_node *node, t_node **b, int chunk);
 void	cut_circle(t_node **lst, t_node *old_next, int cut);
 
 void	rot_machine(t_node **lst, int n, int print);
@@ -75,6 +77,8 @@ int		chunk_size(t_node *lst, int chunk);
 t_node	*lstlast_chunk(t_node *lst, int chunk);
 t_node	*get_node(t_node *lst, int index);
 
+
+t_node	*copy_node(t_node *node);
 t_node	*copy_lst(t_node **lst);
 t_node	*copy_lst_chunk(t_node **lst, int chunk);
 

@@ -37,67 +37,58 @@ int	order_check(t_node **lst, int chunk)
 	return (1);
 }
 
-int	pb_rot_push(t_node **a, t_node **b, int chunk)
+int	pb_rot_push(t_node *node, t_node **b, int chunk)
 {
 	int		rot;
 	int		push_num;
 
 	rot = 0;
-	push_num = (*a)->num;
-	(*a)->chunk = chunk;
-	pb(a, b, 0);
-	print_lstnums(*a, *b);
+	push_num = node->num;
+	node->chunk = chunk;
+	pb(&node, b, 0);
 	while (order_check(b, chunk) == 0)
 	{
-		print_lstnums(*a, *b);
 		if ((*b)->num == push_num)
-		{
-			pa(a, b, 0);
-			print_lstnums(*a, *b);
-		}
+			pa(&node, b, 0);
 		r(b, 0);
-		print_lstnums(*a, *b);
 		rot++;
-		(*a)->chunk = chunk;
-		pb(a, b, 0);
-		print_lstnums(*a, *b);
+		node->chunk = chunk;
+		pb(&node, b, 0);
 	}
-	pa(a, b, 0);
-	print_lstnums(*a, *b);
+	pa(&node, b, 0);
 	rev_machine(b, rot, 0);
-	print_lstnums(*a, *b);
 	return (rot);
 }
 
-int	pb_rev_push(t_node **a, t_node **b, int chunk)
+int	pb_rev_push(t_node *node, t_node **b, int chunk)
 {
 	int		rev;
 	int		push_num;
 
 	rev = 0;
-	push_num = (*a)->num;
-	(*a)->chunk = chunk;
-	pb(a, b, 0);
-	print_lstnums(*a, *b);
+	push_num = node->num;
+	node->chunk = chunk;
+	pb(&node, b, 0);
+	print_lstnums(node, *b);
 	while (order_check(b, chunk) == 0)
 	{
-		print_lstnums(*a, *b);
+		print_lstnums(node, *b);
 		if ((*b)->num == push_num)
 		{
-			pa(a, b, 0);
-			print_lstnums(*a, *b);
+			pa(&node, b, 0);
+			print_lstnums(node, *b);
 		}
 		rrs(b, 0);
-		print_lstnums(*a, *b);
+		print_lstnums(node, *b);
 		rev++;
-		(*a)->chunk = chunk;
-		pb(a, b, 0);
-		print_lstnums(*a, *b);
+		node->chunk = chunk;
+		pb(&node, b, 0);
+		print_lstnums(node, *b);
 	}
-	pa(a, b, 0);
-	print_lstnums(*a, *b);
+	pa(&node, b, 0);
+	print_lstnums(node, *b);
 	rot_machine(b, rev, 0);
-	print_lstnums(*a, *b);
+	print_lstnums(node, *b);
 	return (rev);
 }
 
