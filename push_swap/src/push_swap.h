@@ -46,8 +46,8 @@ void	sort5(t_node **a, t_node **b);
 
 int		get_chunk_number(t_node *lst);
 int		compare_holds(t_node *lst, t_node *hold_a, t_node *hold_b, int chunk_div);
-t_node	*hold_first(t_node *lst, int chunk_div);
-t_node	*hold_second(t_node *lst, int chunk_div);
+t_node	*hold_first(t_node *lst, int chunk_div, int future);
+t_node	*hold_second(t_node *lst, int chunk_div, int future);
 t_node	*get_midnode(t_node **lst, int chunk);
 
 int		order_check(t_node **lst, int chunk);
@@ -56,8 +56,10 @@ int		pb_rot_push(t_node *node, t_node **b, int chunk);
 int		pb_rev_push(t_node *node, t_node **b, int chunk);
 void	cut_circle(t_node **lst, t_node *old_next, int cut);
 
+int		rot_large(t_node **b, t_node *hold, int chunk);
 void	rot_machine(t_node **lst, int n, int print);
 void	rev_machine(t_node **lst, int n, int print);
+int		n_chunk_bot(t_node *b, int	chunk);
 
 // Lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);

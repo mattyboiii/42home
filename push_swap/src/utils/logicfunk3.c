@@ -81,21 +81,23 @@ int	compare_holds(t_node *lst, t_node *hold_a, t_node *hold_b, int chunk_div)
 		return (1);
 }
 
-t_node	*hold_first(t_node *lst, int chunk_div)
+t_node	*hold_first(t_node *lst, int chunk_div, int future)
 {
 	int		size;
 
 	size = ft_lstlast(lst)->pos / 2;
 	while (lst && lst->pos <= size)
 	{
-		if (lst->num <= chunk_div)
+		if (lst->num <= chunk_div && future)
+			future--;
+		else if (lst->num <= chunk_div && !future)
 			return (lst);
 		lst = lst->next;
 	}
 	return (NULL);
 }
 
-t_node	*hold_second(t_node *lst, int chunk_div)
+t_node	*hold_second(t_node *lst, int chunk_div, int future)
 {
 	int		size;
 
@@ -103,7 +105,9 @@ t_node	*hold_second(t_node *lst, int chunk_div)
 	size = ft_lstlast(lst)->pos / 2;
 	while (lst && lst->pos > size)
 	{
-		if (lst->num <= chunk_div)
+		if (lst->num <= chunk_div && future)
+			future--;
+		else if (lst->num <= chunk_div)
 			return (lst);
 		lst = lst->prev;
 	}

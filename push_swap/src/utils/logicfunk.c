@@ -14,21 +14,39 @@
 
 int	push_prep(t_node **a, t_node **b, t_node *hold, int chunk)
 {
+	int		size;
+	int		chunk_bot;
+
+	push_prep_fc(a, b, hold, chunk);
+	chunk_bot = n_chunk_bot(*b, chunk);
+	size = ft_lstlast(*a)->pos + 1;
+	if (chunk_bot >= 2)
+		push_prep_rrr(a, b, hold, chunk_bot);
+	else if (chunk > 1 && hold->pos > size / 2)
+	{
+		while ((*a) != hold)
+			rrs(a, 1);
+		rot_large(b, hold, chunk);
+	}
+}
+
+void	push_prep_fc(t_node **a, t_node **b, t_node *hold, int chunk)
+{
 	int		rb;
 	int		rrb;
 	int		size;
 	t_node	*copy;
 
 	copy = copy_node(hold);
+	if (chunk <= 1)
 	size = ft_lstlast(*a)->pos + 1;
 	rb = pb_rot_push(copy, b, chunk);
 	rrb = pb_rev_push(copy, b, chunk);
 	if (hold->pos < size / 2)
 		push_prep_rr(a, b, hold, rb);
-	else if (hold->pos > size / 2)
+	else if (chunk == 1 && hold->pos > size / 2)
 		push_prep_rrr(a, b, hold, rrb);
 	ft_lstclear(&copy);
-
 }
 
 void	push_prep_rr(t_node **a, t_node **b, t_node *hold, int prep_b)
@@ -84,13 +102,13 @@ void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 	t_node	*hold_a;
 	t_node	*hold_b;
 
-	hold_a = hold_first(*a, chunk_div);
-	hold_b = hold_second(*a, chunk_div);
+	hold_a = hold_first(*a, chunk_div, 0);
+	hold_b = hold_second(*a, chunk_div, 0);
 	last = ft_lstlast(*a);
 	print_lstnums(*a, *b);
-	if (!hold_b || hold_a->pos <= last->pos - hold_b->pos)
+	if (hold_a && (!hold_b || hold_a->pos <= last->pos - hold_b->pos))
 		push_prep(a, b, hold_a, chunk);
-	else if ((!hold_a && hold_b) || hold_a->pos > last->pos - hold_b->pos)
+	else if (hold_b && (!hold_a || hold_a->pos > last->pos - hold_b->pos))
 		push_prep(a, b, hold_b, chunk);
 	(*a)->chunk = chunk;
 	pb(a, b, 1);

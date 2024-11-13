@@ -29,3 +29,35 @@ void	rev_machine(t_node **lst, int n, int print)
 		n--;
 	}
 }
+
+int		rot_large(t_node **b, t_node *hold, int chunk)
+{
+	int		num;
+	int		rotate;
+
+	num = hold->num;
+	rotate = 0;
+	while ((*b)->num > num)
+	{
+		r(b, 1);
+		rotate++;
+	}
+	return (rotate);
+}
+// this function counts the numbers at the bottom of b with the current chunk
+int		n_chunk_bot(t_node *b, int	chunk)
+{
+	int		count;
+	t_node	*last;
+
+	last = ft_lstlast(b);
+	count = 0;
+	if (!b || chunk == 1)
+		return (0);
+	while(last && last->chunk == chunk)
+	{
+		count++;
+		last = last->prev;
+	}
+	return (count);
+}
