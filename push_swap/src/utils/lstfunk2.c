@@ -59,7 +59,7 @@ void	ft_lstclear(t_node **lst)
 {
 	t_node	*node;
 
-	if (!(*lst))
+	if (!(*lst) || !(*lst))
 		return ;
 	while (*lst)
 	{

@@ -88,9 +88,9 @@ void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 	hold_b = hold_second(*a, chunk_div);
 	last = ft_lstlast(*a);
 	print_lstnums(*a, *b);
-	if (hold_a->pos <= last->pos - hold_b->pos)
+	if (!hold_b || hold_a->pos <= last->pos - hold_b->pos)
 		push_prep(a, b, hold_a, chunk);
-	else if (hold_a->pos > last->pos - hold_b->pos)
+	else if ((!hold_a && hold_b) || hold_a->pos > last->pos - hold_b->pos)
 		push_prep(a, b, hold_b, chunk);
 	(*a)->chunk = chunk;
 	pb(a, b, 1);

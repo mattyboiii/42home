@@ -14,10 +14,12 @@
 
 void	ft_lstadd_front(t_node **lst, t_node *new)
 {
-	new->next = NULL;
-	new->prev = NULL;
 	if (*lst == NULL)
+	{
 		*lst = new;
+		new->next = NULL;
+		new->prev = NULL;
+	}
 	else
 	{
 		new->next = *lst;
