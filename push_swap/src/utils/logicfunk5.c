@@ -12,22 +12,22 @@
 
 #include "../push_swap.h"
 
-void	rot_machine(t_node **lst, int n, int print)
+// counts the numbers at the bottom of b with the current chunk
+int		n_chunk_bot(t_node *b, int	chunk)
 {
-	while (n > 0)
-	{
-		r(lst, print);
-		n--;
-	}
-}
+	int		count;
+	t_node	*last;
 
-void	rev_machine(t_node **lst, int n, int print)
-{
-	while (n > 0)
+	last = ft_lstlast(b);
+	count = 0;
+	if (!b || chunk == 1)
+		return (0);
+	while(last && last->chunk == chunk)
 	{
-		rrs(lst, print);
-		n--;
+		count++;
+		last = last->prev;
 	}
+	return (count);
 }
 
 int		rot_large(t_node **b, t_node *hold, int chunk)
@@ -44,20 +44,21 @@ int		rot_large(t_node **b, t_node *hold, int chunk)
 	}
 	return (rotate);
 }
-// this function counts the numbers at the bottom of b with the current chunk
-int		n_chunk_bot(t_node *b, int	chunk)
-{
-	int		count;
-	t_node	*last;
 
-	last = ft_lstlast(b);
-	count = 0;
-	if (!b || chunk == 1)
-		return (0);
-	while(last && last->chunk == chunk)
+void	rot_machine(t_node **lst, int n, int print)
+{
+	while (n > 0)
 	{
-		count++;
-		last = last->prev;
+		r(lst, print);
+		n--;
 	}
-	return (count);
+}
+
+void	rev_machine(t_node **lst, int n, int print)
+{
+	while (n > 0)
+	{
+		rrs(lst, print);
+		n--;
+	}
 }

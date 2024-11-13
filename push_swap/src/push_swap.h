@@ -61,6 +61,8 @@ void	rot_machine(t_node **lst, int n, int print);
 void	rev_machine(t_node **lst, int n, int print);
 int		n_chunk_bot(t_node *b, int	chunk);
 
+void	push_prep_fc(t_node **a, t_node **b, t_node *hold, int chunk);
+
 // Lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);
 void	ft_lstadd_back(t_node **lst, t_node *new);
