@@ -79,22 +79,6 @@ void	push_prep_rrr(t_node **a, t_node **b, t_node *hold, int prep_b)
 
 }
 
-int	check_pb_pos(t_node **a, t_node **b, int chunk)
-{
-	int		rb;
-	int		rrb;
-
-	if (chunk_size(*b, chunk) < 2)
-		return (0);
-	rb = pb_rot_push(*a, b, chunk);
-	if (rb > 0 && chunk <= 1)
-		rrb = pb_rev_push(*a, b, chunk);
-	if (rb <= rrb)
-		return (rb);
-	else
-		return (rrb *= -1);
-}
-
 // going to remove compare_holds howdy
 void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 {
