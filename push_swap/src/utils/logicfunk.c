@@ -50,15 +50,7 @@ void	push_prep_fc(t_node **a, t_node **b, t_node *hold, int chunk)
 		ft_lstclear(&copy);
 	}
 }
- int	findlow_orderb(t_node **a, t_node **b, int chunk)
- {
-		t_node	*hb;
-		t_node	*hb_next;
 
-		hb = 
- }
-
-// going to remove compare_holds howdy
 void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 {
 	t_node	*last;
@@ -67,16 +59,31 @@ void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 
 	hold_a = hold_first(*a, chunk_div, 0);
 	hold_b = hold_second(*a, chunk_div, 0);
-	findlow_orderb(a, b, chunk);
 	last = ft_lstlast(*a);
-	print_lstnums(*a, *b);
 	if (hold_a && (!hold_b || hold_a->pos <= last->pos - hold_b->pos))
 		push_prep(a, b, hold_a, chunk);
 	else if (hold_b && (!hold_a || hold_a->pos > last->pos - hold_b->pos))
 		push_prep(a, b, hold_b, chunk);
 	(*a)->chunk = chunk;
 	pb(a, b, 1);
-	print_lstnums(*a, *b);
+}
+
+void	sort_to_a(t_node **a, t_node **b, int chunk)
+{
+	int		size;
+	t_node *big;
+
+	while (*b)
+	{
+		size = ft_lstlast(*b)->pos + 1;
+		set_big_small(b, &big, 0);
+		if (big->pos < size / 2)
+			rot_machine(b, big->pos, 1);
+		else if (big->pos > size / 2)
+			rev_machine(b, size - big->pos, 1);
+		pa(a, b, 1);
+		print_lstnums(*a, *b);
+	}
 }
 
 void	sort_to_b(t_node **a, t_node **b)
@@ -88,11 +95,13 @@ void	sort_to_b(t_node **a, t_node **b)
 	chunk = 1;
 	chunk_div = get_chunk_number(*a);
 	chunk_add = chunk_div;
-	while (chunk_size(*a, 0) > 5)
+	while (chunk_size(*a, 0))
 	{
 		while (check_lg_sm(*a, chunk_div + 1, 0, 0) == 1)
 			ra_or_rra(a, b, chunk, chunk_div);
-		chunk++;
+		if (*a)
+			chunk++;
 		chunk_div = chunk_div + chunk_add + 1;
 	}
+	sort_to_a(a, b, chunk);
 }

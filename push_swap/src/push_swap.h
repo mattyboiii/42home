@@ -45,7 +45,7 @@ void	sort3(t_node **lst);
 void	sort5(t_node **a, t_node **b);
 
 int		get_chunk_number(t_node *lst);
-int		compare_holds(t_node *lst, t_node *hold_a, t_node *hold_b, int chunk_div);
+t_node	*get_big_small(t_node *lst, int chunk, int lg_sm);
 t_node	*hold_first(t_node *lst, int chunk_div, int future);
 t_node	*hold_second(t_node *lst, int chunk_div, int future);
 t_node	*get_midnode(t_node **lst, int chunk);

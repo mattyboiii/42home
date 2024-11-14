@@ -69,26 +69,17 @@ int	pb_rev_push(t_node *node, t_node **b, int chunk)
 	push_num = node->num;
 	node->chunk = chunk;
 	pb(&node, b, 0);
-	print_lstnums(node, *b);
 	while (order_check(b, chunk) == 0)
 	{
-		print_lstnums(node, *b);
 		if ((*b)->num == push_num)
-		{
 			pa(&node, b, 0);
-			print_lstnums(node, *b);
-		}
 		rrs(b, 0);
-		print_lstnums(node, *b);
 		rev++;
 		node->chunk = chunk;
 		pb(&node, b, 0);
-		print_lstnums(node, *b);
 	}
 	pa(&node, b, 0);
-	print_lstnums(node, *b);
 	rot_machine(b, rev, 0);
-	print_lstnums(node, *b);
 	return (rev);
 }
 
