@@ -54,33 +54,6 @@ int	get_chunk_number(t_node *lst)
 	return (chunk_step);
 }
 
-int	compare_holds(t_node *lst, t_node *hold_a, t_node *hold_b, int chunk_div)
-{
-	int		ra_num;
-	int		rb_num;
-	t_node	*last;
-
-	if (!hold_a && !hold_b)
-		return (-1);
-	if (!hold_a)
-		return (1);
-	if (!hold_b)
-		return (0);
-	last = ft_lstlast(lst);
-	ra_num = hold_a->pos;
-	rb_num = last->pos - hold_b->pos;
-	if (ra_num > rb_num)
-		if (check_lg_sm(lst, hold_a->num, 0, 0) == 0 && ra_num - rb_num <= 2)
-			return (0);
-	else if (ra_num < rb_num)
-		if (check_lg_sm(lst, hold_b->num, 0, 0) == 0 && rb_num - ra_num <= 2)
-			return (1);
-	if (ra_num <= rb_num)
-		return (0);
-	else
-		return (1);
-}
-
 t_node	*hold_first(t_node *lst, int chunk_div, int future)
 {
 	int		size;
