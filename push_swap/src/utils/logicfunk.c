@@ -20,7 +20,7 @@ int	push_prep(t_node **a, t_node **b, t_node *hold, int chunk)
 	push_prep_fc(a, b, hold, chunk);
 	chunk_bot = n_chunk_bot(*b, chunk);
 	size = ft_lstlast(*a)->pos + 1;
-	if (chunk_bot >= 2)
+	if (chunk_bot >= 2 && hold->num > (*b)->num)
 		push_prep_rrr(a, b, hold, chunk_bot);
 	else if (chunk > 1 && hold->pos > size / 2)
 	{
@@ -50,7 +50,13 @@ void	push_prep_fc(t_node **a, t_node **b, t_node *hold, int chunk)
 		ft_lstclear(&copy);
 	}
 }
+ int	findlow_orderb(t_node **a, t_node **b, int chunk)
+ {
+		t_node	*hb;
+		t_node	*hb_next;
 
+		hb = 
+ }
 
 // going to remove compare_holds howdy
 void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
@@ -61,6 +67,7 @@ void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 
 	hold_a = hold_first(*a, chunk_div, 0);
 	hold_b = hold_second(*a, chunk_div, 0);
+	findlow_orderb(a, b, chunk);
 	last = ft_lstlast(*a);
 	print_lstnums(*a, *b);
 	if (hold_a && (!hold_b || hold_a->pos <= last->pos - hold_b->pos))
