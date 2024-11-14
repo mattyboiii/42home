@@ -29,6 +29,9 @@ int	push_prep(t_node **a, t_node **b, t_node *hold, int chunk)
 		rot_large(b, hold, chunk);
 	}
 }
+// my new idea is to nor care about sorting in stack b. But make sure numbers close
+// to eachother spawn from the middle. Eg 012 can all be in the middl 4 5 can be top or
+// bottom. 
 
 void	push_prep_fc(t_node **a, t_node **b, t_node *hold, int chunk)
 {
@@ -66,6 +69,7 @@ void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 		push_prep(a, b, hold_b, chunk);
 	(*a)->chunk = chunk;
 	pb(a, b, 1);
+	print_lstnums(*a, *b);
 }
 
 void	sort_to_a(t_node **a, t_node **b, int chunk)
@@ -82,7 +86,6 @@ void	sort_to_a(t_node **a, t_node **b, int chunk)
 		else if (big->pos > size / 2)
 			rev_machine(b, size - big->pos, 1);
 		pa(a, b, 1);
-		print_lstnums(*a, *b);
 	}
 }
 

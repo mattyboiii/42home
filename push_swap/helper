@@ -6,7 +6,7 @@
 
 below i have two functions. In the push_prep funciton. I use the copy = copy_node() funciton so that I can copy the node of hold. Hold is a single
 node inside of the doubly linked list **a. when I use copy, it seems to make **a reference an invalid address. Can you see why this would be? I
-am happy to hand in a double pointer to copy node if that will resolve the issue. 
+am happy to hand in a double pointer to copy node if that will resolve the issue.
 
 int	push_prep(t_node **a, t_node **b, t_node *hold, int chunk)
 {
@@ -41,3 +41,7 @@ t_node	*copy_node(t_node *node)
 	copy->next = NULL;
 	return (copy);
 }
+
+
+
+./push_swap "58 83 9 88 3 93 32 2 48 84 86 99 54 46 85 68 71 42 27 16 41 36 90 72 51 33 17 61 63 43 8 25 55 64 20 34 89 19 12 26 100 62 7 82 31 60 74 15 6 98 78 49 73 67 52 1 92 14 76 65 11 57 28 23 56 81 80 96 18 13 59 47 39 4 37 50 22 77 38 24 70 30 35 95 66 29 75 53 91 45 69 5 40 79 97 94 44 21 10 0" | wc -l
