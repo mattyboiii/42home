@@ -13,29 +13,29 @@
 #include "../push_swap.h"
 
 // comp = compare
-int	order_check(t_node **lst, int chunk)
-{
-	int		cut;
-	t_node	*big;
-	t_node	*comp;
-	t_node	*old_next;
+// int	order_check(t_node **lst, int chunk)
+// {
+// 	int		cut;
+// 	t_node	*big;
+// 	t_node	*comp;
+// 	t_node	*old_next;
 
-	set_big_small(lst, &big, 0);
-	cut = make_chunk_circle(lst, &old_next, chunk);
-	comp = big->next;
-	while (comp != big && comp->chunk == chunk)
-	{
+// 	set_big_small(lst, &big, 0);
+// 	cut = make_chunk_circle(lst, &old_next, chunk);
+// 	comp = big->next;
+// 	while (comp != big && comp->chunk == chunk)
+// 	{
 
-		if (comp->num > comp->prev->num)
-		{
-			cut_circle(lst, old_next, cut);
-			return (0);
-		}
-		comp = comp->next;
-	}
-	cut_circle(lst, old_next, cut);
-	return (1);
-}
+// 		if (comp->num > comp->prev->num)
+// 		{
+// 			cut_circle(lst, old_next, cut);
+// 			return (0);
+// 		}
+// 		comp = comp->next;
+// 	}
+// 	cut_circle(lst, old_next, cut);
+// 	return (1);
+// }
 
 int	pb_rot_push(t_node *node, t_node **b, int chunk)
 {
