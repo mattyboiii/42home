@@ -63,7 +63,7 @@ int	cozy_pos(t_node **b, t_node *hold, t_node *s_chunk)
 			num_lst = num_lst->next;
 		}
 		num_lst = head;
-		copy = copy->next;
+		r(&copy, 0);
 		loop--;
 	}
 	return (rc);
@@ -76,18 +76,19 @@ t_node	*two_ops(t_node *lst, t_node *hold)
 	t_node	*old_next;
 	t_node	*num_lst;
 
-	rc = 5;
+	rc = 4;
 	cut = make_chunk_circle(&lst, &old_next, lst->chunk);
 	while (lst->num != hold->num)
 		lst = lst->next;
-	rev_machine(&lst, 2, 0);
+	lst = lst->prev->prev;
 	while (rc > 0)
 	{
-		if (lst->num == hold->num)
-			lst = lst->next;
-		else
+		if (lst->num != hold->num)
+		{
 			ft_lstadd_back(&num_lst, ft_lstnew(lst->num, lst->pos, lst->stack[0]));
-		rc--;
+			rc--;
+		}
+		lst = lst->next;
 	}
 	cut_circle(&lst, old_next, cut);
 	return (num_lst);
