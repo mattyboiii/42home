@@ -12,14 +12,52 @@
 
 #include "../push_swap.h"
 
+int	make_chunk_circle(t_node **lst, t_node **old_next, int chunk)
+{
+	t_node	*last;
+
+	last = lstlast_chunk(*lst, chunk);
+	*old_next = last->next;
+	(*lst)->prev = last;
+	last->next = *lst;
+	return (last->num);
+}
+
+void	cut_circle(t_node **lst, t_node *old_next, int cut)
+{
+	t_node *head;
+
+	head = *lst;
+	if (*lst == NULL)
+		return ;
+	if ((*lst)->prev->num == cut)
+		(*lst)->prev = NULL;
+	while (*lst)
+	{
+		if ((*lst)->num == cut)
+		{
+			(*lst)->next = old_next;
+			*lst = head;
+			return ;
+		}
+		*lst = (*lst)->next;
+	}
+}
+
 void	push_prep_rr(t_node **a, t_node **b, t_node *hold, int prep_b)
 {
-	while (prep_b > 0)
+	int		rotate;
+
+	rotate = 0;
+	while (prep_b > 0 && rotate < 2)
 	{
 		if (*a != hold)
 			rr(a, b);
 		else
+		{
 			r(b, 1);
+			rotate++;
+		}
 		prep_b--;
 	}
 	while (*a != hold)
@@ -29,12 +67,18 @@ void	push_prep_rr(t_node **a, t_node **b, t_node *hold, int prep_b)
 
 void	push_prep_rrr(t_node **a, t_node **b, t_node *hold, int prep_b)
 {
-	while (prep_b > 0)
+	int		rotate;
+
+	rotate = 0;
+	while (prep_b > 0 && rotate < 2)
 	{
 		if (*a != hold)
 			rrr(a, b);
 		else
+		{
 			rrs(b, 1);
+			rotate++;
+		}
 		prep_b--;
 	}
 	while (*a != hold)

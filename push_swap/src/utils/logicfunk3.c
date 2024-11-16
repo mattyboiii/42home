@@ -50,7 +50,7 @@ int	get_chunk_number(t_node *lst)
 	if (ft_lstlast(lst)->pos <= 99)
 		chunk_step = ((big->num - small->num) / 5);
 	if (ft_lstlast(lst)->pos > 99)
-		chunk_step = ((big->num - small->num) / 12);
+		chunk_step = ((big->num - small->num) / 11);
 	return (chunk_step);
 }
 

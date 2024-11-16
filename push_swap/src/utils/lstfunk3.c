@@ -74,12 +74,15 @@ int	chunk_size(t_node *lst, int chunk)
 
 t_node	*lstlast_chunk(t_node *lst, int chunk)
 {
+	t_node	*last;
+
+	last = ft_lstlast(lst);
 	if (lst == NULL)
 		return (NULL);
 	if (lst->next == NULL)
 		return (lst);
-	if (ft_lstlast(lst)->chunk == chunk && ft_lstlast(lst)->next == NULL)
-		return (ft_lstlast(lst));
+	if (last->chunk == chunk && last->next == NULL)
+		return (last);
 	while (lst && lst->next->chunk == chunk)
 		lst = lst->next;
 	return (lst);

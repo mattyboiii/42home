@@ -33,10 +33,12 @@ typedef struct s_stack_node
 int		chunk_size_f(t_node *lst, int chunk);
 
 // Logicfunk
+int		push_prep(t_node **a, t_node **b, t_node *hold, t_node *s_chunk);
+void	push_prep_fc(t_node **a, t_node **b, t_node *hold, t_node *s_chunk);
 void	sort_to_b(t_node **a, t_node **b);
-int		check_pb_pos(t_node **a, t_node **b, int chunk);
 void	push_prep_rr(t_node **a, t_node **b, t_node *hold, int prep_b);
 void	push_prep_rrr(t_node **a, t_node **b, t_node *hold, int prep_b);
+t_node	*sorted_chunk(t_node *a, t_node *s_chunk, int chunk, int chunk_div);
 
 int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
 void	compare_bottom_num(t_node **a, t_node **b, int chunk, int lg_sm);
@@ -61,7 +63,8 @@ void	rot_machine(t_node **lst, int n, int print);
 void	rev_machine(t_node **lst, int n, int print);
 int		n_chunk_bot(t_node *b, int	chunk);
 
-void	push_prep_fc(t_node **a, t_node **b, t_node *hold, int chunk);
+int	cozy_pos(t_node **b, t_node *hold, t_node *s_chunk);
+t_node	*two_ops(t_node *lst, t_node *hold);
 
 // Lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);

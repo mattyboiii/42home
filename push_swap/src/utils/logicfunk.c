@@ -12,64 +12,90 @@
 
 #include "../push_swap.h"
 
-int	push_prep(t_node **a, t_node **b, t_node *hold, int chunk)
+int	push_prep(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
 {
 	int		size;
 	int		chunk_bot;
 
-	push_prep_fc(a, b, hold, chunk);
-	chunk_bot = n_chunk_bot(*b, chunk);
+	push_prep_fc(a, b, hold, s_chunk);
+	chunk_bot = n_chunk_bot(*b, s_chunk->chunk);
 	size = ft_lstlast(*a)->pos + 1;
 	if (chunk_bot >= 2 && hold->num > (*b)->num)
 		push_prep_rrr(a, b, hold, chunk_bot);
-	else if (chunk > 1 && hold->pos > size / 2)
+	else if (s_chunk->chunk > 1 && hold->pos > size / 2)
 	{
 		while ((*a) != hold)
 			rrs(a, 1);
-		rot_large(b, hold, chunk);
+		rot_large(b, hold, s_chunk->chunk);
 	}
 }
 // my new idea is to nor care about sorting in stack b. But make sure numbers close
 // to eachother spawn from the middle. Eg 012 can all be in the middl 4 5 can be top or
-// bottom. 
+// bottom.
 
-void	push_prep_fc(t_node **a, t_node **b, t_node *hold, int chunk)
+void	push_prep_fc(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
 {
 	int		rb;
 	int		rrb;
 	int		size;
 	t_node	*copy;
 
-	if (chunk <= 1)
+	if (order_check(b, s_chunk->chunk) == 1)
 	{
 		copy = copy_node(hold);
 		size = ft_lstlast(*a)->pos + 1;
-		rb = pb_rot_push(copy, b, chunk);
-		rrb = pb_rev_push(copy, b, chunk);
+		rb = pb_rot_push(copy, b, s_chunk->chunk);
+		rrb = pb_rev_push(copy, b, s_chunk->chunk);
 		if (hold->pos < size / 2)
 			push_prep_rr(a, b, hold, rb);
-		else if (chunk == 1 && hold->pos > size / 2)
+		else if (hold->pos > size / 2)
 			push_prep_rrr(a, b, hold, rrb);
 		ft_lstclear(&copy);
+		print_lstnums(*a, *b);
+	}
+	else
+	{
+		while (cozy_pos(b, hold, s_chunk) < 2)
+			push_prep_rr(a, b, hold, 1);
 	}
 }
 
 void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 {
-	t_node	*last;
-	t_node	*hold_a;
-	t_node	*hold_b;
+	t_node		*last;
+	t_node		*hold_a;
+	t_node		*hold_b;
+	static t_node *s_chunk;
 
+	if (!s_chunk || s_chunk->chunk != chunk)
+		s_chunk = sorted_chunk(*a, s_chunk, chunk, chunk_div);
 	hold_a = hold_first(*a, chunk_div, 0);
 	hold_b = hold_second(*a, chunk_div, 0);
 	last = ft_lstlast(*a);
 	if (hold_a && (!hold_b || hold_a->pos <= last->pos - hold_b->pos))
-		push_prep(a, b, hold_a, chunk);
+		push_prep(a, b, hold_a, s_chunk);
 	else if (hold_b && (!hold_a || hold_a->pos > last->pos - hold_b->pos))
-		push_prep(a, b, hold_b, chunk);
+		push_prep(a, b, hold_b, s_chunk);
 	(*a)->chunk = chunk;
 	pb(a, b, 1);
 	print_lstnums(*a, *b);
+}
+
+t_node	*sorted_chunk(t_node *a, t_node *s_chunk, int chunk, int chunk_div)
+{
+	if (!s_chunk || s_chunk->chunk != chunk)
+		ft_lstclear(&s_chunk);
+	while (a)
+	{
+		if (a->num <= chunk_div)
+		{
+			ft_lstadd_back(&s_chunk, ft_lstnew(a->num, a->pos, a->stack[0]));
+			ft_lstlast(s_chunk)->chunk = chunk;
+		}
+		a = a->next;
+	}
+	s_chunk = simple_sort(s_chunk);
+	return (s_chunk);
 }
 
 void	sort_to_a(t_node **a, t_node **b, int chunk)
