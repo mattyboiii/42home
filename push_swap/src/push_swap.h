@@ -49,7 +49,7 @@ void	sort5(t_node **a, t_node **b);
 t_node	*get_midnode(t_node **lst, int chunk);
 
 int		get_chunk_number(t_node *lst);
-t_node	*get_big_small(t_node *lst, int chunk, int lg_sm);
+t_node	*chunk_big_small(t_node *lst, int chunk, int lg_sm);
 t_node	*hold_first(t_node *lst, int chunk_div, int future);
 t_node	*hold_second(t_node *lst, int chunk_div, int future);
 
@@ -65,10 +65,10 @@ void	rev_machine(t_node **lst, int n, int print);
 int		n_chunk_bot(t_node *b, int	chunk);
 
 int		cozy_pos(t_node **b, t_node *hold, t_node *s_chunk);
-int		cozy_pos_rotate(t_node *b_copy, t_node *num_lst, t_node *num_head, int loop);
+int		cozy_pos_rotate(t_node *b_copy, t_node *hold, int top_bun, int bot_bun);
 int		cozy_rot_push(t_node **b, t_node *hold, t_node *s_chunk, int range);
 int		cozy_rev_push(t_node **b, t_node *hold, t_node *s_chunk, int range);
-t_node	*two_ops(t_node *lst, t_node *hold);
+void	sort_buns(t_node *lst, t_node *hold, int *top_bun, int *bot_bun);
 
 // Lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);

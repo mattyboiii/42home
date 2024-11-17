@@ -54,7 +54,7 @@ int	get_chunk_number(t_node *lst)
 	return (chunk_step);
 }
 
-t_node	*get_big_small(t_node *lst, int chunk, int lg_sm)
+t_node	*chunk_big_small(t_node *lst, int chunk, int lg_sm)
 {
 	t_node *big_small;
 
