@@ -47,7 +47,7 @@ int	order_rot_push(t_node **b, t_node *node, int chunk)
 	int		rot;
 	int		push_num;
 
-	if (chunk_size(*b, chunk) < 3)
+	if (chunk_size(*b, chunk) < 2)
 		return (0);
 	rot = 0;
 	push_num = node->num;
@@ -72,7 +72,7 @@ int	order_rev_push(t_node **b, t_node *node, int chunk)
 	int		rev;
 	int		push_num;
 
-	if (chunk_size(*b, chunk) < 3)
+	if (chunk_size(*b, chunk) < 2)
 		return (0);
 	rev = 0;
 	push_num = node->num;

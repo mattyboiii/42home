@@ -59,7 +59,7 @@ int	cozy_rot_push(t_node **b, t_node *hold, t_node *s_chunk, int range)
 
 	rot = 0;
 	hold->chunk = s_chunk->chunk;
-	size = chunk_size(b, s_chunk->chunk);
+	size = chunk_size(*b, s_chunk->chunk);
 	if (size < range)
 		range = size - 1;
 	while (cozy_pos(b, hold, s_chunk) <= range)
@@ -74,9 +74,13 @@ int	cozy_rot_push(t_node **b, t_node *hold, t_node *s_chunk, int range)
 int	cozy_rev_push(t_node **b, t_node *hold, t_node *s_chunk, int range)
 {
 	int		rev;
+	int		size;
 
 	rev = 0;
 	hold->chunk = s_chunk->chunk;
+	size = chunk_size(*b, s_chunk->chunk);
+	if (size < range)
+		range = size - 1;
 	while (cozy_pos(b, hold, s_chunk) != range)
 	{
 		rrs(b, 0);

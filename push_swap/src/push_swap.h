@@ -39,6 +39,7 @@ void	sort_to_b(t_node **a, t_node **b);
 void	push_prep_rr(t_node **a, t_node **b, t_node *hold, int prep_b);
 void	push_prep_rrr(t_node **a, t_node **b, t_node *hold, int prep_b);
 t_node	*sorted_chunk(t_node *a, t_node *s_chunk, int chunk, int chunk_div);
+int		final_prep(int rb_o, int rrb_o, int rb_c, int rrb_c);
 
 int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
 void	compare_bottom_num(t_node **a, t_node **b, int chunk, int lg_sm);

@@ -31,29 +31,57 @@
 // }
 
 
+// if rb_rrb = 1, it means that the hold numer needs to use ra to get to the
+// correct push position. So i use rotate functions, not revers rotate funciotns.
+int	order_cozy_prep(t_node **b, t_node *hold, t_node *s_chunk, int rb_rrb)
+{
+	int		r_order;
+	int		r_cozy;
+
+	r_order = 10000;
+	if (chunk_size(*b, s_chunk->chunk) < 2)
+		return (0);
+	if (rb_rrb == 1 || rb_rrb == 3)
+	{
+		if (rb_rrb == 1)
+			r_order = order_rot_push(b, hold, s_chunk->chunk);
+		r_cozy = cozy_rot_push(b, hold, s_chunk, 3);
+	}
+	else if (rb_rrb == 2 || rb_rrb == 4)
+	{
+		if (rb_rrb == 2)
+			r_order = order_rev_push(b, hold, s_chunk->chunk);
+		r_cozy = cozy_rev_push(b, hold, s_chunk, 3);
+	}
+	if (r_order - 1 <= r_cozy)
+		return (r_order);
+	else
+		return (r_cozy);
+}
+
 int	push_prep(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
 {
 	int		size;
-	int		rb;
-	int		rrb;
+	int		rotate;
+	int		order;
 	t_node	*hold_copy;
 
+	order = order_check(b, s_chunk->chunk);
  	size = ft_lstlast(*a)->pos + 1;
 	hold_copy = copy_node(hold);
-	if (chunk_size(*b, s_chunk->chunk) < 2 || order_check(b, s_chunk->chunk) == 1)
-	{
-		rb = order_rot_push(b, hold_copy, s_chunk->chunk);
-		rrb = order_rot_push(b, hold_copy, s_chunk->chunk);
-	}
-	else
-	{
-		rb = cozy_rot_push(b, hold_copy, s_chunk, 3);
-		rrb = cozy_rot_push(b, hold_copy, s_chunk, 3);
-	}
+	if (order == 1 && hold->pos < size / 2)
+		order = 1;
+	else if (order == 1 && hold->pos > size / 2)
+		order = 2;
+	else if (order == 0 && hold->pos < size / 2)
+		order = 3;
+	else if (order == 0 && hold->pos > size / 2)
+		order = 4;
+	rotate = order_cozy_prep(b, hold_copy, s_chunk, order);
 	if (hold->pos < size / 2)
-		push_prep_rr(a, b, hold, rb);
+		push_prep_rr(a, b, hold, rotate);
 	else if (hold->pos > size / 2)
-		push_prep_rrr(a, b, hold, rrb);
+		push_prep_rrr(a, b, hold, rotate);
 }
 // my new idea is to nor care about sorting in stack b. But make sure numbers close
 // to eachother spawn from the middle. Eg 012 can all be in the middl 4 5 can be top or
