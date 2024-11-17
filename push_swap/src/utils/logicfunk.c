@@ -12,28 +12,54 @@
 
 #include "../push_swap.h"
 
+// int	push_prep(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
+// {
+// 	int		size;
+// 	int		chunk_bot;
+
+// 	push_prep_fc(a, b, hold, s_chunk);
+// 	chunk_bot = n_chunk_bot(*b, s_chunk->chunk);
+// 	size = ft_lstlast(*a)->pos + 1;
+// 	if (chunk_bot >= 2 && hold->num > (*b)->num)
+// 		push_prep_rrr(a, b, hold, chunk_bot);
+// 	else if (s_chunk->chunk > 1 && hold->pos > size / 2)
+// 	{
+// 		while ((*a) != hold)
+// 			rrs(a, 1);
+// 		rot_large(b, hold, s_chunk->chunk);
+// 	}
+// }
+
+
 int	push_prep(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
 {
 	int		size;
-	int		chunk_bot;
+	int		rb;
+	int		rrb;
+	t_node	*hold_copy;
 
-	push_prep_fc(a, b, hold, s_chunk);
-	chunk_bot = n_chunk_bot(*b, s_chunk->chunk);
-	size = ft_lstlast(*a)->pos + 1;
-	if (chunk_bot >= 2 && hold->num > (*b)->num)
-		push_prep_rrr(a, b, hold, chunk_bot);
-	else if (s_chunk->chunk > 1 && hold->pos > size / 2)
+ 	size = ft_lstlast(*a)->pos + 1;
+	hold_copy = copy_node(hold);
+	if (chunk_size(*b, s_chunk->chunk) < 2 || order_check(b, s_chunk->chunk) == 1)
 	{
-		while ((*a) != hold)
-			rrs(a, 1);
-		rot_large(b, hold, s_chunk->chunk);
+		rb = order_rot_push(b, hold_copy, s_chunk->chunk);
+		rrb = order_rot_push(b, hold_copy, s_chunk->chunk);
 	}
+	else
+	{
+		rb = cozy_rot_push(b, hold_copy, s_chunk, 3);
+		rrb = cozy_rot_push(b, hold_copy, s_chunk, 3);
+	}
+	if (hold->pos < size / 2)
+		push_prep_rr(a, b, hold, rb);
+	else if (hold->pos > size / 2)
+		push_prep_rrr(a, b, hold, rrb);
 }
 // my new idea is to nor care about sorting in stack b. But make sure numbers close
 // to eachother spawn from the middle. Eg 012 can all be in the middl 4 5 can be top or
 // bottom.
 
-void	push_prep_fc(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
+void	push_prep_rc(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
 {
 	int		rb;
 	int		rrb;
@@ -44,8 +70,8 @@ void	push_prep_fc(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
 	{
 		copy = copy_node(hold);
 		size = ft_lstlast(*a)->pos + 1;
-		rb = pb_rot_push(copy, b, s_chunk->chunk);
-		rrb = pb_rev_push(copy, b, s_chunk->chunk);
+		rb = order_rot_push(b, copy, s_chunk->chunk);
+		rrb = order_rev_push(b, copy, s_chunk->chunk);
 		if (hold->pos < size / 2)
 			push_prep_rr(a, b, hold, rb);
 		else if (hold->pos > size / 2)

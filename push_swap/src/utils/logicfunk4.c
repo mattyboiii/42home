@@ -40,65 +40,15 @@ int	order_check(t_node **lst, int chunk)
 }
 
 // for now, i am just going to check if the number is within 2 next or prev
-int	cozy_pos(t_node **b, t_node *hold, t_node *s_chunk)
-{
-	int		loop;
-	int		rc;
-	t_node	*num_lst;
-	t_node	*head;
-	t_node	*copy;
+// rc = rotate count.
 
-	loop = 4;
-	rc = 0;
-	num_lst = two_ops(s_chunk, hold);
-	head = num_lst;
-	copy = copy_lst(b);
-	rev_machine(&copy, 2, 0);
-	while (loop > 0)
-	{
-		while (num_lst)
-		{
-			if (copy->num == num_lst->num)
-				rc++;
-			num_lst = num_lst->next;
-		}
-		num_lst = head;
-		r(&copy, 0);
-		loop--;
-	}
-	return (rc);
-}
-
-t_node	*two_ops(t_node *lst, t_node *hold)
-{
-	int		cut;
-	int		rc;
-	t_node	*old_next;
-	t_node	*num_lst;
-
-	rc = 4;
-	cut = make_chunk_circle(&lst, &old_next, lst->chunk);
-	while (lst->num != hold->num)
-		lst = lst->next;
-	lst = lst->prev->prev;
-	while (rc > 0)
-	{
-		if (lst->num != hold->num)
-		{
-			ft_lstadd_back(&num_lst, ft_lstnew(lst->num, lst->pos, lst->stack[0]));
-			rc--;
-		}
-		lst = lst->next;
-	}
-	cut_circle(&lst, old_next, cut);
-	return (num_lst);
-}
-
-int	pb_rot_push(t_node *node, t_node **b, int chunk)
+int	order_rot_push(t_node **b, t_node *node, int chunk)
 {
 	int		rot;
 	int		push_num;
 
+	if (chunk_size(*b, chunk) < 3)
+		return (0);
 	rot = 0;
 	push_num = node->num;
 	node->chunk = chunk;
@@ -117,11 +67,13 @@ int	pb_rot_push(t_node *node, t_node **b, int chunk)
 	return (rot);
 }
 
-int	pb_rev_push(t_node *node, t_node **b, int chunk)
+int	order_rev_push(t_node **b, t_node *node, int chunk)
 {
 	int		rev;
 	int		push_num;
 
+	if (chunk_size(*b, chunk) < 3)
+		return (0);
 	rev = 0;
 	push_num = node->num;
 	node->chunk = chunk;
