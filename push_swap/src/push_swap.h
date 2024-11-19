@@ -37,8 +37,8 @@ int		chunk_size_f(t_node *lst, int chunk);
 int		push_prep(t_node **a, t_node **b, t_node *hold, t_node *s_chunk);
 void	push_prep_fc(t_node **a, t_node **b, t_node *hold, t_node *s_chunk);
 void	sort_to_b(t_node **a, t_node **b);
-void	push_prep_rr(t_node **a, t_node **b, t_node *hold, int prep_b);
-void	push_prep_rrr(t_node **a, t_node **b, t_node *hold, int prep_b);
+void	push_prep_rot(t_node **a, t_node **b, t_node *hold, int prep_b);
+void	push_prep_rev(t_node **a, t_node **b, t_node *hold, int prep_b);
 void	push_prep_rc(t_node **a, t_node **b, t_node *hold, t_node *s_chunk);
 
 int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);

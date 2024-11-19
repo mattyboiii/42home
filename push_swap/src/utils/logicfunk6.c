@@ -44,7 +44,7 @@ void	cut_circle(t_node **lst, t_node *old_next, int cut)
 	}
 }
 
-void	push_prep_rr(t_node **a, t_node **b, t_node *hold, int prep_b)
+void	push_prep_rot(t_node **a, t_node **b, t_node *hold, int prep_b)
 {
 	int		push;
 
@@ -54,7 +54,10 @@ void	push_prep_rr(t_node **a, t_node **b, t_node *hold, int prep_b)
 		if (*a != hold)
 			rr(a, b);
 		else if (*a == hold && if_push(a, b, hold) == 1)
+		{
+			push++;
 			pb(a, b, 1);
+		}
 		else if (*a == hold && if_push(a, b, hold) == 0)
 		{
 			s(a, 1);
@@ -66,23 +69,30 @@ void	push_prep_rr(t_node **a, t_node **b, t_node *hold, int prep_b)
 		r(a, 1);
 }
 
-void	push_prep_rrr(t_node **a, t_node **b, t_node *hold, int prep_b)
+// change this to take in two variables, hold and hold future. if top number is <
+// chunk_div try if push on it. If it passes. push it. If it fails. hold its spot
+// with swap. either way. I am never using only rb or rrb
+void	push_prep_rev(t_node **a, t_node **b, t_node *hold, int prep_b)
 {
-	int		rotate;
+	int		push;
 
-	rotate = 0;
-	while (prep_b < 0 && rotate < 2)
+	push = 0;
+	while (prep_b < 0 && push == 0)
 	{
 		if (*a != hold)
-			rrr(a, b);
-		else
+			rrs(a, b);
+		else if (*a == hold && if_push(a, b, hold) == 1)
 		{
-			rrs(b, 1);
-			rotate++;
+			push++;
+			pb(a, b, 1);
+		}
+		else if (*a == hold && if_push(a, b, hold) == 0)
+		{
+			s(a, 1);
+			rrs(a, b);
 		}
 		prep_b++;
 	}
 	while (*a != hold)
-		rrs(a, 1);
-
+		rr(a, 1);
 }

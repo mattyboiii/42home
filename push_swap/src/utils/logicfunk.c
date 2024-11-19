@@ -21,7 +21,7 @@
 // 	chunk_bot = n_chunk_bot(*b, s_chunk->chunk);
 // 	size = ft_lstlast(*a)->pos + 1;
 // 	if (chunk_bot >= 2 && hold->num > (*b)->num)
-// 		push_prep_rrr(a, b, hold, chunk_bot);
+// 		push_prep_rev(a, b, hold, chunk_bot);
 // 	else if (s_chunk->chunk > 1 && hold->pos > size / 2)
 // 	{
 // 		while ((*a) != hold)
@@ -88,23 +88,25 @@ int	push_prep(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
 	hold_copy = copy_node(hold);
 	push_prep_rc(a, b, hold, s_chunk);
 	if (hold->pos < size / 2)
-		push_prep_rr(a, b, hold, rotate);
+		push_prep_rot(a, b, hold, rotate);
 	else if (hold->pos > size / 2)
-		push_prep_rrr(a, b, hold, rotate);
+		push_prep_rev(a, b, hold, rotate);
 }
 // find out if I am rot or rev to get the number in order. because I will continually
 // just swap the top numbers of both stacks untill one fits. Then move onto the next.
 
 void	ra_or_rra(t_node **a, t_node **b, int chunk)
 {
-	int			a_rotate;
-	int			b_rotate;
+	int			rotate;
 	t_node		*last;
 	t_node		*hold_a;
 	t_node		*hold_b;
 
-	a_rotate = closest_hold(a, b, &hold_a, &hold_b);
-	b_rotate = rotate_prep(a, b, hold_b, chunk);
+	rotate = closest_hold(a, b, &hold_a, &hold_b);
+	if (rotate >= 0)
+		push_prep_rot(a, b, hold_a, rotate);
+	if (rotate < 0)
+		push_prep_rev(a, b, hold_a, rotate);
 	last = ft_lstlast(*a);
 
 
