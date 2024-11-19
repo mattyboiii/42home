@@ -12,6 +12,24 @@
 
 #include "../push_swap.h"
 
+int	if_push(t_node **a, t_node **b, t_node *hold)
+{
+	t_node	*bcopy;
+
+	bcopy = copy_lst(b);
+	pb(&hold, &bcopy, 0);
+	if (order_check(&bcopy, (*a)->chunk) == 1)
+	{
+		ft_lstclear(&bcopy);
+		return (1);
+	}
+	else
+	{
+		ft_lstclear(&bcopy);
+		return (0);
+	}
+}
+
 // counts the numbers at the bottom of b with the current chunk
 int		n_chunk_bot(t_node *b, int	chunk)
 {

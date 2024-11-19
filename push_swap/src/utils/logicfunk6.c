@@ -46,23 +46,24 @@ void	cut_circle(t_node **lst, t_node *old_next, int cut)
 
 void	push_prep_rr(t_node **a, t_node **b, t_node *hold, int prep_b)
 {
-	int		rotate;
+	int		push;
 
-	rotate = 0;
-	while (prep_b > 0 && rotate < 2)
+	push = 0;
+	while (prep_b > 0 && push == 0)
 	{
 		if (*a != hold)
 			rr(a, b);
-		else
+		else if (*a == hold && if_push(a, b, hold) == 1)
+			pb(a, b, 1);
+		else if (*a == hold && if_push(a, b, hold) == 0)
 		{
-			r(b, 1);
-			rotate++;
+			s(a, 1);
+			rr(a, b);
 		}
 		prep_b--;
 	}
 	while (*a != hold)
 		r(a, 1);
-
 }
 
 void	push_prep_rrr(t_node **a, t_node **b, t_node *hold, int prep_b)
@@ -70,7 +71,7 @@ void	push_prep_rrr(t_node **a, t_node **b, t_node *hold, int prep_b)
 	int		rotate;
 
 	rotate = 0;
-	while (prep_b > 0 && rotate < 2)
+	while (prep_b < 0 && rotate < 2)
 	{
 		if (*a != hold)
 			rrr(a, b);
@@ -79,7 +80,7 @@ void	push_prep_rrr(t_node **a, t_node **b, t_node *hold, int prep_b)
 			rrs(b, 1);
 			rotate++;
 		}
-		prep_b--;
+		prep_b++;
 	}
 	while (*a != hold)
 		rrs(a, 1);

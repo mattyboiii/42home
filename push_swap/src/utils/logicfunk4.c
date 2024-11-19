@@ -96,5 +96,4 @@ int	order_rev_push(t_node **b, t_node *hold, int chunk)
 	ft_lstclear(&bcopy);
 	ft_lstclear(node);
 	return (rev);
-
 }

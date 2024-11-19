@@ -13,7 +13,7 @@
 #include "../push_swap.h"
 
 
-int	update_chunk_div(t_node *lst, int chunk_div)
+int	update_chunk_div(t_node *lst, int chunk_div, int chunk)
 {
 	t_node *head;
 
@@ -21,6 +21,7 @@ int	update_chunk_div(t_node *lst, int chunk_div)
 		return (-1);
 	while (lst)
 	{
+		lst->chunk = chunk;
 		lst->div = chunk_div;
 		lst = lst->next;
 	}

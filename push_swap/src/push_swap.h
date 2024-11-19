@@ -59,6 +59,7 @@ int		order_rot_push(t_node **b, t_node *hold, int chunk);
 int		order_rev_push(t_node **b, t_node *hold, int chunk);
 void	cut_circle(t_node **lst, t_node *old_next, int cut);
 
+int		if_push(t_node **a, t_node **b, t_node *hold);
 int		rot_large(t_node **b, t_node *hold, int chunk);
 void	rot_machine(t_node **lst, int n, int print);
 void	rev_machine(t_node **lst, int n, int print);
@@ -89,7 +90,7 @@ t_node	*lstlast_chunk(t_node *lst, int chunk);
 t_node	*get_node(t_node *lst, int index);
 
 
-int	update_chunk_div(t_node *lst, int chunk_div);
+int		update_chunk_div(t_node *lst, int chunk_div, int chunk);
 t_node	*copy_node(t_node *node);
 t_node	*copy_lst(t_node **lst);
 t_node	*copy_lst_chunk(t_node **lst, int chunk);
