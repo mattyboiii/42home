@@ -42,52 +42,59 @@ int	order_check(t_node **lst, int chunk)
 // for now, i am just going to check if the number is within 2 next or prev
 // rc = rotate count.
 
-int	order_rot_push(t_node **b, t_node *node, int chunk)
+int	order_rot_push(t_node **b, t_node *hold, int chunk)
 {
 	int		rot;
-	int		push_num;
+	t_node	*node;
+	t_node	*bcopy;
 
 	if (chunk_size(*b, chunk) < 2)
 		return (0);
+	bcopy = copy_lst(b);
+	node = copy_node(hold);
 	rot = 0;
-	push_num = node->num;
 	node->chunk = chunk;
-	pb(&node, b, 0);
-	while (order_check(b, chunk) == 0)
-	{
-		if ((*b)->num == push_num)
-			pa(&node, b, 0);
-		r(b, 0);
+	pb(&node, &bcopy, 0);
+	while (order_check(&bcopy, chunk) == 0 && rot < bcopy->div)
+ 	{
+		if ((*b)->num == node->num)
+			pa(&node, &bcopy, 0);
+		if (bcopy->chunk != chunk)
+			rot += bcopy->div;
+		r(&bcopy, 0);
 		rot++;
-		node->chunk = chunk;
-		pb(&node, b, 0);
+		pb(&node, &bcopy, 0);
 	}
-	pa(&node, b, 0);
-	rev_machine(b, rot, 0);
+	ft_lstclear(&bcopy);
+	ft_lstclear(node);
 	return (rot);
 }
 
-int	order_rev_push(t_node **b, t_node *node, int chunk)
+int	order_rev_push(t_node **b, t_node *hold, int chunk)
 {
 	int		rev;
-	int		push_num;
+	t_node	*node;
+	t_node	*bcopy;
 
 	if (chunk_size(*b, chunk) < 2)
 		return (0);
+	bcopy = copy_lst(b);
+	node = copy_node(hold);
 	rev = 0;
-	push_num = node->num;
 	node->chunk = chunk;
-	pb(&node, b, 0);
-	while (order_check(b, chunk) == 0)
-	{
-		if ((*b)->num == push_num)
-			pa(&node, b, 0);
-		rrs(b, 0);
+	pb(&node, &bcopy, 0);
+	while (order_check(&bcopy, chunk) == 0 && rev < bcopy->div)
+ 	{
+		if ((*b)->num == node->num)
+			pa(&node, &bcopy, 0);
+		if (bcopy->chunk != chunk)
+			rev += bcopy->div;
+		rrs(&bcopy, 0);
 		rev++;
-		node->chunk = chunk;
-		pb(&node, b, 0);
+		pb(&node, &bcopy, 0);
 	}
-	pa(&node, b, 0);
-	rot_machine(b, rev, 0);
+	ft_lstclear(&bcopy);
+	ft_lstclear(node);
 	return (rev);
+
 }

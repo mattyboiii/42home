@@ -30,34 +30,33 @@
 // 	}
 // }
 
-// changing push_prep to look in the future for the stacks. 
+// use push prep, if the number being pushed cant be pushed in order. Hold the top number
+// using a_hold logic. Which swaps, then rotates a stack/double rotates a stack.
 
-// if rb_rrb = 1, it means that the hold numer needs to use ra to get to the
-// correct push position. So i use rotate functions, not revers rotate funciotns.
-int	order_cozy_prep(t_node **b, t_node *hold, t_node *s_chunk, int rb_rrb)
+
+/* somthing to do with holding onto the clsoe numbers using swap when a number
+is already at the top, if a number at the top of a is < chunk_div, then I dont need
+to push the number back to the node, I can just swap and rotate to try and get the next
+hold number closer up, while also finding the right position.*/
+
+int	prep_a_b(t_node **a, t_node **b, t_node *hold_a, t_node *hold_b)
 {
-	int		r_order;
-	int		r_cozy;
+	int		hold;
+	int		hold_future;
+	t_node	*afut;
+	t_node	*bfut;
 
-	r_order = 10000;
-	if (chunk_size(*b, s_chunk->chunk) < 2)
-		return (0);
-	if (rb_rrb == 1 || rb_rrb == 3)
-	{
-		if (rb_rrb == 1)
-			r_order = order_rot_push(b, hold, s_chunk->chunk);
-		r_cozy = cozy_rot_push(b, hold, s_chunk, 3);
-	}
-	else if (rb_rrb == 2 || rb_rrb == 4)
-	{
-		if (rb_rrb == 2)
-			r_order = order_rev_push(b, hold, s_chunk->chunk);
-		r_cozy = cozy_rev_push(b, hold, s_chunk, 3);
-	}
-	if (r_order - 1 <= r_cozy)
-		return (r_order);
-	else
-		return (r_cozy);
+	afut = hold_first(*a, (*a)->div, 1);
+	bfut = hold_second(*a, (*a)->div, 1);
+
+	if (afut->num < hold_a->num)
+
+
+
+
+
+
+
 }
 
 int	push_prep(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
@@ -70,15 +69,7 @@ int	push_prep(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
 	order = order_check(b, s_chunk->chunk);
  	size = ft_lstlast(*a)->pos + 1;
 	hold_copy = copy_node(hold);
-	if (order == 1 && hold->pos < size / 2)
-		order = 1;
-	else if (order == 1 && hold->pos > size / 2)
-		order = 2;
-	else if (order == 0 && hold->pos < size / 2)
-		order = 3;
-	else if (order == 0 && hold->pos > size / 2)
-		order = 4;
-	rotate = order_cozy_prep(b, hold_copy, s_chunk, order);
+	push_prep_rc(a, b, hold, s_chunk);
 	if (hold->pos < size / 2)
 		push_prep_rr(a, b, hold, rotate);
 	else if (hold->pos > size / 2)
@@ -115,7 +106,7 @@ void	push_prep_rc(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
 	}
 }
 
-void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
+void	ra_or_rra(t_node **a, t_node **b, int chunk)
 {
 	t_node		*last;
 	t_node		*hold_a;
@@ -123,35 +114,16 @@ void	ra_or_rra(t_node **a, t_node **b, int chunk, int chunk_div)
 	static t_node *s_chunk;
 
 	if (!s_chunk || s_chunk->chunk != chunk)
-		s_chunk = sorted_chunk(*a, s_chunk, chunk, chunk_div);
-	hold_a = hold_first(*a, chunk_div, 0);
-	hold_b = hold_second(*a, chunk_div, 0);
+		s_chunk = sorted_chunk(*a, s_chunk, chunk, (*a)->div);
+	hold_a = hold_first(*a, (*a)->div, 0);
+	hold_b = hold_second(*a, (*a)->div, 0);
 	last = ft_lstlast(*a);
 	if (hold_a && (!hold_b || hold_a->pos <= last->pos - hold_b->pos))
 		push_prep(a, b, hold_a, s_chunk);
 	else if (hold_b && (!hold_a || hold_a->pos > last->pos - hold_b->pos))
 		push_prep(a, b, hold_b, s_chunk);
-	(*a)->chunk = chunk;
-	pb(a, b, 1);
-	print_lstnums(*a, *b);
 }
 
-t_node	*sorted_chunk(t_node *a, t_node *s_chunk, int chunk, int chunk_div)
-{
-	if (!s_chunk || s_chunk->chunk != chunk)
-		ft_lstclear(&s_chunk);
-	while (a)
-	{
-		if (a->num <= chunk_div)
-		{
-			ft_lstadd_back(&s_chunk, ft_lstnew(a->num, a->pos, a->stack[0]));
-			ft_lstlast(s_chunk)->chunk = chunk;
-		}
-		a = a->next;
-	}
-	s_chunk = simple_sort(s_chunk);
-	return (s_chunk);
-}
 
 void	sort_to_a(t_node **a, t_node **b, int chunk)
 {
@@ -170,6 +142,7 @@ void	sort_to_a(t_node **a, t_node **b, int chunk)
 	}
 }
 
+
 void	sort_to_b(t_node **a, t_node **b)
 {
 	int		chunk_div;
@@ -179,10 +152,11 @@ void	sort_to_b(t_node **a, t_node **b)
 	chunk = 1;
 	chunk_div = get_chunk_number(*a);
 	chunk_add = chunk_div;
+	update_chunk_div(*a, chunk_div);
 	while (chunk_size(*a, 0))
 	{
 		while (check_lg_sm(*a, chunk_div + 1, 0, 0) == 1)
-			ra_or_rra(a, b, chunk, chunk_div);
+			ra_or_rra(a, b, chunk);
 		if (*a)
 			chunk++;
 		chunk_div = chunk_div + chunk_add + 1;

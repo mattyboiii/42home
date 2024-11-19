@@ -23,6 +23,7 @@ typedef struct s_stack_node
 	long				pos;
 	char				stack[2];
 	int					chunk;
+	int					div;
 	struct s_stack_node	*prev;
 	struct s_stack_node	*next;
 }	t_node;
@@ -38,8 +39,7 @@ void	push_prep_fc(t_node **a, t_node **b, t_node *hold, t_node *s_chunk);
 void	sort_to_b(t_node **a, t_node **b);
 void	push_prep_rr(t_node **a, t_node **b, t_node *hold, int prep_b);
 void	push_prep_rrr(t_node **a, t_node **b, t_node *hold, int prep_b);
-t_node	*sorted_chunk(t_node *a, t_node *s_chunk, int chunk, int chunk_div);
-int		final_prep(int rb_o, int rrb_o, int rb_c, int rrb_c);
+void	push_prep_rc(t_node **a, t_node **b, t_node *hold, t_node *s_chunk);
 
 int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
 void	compare_bottom_num(t_node **a, t_node **b, int chunk, int lg_sm);
@@ -55,8 +55,8 @@ t_node	*hold_second(t_node *lst, int chunk_div, int future);
 
 int		order_check(t_node **lst, int chunk);
 int		make_chunk_circle(t_node **lst, t_node **old_next, int chunk);
-int		order_rot_push(t_node **b, t_node *node, int chunk);
-int		order_rev_push(t_node **b, t_node *node, int chunk);
+int		order_rot_push(t_node **b, t_node *hold, int chunk);
+int		order_rev_push(t_node **b, t_node *hold, int chunk);
 void	cut_circle(t_node **lst, t_node *old_next, int cut);
 
 int		rot_large(t_node **b, t_node *hold, int chunk);
@@ -89,9 +89,11 @@ t_node	*lstlast_chunk(t_node *lst, int chunk);
 t_node	*get_node(t_node *lst, int index);
 
 
+int	update_chunk_div(t_node *lst, int chunk_div);
 t_node	*copy_node(t_node *node);
 t_node	*copy_lst(t_node **lst);
 t_node	*copy_lst_chunk(t_node **lst, int chunk);
+t_node	*sorted_chunk(t_node *a, t_node *s_chunk, int chunk, int chunk_div);
 
 
 // Sortfunk

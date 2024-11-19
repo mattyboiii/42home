@@ -13,6 +13,20 @@
 #include "../push_swap.h"
 
 
+int	update_chunk_div(t_node *lst, int chunk_div)
+{
+	t_node *head;
+
+	if (!lst)
+		return (-1);
+	while (lst)
+	{
+		lst->div = chunk_div;
+		lst = lst->next;
+	}
+	return (1);
+}
+
 t_node	*copy_lst_chunk(t_node **lst, int chunk)
 {
 	t_node	*head;
@@ -65,4 +79,21 @@ t_node	*copy_lst(t_node **lst)
 	}
 	*lst = head;
 	return (copy);
+}
+
+t_node	*sorted_chunk(t_node *a, t_node *s_chunk, int chunk, int chunk_div)
+{
+	if (!s_chunk || s_chunk->chunk != chunk)
+		ft_lstclear(&s_chunk);
+	while (a)
+	{
+		if (a->num <= chunk_div)
+		{
+			ft_lstadd_back(&s_chunk, ft_lstnew(a->num, a->pos, a->stack[0]));
+			ft_lstlast(s_chunk)->chunk = chunk;
+		}
+		a = a->next;
+	}
+	s_chunk = simple_sort(s_chunk);
+	return (s_chunk);
 }

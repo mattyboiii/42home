@@ -23,8 +23,6 @@ int	cozy_pos(t_node **b, t_node *hold, t_node *s_chunk)
 
 	copy = copy_lst(b);
 	set_big_small(b, &big, &small);
-	if (big->num == hold->num)
-	while (copy->num > big->num)
 
 
 }

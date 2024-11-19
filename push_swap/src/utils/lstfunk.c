@@ -71,6 +71,7 @@ t_node	*ft_lstnew(int num, int pos, char c)
 	node->next = NULL;
 	node->prev = NULL;
 	node->chunk = 0;
+	node->div = 0;
 	return (node);
 }
 
