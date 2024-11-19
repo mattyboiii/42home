@@ -39,17 +39,27 @@ is already at the top, if a number at the top of a is < chunk_div, then I dont n
 to push the number back to the node, I can just swap and rotate to try and get the next
 hold number closer up, while also finding the right position.*/
 
-int	prep_a_b(t_node **a, t_node **b, t_node *hold_a, t_node *hold_b)
+int	future_prep(t_node **a, t_node **b, t_node *hold_a, t_node *hold_b)
 {
 	int		hold;
-	int		hold_future;
+	int		size;
+	t_node	*hold_future;
 	t_node	*afut;
 	t_node	*bfut;
 
+	size = ft_lstlast(*a)->pos + 1;
 	afut = hold_first(*a, (*a)->div, 1);
 	bfut = hold_second(*a, (*a)->div, 1);
+	hold_future = afut->pos;
 
-	if (afut->num < hold_a->num)
+	if (hold_a && (!hold_b || hold_a->pos ))
+		if ((size - hold_b->pos) < afut->pos)
+			hold_future = hold_b;
+	else if (hold_b && (!hold_a || hold_a->pos > last->pos - hold_b->pos))
+
+	if ((size - bfut->pos) < hold_future)
+
+
 
 
 
@@ -106,6 +116,26 @@ void	push_prep_rc(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
 	}
 }
 
+// find out if I am rot or rev to get the number in order. because I will continually
+// just swap the top numbers of both stacks untill one fits. Then move onto the next.
+
+
+void	ra_or_rra(t_node **a, t_node **b, int chunk)
+{
+	int			rb;
+	int			rrb;
+	t_node		*last;
+	t_node		*hold_a;
+	t_node		*hold_b;
+
+	hold_a = hold_first(*a, (*a)->div, 0);
+	hold_b = hold_second(*a, (*a)->div, 0);
+	last = ft_lstlast(*a);
+	if (hold_a && (!hold_b || hold_a->pos <= last->pos - hold_b->pos))
+
+	else if (hold_b && (!hold_a || hold_a->pos > last->pos - hold_b->pos))
+}
+/*
 void	ra_or_rra(t_node **a, t_node **b, int chunk)
 {
 	t_node		*last;
@@ -123,7 +153,7 @@ void	ra_or_rra(t_node **a, t_node **b, int chunk)
 	else if (hold_b && (!hold_a || hold_a->pos > last->pos - hold_b->pos))
 		push_prep(a, b, hold_b, s_chunk);
 }
-
+*/
 
 void	sort_to_a(t_node **a, t_node **b, int chunk)
 {
