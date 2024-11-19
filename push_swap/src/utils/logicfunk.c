@@ -30,6 +30,7 @@
 // 	}
 // }
 
+// changing push_prep to look in the future for the stacks. 
 
 // if rb_rrb = 1, it means that the hold numer needs to use ra to get to the
 // correct push position. So i use rotate functions, not revers rotate funciotns.
