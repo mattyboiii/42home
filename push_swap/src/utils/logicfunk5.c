@@ -15,17 +15,22 @@
 int	if_push(t_node **a, t_node **b, t_node *hold)
 {
 	t_node	*bcopy;
+	t_node	*hcopy;
 
 	bcopy = copy_lst(b);
-	pb(&hold, &bcopy, 0);
+	hcopy = copy_node(hold);
+	pb(&hcopy, &bcopy, 0);
+
 	if (order_check(&bcopy, (*a)->chunk) == 1)
 	{
 		ft_lstclear(&bcopy);
+		ft_lstclear(&hcopy);
 		return (1);
 	}
 	else
 	{
 		ft_lstclear(&bcopy);
+		ft_lstclear(&hcopy);
 		return (0);
 	}
 }

@@ -20,7 +20,7 @@ int	order_check(t_node **lst, int chunk)
 	t_node	*comp;
 	t_node	*old_next;
 
-	if (chunk_size(*lst, chunk) <= 2)
+	if (chunk_size_f(*lst, chunk) <= 2)
 		return (1);
 	set_big_small(lst, &big, 0);
 	cut = make_chunk_circle(lst, &old_next, chunk);
@@ -66,7 +66,7 @@ int	order_rot_push(t_node **b, t_node *hold, int chunk)
 		pb(&node, &bcopy, 0);
 	}
 	ft_lstclear(&bcopy);
-	ft_lstclear(node);
+	ft_lstclear(&node);
 	return (rot);
 }
 
@@ -94,6 +94,6 @@ int	order_rev_push(t_node **b, t_node *hold, int chunk)
 		pb(&node, &bcopy, 0);
 	}
 	ft_lstclear(&bcopy);
-	ft_lstclear(node);
+	ft_lstclear(&node);
 	return (rev);
 }

@@ -44,55 +44,58 @@ void	cut_circle(t_node **lst, t_node *old_next, int cut)
 	}
 }
 
-void	push_prep_rot(t_node **a, t_node **b, t_node *hold, int prep_b)
+void	push_prep_rot(t_node **a, t_node **b, t_node *hold, int stack_size)
 {
-	int		push;
+	int		new_size;
+	t_node	*hold_a;
 
-	push = 0;
-	while (prep_b > 0 && push == 0)
+	hold_a = hold_first(*a, (*a)->div, 0);
+	new_size = stack_size;
+	while (new_size == stack_size)
 	{
-		if (*a != hold)
+		if ((*a)->num > (*a)->div && if_push(a, b, hold_a) == 0)
 			rr(a, b);
-		else if (*a == hold && if_push(a, b, hold) == 1)
-		{
-			push++;
+		else if ((*a)->num <= (*a)->div && if_push(a, b, *a) == 1)
 			pb(a, b, 1);
-		}
-		else if (*a == hold && if_push(a, b, hold) == 0)
+		else if ((*a)->next->num == hold->num && if_push (a, b, *a) == 0)
+			r(b, 1);
+		else if ((*a)->num <= (*a)->div && if_push(a, b, *a) == 0)
 		{
 			s(a, 1);
 			rr(a, b);
 		}
-		prep_b--;
+		else
+			r(a, 1);
+		new_size = ft_lstlast(*a)->pos + 1;
 	}
-	while (*a != hold)
-		r(a, 1);
 }
-
 // change this to take in two variables, hold and hold future. if top number is <
 // chunk_div try if push on it. If it passes. push it. If it fails. hold its spot
 // with swap. either way. I am never using only rb or rrb
-void	push_prep_rev(t_node **a, t_node **b, t_node *hold, int prep_b)
+void	push_prep_rev(t_node **a, t_node **b, t_node *hold, int	stack_size)
 {
-	int		push;
+	int		new_size;
+	t_node	*last;
+	t_node	*hold_a;
 
-	push = 0;
-	while (prep_b < 0 && push == 0)
+	hold_a = hold_second(*a, (*a)->div, 0);
+	new_size = stack_size;
+	while (new_size == stack_size)
 	{
-		if (*a != hold)
-			rrs(a, b);
-		else if (*a == hold && if_push(a, b, hold) == 1)
-		{
-			push++;
+		last = ft_lstlast(*a);
+		if ((*a)->num > (*a)->div && if_push(a, b, hold_a) == 0)
+			rrr(a, b);
+		if ((*a)->num <= (*a)->div && if_push(a, b, *a) == 1)
 			pb(a, b, 1);
-		}
-		else if (*a == hold && if_push(a, b, hold) == 0)
+		else if (last->num == hold->num && if_push (a, b, *a) == 0)
+			rrs(b, 1);
+		else if ((*a)->num <= (*a)->div && if_push(a, b, *a) == 0)
 		{
+			rrr(a, b);
 			s(a, 1);
-			rrs(a, b);
 		}
-		prep_b++;
+		else
+			rrs(a, 1);
+		new_size = ft_lstlast(*a)->pos + 1;
 	}
-	while (*a != hold)
-		rr(a, 1);
 }

@@ -44,7 +44,7 @@ int	rotate_prep(t_node **a, t_node **b, t_node *hold, int chunk)
 	int		rb;
 	int		rrb;
 
-	if (ft_lstlast(*b)->pos <= 1)
+	if ((*b == NULL || ft_lstlast(*b)->pos <= 1))
 		return (0);
 	rb = order_rot_push(b, hold, chunk);
 	rrb = order_rev_push(b, hold, chunk);
@@ -64,10 +64,15 @@ int	closest_hold(t_node **a, t_node **b, t_node **hold_a, t_node **future)
 	*future = hold_second(*a, (*a)->div, 0);
 	size = ft_lstlast(*a)->pos + 1;
 	if (hold_a && (!(*future) || (*hold_a)->pos < size - (*future)->pos))
-		hold = hold_a;
+	{
+		rotate = 1;
+		hold = *hold_a;
+	}
 	else if ((*future) && (!hold_a || (*hold_a)->pos > size - (*future)->pos))
+	{
 		hold = *future;
-	rotate = rotate_prep(a, b, hold, (*a)->chunk);
+		rotate = -1;
+	}
 	if (rotate >= 0)
 		*future = hold_first(*a, (*a)->div, 1);
 	if (rotate < 0)
@@ -76,41 +81,23 @@ int	closest_hold(t_node **a, t_node **b, t_node **hold_a, t_node **future)
 	return (rotate);
 }
 
-int	push_prep(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
-{
-	int		size;
-	int		rotate;
-	int		order;
-	t_node	*hold_copy;
-
-	order = order_check(b, s_chunk->chunk);
- 	size = ft_lstlast(*a)->pos + 1;
-	hold_copy = copy_node(hold);
-	push_prep_rc(a, b, hold, s_chunk);
-	if (hold->pos < size / 2)
-		push_prep_rot(a, b, hold, rotate);
-	else if (hold->pos > size / 2)
-		push_prep_rev(a, b, hold, rotate);
-}
 // find out if I am rot or rev to get the number in order. because I will continually
 // just swap the top numbers of both stacks untill one fits. Then move onto the next.
 
 void	ra_or_rra(t_node **a, t_node **b, int chunk)
 {
 	int			rotate;
-	t_node		*last;
+	int			size;
 	t_node		*hold_a;
 	t_node		*hold_b;
 
+	size = ft_lstlast(*a)->pos + 1;
 	rotate = closest_hold(a, b, &hold_a, &hold_b);
 	if (rotate >= 0)
-		push_prep_rot(a, b, hold_a, rotate);
+		push_prep_rot(a, b, hold_b, size);
 	if (rotate < 0)
-		push_prep_rev(a, b, hold_a, rotate);
-	last = ft_lstlast(*a);
-
-
-
+		push_prep_rev(a, b, hold_b, size);
+	print_lstnums(*a, *b);
 }
 /*
 void	ra_or_rra(t_node **a, t_node **b, int chunk)
@@ -156,17 +143,18 @@ void	sort_to_b(t_node **a, t_node **b)
 	int		chunk_add;
 	int		chunk;
 
+	print_lstnums(*a, *b);
 	chunk = 1;
 	chunk_div = get_chunk_number(*a);
 	chunk_add = chunk_div;
 	update_chunk_div(*a, chunk_div, chunk);
-	while (chunk_size(*a, 0))
+	while (chunk_size(*a, chunk))
 	{
 		while (check_lg_sm(*a, chunk_div + 1, 0, 0) == 1)
 			ra_or_rra(a, b, chunk);
 		if (*a)
 			chunk++;
-		chunk_div = chunk_div + chunk_add + 1;
+		chunk_div = chunk_div + chunk_add;
 	}
 	sort_to_a(a, b, chunk);
 }
