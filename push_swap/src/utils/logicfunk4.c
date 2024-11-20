@@ -18,24 +18,23 @@ int	order_check(t_node **lst, int chunk)
 	int		cut;
 	t_node	*big;
 	t_node	*comp;
-	t_node	*old_next;
 
-	if (chunk_size_f(*lst, chunk) <= 2)
+	if (ft_lstsize(*lst) <= 2)
 		return (1);
 	set_big_small(lst, &big, 0);
-	cut = make_chunk_circle(lst, &old_next, chunk);
+	cut = make_circle(lst, chunk);
 	comp = big->next;
-	while (comp != big && comp->chunk == chunk)
+	while (comp != big)
 	{
 
 		if (comp->num > comp->prev->num)
 		{
-			cut_circle(lst, old_next, cut);
+			cut_circle(lst, cut);
 			return (0);
 		}
 		comp = comp->next;
 	}
-	cut_circle(lst, old_next, cut);
+	cut_circle(lst, cut);
 	return (1);
 }
 

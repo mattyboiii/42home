@@ -17,6 +17,8 @@ int	if_push(t_node **a, t_node **b, t_node *hold)
 	t_node	*bcopy;
 	t_node	*hcopy;
 
+	if (*b == NULL || (*b)->next == NULL)
+		return (1);
 	bcopy = copy_lst(b);
 	hcopy = copy_node(hold);
 	pb(&hcopy, &bcopy, 0);

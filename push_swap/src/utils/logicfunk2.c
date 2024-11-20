@@ -14,35 +14,6 @@
 
 //about to update the logic. It wont use midpoint algorythm
 
-void	compare_bottom_num(t_node **a, t_node **b, int chunk, int lg_sm)
-{
-	int		current;
-	t_node	*last;
-
-	if (*a == NULL || *b == NULL)
-		return ;
-	current = (*b)->num;
-	last = ft_lstlast(*b);
-	if (lg_sm == 1)
-	{
-		if ((last->num > current && last->chunk == chunk) && (check_lg_sm(*b,
-					last->num, chunk, lg_sm) == 0))
-		{
-			rrs(b, 1);
-			pa(a, b, 1);
-		}
-	}
-	else
-	{
-		if ((last->num < current && last->chunk == chunk) && (check_lg_sm(*b,
-					last->num, chunk, lg_sm) == 0))
-		{
-			rrs(b, 1);
-			pa(a, b, 1);
-		}
-	}
-}
-
 void	set_big_small(t_node **lst, t_node **big, t_node **small)
 {
 	int		b;

@@ -12,28 +12,6 @@
 
 #include "../push_swap.h"
 
-// int	push_prep(t_node **a, t_node **b, t_node *hold, t_node *s_chunk)
-// {
-// 	int		size;
-// 	int		chunk_bot;
-
-// 	push_prep_fc(a, b, hold, s_chunk);
-// 	chunk_bot = n_chunk_bot(*b, s_chunk->chunk);
-// 	size = ft_lstlast(*a)->pos + 1;
-// 	if (chunk_bot >= 2 && hold->num > (*b)->num)
-// 		push_prep_rev(a, b, hold, chunk_bot);
-// 	else if (s_chunk->chunk > 1 && hold->pos > size / 2)
-// 	{
-// 		while ((*a) != hold)
-// 			rrs(a, 1);
-// 		rot_large(b, hold, s_chunk->chunk);
-// 	}
-// }
-
-// use push prep, if the number being pushed cant be pushed in order. Hold the top number
-// using a_hold logic. Which swaps, then rotates a stack/double rotates a stack.
-
-
 /* somthing to do with holding onto the clsoe numbers using swap when a number
 is already at the top, if a number at the top of a is < chunk_div, then I dont need
 to push the number back to the node, I can just swap and rotate to try and get the next
@@ -93,10 +71,7 @@ void	ra_or_rra(t_node **a, t_node **b, int chunk)
 
 	size = ft_lstlast(*a)->pos + 1;
 	rotate = closest_hold(a, b, &hold_a, &hold_b);
-	if (rotate >= 0)
-		push_prep_rot(a, b, hold_b, size);
-	if (rotate < 0)
-		push_prep_rev(a, b, hold_b, size);
+	size = push_prep(a, b, rotate, size);
 	print_lstnums(*a, *b);
 }
 /*
@@ -150,11 +125,12 @@ void	sort_to_b(t_node **a, t_node **b)
 	update_chunk_div(*a, chunk_div, chunk);
 	while (chunk_size(*a, chunk))
 	{
-		while (check_lg_sm(*a, chunk_div + 1, 0, 0) == 1)
+		while (check_lg_sm(*a, chunk_div + 1, chunk, 0) == 1)
 			ra_or_rra(a, b, chunk);
 		if (*a)
 			chunk++;
 		chunk_div = chunk_div + chunk_add;
+		update_chunk_div(*a, chunk_div, chunk);
 	}
 	sort_to_a(a, b, chunk);
 }

@@ -34,15 +34,12 @@ typedef struct s_stack_node
 int		chunk_size_f(t_node *lst, int chunk);
 
 // Logicfunk
-void	push_prep_fc(t_node **a, t_node **b, t_node *hold, t_node *s_chunk);
 void	sort_to_b(t_node **a, t_node **b);
-void	push_prep_rot(t_node **a, t_node **b, t_node *hold, int prep_b);
-void	push_prep_rev(t_node **a, t_node **b, t_node *hold, int prep_b);
-void	push_prep(t_node **a, t_node **b, t_node *hold_a, t_node *hold_b);
+int		push_prep(t_node **a, t_node **b, int rotate, int stack_size);
 int		rotate_prep(t_node **a, t_node **b, t_node *hold, int chunk);
+int		ft_lstsize(t_node *lst);
 
 int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
-void	compare_bottom_num(t_node **a, t_node **b, int chunk, int lg_sm);
 void	set_big_small(t_node **lst, t_node **big, t_node **small);
 void	sort3(t_node **lst);
 void	sort5(t_node **a, t_node **b);
@@ -54,10 +51,12 @@ t_node	*hold_first(t_node *lst, int chunk_div, int future);
 t_node	*hold_second(t_node *lst, int chunk_div, int future);
 
 int		order_check(t_node **lst, int chunk);
+int		make_circl(t_node **lst);
 int		make_chunk_circle(t_node **lst, t_node **old_next, int chunk);
 int		order_rot_push(t_node **b, t_node *hold, int chunk);
 int		order_rev_push(t_node **b, t_node *hold, int chunk);
-void	cut_circle(t_node **lst, t_node *old_next, int cut);
+void	cut_chunk_circle(t_node **lst, t_node *old_next, int cut);
+void	cut_circle(t_node **lst, int cut);
 
 int		if_push(t_node **a, t_node **b, t_node *hold);
 int		rot_large(t_node **b, t_node *hold, int chunk);

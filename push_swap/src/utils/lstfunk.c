@@ -12,6 +12,19 @@
 
 #include "../push_swap.h"
 
+int	ft_lstsize(t_node *lst)
+{
+	int		i;
+
+	i = 0;
+	while (lst)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
+}
+
 void	ft_lstadd_front(t_node **lst, t_node *new)
 {
 	if (*lst == NULL)
