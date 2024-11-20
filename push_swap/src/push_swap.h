@@ -51,7 +51,7 @@ t_node	*hold_first(t_node *lst, int chunk_div, int future);
 t_node	*hold_second(t_node *lst, int chunk_div, int future);
 
 int		order_check(t_node **lst, int chunk);
-int		make_circl(t_node **lst);
+int		make_circle(t_node **lst);
 int		make_chunk_circle(t_node **lst, t_node **old_next, int chunk);
 int		order_rot_push(t_node **b, t_node *hold, int chunk);
 int		order_rev_push(t_node **b, t_node *hold, int chunk);

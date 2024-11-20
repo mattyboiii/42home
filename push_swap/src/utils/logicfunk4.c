@@ -22,7 +22,7 @@ int	order_check(t_node **lst, int chunk)
 	if (ft_lstsize(*lst) <= 2)
 		return (1);
 	set_big_small(lst, &big, 0);
-	cut = make_circle(lst, chunk);
+	cut = make_circle(lst);
 	comp = big->next;
 	while (comp != big)
 	{

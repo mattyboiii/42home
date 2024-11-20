@@ -83,13 +83,12 @@ void sort_buns(t_node *lst, t_node *hold, int *top_bun, int *bot_bun)
 {
 	int		cut;
 	int		rotate;
-	t_node	*old_next;
 
 	rotate = 2;
-	cut = make_chunk_circle(&lst, &old_next, lst->chunk);
+	cut = make_circle(&lst);
 	while (lst->num != hold->num)
 		lst = lst->next;
 	*top_bun = lst->prev->num;
 	*bot_bun = lst->next->num;
-	cut_circle(&lst, old_next, cut);
+	cut_circle(&lst, cut);
 }
