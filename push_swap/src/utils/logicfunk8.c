@@ -12,71 +12,71 @@
 
 #include "../push_swap.h"
 
-int	rot_checks(t_node **a, t_node **b, t_node *hold, int div)
+int	rot_checks(t_stacks stack, t_node *hold, int div)
 {
-	if ((*a)->num <= div && if_push(a, b, *a) == 1)
+	if (stack.a->num <= div && if_push(stack, stack.a) == 1)
 	{
-		pb(a, b, 1);
+		pb(&stack, 1);
 		return (1);
 	}
-	else if ((*a)->next->num <= div && if_push(a, b, (*a)->next) == 1)
-		s(a, 1);
-	else if (if_push(a, b, hold) == 1)
-		r(a, 1);
-	else if ((*a)->num > div)
+	else if (stack.a->next->num <= div && if_push(stack, stack.a->next) == 1)
+		s(&stack.a, 1);
+	else if (if_push(stack, hold) == 1)
+		r(&stack, 1);
+	else if (stack.a->num > div)
 		rr(a, b);
-	else if ((*a)->next->num <= div && if_push (a, b, *a) == 0)
+	else if (stack.a->next->num <= div && if_push (&stack, stack.a) == 0)
 		r(b, 1);
-	else if ((*a)->num <= div && if_push(a, b, *a) == 0)
+	else if (stack.a->num <= div && if_push(stack, stack.a) == 0)
 	{
-		s(a, 1);
+		s(&stack, 1);
 		rr(a, b);
 	}
 	else
-		r(a, 1);
+		r(&stack, 1);
 	return (0);
 }
 
-int	rev_checks(t_node **a, t_node **b, t_node *last, t_node *hold)
+int	rev_checks(t_stacks stack, t_node *last, t_node *hold)
 {
-	if ((*a)->num <= div && if_push(a, b, *a) == 1)
+	if (stack.a->num <= div && if_push(stack, stack.a) == 1)
 	{
-		pb(a, b, 1);
+		pb(&stack, 1);
 		return (1);
 	}
-	else if (last->num <= div && if_push(a, b, last) == 1)
-		rrs(a, 1);
-	else if ((*a)->num > div)
+	else if (last->num <= div && if_push(stack, last) == 1)
+		rrs(&stack, 1);
+	else if (stack.a->num > div)
 		rrr(a, b);
-	else if (last->num <= div && if_push (a, b, *a) == 0)
+	else if (last->num <= div && if_push(stack, stack.a) == 0)
 		rrs(b, 1);
-	else if ((*a)->num <= div && if_push(a, b, *a) == 0)
-		s(a, 1);
+	else if (stack.a->num <= div && if_push(stack, stack.a) == 0)
+		s(&stack, 1);
 	else
-		rrs(a, 1);
+		rrs(&stack, 1);
 	return (0);
 }
 
-int	push_prep(t_node **a, t_node **b, int rotate, int stack_size)
+int	push_prep(t_stacks stack, int rotate)
 {
-	int		new_size;
+	int		old_size;
 	t_node	*last;
 
-	new_size = stack_size;
+	old_size = stack.asize;
 	if (rotate > 0)
 	{
-		while (new_size == stack_size)
-			new_size -= rot_checks(a, b, (*a)->div);
+		while (old_size == stack_size)
+			old_size -= rot_checks(&stack, stack.a->div);
 	}
 	else
 	{
-		while (new_size == stack_size)
+		while (old_size == stack_size)
 		{
-			last = ft_lstlast(*a);
-			new_size -= rev_checks(a, b, last, (*a)->div);
+			last = ft_lstlast(stack.a);
+			old_size -= rev_checks(&stack, last, stack.a->div);
 		}
 	}
-	return (new_size);
+	return (old_size);
 }
 
 // change this to take in two variables, hold and hold future. if top number is <

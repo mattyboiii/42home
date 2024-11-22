@@ -73,11 +73,11 @@ void	sort5(t_stacks stacks)
 	t_node		*big;
 
 	set_big_small(stacks.a, &big, &small);
-	midnum = get_midnode(0)->num;
+	midnum = get_midnode(stacks.a, 0)->num;
 	while (chunk_size(stacks.a, 0) > 3)
 	{
-		if ((*a)->num < midnum || (*a) == big)
-			pb(a, b, 1);
+		if (stacks.a->num < midnum || stacks.a == big)
+			pb(stacks, 1);
 		if (ft_lstlast(*a)->num < midnum || ft_lstlast(*a) == big)
 			rrs(a, 1);
 		else if ((*a)->num >= midnum && (*a)->num < big->num)

@@ -51,35 +51,48 @@ void	r(t_node **lst, int print)
 	}
 }
 
-void	pa(t_node **a, t_node **b, int print)
-{
-	t_node	*bhead;
-
-	bhead = NULL;
-	if (!(*b))
-		return ;
-	bhead = ft_nodedel(*b);
-	*b = (*b)->next;
-	bhead->stack[0] = 'a';
-	bhead->chunk = 0;
-	ft_lstadd_front(a, bhead);
-	ft_stackposupdate(*a);
-	if (print == 1)
-		ft_putendl_fd("pa", 1);
-}
-
-void	pb(t_node **a, t_node **b, int print)
+void	pa(t_stacks *stack, int print)
 {
 	t_node	*ahead;
+	t_node 	*a;
+	t_node	*b;
+
+	a = stack->a;
+	b = stack->b;
 
 	ahead = NULL;
-	if (!(*a))
+	if (!a)
 		return ;
-	ahead = ft_nodedel(*a);
-	*a = (*a)->next;
-	ahead->stack[0] = 'b';
-	ft_lstadd_front(b, ahead);
-	ft_stackposupdate(*b);
+	ahead = ft_nodedel(b);
+	b = b->next;
+	ahead->stack[0] = 'a';
+	ft_lstadd_front(&a, ahead);
+	ft_stackposupdate(a);
 	if (print == 1)
 		ft_putendl_fd("pb", 1);
+	stack->asize++;
+	stack->bsize--;
+}
+
+void	pb(t_stacks *stack, int print)
+{
+	t_node	*ahead;
+	t_node 	*a;
+	t_node	*b;
+
+	a = stack->a;
+	b = stack->b;
+
+	ahead = NULL;
+	if (!a)
+		return ;
+	ahead = ft_nodedel(a);
+	a = a->next;
+	ahead->stack[0] = 'b';
+	ft_lstadd_front(&b, ahead);
+	ft_stackposupdate(b);
+	if (print == 1)
+		ft_putendl_fd("pb", 1);
+	stack->asize--;
+	stack->bsize++;
 }

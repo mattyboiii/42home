@@ -32,7 +32,7 @@ int	rotate_prep(t_node **a, t_node **b, t_node *hold, int chunk)
 		return (rrb *= -1);
 }
 
-int	closest_hold(t_node **a, t_node **b, t_node **hold_a, t_node **future)
+int	closest_hold(t_stacks stacks, t_node **hold_a, t_node **future)
 {
 	int		size;
 	int		rotate;
@@ -62,16 +62,14 @@ int	closest_hold(t_node **a, t_node **b, t_node **hold_a, t_node **future)
 // find out if I am rot or rev to get the number in order. because I will continually
 // just swap the top numbers of both stacks untill one fits. Then move onto the next.
 
-void	ra_or_rra(t_node **a, t_node **b, int chunk)
+void	ra_or_rra(t_stacks stack, int chunk)
 {
 	int			rotate;
-	int			size;
 	t_node		*hold_a;
 	t_node		*hold_b;
 
-	size = ft_lstlast(*a)->pos + 1;
-	rotate = closest_hold(a, b, &hold_a, &hold_b);
-	size = push_prep(a, b, rotate, size);
+	rotate = closest_hold(stack, &hold_a, &hold_b);
+	push_prep(stack, rotate);
 	print_lstnums(*a, *b);
 }
 /*
@@ -112,21 +110,21 @@ void	sort_to_a(t_node **a, t_node **b, int chunk)
 }
 
 
-void	sort_to_b(t_node **a, t_node **b)
+void	sort_to_b(t_stacks stacks)
 {
 	int		chunk_div;
 	int		chunk_add;
 	int		chunk;
 
-	print_lstnums(*a, *b);
+	print_lstnums(stacks.a, stacks.b);
 	chunk = 1;
-	chunk_div = get_chunk_number(*a);
+	chunk_div = get_chunk_number(stacks.a);
 	chunk_add = chunk_div;
-	update_chunk_div(*a, chunk_div, chunk);
-	while (chunk_size(*a, chunk))
+	update_chunk_div(stacks.a, chunk_div, chunk);
+	while (chunk_size(stacks.a, chunk))
 	{
-		while (check_lg_sm(*a, chunk_div + 1, chunk, 0) == 1)
-			ra_or_rra(a, b, chunk);
+		while (check_lg_sm(stacks.a, chunk_div + 1, chunk, 0) == 1)
+			ra_or_rra(stacks, chunk);
 		if (*a)
 			chunk++;
 		chunk_div = chunk_div + chunk_add;

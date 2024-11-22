@@ -12,17 +12,17 @@
 
 #include "../push_swap.h"
 
-void	ss(t_node **a, t_node **b)
+void	ss(t_stacks stack)
 {
-	s(a, 0);
-	s(b, 0);
+	s(&stack.a, 0);
+	s(&stack.b, 0);
 	ft_putendl_fd("ss", 1);
 }
 
-void	rr(t_node **a, t_node **b)
+void	rr(t_stacks stack)
 {
-	r(a, 0);
-	r(b, 0);
+	r(&stack.a, 0);
+	r(&stack.b, 0);
 	ft_putendl_fd("rr", 1);
 }
 
@@ -50,9 +50,9 @@ void	rrs(t_node **lst, int print)
 	}
 }
 
-void	rrr(t_node **a, t_node **b)
+void	rrr(t_stacks stack)
 {
-	rrs(a, 0);
-	rrs(b, 0);
+	rrs(&stack.a, 0);
+	rrs(&stack.b, 0);
 	ft_putendl_fd("rrr", 1);
 }

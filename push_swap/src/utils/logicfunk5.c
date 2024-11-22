@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-int	if_push(t_node **a, t_node **b, t_node *hold)
+int	if_push(t_stacks stack t_node *hold)
 {
 	t_node	*bcopy;
 	t_node	*hcopy;
