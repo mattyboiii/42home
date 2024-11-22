@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-void	fill_a(t_node **lst, char **arv)
+void	fill_a(t_stacks *stack, char **arv)
 {
 	int			i;
 	int			j;
@@ -20,7 +20,7 @@ void	fill_a(t_node **lst, char **arv)
 
 	i = 0;
 	j = 0;
-	*lst = NULL;
+	node = stack->a;
 	while (arv[i] && arv[i + j])
 	{
 		if (arv[i][0] == '/')
@@ -32,11 +32,12 @@ void	fill_a(t_node **lst, char **arv)
 			node = ft_lstnew(ft_atoi(arv[i + j]), i, 'a');
 		if (node == NULL)
 			return ;
-		ft_lstadd_back(lst, node);
+		ft_lstadd_back(&stack->a, node);
 		i++;
 	}
+	stack->asize = ft_lstlast(stack->a)->pos + 1;
+	stack->bsize = 0;
 }
-
 void	ft_stackposupdate(t_node *node)
 {
 	int		i;

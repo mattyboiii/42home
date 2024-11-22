@@ -54,20 +54,15 @@ void	r(t_node **lst, int print)
 void	pa(t_stacks *stack, int print)
 {
 	t_node	*ahead;
-	t_node 	*a;
-	t_node	*b;
-
-	a = stack->a;
-	b = stack->b;
 
 	ahead = NULL;
-	if (!a)
+	if (!stack->a)
 		return ;
-	ahead = ft_nodedel(b);
-	b = b->next;
+	ahead = ft_nodedel(stack->b);
+	stack->b = stack->b->next;
 	ahead->stack[0] = 'a';
-	ft_lstadd_front(&a, ahead);
-	ft_stackposupdate(a);
+	ft_lstadd_front(&stack->a, ahead);
+	ft_stackposupdate(stack->a);
 	if (print == 1)
 		ft_putendl_fd("pb", 1);
 	stack->asize++;
@@ -77,20 +72,15 @@ void	pa(t_stacks *stack, int print)
 void	pb(t_stacks *stack, int print)
 {
 	t_node	*ahead;
-	t_node 	*a;
-	t_node	*b;
-
-	a = stack->a;
-	b = stack->b;
 
 	ahead = NULL;
-	if (!a)
+	if (!stack->a)
 		return ;
-	ahead = ft_nodedel(a);
-	a = a->next;
+	ahead = ft_nodedel(stack->a);
+	stack->a = stack->a->next;
 	ahead->stack[0] = 'b';
-	ft_lstadd_front(&b, ahead);
-	ft_stackposupdate(b);
+	ft_lstadd_front(&stack->b, ahead);
+	ft_stackposupdate(stack->b);
 	if (print == 1)
 		ft_putendl_fd("pb", 1);
 	stack->asize--;

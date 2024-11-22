@@ -37,12 +37,16 @@ int	main(int arc, char **arv)
 {
 	t_stacks stack;
 
+	stack.a = NULL;
+	stack.b = NULL;
 	if (arc == 2)
 		arv = ft_split(arv[1], ' ');
 	else if (arc < 3)
 		ft_exit(3);
 	error_check_arv(arv);
-	fill_a(&stack.a, arv);
+	fill_a(&stack, arv);
+	// print_lstnums(stack.a, stack.b);
+	// print_lstnums(stack.a, stack.b);
 	if (sorted_asc(stack.a, stack.a, 0) == 1)
 		exit (100);
 	else if (chunk_size(stack.a, 0) <= 3)

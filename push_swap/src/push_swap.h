@@ -42,7 +42,7 @@ int		chunk_size_f(t_node *lst, int chunk);
 
 // Logicfunk
 void	sort_to_b(t_stacks stack);
-int		push_prep(t_stacks stack, t_node *hold, int rotate);
+void	push_prep(t_stacks stack, t_node *hold, int rotate);
 int		rotate_prep(t_stacks stack, t_node *hold, int chunk);
 int		ft_lstsize(t_node *lst);
 
@@ -83,7 +83,7 @@ void	ft_lstadd_back(t_node **lst, t_node *new);
 t_node	*ft_lstlast(t_node *lst);
 t_node	*ft_lstnew(int num, int pos, char c);
 
-void	fill_a(t_node **lst, char **arv);
+void	fill_a(t_stacks *stack, char **arv);
 void	ft_stackposupdate(t_node *node);
 void	ft_lstclear(t_node **lst);
 t_node	*get_head(t_node *lst);
@@ -116,10 +116,10 @@ void	r(t_node **lst, int print);
 void	pa(t_stacks *stack, int print);
 void	pb(t_stacks *stack, int print);
 
-void	ss(t_stacks stack);
-void	rr(t_stacks stack);
+void	ss(t_stacks *stack);
+void	rr(t_stacks *stack);
 void	rrs(t_node **lst, int print);
-void	rrr(t_stacks stack);
+void	rrr(t_stacks *stack);
 
 // Utils
 void	ft_exit(int n);

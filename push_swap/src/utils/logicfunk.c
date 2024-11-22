@@ -125,7 +125,10 @@ void	sort_to_b(t_stacks stack)
 	while (chunk_size(stack.a, chunk))
 	{
 		while (check_lg_sm(stack.a, chunk_div + 1, chunk, 0) == 1)
+		{
 			ra_or_rra(stack, chunk);
+			print_lstnums(stack.a, stack.b);
+		}
 		if (stack.a)
 			chunk++;
 		chunk_div = chunk_div + chunk_add;
