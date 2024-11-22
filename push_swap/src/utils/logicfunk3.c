@@ -46,7 +46,7 @@ int	get_chunk_number(t_node *lst)
 	t_node	*big;
 	t_node	*small;
 
-	set_big_small(&lst, &big, &small);
+	set_big_small(lst, &big, &small);
 	if (ft_lstlast(lst)->pos <= 99)
 		chunk_step = ((big->num - small->num) / 5);
 	if (ft_lstlast(lst)->pos > 99)

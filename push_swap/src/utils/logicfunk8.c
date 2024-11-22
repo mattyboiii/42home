@@ -24,20 +24,20 @@ int	rot_checks(t_stacks stack, t_node *hold, int div)
 	else if (if_push(stack, hold) == 1)
 		r(&stack, 1);
 	else if (stack.a->num > div)
-		rr(a, b);
-	else if (stack.a->next->num <= div && if_push (&stack, stack.a) == 0)
-		r(b, 1);
+		rr(stack);
+	else if (stack.a->next->num <= div && if_push (stack, stack.a) == 0)
+		r(&stack.b, 1);
 	else if (stack.a->num <= div && if_push(stack, stack.a) == 0)
 	{
 		s(&stack, 1);
-		rr(a, b);
+		rr(stack);
 	}
 	else
 		r(&stack, 1);
 	return (0);
 }
 
-int	rev_checks(t_stacks stack, t_node *last, t_node *hold)
+int	rev_checks(t_stacks stack, t_node *last, t_node *hold, int div)
 {
 	if (stack.a->num <= div && if_push(stack, stack.a) == 1)
 	{
@@ -47,9 +47,9 @@ int	rev_checks(t_stacks stack, t_node *last, t_node *hold)
 	else if (last->num <= div && if_push(stack, last) == 1)
 		rrs(&stack, 1);
 	else if (stack.a->num > div)
-		rrr(a, b);
+		rrr(stack);
 	else if (last->num <= div && if_push(stack, stack.a) == 0)
-		rrs(b, 1);
+		rrs(&stack.b, 1);
 	else if (stack.a->num <= div && if_push(stack, stack.a) == 0)
 		s(&stack, 1);
 	else
@@ -57,26 +57,26 @@ int	rev_checks(t_stacks stack, t_node *last, t_node *hold)
 	return (0);
 }
 
-int	push_prep(t_stacks stack, int rotate)
+int	push_prep(t_stacks stack, t_node *hold, int rotate)
 {
-	int		old_size;
+	int		new_size;
 	t_node	*last;
 
-	old_size = stack.asize;
+	new_size = stack.asize;
 	if (rotate > 0)
 	{
-		while (old_size == stack_size)
-			old_size -= rot_checks(&stack, stack.a->div);
+		while (new_size == stack.asize)
+			new_size -= rot_checks(stack, stack.a->div);
 	}
 	else
 	{
-		while (old_size == stack_size)
+		while (new_size == stack.asize)
 		{
 			last = ft_lstlast(stack.a);
-			old_size -= rev_checks(&stack, last, stack.a->div);
+			new_size -= rev_checks(stack, last, stack.a->div);
 		}
 	}
-	return (old_size);
+	return (new_size);
 }
 
 // change this to take in two variables, hold and hold future. if top number is <

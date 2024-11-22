@@ -21,7 +21,7 @@ int	order_check(t_node **lst, int chunk)
 
 	if (ft_lstsize(*lst) <= 2)
 		return (1);
-	set_big_small(lst, &big, 0);
+	set_big_small(*lst, &big, 0);
 	cut = make_circle(lst);
 	comp = big->next;
 	while (comp != big)
@@ -43,56 +43,54 @@ int	order_check(t_node **lst, int chunk)
 
 int	order_rot_push(t_node **b, t_node *hold, int chunk)
 {
-	int		rot;
-	t_node	*node;
-	t_node	*bcopy;
+	int			rot;
+	t_stacks	stack_temp;
 
 	if (chunk_size(*b, chunk) < 2)
 		return (0);
-	bcopy = copy_lst(b);
-	node = copy_node(hold);
+	stack_temp.a = copy_lst(b);
+	stack_temp.b = copy_node(hold);
 	rot = 0;
-	node->chunk = chunk;
-	pb(&node, &bcopy, 0);
-	while (order_check(&bcopy, chunk) == 0 && rot < bcopy->div)
+	stack_temp.b->chunk = chunk;
+	pb(&stack_temp, 0);
+	while (order_check(&stack_temp.a, chunk) == 0 && rot < stack_temp.a->div)
  	{
-		if ((*b)->num == node->num)
-			pa(&node, &bcopy, 0);
-		if (bcopy->chunk != chunk)
-			rot += bcopy->div;
-		r(&bcopy, 0);
+		if ((*b)->num == stack_temp.b->num)
+			pa(&stack_temp, 0);
+		if (stack_temp.a->chunk != chunk)
+			rot += stack_temp.a->div;
+		r(&stack_temp.a, 0);
 		rot++;
-		pb(&node, &bcopy, 0);
+		pb(&stack_temp.b, &stack_temp.a, 0);
 	}
-	ft_lstclear(&bcopy);
-	ft_lstclear(&node);
+	ft_lstclear(&stack_temp.a);
+	ft_lstclear(&stack_temp.b);
 	return (rot);
 }
 
 int	order_rev_push(t_node **b, t_node *hold, int chunk)
 {
-	int		rev;
-	t_node	*node;
-	t_node	*bcopy;
+	int			rev;
+	t_stacks	stack_temp;
 
 	if (chunk_size(*b, chunk) < 2)
 		return (0);
-	bcopy = copy_lst(b);
-	node = copy_node(hold);
+	stack_temp.a = copy_lst(b);
+	stack_temp.b = copy_node(hold);
 	rev = 0;
-	node->chunk = chunk;
-	pb(&node, &bcopy, 0);
-	while (order_check(&bcopy, chunk) == 0 && rev < bcopy->div)
+	stack_temp.b->chunk = chunk;
+	pb(&stack_temp, 0);
+	while (order_check(&stack_temp.a, chunk) == 0 && rev < stack_temp.a->div)
  	{
-		if ((*b)->num == node->num)
-			pa(&node, &bcopy, 0);
-		if (bcopy->chunk != chunk)
-			rev += bcopy->div;
-		rrs(&bcopy, 0);
+		if ((*b)->num == stack_temp.b->num)
+			pa(&stack_temp, 0);
+		if (stack_temp.a->chunk != chunk)
+			rev += stack_temp.a->div;
+		rrs(&stack_temp.a, 0);
 		rev++;
-		pb(&node, &bcopy, 0);
+		pb(&stack_temp, 0);
 	}
-	ft_lstclear(&bcopy);
-	ft_lstclear(&node);
+	ft_lstclear(&stack_temp.a);
+	ft_lstclear(&stack_temp.b);
 	return (rev);
 }

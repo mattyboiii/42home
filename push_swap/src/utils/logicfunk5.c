@@ -12,27 +12,26 @@
 
 #include "../push_swap.h"
 
-int	if_push(t_stacks stack t_node *hold)
+int	if_push(t_stacks stack, t_node *hold)
 {
-	t_node	*bcopy;
-	t_node	*hcopy;
+	t_stacks	stack_temp;
 
-	if (*b == NULL || (*b)->next == NULL)
+	if (stack.b == NULL || stack.b->next == NULL)
 		return (1);
-	bcopy = copy_lst(b);
-	hcopy = copy_node(hold);
-	pb(&hcopy, &bcopy, 0);
+	stack_temp.a = copy_lst(stack.b);
+	stack_temp.b = copy_node(hold);
+	pb(&stack_temp, 0);
 
-	if (order_check(&bcopy, (*a)->chunk) == 1)
+	if (order_check(&stack_temp.a, stack.a->chunk) == 1)
 	{
-		ft_lstclear(&bcopy);
-		ft_lstclear(&hcopy);
+		ft_lstclear(&stack_temp.a);
+		ft_lstclear(&stack_temp.b);
 		return (1);
 	}
 	else
 	{
-		ft_lstclear(&bcopy);
-		ft_lstclear(&hcopy);
+		ft_lstclear(&stack_temp.a);
+		ft_lstclear(&stack_temp.b);
 		return (0);
 	}
 }
