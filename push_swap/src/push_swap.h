@@ -28,6 +28,13 @@ typedef struct s_stack_node
 	struct s_stack_node	*next;
 }	t_node;
 
+typedef struct s_stacks
+{
+	t_node	*a;
+	t_node	*b;
+	int		asize;
+	int		bsize;
+}	t_stacks;
 // Functions in my src dir
 // ---  --------------------
 // push_swap.c
@@ -40,10 +47,10 @@ int		rotate_prep(t_node **a, t_node **b, t_node *hold, int chunk);
 int		ft_lstsize(t_node *lst);
 
 int		check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
-void	set_big_small(t_node **lst, t_node **big, t_node **small);
+void	set_big_small(t_node *lst, t_node **big, t_node **small);
 void	sort3(t_node **lst);
-void	sort5(t_node **a, t_node **b);
-t_node	*get_midnode(t_node **lst, int chunk);
+void	sort5(t_stacks stacks);
+t_node	*get_midnode(t_node *lst, int chunk);
 
 int		get_chunk_number(t_node *lst);
 t_node	*chunk_big_small(t_node *lst, int chunk, int lg_sm);

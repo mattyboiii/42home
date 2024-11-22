@@ -35,27 +35,23 @@ int	chunk_size_f(t_node *lst, int chunk)
 
 int	main(int arc, char **arv)
 {
-	t_node	*a;
-	t_node	*b;
-	int		i;
+	t_stacks	stacks;
 
-	a = NULL;
-	b = NULL;
 	if (arc == 2)
 		arv = ft_split(arv[1], ' ');
 	else if (arc < 3)
 		ft_exit(3);
 	error_check_arv(arv);
-	fill_a(&a, arv);
-	if (sorted_asc(a, a, 0) == 1)
+	fill_a(&stacks.a, arv);
+	if (sorted_asc(stacks.a, stacks.a, 0) == 1)
 		exit (100);
-	else if (chunk_size(a, 0) <= 3)
-		sort3(&a);
-	else if (chunk_size(a, 0) <= 5)
-		sort5(&a, &b);
+	else if (chunk_size(stacks.a, 0) <= 3)
+		sort3(&stacks.a);
+	else if (chunk_size(stacks.a, 0) <= 5)
+		sort5(&stacks);
 	else
-		sort_to_b(&a, &b);
-	ft_lstclear(&a);
-	ft_lstclear(&b);
+		sort_to_b(&stacks);
+	ft_lstclear(&stacks.a);
+	ft_lstclear(&stacks.b);
 	exit(600);
 }

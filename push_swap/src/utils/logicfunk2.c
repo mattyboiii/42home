@@ -14,31 +14,30 @@
 
 //about to update the logic. It wont use midpoint algorythm
 
-void	set_big_small(t_node **lst, t_node **big, t_node **small)
+void	set_big_small(t_node *lst, t_node **big, t_node **small)
 {
 	int		b;
 	int		s;
 	t_node	*head;
 
-	head = *lst;
+	head = lst;
 	if (small)
-		*small = *lst;
+		*small = lst;
 	if (big)
-		*big = *lst;
-	while (small && (*lst)->next)
+		*big = lst;
+	while (small && lst->next)
 	{
-		*lst = (*lst)->next;
-		if ((*lst)->num < (*small)->num)
-			*small = *lst;
+		lst = lst->next;
+		if (lst->num < (*small)->num)
+			*small = lst;
 	}
-	*lst = head;
-	while (big && (*lst)->next)
+	lst = head;
+	while (big && lst->next)
 	{
-		*lst = (*lst)->next;
-		if ((*lst)->num > (*big)->num)
-			*big = *lst;
+		lst = lst->next;
+		if (lst->num > (*big)->num)
+			*big = lst;
 	}
-	*lst = head;
 }
 
 void	sort3(t_node **lst)
@@ -67,15 +66,15 @@ void	sort3(t_node **lst)
 	}
 }
 
-void	sort5(t_node **a, t_node **b)
+void	sort5(t_stacks stacks)
 {
 	int			midnum;
 	t_node		*small;
 	t_node		*big;
 
-	set_big_small(a, &big, &small);
-	midnum = get_midnode(a, 0)->num;
-	while (chunk_size(*a, 0) > 3)
+	set_big_small(stacks.a, &big, &small);
+	midnum = get_midnode(0)->num;
+	while (chunk_size(stacks.a, 0) > 3)
 	{
 		if ((*a)->num < midnum || (*a) == big)
 			pb(a, b, 1);
@@ -96,7 +95,7 @@ void	sort5(t_node **a, t_node **b)
 	}
 }
 
-t_node	*get_midnode(t_node **lst, int chunk)
+t_node	*get_midnode(t_node *lst, int chunk)
 {
 	t_node	*sorted;
 	t_node	*midnode;
@@ -104,9 +103,9 @@ t_node	*get_midnode(t_node **lst, int chunk)
 	t_node	*out;
 
 	sorted = NULL;
-	out = *lst;
-	if (chunk_size(*lst, chunk) <= 2 || (*lst)->next == NULL)
-		return (*lst);
+	out = lst;
+	if (chunk_size(lst, chunk) <= 2 || lst->next == NULL)
+		return (lst);
 	sorted = simple_sort(copy_lst_chunk(lst, chunk));
 	last = ft_lstlast(sorted);
 	midnode = get_node(sorted, (last->pos + 1) / 2);

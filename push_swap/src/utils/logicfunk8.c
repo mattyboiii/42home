@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-int	rot_checks(t_node **a, t_node **b, int div)
+int	rot_checks(t_node **a, t_node **b, t_node *hold, int div)
 {
 	if ((*a)->num <= div && if_push(a, b, *a) == 1)
 	{
@@ -21,6 +21,8 @@ int	rot_checks(t_node **a, t_node **b, int div)
 	}
 	else if ((*a)->next->num <= div && if_push(a, b, (*a)->next) == 1)
 		s(a, 1);
+	else if (if_push(a, b, hold) == 1)
+		r(a, 1);
 	else if ((*a)->num > div)
 		rr(a, b);
 	else if ((*a)->next->num <= div && if_push (a, b, *a) == 0)
@@ -35,7 +37,7 @@ int	rot_checks(t_node **a, t_node **b, int div)
 	return (0);
 }
 
-int	rev_checks(t_node **a, t_node **b, t_node *last, int div)
+int	rev_checks(t_node **a, t_node **b, t_node *last, t_node *hold)
 {
 	if ((*a)->num <= div && if_push(a, b, *a) == 1)
 	{
