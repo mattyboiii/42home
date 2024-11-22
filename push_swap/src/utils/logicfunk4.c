@@ -48,7 +48,7 @@ int	order_rot_push(t_node **b, t_node *hold, int chunk)
 
 	if (chunk_size(*b, chunk) < 2)
 		return (0);
-	stack_temp.a = copy_lst(b);
+	stack_temp.a = copy_lst(*b);
 	stack_temp.b = copy_node(hold);
 	rot = 0;
 	stack_temp.b->chunk = chunk;
@@ -61,7 +61,7 @@ int	order_rot_push(t_node **b, t_node *hold, int chunk)
 			rot += stack_temp.a->div;
 		r(&stack_temp.a, 0);
 		rot++;
-		pb(&stack_temp.b, &stack_temp.a, 0);
+		pb(&stack_temp, 0);
 	}
 	ft_lstclear(&stack_temp.a);
 	ft_lstclear(&stack_temp.b);
@@ -75,7 +75,7 @@ int	order_rev_push(t_node **b, t_node *hold, int chunk)
 
 	if (chunk_size(*b, chunk) < 2)
 		return (0);
-	stack_temp.a = copy_lst(b);
+	stack_temp.a = copy_lst(*b);
 	stack_temp.b = copy_node(hold);
 	rev = 0;
 	stack_temp.b->chunk = chunk;

@@ -21,8 +21,8 @@ int	cozy_pos(t_node **b, t_node *hold, t_node *s_chunk)
 	t_node	*small;
 	t_node	*copy;
 
-	copy = copy_lst(b);
-	set_big_small(b, &big, &small);
+	copy = copy_lst(*b);
+	set_big_small(*b, &big, &small);
 
 
 }

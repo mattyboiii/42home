@@ -106,7 +106,7 @@ t_node	*get_midnode(t_node *lst, int chunk)
 	out = lst;
 	if (chunk_size(lst, chunk) <= 2 || lst->next == NULL)
 		return (lst);
-	sorted = simple_sort(copy_lst_chunk(&lst, chunk));
+	sorted = simple_sort(copy_lst_chunk(lst, chunk));
 	last = ft_lstlast(sorted);
 	midnode = get_node(sorted, (last->pos + 1) / 2);
 	while (out && out->num != midnode->num)

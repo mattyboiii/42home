@@ -28,22 +28,22 @@ int	update_chunk_div(t_node *lst, int chunk_div, int chunk)
 	return (1);
 }
 
-t_node	*copy_lst_chunk(t_node **lst, int chunk)
+t_node	*copy_lst_chunk(t_node *lst, int chunk)
 {
 	t_node	*head;
 	t_node	*copy;
 
 	copy = NULL;
-	if (*lst == NULL || lst == NULL)
+	if (lst == NULL || lst == NULL)
 		return (NULL);
-	head = *lst;
-	while (*lst && (*lst)->chunk == chunk)
+	head = lst;
+	while (lst && lst->chunk == chunk)
 	{
-		ft_lstadd_back(&copy, ft_lstnew((*lst)->num, (*lst)->pos,
-				(*lst)->stack[0]));
-		*lst = (*lst)->next;
+		ft_lstadd_back(&copy, ft_lstnew(lst->num, lst->pos,
+				lst->stack[0]));
+		lst = lst->next;
 	}
-	*lst = head;
+	lst = head;
 	return (copy);
 }
 
@@ -64,23 +64,20 @@ t_node	*copy_node(t_node *node)
 	return (copy);
 }
 
-t_node	*copy_lst(t_node **lst)
+t_node	*copy_lst(t_node *lst)
 {
-	t_node	*head;
 	t_node	*copy;
 
 	copy = NULL;
-	if (*lst == NULL || lst == NULL)
+	if (lst == NULL || lst == NULL)
 		return (NULL);
-	head = *lst;
-	while (*lst)
+	while (lst)
 	{
-		ft_lstadd_back(&copy, ft_lstnew((*lst)->num, (*lst)->pos,
-				(*lst)->stack[0]));
-		ft_lstlast(copy)->chunk = (*lst)->chunk;
-		*lst = (*lst)->next;
+		ft_lstadd_back(&copy, ft_lstnew(lst->num, lst->pos,
+				lst->stack[0]));
+		ft_lstlast(copy)->chunk = lst->chunk;
+		lst = lst->next;
 	}
-	*lst = head;
 	return (copy);
 }
 

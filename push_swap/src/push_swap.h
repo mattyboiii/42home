@@ -98,8 +98,8 @@ t_node	*get_node(t_node *lst, int index);
 
 int		update_chunk_div(t_node *lst, int chunk_div, int chunk);
 t_node	*copy_node(t_node *node);
-t_node	*copy_lst(t_node **lst);
-t_node	*copy_lst_chunk(t_node **lst, int chunk);
+t_node	*copy_lst(t_node *lst);
+t_node	*copy_lst_chunk(t_node *lst, int chunk);
 t_node	*sorted_chunk(t_node *a, t_node *s_chunk, int chunk, int chunk_div);
 
 
