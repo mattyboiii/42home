@@ -18,11 +18,11 @@ int	if_push(t_stacks stack, t_node *hold)
 
 	if (stack.b == NULL || stack.b->next == NULL)
 		return (1);
-	stack_temp.a = copy_lst(stack.b);
-	stack_temp.b = copy_node(hold);
+	stack_temp.a = copy_node(hold);
+	stack_temp.b = copy_lst(stack.b);
 	pb(&stack_temp, 0);
 
-	if (order_check(&stack_temp.a, stack.a->chunk) == 1)
+	if (order_check(&stack_temp.b, stack.a->chunk) == 1)
 	{
 		ft_lstclear(&stack_temp.a);
 		ft_lstclear(&stack_temp.b);

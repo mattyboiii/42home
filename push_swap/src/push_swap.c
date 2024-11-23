@@ -54,7 +54,7 @@ int	main(int arc, char **arv)
 	else if (chunk_size(stack.a, 0) <= 5)
 		sort5(stack);
 	else
-		sort_to_b(stack);
+		sort_to_b(&stack);
 	ft_lstclear(&stack.a);
 	ft_lstclear(&stack.b);
 	exit(600);

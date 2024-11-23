@@ -41,8 +41,8 @@ typedef struct s_stacks
 int		chunk_size_f(t_node *lst, int chunk);
 
 // Logicfunk
-void	sort_to_b(t_stacks stack);
-void	push_prep(t_stacks stack, t_node *hold, int rotate);
+void	sort_to_b(t_stacks *stack);
+void	push_prep(t_stacks *stack, t_node *hold, int rotate);
 int		rotate_prep(t_stacks stack, t_node *hold, int chunk);
 int		ft_lstsize(t_node *lst);
 
