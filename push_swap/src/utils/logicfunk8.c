@@ -15,10 +15,7 @@
 int	rot_checks(t_stacks *stk, t_node *hold, int out)
 {
 	if (stk->a->num <= stk->a->div && if_push(*stk, stk->a) == 1)
-	{
 		pb(stk, out);
-		return (1);
-	}
 	else if (stk->a->next->num <= stk->a->div && stk->a->num <= stk->a->div
 			&& if_push(*stk, stk->a->next) == 1)
 		s(&stk->a, out);
@@ -28,16 +25,13 @@ int	rot_checks(t_stacks *stk, t_node *hold, int out)
 		r(&stk->a, out);
 	else
 		r(&stk->a, out);
-	return (0);
+	return (1);
 }
 
 int	rev_checks(t_stacks *stk, t_node *last, t_node *hold, int out)
 {
 	if (stk->a->num <= stk->a->div && if_push(*stk, stk->a) == 1)
-	{
 		pb(stk, out);
-		return (1);
-	}
 	else if (last->num <= stk->a->div && if_push(*stk, last) == 1)
 		rrs(&stk->a, out);
 	else if (stk->a->next->num <= stk->a->div && if_push(*stk, stk->a->next) == 1)
@@ -50,7 +44,7 @@ int	rev_checks(t_stacks *stk, t_node *last, t_node *hold, int out)
 		s(&stk->a, out);
 	else
 		rrs(&stk->a, out);
-	return (0);
+	return (1);
 }
 /* I have been watching it wrong. For the first chunk, current formula is fine. Eventually
 the chunks will become so big, that it will be greatly more efficient to use a
@@ -70,7 +64,7 @@ to do to order b.
 
 essentially, get closest hold. Compare if ordering b is within reason. if its not
 */
-void	push_prep(t_stacks *stack, t_node *hold, int rotate)
+int	push_prep(t_stacks *stack, t_node *hold, int rotate, int out)
 {
 	int		old_size;
 	t_node	*last;
@@ -80,8 +74,9 @@ void	push_prep(t_stacks *stack, t_node *hold, int rotate)
 	{
 		while (old_size == stack->asize)
 		{
-			rot_checks(stack, hold, stack->a->div);
-			print_lstnums(stack->a, stack->b);
+			rot_checks(stack, hold, out);
+			if (out == 1)
+				print_lstnums(stack->a, stack->b);
 		}
 	}
 	else
@@ -89,8 +84,9 @@ void	push_prep(t_stacks *stack, t_node *hold, int rotate)
 		while (old_size == stack->asize)
 		{
 			last = ft_lstlast(stack->a);
-			rev_checks(stack, last, hold, stack->a->div);
-			print_lstnums(stack->a, stack->b);
+			rev_checks(stack, last, hold, out);
+			if (out == 1)
+				print_lstnums(stack->a, stack->b);
 		}
 	}
 }

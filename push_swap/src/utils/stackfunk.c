@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-void	s(t_node **lst, int print)
+int	s(t_node **lst, int print)
 {
 	int		swap;
 
@@ -26,9 +26,10 @@ void	s(t_node **lst, int print)
 		ft_putchar_fd('s', 1);
 		ft_putendl_fd((*lst)->stack, 1);
 	}
+	return (1);
 }
 
-void	r(t_node **lst, int print)
+int	r(t_node **lst, int print)
 {
 	t_node	*swapnode;
 	t_node	*last;
@@ -49,9 +50,10 @@ void	r(t_node **lst, int print)
 		ft_putchar_fd('r', 1);
 		ft_putendl_fd((*lst)->stack, 1);
 	}
+	return (1);
 }
 
-void	pa(t_stacks *stack, int print)
+int	pa(t_stacks *stack, int print)
 {
 	t_node	*ahead;
 
@@ -67,9 +69,10 @@ void	pa(t_stacks *stack, int print)
 		ft_putendl_fd("pb", 1);
 	stack->asize++;
 	stack->bsize--;
+	return (1);
 }
 
-void	pb(t_stacks *stack, int print)
+int	pb(t_stacks *stack, int print)
 {
 	t_node	*ahead;
 
@@ -85,4 +88,5 @@ void	pb(t_stacks *stack, int print)
 		ft_putendl_fd("pb", 1);
 	stack->asize--;
 	stack->bsize++;
+	return (1);
 }

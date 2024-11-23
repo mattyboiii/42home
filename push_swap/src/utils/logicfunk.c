@@ -37,22 +37,22 @@ int	rotate_prep(t_stacks stack, t_node *hold, int chunk)
 		return (rrb *= -1);
 }
 
-int	closest_hold(t_stacks stack, t_node **hold_a, t_node **future)
+int	closest_hold(t_stacks stack, t_node **hold_a, t_node **hold_b, int future)
 {
 	int		rotate;
 	t_node	*hold;
-	// the closest, and its future number. if hold_A is the closest, and future
-	*hold_a = hold_first(stack.a, stack.a->div, 0);
-	*future = hold_second(stack.a, stack.a->div, 0);
-	if ((*hold_a)->pos <= stack.asize - (*future)->pos)
+	// the closest, and its hold_b number. if hold_A is the closest, and future
+	*hold_a = hold_first(stack.a, stack.a->div, future);
+	*hold_b = hold_second(stack.a, stack.a->div, future);
+	if (*hold_a && (*hold_a)->pos <= stack.asize - (*hold_b)->pos)
 		hold = *hold_a;
-	else if ((*hold_a)->pos > stack.asize - (*future)->pos)
-		hold = *future;
+	else if (*hold_b && (*hold_a)->pos > stack.asize - (*hold_b)->pos)
+		hold = *hold_b;
 	rotate = rotate_prep(stack, hold, stack.a->chunk);
 	if (rotate >= 0)
-		*future = hold_first(stack.a, stack.a->div, 1);
+		*hold_b = hold_first(stack.a, stack.a->div, future);
 	if (rotate < 0)
-		*future = hold_second(stack.a, stack.a->div, 1);
+		*hold_b = hold_second(stack.a, stack.a->div, future);
 	*hold_a = hold;
 	return (rotate);
 }
@@ -61,14 +61,23 @@ int	closest_hold(t_stacks stack, t_node **hold_a, t_node **future)
 // continually just swap the top numbers of both stacks untill one fits. Then
 // move onto the next.
 
+
 void	ra_or_rra(t_stacks *stack, int chunk)
 {
 	int			rotate;
+	int			i;
 	t_node		*hold_a;
 	t_node		*hold_b;
+	t_node		*g_hold;
 
-	rotate = closest_hold(*stack, &hold_a, &hold_b);
-	push_prep(stack, hold_a, rotate);
+
+	i = 0;
+	while (i < 2)
+	{
+		rotate = closest_hold(*stack, &hold_a, &hold_b, i);
+		g_hold = least_ops(stack, hold_a, g_hold, );
+	}
+	push_prep(stack, g_hold, rotate, 1);
 	print_lstnums(stack->a, stack->b);
 }
 /*

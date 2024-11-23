@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
+/*   by: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 10:58:12 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/29 12:15:18 by mtripodi         ###   ########.fr       */
+/*   created: 2024/09/27 10:58:12 by mtripodi          #+#    #+#             */
+/*   updated: 2024/09/29 12:15:18 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef push_swap_h
+# define push_swap_h
 # include <unistd.h> //dup, dup2, access
 # include <stdio.h> //printf
 # include <stdlib.h> //free, malloc
@@ -35,14 +35,14 @@ typedef struct s_stacks
 	int		asize;
 	int		bsize;
 }	t_stacks;
-// Functions in my src dir
+// functions in my src dir
 // ---  --------------------
 // push_swap.c
 int		chunk_size_f(t_node *lst, int chunk);
 
-// Logicfunk
+// logicfunk
 void	sort_to_b(t_stacks *stack);
-void	push_prep(t_stacks *stack, t_node *hold, int rotate);
+int		push_prep(t_stacks *stack, t_node *hold, int rotate, int out);
 int		rotate_prep(t_stacks stack, t_node *hold, int chunk);
 int		ft_lstsize(t_node *lst);
 
@@ -77,7 +77,7 @@ int		cozy_rot_push(t_node **b, t_node *hold, t_node *s_chunk, int range);
 int		cozy_rev_push(t_node **b, t_node *hold, t_node *s_chunk, int range);
 void	sort_buns(t_node *lst, t_node *hold, int *top_bun, int *bot_bun);
 
-// Lstfunk
+// lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);
 void	ft_lstadd_back(t_node **lst, t_node *new);
 t_node	*ft_lstlast(t_node *lst);
@@ -103,26 +103,26 @@ t_node	*copy_lst_chunk(t_node *lst, int chunk);
 t_node	*sorted_chunk(t_node *a, t_node *s_chunk, int chunk, int chunk_div);
 
 
-// Sortfunk
+// sortfunk
 int		sorted_des(t_node *lst, int chunk);
 int		sorted_asc(t_node *lst, t_node *start, int chunk);
 void	numswap(t_node *bigger, t_node *smaller);
 void	print_lstnums(t_node *a, t_node *b);
 t_node	*simple_sort(t_node *lst);
 
-// Stackfunk
-void	s(t_node **lst, int print);
-void	r(t_node **lst, int print);
-void	pa(t_stacks *stack, int print);
-void	pb(t_stacks *stack, int print);
+// stackfunk
+int		s(t_node **lst, int print);
+int		r(t_node **lst, int print);
+int		pa(t_stacks *stack, int print);
+int		pb(t_stacks *stack, int print);
 
-void	ss(t_stacks *stack);
-void	rr(t_stacks *stack);
-void	rrs(t_node **lst, int print);
-void	rrr(t_stacks *stack);
+int		ss(t_stacks *stack);
+int		rr(t_stacks *stack);
+int		rrs(t_node **lst, int print);
+int		rrr(t_stacks *stack);
 
-// Utils
-void	ft_exit(int n);
-void	error_check_arv(char **arv);
+// utils
+int		ft_exit(int n);
+int		error_check_arv(char **arv);
 
 #endif

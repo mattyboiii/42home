@@ -12,28 +12,31 @@
 
 #include "../push_swap.h"
 
-void	ss(t_stacks *stack)
+int	ss(t_stacks *stack)
 {
 	s(&stack->a, 0);
 	s(&stack->b, 0);
 	ft_putendl_fd("ss", 1);
+	return (1);
 }
 
-void	rr(t_stacks *stack)
+int	rr(t_stacks *stack)
 {
 	r(&stack->a, 0);
 	r(&stack->b, 0);
 	ft_putendl_fd("rr", 1);
+	return (1);
 }
 
-void	rrr(t_stacks *stack)
+int	rrr(t_stacks *stack)
 {
 	rrs(&stack->a, 0);
 	rrs(&stack->b, 0);
 	ft_putendl_fd("rrr", 1);
+	return (1);
 }
 
-void	rrs(t_node **lst, int print)
+int	rrs(t_node **lst, int print)
 {
 	t_node	*first;
 	t_node	*last;
@@ -55,5 +58,6 @@ void	rrs(t_node **lst, int print)
 		ft_putstr_fd("rr", 1);
 		ft_putendl_fd((*lst)->stack, 1);
 	}
+	return (1);
 }
 
