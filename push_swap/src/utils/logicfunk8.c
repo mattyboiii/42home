@@ -57,9 +57,8 @@ the chunks will become so big, that it will be greatly more efficient to use a
 certain direction to sort the chunk b into the correct order. As going through
 the entire previous 5 stacks, just because the current hold is closest to the top
 isnt more efficient.
-*/
 
-/* 1. check closest hold, check how many rotations in both directions it would
+1. check closest hold, check how many rotations in both directions it would
 take to sort b so when the hold is pushed it in order within b.
 2. if the data is showing that it heavily favours one direction which causes a large
 amount of operations then move onto the next closest hold. Check the next hold.
@@ -70,6 +69,7 @@ to do to order b.
 5. how about do this with as many holds that are within 15 range from top/bottom.
 
 essentially, get closest hold. Compare if ordering b is within reason. if its not
+*/
 void	push_prep(t_stacks *stack, t_node *hold, int rotate)
 {
 	int		old_size;
