@@ -71,11 +71,8 @@ void	rot_machine(t_node **lst, int n, int print);
 void	rev_machine(t_node **lst, int n, int print);
 int		n_chunk_bot(t_node *b, int	chunk);
 
-int		cozy_pos(t_node **b, t_node *hold, t_node *s_chunk);
-int		cozy_pos_rotate(t_node *b_copy, t_node *hold, int top_bun, int bot_bun);
-int		cozy_rot_push(t_node **b, t_node *hold, t_node *s_chunk, int range);
-int		cozy_rev_push(t_node **b, t_node *hold, t_node *s_chunk, int range);
-void	sort_buns(t_node *lst, t_node *hold, int *top_bun, int *bot_bun);
+int		posnum(int num);
+int		negnum(int num);
 
 // lstfunk
 void	ft_lstadd_front(t_node **lst, t_node *new);

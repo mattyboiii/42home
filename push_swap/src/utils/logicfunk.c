@@ -39,28 +39,34 @@ int	rotate_prep(t_stacks stack, t_node *hold, int chunk)
 
 int	closest_hold(t_stacks stack, t_node **hold_a, t_node **hold_b, int future)
 {
-	int		rotate;
-	t_node	*hold;
-	// the closest, and its hold_b number. if hold_A is the closest, and future
 	*hold_a = hold_first(stack.a, stack.a->div, future);
 	*hold_b = hold_second(stack.a, stack.a->div, future);
-	if (*hold_a && (*hold_a)->pos <= stack.asize - (*hold_b)->pos)
-		hold = *hold_a;
-	else if (*hold_b && (*hold_a)->pos > stack.asize - (*hold_b)->pos)
-		hold = *hold_b;
-	rotate = rotate_prep(stack, hold, stack.a->chunk);
-	if (rotate >= 0)
-		*hold_b = hold_first(stack.a, stack.a->div, future);
-	if (rotate < 0)
-		*hold_b = hold_second(stack.a, stack.a->div, future);
-	*hold_a = hold;
-	return (rotate);
 }
 
 // find out if I am rot or rev to get the number in order. because I will
 // continually just swap the top numbers of both stacks untill one fits. Then
 // move onto the next.
+t_node	 *least_ops(t_stacks stack, t_node *hold_a, t_node *hold_b, t_node *g_hold)
+{
+	int		ops_top;
+	int		ops_bot;
 
+	if (g_hold == NULL && hold_a)
+		return (hold_a);
+	else if (g_hold == NULL && hold_b)
+		return (hold_b);
+	// for now only try the lower rotate_prep
+	// get the least amount of moves compared to the position
+	ops_top = rotate_prep(stack, hold_a, stack.a->chunk);
+	ops_bot = rotate_prep(stack, hold_b, stack.a->chunk);
+	if (ops_top < 0 && ops_bot >= 0)
+		return (NULL);
+	else if (ops_top < posnum(ops_bot))
+		return (hold_a);
+	else if (posnum(ops_bot) < ops_top)
+		return (hold_a);
+
+}
 
 void	ra_or_rra(t_stacks *stack, int chunk)
 {
@@ -72,10 +78,10 @@ void	ra_or_rra(t_stacks *stack, int chunk)
 
 
 	i = 0;
-	while (i < 2)
+	while (i < 3)
 	{
-		rotate = closest_hold(*stack, &hold_a, &hold_b, i);
-		g_hold = least_ops(stack, hold_a, g_hold, );
+		closest_hold(*stack, &hold_a, &hold_b, i);
+		g_hold = least_ops(*stack, hold_a, hold_b, g_hold);
 	}
 	push_prep(stack, g_hold, rotate, 1);
 	print_lstnums(stack->a, stack->b);
