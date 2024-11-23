@@ -15,7 +15,7 @@
 int	posnum(int num)
 {
 	if (num < 0)
-		reuturn (num *= -1);
+		return (num *= -1);
 	else
 		return (num);
 }

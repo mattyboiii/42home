@@ -64,13 +64,13 @@ to do to order b.
 
 essentially, get closest hold. Compare if ordering b is within reason. if its not
 */
-int	push_prep(t_stacks *stack, t_node *hold, int rotate, int out)
+int	push_prep(t_stacks *stack, t_node *hold, int out)
 {
 	int		old_size;
 	t_node	*last;
 
 	old_size = stack->asize;
-	if (rotate >= 0)
+	if (hold->pos < stack->asize / 2)
 	{
 		while (old_size == stack->asize)
 		{

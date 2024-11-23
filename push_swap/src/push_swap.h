@@ -42,7 +42,7 @@ int		chunk_size_f(t_node *lst, int chunk);
 
 // logicfunk
 void	sort_to_b(t_stacks *stack);
-int		push_prep(t_stacks *stack, t_node *hold, int rotate, int out);
+int		push_prep(t_stacks *stack, t_node *hold, int out);
 int		rotate_prep(t_stacks stack, t_node *hold, int chunk);
 int		ft_lstsize(t_node *lst);
 
@@ -119,7 +119,7 @@ int		rrs(t_node **lst, int print);
 int		rrr(t_stacks *stack);
 
 // utils
-int		ft_exit(int n);
-int		error_check_arv(char **arv);
+void	ft_exit(int n);
+void	error_check_arv(char **arv);
 
 #endif

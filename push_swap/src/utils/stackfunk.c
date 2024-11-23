@@ -17,7 +17,7 @@ int	s(t_node **lst, int print)
 	int		swap;
 
 	if (*lst == NULL || (*lst)->next == NULL)
-		return ;
+		return (0);
 	swap = (*lst)->num;
 	(*lst)->num = (*lst)->next->num;
 	(*lst)->next->num = swap;
@@ -36,7 +36,7 @@ int	r(t_node **lst, int print)
 
 	swapnode = *lst;
 	if (*lst == NULL || (*lst)->next == NULL)
-		return ;
+		return (0);
 	swapnode = *lst;
 	*lst = (*lst)->next;
 	(*lst)->prev = NULL;
@@ -59,7 +59,7 @@ int	pa(t_stacks *stack, int print)
 
 	ahead = NULL;
 	if (!stack->a)
-		return ;
+		return (0);
 	ahead = ft_nodedel(stack->b);
 	stack->b = stack->b->next;
 	ahead->stack[0] = 'a';
@@ -78,7 +78,7 @@ int	pb(t_stacks *stack, int print)
 
 	ahead = NULL;
 	if (!stack->a)
-		return ;
+		return (0);
 	ahead = ft_nodedel(stack->a);
 	stack->a = stack->a->next;
 	ahead->stack[0] = 'b';

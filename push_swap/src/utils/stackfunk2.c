@@ -43,7 +43,7 @@ int	rrs(t_node **lst, int print)
 	t_node	*last_prev;
 
 	if (*lst == NULL || (*lst)->next == NULL)
-		return ;
+		return (0);
 	first = *lst;
 	last = ft_lstlast(*lst);
 	last_prev = last->prev;

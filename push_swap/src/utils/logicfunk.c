@@ -83,7 +83,7 @@ void	ra_or_rra(t_stacks *stack, int chunk)
 		closest_hold(*stack, &hold_a, &hold_b, i);
 		g_hold = least_ops(*stack, hold_a, hold_b, g_hold);
 	}
-	push_prep(stack, g_hold, rotate, 1);
+	push_prep(stack, g_hold, 1);
 	print_lstnums(stack->a, stack->b);
 }
 /*
