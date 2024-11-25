@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   logicfunk8.c                                       :+:      :+:    :+:   */
+/*   logicfunk9.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-20 04:11:36 by mtripodi          #+#    #+#             */
-/*   Updated: 2024-11-20 04:11:36 by mtripodi         ###   ########.fr       */
+/*   Created: 2024-11-25 03:50:57 by mtripodi          #+#    #+#             */
+/*   Updated: 2024-11-25 03:50:57 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-int	rot_checks(t_stacks *stk, t_node *hold, int out)
+int	rot_checks_swap(t_stacks *stk, t_node *hold, int out)
 {
 	if (stk->a->num <= stk->a->div && if_push(*stk, stk->a) == 1)
 		pb(stk, out);
@@ -28,7 +28,7 @@ int	rot_checks(t_stacks *stk, t_node *hold, int out)
 	return (1);
 }
 
-int	rev_checks(t_stacks *stk, t_node *hold, int out)
+int	rev_checks_swap(t_stacks *stk, t_node *hold, int out)
 {
 	t_node		*last;
 
@@ -67,7 +67,7 @@ to do to order b.
 
 essentially, get closest hold. Compare if ordering b is within reason. if its not
 */
-int	push_prep(t_stacks *stack, t_node *hold)
+int	push_prep_rotate(t_stacks *stack, t_node *hold)
 {
 	int		old_size;
 	int		rotate;
@@ -93,7 +93,7 @@ int	push_prep(t_stacks *stack, t_node *hold)
 	return (rotate);
 }
 
-int	push_prep_test(t_stacks stack, t_node *hold)
+int	push_prep_swap(t_stacks stack, t_node *hold)
 {
 	int			old_size;
 	int			rotate;

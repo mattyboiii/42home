@@ -51,40 +51,85 @@ t_node	 *least_ops(t_stacks stack, t_node *hold_a, t_node *hold_b, t_node *g_hol
 	int		ops_top;
 	int		ops_bot;
 
-	if (g_hold == NULL && hold_a)
-		return (hold_a);
-	else if (g_hold == NULL && hold_b)
-		return (hold_b);
 	// for now only try the lower rotate_prep
 	// get the least amount of moves compared to the position
+	if (!hold_a && hold_b)
+		return (hold_b);
+	if (hold_a && !hold_b)
+		return (hold_a);
 	ops_top = rotate_prep(stack, hold_a, stack.a->chunk);
 	ops_bot = rotate_prep(stack, hold_b, stack.a->chunk);
+	if (hold_a->pos > stack.bsize - hold_b->pos && stack.bsize < 2)
+		return (hold_b);
 	if (ops_top < 0 && ops_bot >= 0)
 		return (NULL);
-	else if (ops_top < posnum(ops_bot))
+	else if (ops_top <= posnum(ops_bot))
 		return (hold_a);
-	else if (posnum(ops_bot) < ops_top)
-		return (hold_a);
+	else if (ops_top > posnum(ops_bot))
+		return (hold_b);
 
 }
 
 void	ra_or_rra(t_stacks *stack, int chunk)
 {
 	int			rotate;
+	int			new_rotate;
+	int			p_rotate;
 	int			i;
+	int			p_pos;
+	int			pos;
 	t_node		*hold_a;
 	t_node		*hold_b;
+	t_node		*t_hold;
 	t_node		*g_hold;
+	t_node		*p_hold;
 
 
+	rotate = 100;
+	g_hold = NULL;
+	p_hold = NULL;
+	t_hold = NULL;
 	i = 0;
 	while (i < 3)
 	{
 		closest_hold(*stack, &hold_a, &hold_b, i);
-		g_hold = least_ops(*stack, hold_a, hold_b, g_hold);
+		if (!g_hold)
+			g_hold = least_ops(*stack, hold_a, hold_b, g_hold);
+		else
+			t_hold = least_ops(*stack, hold_a, hold_b, g_hold);
+		if (rotate == 100)
+			rotate = push_prep_test(*stack, g_hold);
+		if (t_hold)
+			new_rotate = push_prep_test(*stack, t_hold);
+		if (t_hold && new_rotate < rotate)
+		{
+			p_hold = g_hold;
+			p_rotate = rotate;
+			g_hold = t_hold;
+			rotate = new_rotate;
+		}
+		if (g_hold && stack->bsize < 2)
+			break ;
+		i++;
 	}
-	push_prep(stack, g_hold, 1);
+	pos = g_hold->pos;
+	if (pos > stack->asize / 2)
+		pos = (stack->asize - pos) * -1;
+	if (p_hold)
+	{
+		p_pos = p_hold->pos;
+		if (p_hold->pos > stack->asize / 2)
+			p_pos = (stack->asize - p_pos) * -1;
+		ft_printf("hold->pos: %d\n", p_pos);
+		ft_printf("hold->num: %d\n", p_hold->num);
+		ft_printf("Operations: %d\n", p_rotate);
+	}
+	ft_printf("hold->pos: %d\n", pos);
+	ft_printf("hold->num: %d\n", g_hold->num);
+	ft_printf("Operations: %d\n", rotate);
+	ft_putendl_fd("------------before_push------------", 1);
 	print_lstnums(stack->a, stack->b);
+	push_prep(stack, g_hold);
 }
 /*
 void	ra_or_rra(t_stacks stack, int chunk)
@@ -140,6 +185,7 @@ void	sort_to_b(t_stacks *stack)
 		while (check_lg_sm(stack->a, chunk_div + 1, chunk, 0) == 1)
 		{
 			ra_or_rra(stack, chunk);
+			ft_putendl_fd("------------Current Stage------------", 1);
 			print_lstnums(stack->a, stack->b);
 		}
 		if (stack->a)
