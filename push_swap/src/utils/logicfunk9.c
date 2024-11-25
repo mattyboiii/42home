@@ -49,24 +49,7 @@ int	rev_checks_swap(t_stacks *stk, t_node *hold, int out)
 		rrs(&stk->a, out);
 	return (1);
 }
-/* I have been watching it wrong. For the first chunk, current formula is fine. Eventually
-the chunks will become so big, that it will be greatly more efficient to use a
-certain direction to sort the chunk b into the correct order. As going through
-the entire previous 5 stacks, just because the current hold is closest to the top
-isnt more efficient.
 
-1. check closest hold, check how many rotations in both directions it would
-take to sort b so when the hold is pushed it in order within b.
-2. if the data is showing that it heavily favours one direction which causes a large
-amount of operations then move onto the next closest hold. Check the next hold.
-3. compare the stack b order data again, if it greatly favours another direction,
-get the next closest hold in whichever direction. Again check what I will need
-to do to order b.
-4. eventually, it might just need to bite the bullet and cycle through many iterations.
-5. how about do this with as many holds that are within 15 range from top/bottom.
-
-essentially, get closest hold. Compare if ordering b is within reason. if its not
-*/
 int	push_prep_rotate(t_stacks *stack, t_node *hold)
 {
 	int		old_size;
@@ -78,7 +61,7 @@ int	push_prep_rotate(t_stacks *stack, t_node *hold)
 	{
 		while (old_size == stack->asize)
 		{
-			rotate += rot_checks(stack, hold, 1);
+			rotate += rot_checks_swap(stack, hold, 1);
 			print_lstnums(stack->a, stack->b);
 		}
 	}
@@ -86,7 +69,7 @@ int	push_prep_rotate(t_stacks *stack, t_node *hold)
 	{
 		while (old_size == stack->asize)
 		{
-			rotate += rev_checks(stack, hold, 1);
+			rotate += rev_checks_swap(stack, hold, 1);
 			print_lstnums(stack->a, stack->b);
 		}
 	}
@@ -106,7 +89,7 @@ int	push_prep_swap(t_stacks stack, t_node *hold)
 	{
 		while (old_size == stk.asize)
 		{
-			rotate += rot_checks(&stk, hold, 1);
+			rotate += rot_checks_swap(&stk, hold, 1);
 			print_lstnums(stk.a, stk.b);
 		}
 	}
@@ -114,7 +97,7 @@ int	push_prep_swap(t_stacks stack, t_node *hold)
 	{
 		while (old_size == stk.asize)
 		{
-			rotate += rev_checks(&stk, hold, 1);
+			rotate += rev_checks_swap(&stk, hold, 1);
 			print_lstnums(stk.a, stk.b);
 		}
 	}

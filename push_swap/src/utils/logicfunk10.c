@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   logicfunk8.c                                       :+:      :+:    :+:   */
+/*   logicfunk10.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-20 04:11:36 by mtripodi          #+#    #+#             */
-/*   Updated: 2024-11-20 04:11:36 by mtripodi         ###   ########.fr       */
+/*   Created: 2024-11-25 04:02:30 by mtripodi          #+#    #+#             */
+/*   Updated: 2024-11-25 04:02:30 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-/*
-Home of the rotate function. The logic here will simply, look for the hold number
-and ensure that the b stack is ready to accept the number. It will check if the
-number under can be swapped in only. It will not swap numbers in A to preserve
-their positions close to the top or bottom of stack A
-*/
-
-int	rot_checks_rotate(t_stacks *stk, t_node *hold, int out)
+int	rot_checks_swap(t_stacks *stk, t_node *hold, int out)
 {
 	if (stk->a->num <= stk->a->div && if_push(*stk, stk->a) == 1)
 		pb(stk, out);
-	else if (stk->a->num != hold->num && if_push(*stk, hold) == 0)
+	else if (stk->a->next->num <= stk->a->div && stk->a->num <= stk->a->div
+			&& if_push(*stk, stk->a->next) == 1)
+		s(&stk->a, out);
+	else if (stk->a->num > stk->a->div && if_push(*stk, hold) == 0)
 		rr(stk);
-	else if (stk->a->num != hold->num && if_push(*stk, hold) == 1)
+	else if (stk->a->num > stk->a->div && if_push(*stk, hold) == 1)
 		r(&stk->a, out);
+	else
+		r(&stk->b, out);
 	return (1);
 }
 
-int	rev_checks_rotate(t_stacks *stk, t_node *hold, int out)
+int	rev_checks_swap(t_stacks *stk, t_node *hold, int out)
 {
 	t_node		*last;
 
@@ -69,8 +67,33 @@ to do to order b.
 
 essentially, get closest hold. Compare if ordering b is within reason. if its not
 */
+int	push_prep_rotate(t_stacks *stack, t_node *hold)
+{
+	int		old_size;
+	int		rotate;
 
-int	push_prep_rotate(t_stacks stack, t_node *hold)
+	rotate = 0;
+	old_size = stack->asize;
+	if (hold->pos < stack->asize / 2)
+	{
+		while (old_size == stack->asize)
+		{
+			rotate += rot_checks_swap(stack, hold, 1);
+			print_lstnums(stack->a, stack->b);
+		}
+	}
+	else
+	{
+		while (old_size == stack->asize)
+		{
+			rotate += rev_checks_swap(stack, hold, 1);
+			print_lstnums(stack->a, stack->b);
+		}
+	}
+	return (rotate);
+}
+
+int	push_prep_swap(t_stacks stack, t_node *hold)
 {
 	int			old_size;
 	int			rotate;
@@ -83,7 +106,7 @@ int	push_prep_rotate(t_stacks stack, t_node *hold)
 	{
 		while (old_size == stk.asize)
 		{
-			rotate += rot_checks_rotate(&stk, hold, 1);
+			rotate += rot_checks_swap(&stk, hold, 1);
 			print_lstnums(stk.a, stk.b);
 		}
 	}
@@ -91,7 +114,7 @@ int	push_prep_rotate(t_stacks stack, t_node *hold)
 	{
 		while (old_size == stk.asize)
 		{
-			rotate += rev_checks_rotate(&stk, hold, 1);
+			rotate += rev_checks_swap(&stk, hold, 1);
 			print_lstnums(stk.a, stk.b);
 		}
 	}

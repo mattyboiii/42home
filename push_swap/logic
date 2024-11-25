@@ -1,0 +1,8 @@
+rot_checks_r
+
+1. if number is below div and the array is ready to receive it. Push it. (pb)
+2. if the a->next->num is below div and ready to recieve. (sa)
+3. if a != hold, and b is not ready to receive. (rr)
+4. if a == hold, and b is not ready to receive. (rb)
+
+rev_checks_r

@@ -153,17 +153,15 @@ void	ra_or_rra(t_stacks stack, int chunk)
 
 void	sort_to_a(t_stacks *stack, int chunk)
 {
-	int		size;
 	t_node	*big;
 
 	while (stack->b)
 	{
-		size = ft_lstlast(stack->b)->pos + 1;
 		set_big_small(stack->b, &big, 0);
-		if (big->pos < size / 2)
+		if (big->pos < stack->asize / 2)
 			rot_machine(&stack->b, big->pos, 1);
-		else if (big->pos > size / 2)
-			rev_machine(&stack->b, size - big->pos, 1);
+		else if (big->pos > stack->asize / 2)
+			rev_machine(&stack->b, stack->asize - big->pos, 1);
 		pa(stack, 1);
 	}
 }

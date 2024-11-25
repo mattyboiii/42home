@@ -19,6 +19,7 @@ SRC = src/push_swap.c \
 	src/utils/logicfunk7.c \
 	src/utils/logicfunk8.c \
 	src/utils/logicfunk9.c \
+	src/utils/logicfunk10.c \
 	src/utils/lstfunk.c \
 	src/utils/lstfunk2.c \
 	src/utils/lstfunk3.c \
