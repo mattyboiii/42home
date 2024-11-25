@@ -43,9 +43,7 @@ int			chunk_size_f(t_node *lst, int chunk);
 // logicfunk
 void		sort_to_b(t_stacks *stack);
 int			push_prep(t_stacks *stack, t_node *hold);
-int			push_prep_test(t_stacks stack, t_node *hold);
 int			rotate_prep(t_stacks stack, t_node *hold, int chunk);
-int			ft_lstsize(t_node *lst);
 
 int			check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
 void		set_big_small(t_node *lst, t_node **big, t_node **small);
@@ -75,7 +73,17 @@ int			n_chunk_bot(t_node *b, int	chunk);
 int			posnum(int num);
 int			negnum(int num);
 
+int			rot_checks_rotate(t_stacks *stk, t_node *hold, int out);
+int			rev_checks_rotate(t_stacks *stk, t_node *hold, int out);
+int			push_prep_rotate(t_stacks stack, t_node *hold);
+
+
+int			rot_checks_swap(t_stacks *stk, t_node *hold, int out);
+int			rev_checks_swap(t_stacks *stk, t_node *hold, int out);
+int			push_prep_swap(t_stacks stack, t_node *hold);
+
 // lstfunk
+int			ft_lstsize(t_node *lst);
 void		ft_lstadd_front(t_node **lst, t_node *new);
 void		ft_lstadd_back(t_node **lst, t_node *new);
 t_node		*ft_lstlast(t_node *lst);
@@ -116,10 +124,10 @@ int			r(t_node **lst, int print);
 int			pa(t_stacks *stack, int print);
 int			pb(t_stacks *stack, int print);
 
-int			ss(t_stacks *stack);
-int			rr(t_stacks *stack);
+int			ss(t_stacks *stack, int print);
+int			rr(t_stacks *stack, int print);
 int			rrs(t_node **lst, int print);
-int			rrr(t_stacks *stack);
+int			rrr(t_stacks *stack, int print);
 
 // utils
 void		ft_exit(int n);

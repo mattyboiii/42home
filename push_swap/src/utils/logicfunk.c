@@ -69,12 +69,17 @@ t_node	 *least_ops(t_stacks stack, t_node *hold_a, t_node *hold_b, t_node *g_hol
 		return (hold_b);
 
 }
+/* have two functions that loop and try all numbers. and return the cheapest
+move with desired algorythm. Then compare them below. */
+//int		try_swap(t_stacks stack,
 
 void	ra_or_rra(t_stacks *stack, int chunk)
 {
 	int			rotate;
 	int			new_rotate;
 	int			p_rotate;
+	static int	rt;
+	static int  prt;
 	int			i;
 	int			p_pos;
 	int			pos;
@@ -86,6 +91,8 @@ void	ra_or_rra(t_stacks *stack, int chunk)
 
 
 	rotate = 100;
+	if (rotate == 100)
+		prt = 0;
 	g_hold = NULL;
 	p_hold = NULL;
 	t_hold = NULL;
@@ -93,25 +100,34 @@ void	ra_or_rra(t_stacks *stack, int chunk)
 	while (i < 3)
 	{
 		closest_hold(*stack, &hold_a, &hold_b, i);
+		if (!hold_a && !hold_b)
+			break ;
 		if (!g_hold)
 			g_hold = least_ops(*stack, hold_a, hold_b, g_hold);
 		else
 			t_hold = least_ops(*stack, hold_a, hold_b, g_hold);
 		if (rotate == 100)
-			rotate = push_prep_test(*stack, g_hold);
+		{
+			rotate = push_prep_rotate(*stack, g_hold);
+		}
 		if (t_hold)
-			new_rotate = push_prep_test(*stack, t_hold);
+		{
+			new_rotate = push_prep_rotate(*stack, t_hold);
+		}
 		if (t_hold && new_rotate < rotate)
 		{
 			p_hold = g_hold;
 			p_rotate = rotate;
 			g_hold = t_hold;
 			rotate = new_rotate;
+
 		}
 		if (g_hold && stack->bsize < 2)
 			break ;
 		i++;
 	}
+	rt += rotate;
+	prt += p_rotate;
 	pos = g_hold->pos;
 	if (pos > stack->asize / 2)
 		pos = (stack->asize - pos) * -1;
@@ -120,10 +136,12 @@ void	ra_or_rra(t_stacks *stack, int chunk)
 		p_pos = p_hold->pos;
 		if (p_hold->pos > stack->asize / 2)
 			p_pos = (stack->asize - p_pos) * -1;
+		ft_printf("prt Total: %d\n", prt);
 		ft_printf("hold->pos: %d\n", p_pos);
 		ft_printf("hold->num: %d\n", p_hold->num);
 		ft_printf("Operations: %d\n", p_rotate);
 	}
+	ft_printf("Rot Total: %d\n", rt);
 	ft_printf("hold->pos: %d\n", pos);
 	ft_printf("hold->num: %d\n", g_hold->num);
 	ft_printf("Operations: %d\n", rotate);

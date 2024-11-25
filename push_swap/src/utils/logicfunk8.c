@@ -24,31 +24,24 @@ int	rot_checks_rotate(t_stacks *stk, t_node *hold, int out)
 	if (stk->a->num <= stk->a->div && if_push(*stk, stk->a) == 1)
 		pb(stk, out);
 	else if (stk->a->num != hold->num && if_push(*stk, hold) == 0)
-		rr(stk);
+		rr(stk, out);
 	else if (stk->a->num != hold->num && if_push(*stk, hold) == 1)
 		r(&stk->a, out);
+	else if (stk->a->num == hold->num && if_push(*stk, hold) == 0)
+		r(&stk->b, out);
 	return (1);
 }
 
 int	rev_checks_rotate(t_stacks *stk, t_node *hold, int out)
 {
-	t_node		*last;
-
-	last = ft_lstlast(stk->a);
 	if (stk->a->num <= stk->a->div && if_push(*stk, stk->a) == 1)
 		pb(stk, out);
-	else if (last->num <= stk->a->div && if_push(*stk, last) == 1)
+	else if (stk->a->num != hold->num && if_push(*stk, hold) == 0)
+		rrr(stk, out);
+	else if (stk->a->num != hold->num && if_push(*stk, hold) == 1)
 		rrs(&stk->a, out);
-	else if (stk->a->next->num <= stk->a->div && if_push(*stk, stk->a->next) == 1)
-		s(&stk->a, out);
-	else if (stk->a->num > stk->a->div && if_push(*stk, hold) == 0)
-		rrr(stk);
-	else if (last->num <= stk->a->div && if_push(*stk, stk->a) == 0)
+	else if (stk->a->num == hold->num && if_push(*stk, hold) == 0)
 		rrs(&stk->b, out);
-	else if (stk->a->num <= stk->a->div && if_push(*stk, stk->a) == 0)
-		s(&stk->a, out);
-	else
-		rrs(&stk->a, out);
 	return (1);
 }
 /* I have been watching it wrong. For the first chunk, current formula is fine. Eventually

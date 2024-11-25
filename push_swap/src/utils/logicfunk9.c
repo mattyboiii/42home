@@ -16,15 +16,17 @@ int	rot_checks_swap(t_stacks *stk, t_node *hold, int out)
 {
 	if (stk->a->num <= stk->a->div && if_push(*stk, stk->a) == 1)
 		pb(stk, out);
-	else if (stk->a->next->num <= stk->a->div && stk->a->num <= stk->a->div
+	else if (stk->a->num <= stk->a->div && stk->a->next->num <= stk->a->div
 			&& if_push(*stk, stk->a->next) == 1)
 		s(&stk->a, out);
 	else if (stk->a->num > stk->a->div && if_push(*stk, hold) == 0)
-		rr(stk);
+		rr(stk, out);
 	else if (stk->a->num > stk->a->div && if_push(*stk, hold) == 1)
 		r(&stk->a, out);
-	else
-		r(&stk->b, out);
+	else if (stk->a->num <= stk->a->div && stk->a->next->num <= stk->a->div)
+		r(&stk->a, out);
+	else if (stk->a->num <= stk->a->div)
+		s(&stk->a, out);
 	return (1);
 }
 
@@ -37,20 +39,14 @@ int	rev_checks_swap(t_stacks *stk, t_node *hold, int out)
 		pb(stk, out);
 	else if (last->num <= stk->a->div && if_push(*stk, last) == 1)
 		rrs(&stk->a, out);
-	else if (stk->a->next->num <= stk->a->div && if_push(*stk, stk->a->next) == 1)
+	else if (stk->a->num > stk->a->div && if_push(*stk, stk->a) == 0)
+		rrr(stk, out);
+	else if (stk->a->num <= stk->a->div)
 		s(&stk->a, out);
-	else if (stk->a->num > stk->a->div && if_push(*stk, hold) == 0)
-		rrr(stk);
-	else if (last->num <= stk->a->div && if_push(*stk, stk->a) == 0)
-		rrs(&stk->b, out);
-	else if (stk->a->num <= stk->a->div && if_push(*stk, stk->a) == 0)
-		s(&stk->a, out);
-	else
-		rrs(&stk->a, out);
 	return (1);
 }
 
-int	push_prep_rotate(t_stacks *stack, t_node *hold)
+int	push_prep(t_stacks *stack, t_node *hold)
 {
 	int		old_size;
 	int		rotate;
@@ -61,7 +57,7 @@ int	push_prep_rotate(t_stacks *stack, t_node *hold)
 	{
 		while (old_size == stack->asize)
 		{
-			rotate += rot_checks_swap(stack, hold, 1);
+			rotate += rot_checks_rotate(stack, hold, 1);
 			print_lstnums(stack->a, stack->b);
 		}
 	}
@@ -69,7 +65,7 @@ int	push_prep_rotate(t_stacks *stack, t_node *hold)
 	{
 		while (old_size == stack->asize)
 		{
-			rotate += rev_checks_swap(stack, hold, 1);
+			rotate += rev_checks_rotate(stack, hold, 1);
 			print_lstnums(stack->a, stack->b);
 		}
 	}
@@ -89,6 +85,8 @@ int	push_prep_swap(t_stacks stack, t_node *hold)
 	{
 		while (old_size == stk.asize)
 		{
+			if (hold->num == 13)
+				ft_printf("here\n");
 			rotate += rot_checks_swap(&stk, hold, 1);
 			print_lstnums(stk.a, stk.b);
 		}

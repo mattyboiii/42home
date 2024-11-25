@@ -1,8 +1,29 @@
 rot_checks_r
 
 1. if number is below div and the array is ready to receive it. Push it. (pb)
-2. if the a->next->num is below div and ready to recieve. (sa)
-3. if a != hold, and b is not ready to receive. (rr)
-4. if a == hold, and b is not ready to receive. (rb)
+2. if a != hold, and b is not ready to receive. (rr)
+3. if a != hold, and b is ready (ra);
+3. if a == hold, and b is not ready to receive. (rb)
 
 rev_checks_r
+
+1. if a number is below div and the array is raedy to recive, push. (pb)
+2. if a != hold, and b is not ready to receive. (rr)
+3. if a != hold, and b is ready (ra);
+3. if a == hold, and b is not ready to receive. (rb)
+
+rot_checks_swap
+
+1. if number is below div and the array is ready to receive it. Push it. (pb)
+1.1 if number is below div and number next is below div. and b is ready to
+recive number next. (sa);
+if number is not bd. and b is not ready (rr);
+if number is not bd, and b ready (ra);
+if number is bd and b is not ready (sa);
+
+rev_checks_swap
+
+1. if number is below div and the array is ready to receive it. Push it. (pb)
+- if last number is below div and b is ready rra;
+if number is not bd and b is not ready (rrr)
+if number is bd (sa)
