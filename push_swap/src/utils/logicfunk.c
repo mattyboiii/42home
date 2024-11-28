@@ -137,13 +137,13 @@ void	ra_or_rra(t_stacks *stack, int chunk)
 		if (p_hold->pos > stack->asize / 2)
 			p_pos = (stack->asize - p_pos) * -1;
 		ft_printf("prt Total: %d\n", prt);
-		ft_printf("hold->pos: %d\n", p_pos);
 		ft_printf("hold->num: %d\n", p_hold->num);
+		ft_printf("hold->pos: %d\n", p_pos);
 		ft_printf("Operations: %d\n", p_rotate);
 	}
 	ft_printf("Rot Total: %d\n", rt);
-	ft_printf("hold->pos: %d\n", pos);
 	ft_printf("hold->num: %d\n", g_hold->num);
+	ft_printf("hold->pos: %d\n", pos);
 	ft_printf("Operations: %d\n", rotate);
 	ft_putendl_fd("------------before_push------------", 1);
 	print_lstnums(stack->a, stack->b);
