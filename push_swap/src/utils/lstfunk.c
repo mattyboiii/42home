@@ -35,9 +35,9 @@ void	ft_lstadd_front(t_node **lst, t_node *new)
 	}
 	else
 	{
+		new->prev = NULL;
 		new->next = *lst;
 		(*lst)->prev = new;
-		*lst = new;
 		*lst = new;
 	}
 }

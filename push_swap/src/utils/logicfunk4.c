@@ -48,18 +48,18 @@ int	order_rot_push(t_node **b, t_node *hold, int chunk)
 
 	if (chunk_size(*b, chunk) < 2)
 		return (0);
-	stack_temp.a = copy_lst(*b);
-	stack_temp.b = copy_node(hold);
+	stack_temp.a = copy_node(hold);
+	stack_temp.b = copy_lst(*b);
 	rot = 0;
 	stack_temp.b->chunk = chunk;
 	pb(&stack_temp, 0);
-	while (order_check(&stack_temp.a, chunk) == 0 && rot < stack_temp.a->div)
+	while (order_check(&stack_temp.b, chunk) == 0 && rot <= hold->div)
  	{
-		if ((*b)->num == stack_temp.b->num)
+		if (stack_temp.b->num == hold->num)
 			pa(&stack_temp, 0);
-		if (stack_temp.a->chunk != chunk)
-			rot += stack_temp.a->div;
-		r(&stack_temp.a, 0);
+		if (stack_temp.b->chunk != chunk)
+			rot += hold->div;
+		r(&stack_temp.b, 0);
 		rot++;
 		pb(&stack_temp, 0);
 	}
@@ -75,18 +75,18 @@ int	order_rev_push(t_node **b, t_node *hold, int chunk)
 
 	if (chunk_size(*b, chunk) < 2)
 		return (0);
-	stack_temp.a = copy_lst(*b);
-	stack_temp.b = copy_node(hold);
+	stack_temp.a = copy_node(hold);
+	stack_temp.b = copy_lst(*b);
 	rev = 0;
 	stack_temp.b->chunk = chunk;
 	pb(&stack_temp, 0);
-	while (order_check(&stack_temp.a, chunk) == 0 && rev < stack_temp.a->div)
+	while (order_check(&stack_temp.b, chunk) == 0 && rev <= hold->div)
  	{
-		if ((*b)->num == stack_temp.b->num)
+		if (stack_temp.b->num == hold->num)
 			pa(&stack_temp, 0);
-		if (stack_temp.a->chunk != chunk)
-			rev += stack_temp.a->div;
-		rrs(&stack_temp.a, 0);
+		if (stack_temp.b->chunk != chunk)
+			rev += hold->div;
+		rrs(&stack_temp.b, 0);
 		rev++;
 		pb(&stack_temp, 0);
 	}

@@ -58,7 +58,7 @@ int	pa(t_stacks *stack, int print)
 	t_node	*ahead;
 
 	ahead = NULL;
-	if (!stack->a)
+	if (!stack->b)
 		return (0);
 	ahead = ft_nodedel(stack->b);
 	stack->b = stack->b->next;

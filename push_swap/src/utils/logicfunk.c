@@ -20,10 +20,10 @@ int	rotate_prep(t_stacks stack, t_node *hold, int chunk)
 	int		rb;
 	int		rrb;
 
-	if (hold->pos < stack.asize / 2 && stack.bsize <= 2)
+	if (hold->pos < stack.asize / 2 && stack.bsize < 2)
 		return (0);
-	else if (hold->pos >= stack.asize / 2 && stack.bsize <= 2)
-		return (-1);
+	else if (hold->pos >= stack.asize / 2 && stack.bsize < 2)
+		return (0);
 	rb = order_rot_push(&stack.b, hold, chunk);
 	rrb = order_rev_push(&stack.b, hold, chunk);
 	if (rb <= rrb)
@@ -56,6 +56,8 @@ t_node	 *least_ops_force(t_stacks stack, t_node *hold_a, t_node *hold_b)
 {
 	int		ops_top;
 	int		ops_bot;
+	int		rr;
+	int		rrr;
 
 	if (!hold_a && hold_b)
 		return (hold_b);
@@ -65,11 +67,15 @@ t_node	 *least_ops_force(t_stacks stack, t_node *hold_a, t_node *hold_b)
 	ops_bot = rotate_prep(stack, hold_b, stack.a->chunk);
 	if (hold_a->pos > stack.bsize - hold_b->pos && stack.bsize < 2)
 		return (hold_b);
-	if (ops_top < 0 && ops_bot >= 0)
-		return (NULL);
-	else if (ops_top <= posnum(ops_bot))
+	rr = ops_top - hold_a->pos;
+	rrr = posnum(ops_bot) - (stack.bsize - hold_b->pos);
+	if (ops_top < 0 && ops_bot > 0 && hold_a->pos < stack.asize - hold_b->pos)
 		return (hold_a);
-	else if (ops_top > posnum(ops_bot))
+	if (ops_top < 0 && ops_bot > 0 && hold_a->pos > stack.asize - hold_b->pos)
+		return (hold_b);
+	else if (rr < rrr)
+		return (hold_a);
+	else if (rrr < rr)
 		return (hold_b);
 }
 /* have two functions that loop and try all numbers. and return the cheapest
@@ -155,26 +161,6 @@ void	ra_or_rra(t_stacks *stack, int chunk)
 }
 */
 
-int	 least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
-						t_node	**gold_hold)
-{
-	int		ops_top;
-	int		ops_bot;
-
-	ops_top = posnum(rotate_prep(stack, hold_a, stack.a->chunk)) + hold_a->pos;
-	ops_bot = posnum(rotate_prep(stack, hold_b, stack.a->chunk)) + (stack.asize
-		- hold_b->pos);
-	if (ops_top <= ops_bot)
-	{
-		*gold_hold = hold_a;
-		return (ops_top + 1);
-	}
-	else if (ops_top > ops_bot)
-	{
-		*gold_hold = hold_b;
-		return (ops_bot + 1);
-	}
-}
 
 void	set_holds(t_hold *hold, t_node *gold_hold, int iterations)
 {
@@ -189,6 +175,8 @@ void	set_holds(t_hold *hold, t_node *gold_hold, int iterations)
 
 int	force_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)
 {
+	if (stack.b && stack.b->num == 7 || stack.a->num == 82)
+		ft_printf("here");
 	while (loop < hold.iterations)
 	{
 		closest_hold(stack, &hold.fh, &hold.sh, loop);
@@ -221,9 +209,39 @@ int	force_rotate(t_stacks stack, t_node **fr_hold, int skip)
 	t_hold		hold;
 
 	rotate = 0;
-	set_holds(&hold, *fr_hold, 3);
+	set_holds(&hold, *fr_hold, 1);
 	rotate = force_loop(stack, hold, fr_hold, skip);
 	return (rotate);
+}
+
+int	 least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
+						t_node	**gold_hold)
+{
+	int		ops_top;
+	int		ops_bot;
+	int		rotate_p;
+	int		rotate_q;
+
+	ops_top = 1000;
+	ops_bot = 1000;
+	rotate_p = posnum(rotate_prep(stack, hold_a, stack.a->chunk));
+	rotate_q = posnum(rotate_prep(stack, hold_b, stack.a->chunk));
+	print_lstnums(stack.a, stack.b);
+	if (hold_a)
+		ops_top = posnum(rotate_prep(stack, hold_a, stack.a->chunk)) + hold_a->pos;
+	if (hold_b)
+		ops_bot = posnum(rotate_prep(stack, hold_b, stack.a->chunk))
+		+ (stack.asize - hold_b->pos);
+	if (ops_top <= ops_bot)
+	{
+		*gold_hold = hold_a;
+		return (ops_top + 1);
+	}
+	else if (ops_top > ops_bot)
+	{
+		*gold_hold = hold_b;
+		return (ops_bot + 1);
+	}
 }
 
 int	manual_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)
@@ -256,7 +274,7 @@ int	manual_rotate(t_stacks stack, t_node **man_hold, int skip)
 	t_hold		hold;
 
 	rotate = 0;
-	set_holds(&hold, NULL, 2);
+	set_holds(&hold, NULL, 1);
 	rotate = manual_loop(stack, hold, man_hold, skip);
 	return (rotate);
 }
@@ -298,7 +316,12 @@ int	compare_logic(t_stacks *stack, int chunk, int skip)
 	f_rotate = 0;
 	m_rotate = 0;
 	f_rotate = force_rotate(*stack, &fr_hold, skip);
+	print_lstnums(stack->a, stack->b);
 	m_rotate = manual_rotate(*stack, &man_hold, skip);
+	ft_printf("f_rotate: %d\nfr_hold: %d\n\n", f_rotate, fr_hold->num);
+	ft_printf("m_rotate: %d\nma_hold: %d\n", m_rotate, man_hold->num);
+	ft_putendl_fd("------------before_push------------", 1);
+	print_lstnums(stack->a, stack->b);
 	if (f_rotate <= m_rotate)
 		return (rotate_run(stack, fr_hold));
 	else
