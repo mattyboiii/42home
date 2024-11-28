@@ -76,6 +76,7 @@ t_node	 *least_ops_force(t_stacks stack, t_node *hold_a, t_node *hold_b)
 move with desired algorythm. Then compare them below. */
 //int		try_swap(t_stacks stack,
 
+/*
 void	ra_or_rra(t_stacks *stack, int chunk)
 {
 	int			rotate;
@@ -152,6 +153,7 @@ void	ra_or_rra(t_stacks *stack, int chunk)
 	print_lstnums(stack->a, stack->b);
 	push_prep(stack, g_hold);
 }
+*/
 
 int	 least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
 						t_node	**gold_hold)
@@ -159,10 +161,6 @@ int	 least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
 	int		ops_top;
 	int		ops_bot;
 
-	if (!hold_a && hold_b)
-		return (hold_b);
-	if (hold_a && !hold_b)
-		return (hold_a);
 	ops_top = posnum(rotate_prep(stack, hold_a, stack.a->chunk)) + hold_a->pos;
 	ops_bot = posnum(rotate_prep(stack, hold_b, stack.a->chunk)) + (stack.asize
 		- hold_b->pos);
@@ -217,13 +215,13 @@ int	force_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)
 	return (hold.rotate);
 }
 
-int	force_rotate(t_stacks stack, t_hold **fr_hold, int skip)
+int	force_rotate(t_stacks stack, t_node **fr_hold, int skip)
 {
 	int			rotate;
 	t_hold		hold;
 
 	rotate = 0;
-	set_holds(&hold, fr_hold, 3);
+	set_holds(&hold, *fr_hold, 3);
 	rotate = force_loop(stack, hold, fr_hold, skip);
 	return (rotate);
 }
@@ -263,7 +261,7 @@ int	manual_rotate(t_stacks stack, t_node **man_hold, int skip)
 	return (rotate);
 }
 
-int	manul_run(t_stacks *stack, t_node *hold)
+int	manual_run(t_stacks *stack, t_node *hold)
 {
 	int		rotate;
 	int		operations;
@@ -338,7 +336,7 @@ void	sort_to_b(t_stacks *stack)
 	{
 		while (check_lg_sm(stack->a, chunk_div + 1, chunk, 0) == 1)
 		{
-			compare_logic(stack, chunk);
+			compare_logic(stack, chunk, 0);
 			ft_putendl_fd("------------Current Stage------------", 1);
 			print_lstnums(stack->a, stack->b);
 		}
