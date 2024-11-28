@@ -12,14 +12,9 @@
 
 #include "../push_swap.h"
 
-/* somthing to do with holding onto the clsoe numbers using swap when a number
-is already at the top, if a number at the top of a is < chunk_div, then I dont
-need to push the number back to the node, I can just swap and rotate to try and
-get the next hold number closer up, while also finding the right position.*/
-
-/* i am not using rotate prep, even though its important I shuold be considering
-the rotations for B as well as rotations for a */
-
+/* rotate prep works by counting how many times stack B needs to be rot or rev
+to receive the number in hold, so that it will be in order.
+*/
 int	rotate_prep(t_stacks stack, t_node *hold, int chunk)
 {
 	int		rb;
@@ -37,22 +32,31 @@ int	rotate_prep(t_stacks stack, t_node *hold, int chunk)
 		return (rrb *= -1);
 }
 
+/* closest hold simply applys the node whos number is <= divider, to
+hold_a or hold_b, depending on their position. If its in the first half of the
+stack, it will go to hold_a, if its in the second half of the stack it will
+belong to hold_b. the future, simply allows me to skip over however many
+node's which apply to the <= divider logic. In case the number after the closest
+allows for less operations when sending it to b/
+*/
 int	closest_hold(t_stacks stack, t_node **hold_a, t_node **hold_b, int future)
 {
 	*hold_a = hold_first(stack.a, stack.a->div, future);
 	*hold_b = hold_second(stack.a, stack.a->div, future);
 }
 
-// find out if I am rot or rev to get the number in order. because I will
-// continually just swap the top numbers of both stacks untill one fits. Then
-// move onto the next.
-t_node	 *least_ops(t_stacks stack, t_node *hold_a, t_node *hold_b, t_node *g_hold)
+/* least ops is responsible for seeing how many rotations it takes to get
+b ready to receive the number in hold_a/b. It uses rr or rrr depending on the
+nums positon. It will return the node who has less rotations, or hold_a if
+they are equal. this supports my force_rotate logic because I want to force
+both stack A and B to move together depending on the number which gives me the
+least amount of operations
+*/
+t_node	 *least_ops_force(t_stacks stack, t_node *hold_a, t_node *hold_b)
 {
 	int		ops_top;
 	int		ops_bot;
 
-	// for now only try the lower rotate_prep
-	// get the least amount of moves compared to the position
 	if (!hold_a && hold_b)
 		return (hold_b);
 	if (hold_a && !hold_b)
@@ -67,7 +71,6 @@ t_node	 *least_ops(t_stacks stack, t_node *hold_a, t_node *hold_b, t_node *g_hol
 		return (hold_a);
 	else if (ops_top > posnum(ops_bot))
 		return (hold_b);
-
 }
 /* have two functions that loop and try all numbers. and return the cheapest
 move with desired algorythm. Then compare them below. */
@@ -76,7 +79,7 @@ move with desired algorythm. Then compare them below. */
 void	ra_or_rra(t_stacks *stack, int chunk)
 {
 	int			rotate;
-	int			new_rotate;
+	int			compare;
 	int			p_rotate;
 	static int	rt;
 	static int  prt;
@@ -103,23 +106,23 @@ void	ra_or_rra(t_stacks *stack, int chunk)
 		if (!hold_a && !hold_b)
 			break ;
 		if (!g_hold)
-			g_hold = least_ops(*stack, hold_a, hold_b, g_hold);
+			g_hold = least_ops(*stack, hold_a, hold_b);
 		else
-			t_hold = least_ops(*stack, hold_a, hold_b, g_hold);
+			t_hold = least_ops(*stack, hold_a, hold_b);
 		if (rotate == 100)
 		{
 			rotate = push_prep_rotate(*stack, g_hold);
 		}
 		if (t_hold)
 		{
-			new_rotate = push_prep_rotate(*stack, t_hold);
+			compare = push_prep_rotate(*stack, t_hold);
 		}
-		if (t_hold && new_rotate < rotate)
+		if (t_hold && compare < rotate)
 		{
 			p_hold = g_hold;
 			p_rotate = rotate;
 			g_hold = t_hold;
-			rotate = new_rotate;
+			rotate = compare;
 
 		}
 		if (g_hold && stack->bsize < 2)
@@ -149,32 +152,159 @@ void	ra_or_rra(t_stacks *stack, int chunk)
 	print_lstnums(stack->a, stack->b);
 	push_prep(stack, g_hold);
 }
-/*
-void	ra_or_rra(t_stacks stack, int chunk)
+
+int	 least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
+						t_node	**gold_hold)
 {
-	t_node		*last;
-	t_node		*hold_a;
-	t_node		*hold_b;
-	static t_node *s_chunk;
+	int		ops_top;
+	int		ops_bot;
 
-	if (!s_chunk || s_chunk->chunk != chunk)
-		s_chunk = sorted_chunk(stack->a, s_chunk, chunk, stack.a->div);
-	hold_a = hold_first(stack->a, stack.a->div, 0);
-	hold_b = hold_second(stack->a, stack.a->div, 0);
-	last = ft_lstlast(stack->a);
-	if (hold_a && (!hold_b || hold_a->pos <= last->pos - hold_b->pos))
-		push_prep(&stack, hold_a, s_chunk);
-	else if (hold_b && (!hold_a || hold_a->pos > last->pos - hold_b->pos))
-		push_prep(&stack, hold_stack->b, s_chunk);
+	if (!hold_a && hold_b)
+		return (hold_b);
+	if (hold_a && !hold_b)
+		return (hold_a);
+	ops_top = posnum(rotate_prep(stack, hold_a, stack.a->chunk)) + hold_a->pos;
+	ops_bot = posnum(rotate_prep(stack, hold_b, stack.a->chunk)) + (stack.asize
+		- hold_b->pos);
+	if (ops_top <= ops_bot)
+	{
+		*gold_hold = hold_a;
+		return (ops_top + 1);
+	}
+	else if (ops_top > ops_bot)
+	{
+		*gold_hold = hold_b;
+		return (ops_bot + 1);
+	}
 }
-*/
 
+void	set_holds(t_hold *hold, t_node *gold_hold, int iterations)
+{
+	hold->fh = NULL;
+	hold->sh = NULL;
+	hold->gold = gold_hold;
+	hold->temp = NULL;
+	hold->iterations = iterations;
+	hold->rotate = 100;
+	hold->compare = 0;
+}
 
-int	compare_logic(t_stacks stack, int chunk)
+int	force_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)
+{
+	while (loop < hold.iterations)
+	{
+		closest_hold(stack, &hold.fh, &hold.sh, loop);
+		if (!hold.fh && !hold.sh)
+			break ;
+		if (!hold.gold)
+			hold.gold = least_ops_force(stack, hold.fh, hold.sh);
+		else
+			hold.temp = least_ops_force(stack, hold.fh, hold.sh);
+		if (hold.rotate == 100)
+			hold.rotate = push_prep_rotate(stack, hold.gold);
+		if (hold.temp)
+			hold.compare = push_prep_rotate(stack, hold.temp);
+		if (hold.temp && hold.compare < hold.rotate)
+		{
+			hold.gold = hold.temp;
+			hold.rotate = hold.compare;
+		}
+		if (hold.gold && stack.bsize < 2)
+			break ;
+		loop++;
+	}
+	*gold_hold = hold.gold;
+	return (hold.rotate);
+}
+
+int	force_rotate(t_stacks stack, t_hold **fr_hold, int skip)
 {
 	int			rotate;
-	t_node		*g_hold;
-	t_node		*t_hold;
+	t_hold		hold;
+
+	rotate = 0;
+	set_holds(&hold, fr_hold, 3);
+	rotate = force_loop(stack, hold, fr_hold, skip);
+	return (rotate);
+}
+
+int	manual_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)
+{
+	while (loop < hold.iterations)
+	{
+		closest_hold(stack, &hold.fh, &hold.sh, loop);
+		if (!hold.fh && !hold.sh)
+			break ;
+		if (!hold.gold)
+			hold.rotate = least_ops_man(stack, hold.fh, hold.sh, &hold.gold);
+		else
+			hold.compare = least_ops_man(stack, hold.fh, hold.sh, &hold.temp);
+		if (hold.temp && hold.compare < hold.rotate)
+		{
+			hold.gold = hold.temp;
+			hold.rotate = hold.compare;
+		}
+		if (hold.gold && stack.bsize < 2)
+			break ;
+		loop++;
+	}
+	*gold_hold = hold.gold;
+	return (hold.rotate);
+}
+
+int	manual_rotate(t_stacks stack, t_node **man_hold, int skip)
+{
+	int			rotate;
+	t_hold		hold;
+
+	rotate = 0;
+	set_holds(&hold, NULL, 2);
+	rotate = manual_loop(stack, hold, man_hold, skip);
+	return (rotate);
+}
+
+int	manul_run(t_stacks *stack, t_node *hold)
+{
+	int		rotate;
+	int		operations;
+
+	rotate = 0;
+	operations = 0;
+	rotate = rotate_prep(*stack, hold, stack->a->chunk);
+	if (hold->pos < stack->asize / 2)
+		operations = hold->pos + rotate;
+	else if (hold->pos > stack->asize / 2)
+		operations = (stack->asize - hold->pos) + rotate;
+	if (hold->pos < stack->asize / 2)
+		rot_machine(&stack->a, hold->pos, 1);
+	else if (hold->pos > stack->asize / 2)
+		rev_machine(&stack->a, stack->asize - hold->pos, 1);
+	if (rotate >= 0)
+		rot_machine(&stack->b, rotate, 1);
+	else
+		rev_machine(&stack->b, posnum(rotate), 1);
+	pb(stack, 1);
+	return (operations + 1);
+}
+
+int	compare_logic(t_stacks *stack, int chunk, int skip)
+{
+	int			f_rotate;
+	int			m_rotate;
+	t_node		*fr_hold;
+	t_node		*man_hold;
+
+	fr_hold = NULL;
+	man_hold = NULL;
+	skip = 0;
+	f_rotate = 0;
+	m_rotate = 0;
+	f_rotate = force_rotate(*stack, &fr_hold, skip);
+	m_rotate = manual_rotate(*stack, &man_hold, skip);
+	if (f_rotate <= m_rotate)
+		return (rotate_run(stack, fr_hold));
+	else
+		return (manual_run(stack, man_hold));
 }
 
 void	sort_to_a(t_stacks *stack, int chunk)
@@ -209,7 +339,6 @@ void	sort_to_b(t_stacks *stack)
 		while (check_lg_sm(stack->a, chunk_div + 1, chunk, 0) == 1)
 		{
 			compare_logic(stack, chunk);
-			ra_or_rra(stack, chunk);
 			ft_putendl_fd("------------Current Stage------------", 1);
 			print_lstnums(stack->a, stack->b);
 		}

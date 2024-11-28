@@ -22,19 +22,31 @@ typedef struct s_stack_node
 	long				num;
 	long				pos;
 	char				stack[2];
-	int						chunk;
-	int						div;
+	int					chunk;
+	int					div;
 	struct s_stack_node	*prev;
 	struct s_stack_node	*next;
 }	t_node;
 
-typedef struct s_stacks
+typedef struct s_stack
 {
 	t_node		*a;
 	t_node		*b;
 	int			asize;
 	int			bsize;
 }	t_stacks;
+
+typedef struct s_holds
+{
+	t_node		*fh;
+	t_node		*sh;
+	t_node		*gold;
+	t_node		*temp;
+	int			iterations;
+	int			rotate;
+	int			compare;
+}	t_hold;
+
 // functions in my src dir
 // ---  --------------------
 // push_swap.c
@@ -42,7 +54,7 @@ int			chunk_size_f(t_node *lst, int chunk);
 
 // logicfunk
 void		sort_to_b(t_stacks *stack);
-int			push_prep(t_stacks *stack, t_node *hold);
+int			rotate_run(t_stacks *stack, t_node *hold);
 int			rotate_prep(t_stacks stack, t_node *hold, int chunk);
 
 int			check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);

@@ -46,7 +46,7 @@ int	rev_checks_swap(t_stacks *stk, t_node *hold, int out)
 	return (1);
 }
 
-int	push_prep(t_stacks *stack, t_node *hold)
+int	rotate_run(t_stacks *stack, t_node *hold)
 {
 	int		old_size;
 	int		rotate;
