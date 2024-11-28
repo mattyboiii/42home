@@ -58,7 +58,6 @@ int	rotate_run(t_stacks *stack, t_node *hold)
 		while (old_size == stack->asize)
 		{
 			rotate += rot_checks_rotate(stack, hold, 1);
-			print_lstnums(stack->a, stack->b);
 		}
 	}
 	else
@@ -66,7 +65,6 @@ int	rotate_run(t_stacks *stack, t_node *hold)
 		while (old_size == stack->asize)
 		{
 			rotate += rev_checks_rotate(stack, hold, 1);
-			print_lstnums(stack->a, stack->b);
 		}
 	}
 	return (rotate);

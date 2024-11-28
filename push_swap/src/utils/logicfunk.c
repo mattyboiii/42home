@@ -24,6 +24,8 @@ int	rotate_prep(t_stacks stack, t_node *hold, int chunk)
 		return (0);
 	else if (hold->pos >= stack.asize / 2 && stack.bsize < 2)
 		return (0);
+	if (chunk > 1 && hold->num == 40)
+		ft_printf("Here");
 	rb = order_rot_push(&stack.b, hold, chunk);
 	rrb = order_rev_push(&stack.b, hold, chunk);
 	if (rb <= rrb)
@@ -175,6 +177,8 @@ void	set_holds(t_hold *hold, t_node *gold_hold, int iterations)
 
 int	force_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)
 {
+	if (stack.a->chunk > 1)
+		ft_printf("here\n");
 	while (loop < hold.iterations)
 	{
 		closest_hold(stack, &hold.fh, &hold.sh, loop);
@@ -239,8 +243,6 @@ int	 least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
 
 int	manual_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)
 {
-	if (stack.b && stack.b->num == 15 || stack.a->num == 6)
-		ft_printf("here");
 	while (loop < hold.iterations)
 	{
 		closest_hold(stack, &hold.fh, &hold.sh, loop);

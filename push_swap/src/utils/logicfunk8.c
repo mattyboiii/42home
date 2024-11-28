@@ -76,16 +76,14 @@ int	push_prep_rotate(t_stacks stack, t_node *hold)
 	{
 		while (old_size == stk.asize)
 		{
-			rotate += rot_checks_rotate(&stk, hold, 1);
-			print_lstnums(stk.a, stk.b);
+			rotate += rot_checks_rotate(&stk, hold, 0);
 		}
 	}
 	else
 	{
 		while (old_size == stk.asize)
 		{
-			rotate += rev_checks_rotate(&stk, hold, 1);
-			print_lstnums(stk.a, stk.b);
+			rotate += rev_checks_rotate(&stk, hold, 0);
 		}
 	}
 	stacklst_del(&stk);
