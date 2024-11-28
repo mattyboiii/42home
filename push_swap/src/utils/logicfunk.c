@@ -175,8 +175,6 @@ void	set_holds(t_hold *hold, t_node *gold_hold, int iterations)
 
 int	force_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)
 {
-	if (stack.b && stack.b->num == 7 || stack.a->num == 82)
-		ft_printf("here");
 	while (loop < hold.iterations)
 	{
 		closest_hold(stack, &hold.fh, &hold.sh, loop);
@@ -219,14 +217,9 @@ int	 least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
 {
 	int		ops_top;
 	int		ops_bot;
-	int		rotate_p;
-	int		rotate_q;
 
 	ops_top = 1000;
 	ops_bot = 1000;
-	rotate_p = posnum(rotate_prep(stack, hold_a, stack.a->chunk));
-	rotate_q = posnum(rotate_prep(stack, hold_b, stack.a->chunk));
-	print_lstnums(stack.a, stack.b);
 	if (hold_a)
 		ops_top = posnum(rotate_prep(stack, hold_a, stack.a->chunk)) + hold_a->pos;
 	if (hold_b)
@@ -246,6 +239,8 @@ int	 least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
 
 int	manual_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)
 {
+	if (stack.b && stack.b->num == 15 || stack.a->num == 6)
+		ft_printf("here");
 	while (loop < hold.iterations)
 	{
 		closest_hold(stack, &hold.fh, &hold.sh, loop);
