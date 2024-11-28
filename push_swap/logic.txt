@@ -27,3 +27,12 @@ rev_checks_swap
 - if last number is below div and b is ready rra;
 if number is not bd and b is not ready (rrr)
 if number is bd (sa)
+
+Compare logic.
+
+force rotate - force rotate will work to automatically rotate stack b, depending on
+the position of closest hold. This means, if hold->pos < size/2 it will use rr.
+
+manual rotate - this is going to be my next logic test. It will simply try
+and force rotate, but when its more efficient to just move stacks independently
+it will do this instead.

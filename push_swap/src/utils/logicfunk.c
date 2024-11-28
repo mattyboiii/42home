@@ -169,6 +169,14 @@ void	ra_or_rra(t_stacks stack, int chunk)
 }
 */
 
+
+int	compare_logic(t_stacks stack, int chunk)
+{
+	int			rotate;
+	t_node		*g_hold;
+	t_node		*t_hold;
+}
+
 void	sort_to_a(t_stacks *stack, int chunk)
 {
 	t_node	*big;
@@ -200,6 +208,7 @@ void	sort_to_b(t_stacks *stack)
 	{
 		while (check_lg_sm(stack->a, chunk_div + 1, chunk, 0) == 1)
 		{
+			compare_logic(stack, chunk);
 			ra_or_rra(stack, chunk);
 			ft_putendl_fd("------------Current Stage------------", 1);
 			print_lstnums(stack->a, stack->b);
