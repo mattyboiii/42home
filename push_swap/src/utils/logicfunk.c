@@ -158,7 +158,7 @@ void	ra_or_rra(t_stacks *stack, int chunk)
 	ft_printf("hold->pos: %d\n", pos);
 	ft_printf("Operations: %d\n", rotate);
 	ft_putendl_fd("------------before_push------------", 1);
-	print_lstnums(stack->a, stack->b);
+	print_stacks(stack);
 	push_prep(stack, g_hold);
 }
 */
@@ -189,9 +189,9 @@ int	force_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)
 		else
 			hold.temp = least_ops_force(stack, hold.fh, hold.sh);
 		if (hold.rotate == 100)
-			hold.rotate = push_prep_rotate(stack, hold.gold);
+			hold.rotate = force_rotate_check(stack, hold.gold);
 		if (hold.temp)
-			hold.compare = push_prep_rotate(stack, hold.temp);
+			hold.compare = force_rotate_check(stack, hold.temp);
 		if (hold.temp && hold.compare < hold.rotate)
 		{
 			hold.gold = hold.temp;
@@ -300,7 +300,7 @@ int	manual_run(t_stacks *stack, t_node *hold)
 	return (operations + 1);
 }
 
-int	compare_logic(t_stacks *stack, int chunk, int skip)
+int	compare_logic(t_stacks *stack, int chunk, int total, int skip)
 {
 	int			f_rotate;
 	int			m_rotate;
@@ -313,12 +313,12 @@ int	compare_logic(t_stacks *stack, int chunk, int skip)
 	f_rotate = 0;
 	m_rotate = 0;
 	f_rotate = force_rotate(*stack, &fr_hold, 1, skip);
-	print_lstnums(stack->a, stack->b);
 	m_rotate = manual_rotate(*stack, &man_hold, 1, skip);
 	ft_printf("f_rotate: %d\nfr_hold: %d\n\n", f_rotate, fr_hold->num);
 	ft_printf("m_rotate: %d\nma_hold: %d\n", m_rotate, man_hold->num);
+	ft_printf("Total: %d\n", total);
 	ft_putendl_fd("------------before_push------------", 1);
-	print_lstnums(stack->a, stack->b);
+	print_stacks(*stack);
 	if (f_rotate <= m_rotate)
 		return (rotate_run(stack, fr_hold));
 	else
@@ -356,7 +356,7 @@ void	sort_to_b(t_stacks *stack)
 	while (chunk_size(stack->a, chunk))
 	{
 		while (check_lg_sm(stack->a, chunk_div + 1, chunk, 0) == 1)
-			total += compare_logic(stack, chunk, 0);
+			total += compare_logic(stack, chunk, total, 0);
 		if (stack->a)
 			chunk++;
 		chunk_div = chunk_div + chunk_add;

@@ -45,6 +45,41 @@ int	rev_checks_rotate(t_stacks *stk, t_node *hold, int out)
 	return (1);
 }
 
+/* force_rotate_check - assymilates using the force logic but with copied stacks,
+using the hold which is being tested. None of the changes made will be applied yet
+the actions will simply be counted and returned for comparison later.
+*/
+int	force_rotate_check(t_stacks stack, t_node *hold)
+{
+	int			old_size;
+	int			rotate;
+	t_stacks	stk;
+
+	stk = stacklst_dup(stack);
+	rotate = 0;
+	old_size = stk.asize;
+	if (hold->pos < stk.asize / 2)
+	{
+		while (old_size == stk.asize)
+		{
+			rotate += rot_checks_rotate(&stk, hold, 0);
+		}
+	}
+	else
+	{
+		while (old_size == stk.asize)
+		{
+			rotate += rev_checks_rotate(&stk, hold, 0);
+		}
+	}
+	stacklst_del(&stk);
+	return (rotate);
+}
+
+/* rotate_run - is the same as force_rotate_check, but it uses the real stacks.
+this is because all calculations have been done and the current hold will yeild
+the leat amount of operations
+*/
 int	rotate_run(t_stacks *stack, t_node *hold)
 {
 	int		old_size;

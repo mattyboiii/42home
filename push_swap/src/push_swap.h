@@ -54,8 +54,6 @@ int			chunk_size_f(t_node *lst, int chunk);
 
 // logicfunk
 void		sort_to_b(t_stacks *stack);
-int			rotate_run(t_stacks *stack, t_node *hold);
-int			rotate_prep(t_stacks stack, t_node *hold, int chunk);
 
 int			check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
 void		set_big_small(t_node *lst, t_node **big, t_node **small);
@@ -87,7 +85,8 @@ int			negnum(int num);
 
 int			rot_checks_rotate(t_stacks *stk, t_node *hold, int out);
 int			rev_checks_rotate(t_stacks *stk, t_node *hold, int out);
-int			push_prep_rotate(t_stacks stack, t_node *hold);
+int			force_rotate_check(t_stacks stack, t_node *hold);
+int			rotate_run(t_stacks *stack, t_node *hold);
 
 
 int			rot_checks_swap(t_stacks *stk, t_node *hold, int out);
@@ -127,7 +126,7 @@ t_stacks	stacklst_dup(t_stacks stack);
 int			sorted_des(t_node *lst, int chunk);
 int			sorted_asc(t_node *lst, t_node *start, int chunk);
 void		numswap(t_node *bigger, t_node *smaller);
-void		print_lstnums(t_node *a, t_node *b);
+void		print_stacks(t_stacks stack);
 t_node		*simple_sort(t_node *lst);
 
 // stackfunk

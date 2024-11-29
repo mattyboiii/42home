@@ -63,7 +63,7 @@ int	push_prep_swap(t_stacks stack, t_node *hold)
 			if (hold->num == 13)
 				ft_printf("here\n");
 			rotate += rot_checks_swap(&stk, hold, 1);
-			print_lstnums(stk.a, stk.b);
+			print_stacks(stk);
 		}
 	}
 	else
@@ -71,7 +71,7 @@ int	push_prep_swap(t_stacks stack, t_node *hold)
 		while (old_size == stk.asize)
 		{
 			rotate += rev_checks_swap(&stk, hold, 1);
-			print_lstnums(stk.a, stk.b);
+			print_stacks(stk);
 		}
 	}
 	stacklst_del(&stk);

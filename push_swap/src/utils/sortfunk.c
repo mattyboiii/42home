@@ -58,178 +58,158 @@ void	numswap(t_node *bigger, t_node *smaller)
 	smaller->num = swap;
 }
 
-void print_lstnums(t_node *a, t_node *b)
+void	print_stacks(t_stacks stack)
 {
-	int		i;
-	int		j;
+	int		a = 0;
+	int		b = 0;
+	int		b_nl;
 	int		nl;
-	t_node	*list_a;
-	t_node	*list_b;
+	int		a_empty = 2;
+	int		sizea = stack.asize;
+	int		sizeb = stack.bsize;
+	t_node	*list_a = stack.a;
+	t_node	*list_b = stack.b;
 
-	list_a = a;
-	list_b = b;
-	i = 0;
-	j = 0;
-	nl = 0;
+
 	while (list_a || list_b)
 	{
-		int	size_a = a ? ft_lstlast(a)->pos + 1 : 0;
-		int	size_b = b ? ft_lstlast(b)->pos + 1 : 0;
-
-		// Determine if skipping middle numbers in list_a
-		if (list_a && (i > 14 && i < size_a - 15 && size_a > 30))
+		nl = 0;
+		b_nl = 0;
+		if (list_a)
 		{
-			if (i == 15 && !list_b)
-			{
-				ft_printf("a [...]\n");
-				nl = 1;
-			}
-			else if (i == 15 && list_b)
+			if (sizea < 30)
+				ft_printf("");
+			if (list_a && (list_a->pos == 15) && !list_b)
+					ft_printf("a [...]\n");
+			else if (list_a && list_a->pos == 15 && list_b && sizea >= 30)
 				ft_printf("a [...]      ");
-			else if (i > 15 && list_b)
+			if (list_a && a > 15 && sizea > 30)
+			{
+				while (a < (sizea - 14))
+				{
+					list_a = list_a->next;
+					a++;
+				}
+			}
+			if (list_a && sizea <= 30)
+			{
+				// Print 'a' list
+				if (a < 10)
+					ft_printf("a  [%d]: %d", a, list_a->num);
+				else if (a < 100)
+					ft_printf("a [%d]: %d", a, list_a->num);
+				else
+					ft_printf("a[%d]: %d", a, list_a->num);
+
+				// Handle spacing based on number size
+				if (list_a->num < 10 && list_a->num >= 0)
+					ft_printf("    ");  // 3 spaces after single digit
+				else if (list_a->num < 100 && list_a->num > 0)
+					ft_printf("   ");   // 2 spaces after two digits
+				else if (list_a->num < 1000 && list_a->num > 0)
+					ft_printf("  ");    // 1 space after three digits
+				else if (list_a->num < 10000 && list_a->num > 0)
+					ft_printf(" ");    // 1 space after larger numbers
+				else if (list_a->num < 0 && list_a->num > -10)
+					ft_printf("   ");   // 2 spaces after negative single digit
+				else if (list_a->num < 0 && list_a->num > -100)
+					ft_printf("  ");   // 1 space after negative two digits
+				else if (list_a->num < 0 && list_a->num > -1000)
+					ft_printf(" ");   // 1 space after negative three digits
+			}
+			else if (list_a && sizea > 30)
+			{
+				if (a <= 14 || a >= (sizea - 15))
+				{
+					// Print 'a' list
+					if (a < 10)
+						ft_printf("a  [%d]: %d", a, list_a->num);
+					else if (a < 100)
+						ft_printf("a [%d]: %d", a, list_a->num);
+					else
+						ft_printf("a[%d]: %d", a, list_a->num);
+
+					// Handle spacing based on number size
+					if (list_a->num < 10 && list_a->num >= 0)
+						ft_printf("    ");  // 3 spaces after single digit
+					else if (list_a->num < 100 && list_a->num > 0)
+						ft_printf("   ");   // 2 spaces after two digits
+					else if (list_a->num < 1000 && list_a->num > 0)
+						ft_printf("  ");    // 1 space after three digits
+					else if (list_a->num < 10000 && list_a->num > 0)
+						ft_printf(" ");    // 1 space after larger numbers
+					else if (list_a->num < 0 && list_a->num > -10)
+						ft_printf("   ");   // 2 spaces after negative single digit
+					else if (list_a->num < 0 && list_a->num > -100)
+						ft_printf("  ");   // 1 space after negative two digits
+					else if (list_a->num < 0 && list_a->num > -1000)
+						ft_printf(" ");   // 1 space after negative three digits
+				}
+			}
+			list_a = list_a->next;
+			a++;
+		}
+		if (!list_b)
+			nl = 1;
+		if (list_b)
+		{
+			if (sizea == 70 && sizeb == 30)
+				ft_printf("");
+			if (list_b && b > 15 && sizeb > 30)
+			{
+				while (b < (sizeb - 14))
+				{
+					list_b = list_b->next;
+					b++;
+				}
+			}
+			if (!list_a)
+				a_empty--;
+			if (!list_a && a_empty < 1)
 				ft_printf("             ");
-			if (!list_b)
-				nl = 1;
-			list_a = list_a->next;
-		}
-		else if (list_a)
-		{
-			// Print 'a' list
-			if (i < 10)
-				ft_printf("a  [%d]: %d", i, list_a->num);
-			else if (i < 100)
-				ft_printf("a [%d]: %d", i, list_a->num);
-			else
-				ft_printf("a[%d]: %d", i, list_a->num);
-
-			// Handle spacing based on number size
-			if (list_a->num < 10 && list_a->num >= 0)
-				ft_printf("    ");  // 3 spaces after single digit
-			else if (list_a->num < 100 && list_a->num > 0)
-				ft_printf("   ");   // 2 spaces after two digits
-			else if (list_a->num < 1000 && list_a->num > 0)
-				ft_printf("  ");    // 1 space after three digits
-			else if (list_a->num < 10000 && list_a->num > 0)
-				ft_printf(" ");    // 1 space after larger numbers
-			else if (list_a->num < 0 && list_a->num > -10)
-				ft_printf("   ");   // 2 spaces after negative single digit
-			else if (list_a->num < 0 && list_a->num > -100)
-				ft_printf("  ");   // 1 space after negative two digits
-			else if (list_a->num < 0 && list_a->num > -1000)
-				ft_printf(" ");   // 1 space after negative three digits
-			nl = 0;
-			list_a = list_a->next;
-		}
-
-		// Determine if skipping middle numbers in list_b
-		if (list_b && (i > 14 && i < size_b - 15 && size_b > 30))
-		{
-			if (i == 15)
+			if (list_b && (b == 15 && sizeb >= 30))
 			{
 				ft_printf("-----  b [...]\n");
-				nl = 1;
+			}
+			else if (list_b && sizeb <= 30)
+			{
+				if (b >= 16 && a < (sizea - 15))
+					ft_printf("             ");
+				// Print 'b' list
+				if (b < 10)
+					ft_printf("-----  b  [%d-%d]: %d", b, list_b->chunk, list_b->num);
+				else if (b < 100)
+					ft_printf("-----  b [%d-%d]: %d", b, list_b->chunk, list_b->num);
+				else
+					ft_printf("-----  b[%d-%d]: %d", b, list_b->chunk, list_b->num);
+					b_nl = 1;
+			}
+			else if (list_b && sizeb > 30)
+			{
+				if (b <= 14 || b > (sizeb - 15))
+				{
+					// Print 'b' list
+					if (b < 10)
+						ft_printf("-----  b  [%d-%d]: %d", b, list_b->chunk, list_b->num);
+					else if (b < 100)
+						ft_printf("-----  b [%d-%d]: %d", b, list_b->chunk, list_b->num);
+					else
+						ft_printf("-----  b[%d-%d]: %d", b, list_b->chunk, list_b->num);
+					b_nl = 1;
+				}
 			}
 			list_b = list_b->next;
+			b++;
 		}
-		else if (list_b)
-		{
-			// Print 'b' list
-			if (i < 10)
-				ft_printf("-----  b  [%d-%d]: %d", i, list_b->chunk, list_b->num);
-			else if (i < 100)
-				ft_printf("-----  b [%d-%d]: %d", i, list_b->chunk, list_b->num);
-			else
-				ft_printf("-----  b[%d-%d]: %d", i, list_b->chunk, list_b->num);
-			nl = 0;
-			list_b = list_b->next;
-		}
-
-		// Increment index and print newline
-		if (!list_a && j == 0)
-			j = 1;
-		if (nl == 0)
-			ft_putchar_fd('\n', 1);
-		i++;
+		if (b >= 16 && (a <= 15 || a > (sizea - 15)))
+			ft_printf("");
+		if (a > 15 && b > 15 && sizeb >= 29)
+			ft_printf("");
+		if (b_nl == 1 || (nl == 1 && (a <= 15 || a > (sizea - 15))))
+			ft_printf("\n");
 	}
-	ft_putchar_fd('\n', 1);
+	ft_printf("\n");
 }
-
-
-// void	print_lstnums(t_node *a, t_node *b)
-// {
-// 	int		i;
-// 	int		j;
-// 	t_node	*list_a;
-// 	t_node	*list_b;
-
-// 	list_a = a;
-// 	list_b = b;
-// 	i = 0;
-// 	j = 0;
-// 	while (list_a || list_b)
-// 	{
-// 		// Print 'a' list with correct spacing for index
-// 		if (list_a)
-// 		{
-// 			// Handle spacing based on index size
-// 			if (i < 10)
-// 				ft_printf("a  [%d]: %d", i, list_a->num);
-// 			else if (i < 100)
-// 				ft_printf("a [%d]: %d", i, list_a->num);
-// 			else
-// 				ft_printf("a[%d]: %d", i, list_a->num);
-
-// 			// Handle spacing based on the number size
-// 			if (list_a->num < 10 && list_a->num >= 0)
-// 				ft_printf("    ");  // 3 spaces after single digit
-// 			else if (list_a->num < 100 && list_a->num > 0)
-// 				ft_printf("   ");   // 2 spaces after two digits
-// 			else if (list_a->num < 1000 && list_a->num > 0)
-// 				ft_printf("  ");    // 1 space after three digits
-// 			else if (list_a->num < 10000 && list_a->num > 0)
-// 				ft_printf(" ");    // 1 space after three digits
-// 			else if (list_a->num < 0 && list_a->num > -10)
-// 				ft_printf("   ");   // 2 spaces after two digits
-// 			else if (list_a->num < 0 && list_a->num > -100)
-// 				ft_printf("  ");   // 2 spaces after two digits
-// 			else if (list_a->num < 0 && list_a->num > -1000)
-// 				ft_printf(" ");   // 2 spaces after two digits
-// 			list_a = list_a->next;
-// 		}
-
-// 		if (!list_a && list_b && j == 1)
-// 		{
-// 			if (i < 10)
-// 				ft_printf("                    b  [%d-%d]: %d", i,
-// 				list_b->chunk, list_b->num);
-// 			else if (i < 100)
-// 				ft_printf("                    b [%d-%d]: %d", i,
-// 				list_b->chunk, list_b->num);
-// 			else
-// 				ft_printf("                    b[%d-%d]: %d", i,
-// 				list_b->chunk, list_b->num);
-// 			list_b = list_b->next;
-// 		}
-// 		// Print 'b' list with correct formatting (if list_b is not NULL)
-// 		else if ((list_a && list_b)|| (!list_a && list_b && j == 0))
-// 		{
-// 			if (i < 10)
-// 				ft_printf("-----  b  [%d-%d]: %d", i, list_b->chunk,
-// 				list_b->num);
-// 			else if (i < 100)
-// 				ft_printf("-----  b [%d-%d]: %d", i, list_b->chunk, list_b->num);
-// 			else
-// 				ft_printf("-----  b[%d-%d]: %d", i, list_b->chunk, list_b->num);
-
-// 			list_b = list_b->next;
-// 		}
-// 		if (!list_a && j == 0)
-// 			j = 1;
-// 		ft_putchar_fd('\n', 1);
-// 		i++;
-// 	}
-// 		ft_putchar_fd('\n', 1);
-// }
 
 t_node	*simple_sort(t_node *lst)
 {
