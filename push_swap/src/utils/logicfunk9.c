@@ -47,37 +47,3 @@ int	rev_checks_swap(t_stacks *stk, t_node *hold, int out)
 }
 
 
-int	push_prep_swap(t_stacks stack, t_node *hold)
-{
-	int			old_size;
-	int			rotate;
-	t_stacks	stk;
-
-	stk = stacklst_dup(stack);
-	rotate = 0;
-	old_size = stk.asize;
-	if (hold->pos < stk.asize / 2)
-	{
-		while (old_size == stk.asize)
-		{
-			if (hold->num == 13)
-				ft_printf("here\n");
-			rotate += rot_checks_swap(&stk, hold, 1);
-			print_stacks(stk);
-		}
-	}
-	else
-	{
-		while (old_size == stk.asize)
-		{
-			rotate += rev_checks_swap(&stk, hold, 1);
-			print_stacks(stk);
-		}
-	}
-	stacklst_del(&stk);
-	return (rotate);
-}
-
-// change this to take in two variables, hold and hold future. if top number is <
-// chunk_div try if push on it. If it passes. push it. If it fails. hold its spot
-// with swap. either way. I am never using only rb or rrb

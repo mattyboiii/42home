@@ -22,7 +22,7 @@ int	if_push(t_stacks stack, t_node *hold)
 	stack_temp.b = copy_lst(stack.b);
 	pb(&stack_temp, 0);
 
-	if (order_check(&stack_temp.b, stack.a->chunk) == 1)
+	if (order_check(&stack_temp.b) == 1)
 	{
 		ft_lstclear(&stack_temp.a);
 		ft_lstclear(&stack_temp.b);

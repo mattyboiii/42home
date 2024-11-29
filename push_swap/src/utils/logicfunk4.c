@@ -13,7 +13,7 @@
 #include "../push_swap.h"
 
 // comp = compare
-int	order_check(t_node **lst, int chunk)
+int	order_check(t_node **lst)
 {
 	int		cut;
 	t_node	*big;
@@ -46,14 +46,14 @@ int	order_rot_push(t_node **b, t_node *hold, int chunk)
 	int			rot;
 	t_stacks	stack_temp;
 
-	if (chunk <= 1 && chunk_size(*b, chunk) < 2)
+	if (ft_lstsize(*b) < 2)
 		return (0);
 	stack_temp.a = copy_node(hold);
 	stack_temp.b = copy_lst(*b);
 	rot = 0;
 	stack_temp.b->chunk = chunk;
 	pb(&stack_temp, 0);
-	while (order_check(&stack_temp.b, chunk) == 0 && rot <= hold->div)
+	while (order_check(&stack_temp.b) == 0 && rot <= hold->div)
  	{
 		if (stack_temp.b->num == hold->num)
 			pa(&stack_temp, 0);
@@ -78,7 +78,7 @@ int	order_rev_push(t_node **b, t_node *hold, int chunk)
 	rev = 0;
 	stack_temp.b->chunk = chunk;
 	pb(&stack_temp, 0);
-	while (order_check(&stack_temp.b, chunk) == 0 && rev <= hold->div)
+	while (order_check(&stack_temp.b) == 0 && rev <= hold->div)
  	{
 		if (stack_temp.b->num == hold->num)
 			pa(&stack_temp, 0);
