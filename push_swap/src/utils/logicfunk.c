@@ -205,13 +205,13 @@ int	force_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)
 	return (hold.rotate);
 }
 
-int	force_rotate(t_stacks stack, t_node **fr_hold, int skip)
+int	force_rotate(t_stacks stack, t_node **fr_hold, int loop, int skip)
 {
 	int			rotate;
 	t_hold		hold;
 
 	rotate = 0;
-	set_holds(&hold, *fr_hold, 1);
+	set_holds(&hold, *fr_hold, loop);
 	rotate = force_loop(stack, hold, fr_hold, skip);
 	return (rotate);
 }
@@ -265,13 +265,13 @@ int	manual_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)
 	return (hold.rotate);
 }
 
-int	manual_rotate(t_stacks stack, t_node **man_hold, int skip)
+int	manual_rotate(t_stacks stack, t_node **man_hold, int loop, int skip)
 {
 	int			rotate;
 	t_hold		hold;
 
 	rotate = 0;
-	set_holds(&hold, NULL, 1);
+	set_holds(&hold, NULL, loop);
 	rotate = manual_loop(stack, hold, man_hold, skip);
 	return (rotate);
 }
@@ -312,9 +312,9 @@ int	compare_logic(t_stacks *stack, int chunk, int skip)
 	skip = 0;
 	f_rotate = 0;
 	m_rotate = 0;
-	f_rotate = force_rotate(*stack, &fr_hold, skip);
+	f_rotate = force_rotate(*stack, &fr_hold, 1, skip);
 	print_lstnums(stack->a, stack->b);
-	m_rotate = manual_rotate(*stack, &man_hold, skip);
+	m_rotate = manual_rotate(*stack, &man_hold, 1, skip);
 	ft_printf("f_rotate: %d\nfr_hold: %d\n\n", f_rotate, fr_hold->num);
 	ft_printf("m_rotate: %d\nma_hold: %d\n", m_rotate, man_hold->num);
 	ft_putendl_fd("------------before_push------------", 1);
@@ -346,8 +346,9 @@ void	sort_to_b(t_stacks *stack)
 	int		chunk_div;
 	int		chunk_add;
 	int		chunk;
+	int		total;
 
-	print_lstnums(stack->a, stack->b);
+	total = 0;
 	chunk = 1;
 	chunk_div = get_chunk_number(stack->a);
 	chunk_add = chunk_div;
@@ -355,11 +356,7 @@ void	sort_to_b(t_stacks *stack)
 	while (chunk_size(stack->a, chunk))
 	{
 		while (check_lg_sm(stack->a, chunk_div + 1, chunk, 0) == 1)
-		{
-			compare_logic(stack, chunk, 0);
-			ft_putendl_fd("------------Current Stage------------", 1);
-			print_lstnums(stack->a, stack->b);
-		}
+			total += compare_logic(stack, chunk, 0);
 		if (stack->a)
 			chunk++;
 		chunk_div = chunk_div + chunk_add;

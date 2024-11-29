@@ -46,29 +46,6 @@ int	rev_checks_swap(t_stacks *stk, t_node *hold, int out)
 	return (1);
 }
 
-int	rotate_run(t_stacks *stack, t_node *hold)
-{
-	int		old_size;
-	int		rotate;
-
-	rotate = 0;
-	old_size = stack->asize;
-	if (hold->pos < stack->asize / 2)
-	{
-		while (old_size == stack->asize)
-		{
-			rotate += rot_checks_rotate(stack, hold, 1);
-		}
-	}
-	else
-	{
-		while (old_size == stack->asize)
-		{
-			rotate += rev_checks_rotate(stack, hold, 1);
-		}
-	}
-	return (rotate);
-}
 
 int	push_prep_swap(t_stacks stack, t_node *hold)
 {
