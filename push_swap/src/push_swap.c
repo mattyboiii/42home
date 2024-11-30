@@ -179,8 +179,6 @@ void	ft_exit(int n)
 	if (n == 6)
 	{
 		ft_putendl_fd("Error", 2);
-		ft_putchar_fd("", 1);
-		ft_putchar_fd("", 2);
 		exit(0);
 	}
 }
@@ -216,5 +214,4 @@ int	main(int arc, char **arv)
 		total_operations = sort_to_b(&stack);
 	ft_lstclear(&stack.a);
 	ft_lstclear(&stack.b);
-	exit(600);
 }

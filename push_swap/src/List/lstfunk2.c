@@ -23,7 +23,7 @@ void	fill_a(t_stacks *stack, char **arv)
 	node = stack->a;
 	while (arv[i] && arv[i + j])
 	{
-		if (arv[i][0] == '/')
+		if (arv[i][0] == '/' || arv[0][0] == '.')
 		{
 			node = ft_lstnew(ft_atoi(arv[i + 1]), i, 'a');
 			j++;
