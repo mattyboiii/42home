@@ -16,7 +16,7 @@
 move with desired algorythm. Then compare them below. */
 //int		try_swap(t_stacks stack,
 
-int	compare_logic(t_stacks *stack, int chunk, int total, int skip)
+int	compare_logic(t_stacks *stack, int chunk, int iterations, int skip)
 {
 	int			f_rotate;
 	int			m_rotate;
@@ -29,7 +29,7 @@ int	compare_logic(t_stacks *stack, int chunk, int total, int skip)
 	f_rotate = 100;
 	m_rotate = 0;
 	if (stack->asize >= 2)
-		f_rotate = force_rotate(*stack, &fr_hold, 1, skip);
+		f_rotate = force_rotate(*stack, &fr_hold, iterations, skip);
 	m_rotate = manual_rotate(*stack, &man_hold, 1, skip);
 	if (posnum(f_rotate) <= m_rotate)
 		return (rotate_run(stack, fr_hold, f_rotate));
@@ -62,6 +62,8 @@ int	sort_to_a(t_stacks *stack, int last_melon, int rr)
 			rr = 0;
 		}
 		total += pa(stack, 1);
+		ft_printf("Total: %d\n", total);
+		ft_printf("Total +: %d\n", total + 312);
 	}
 	return (total);
 }
@@ -84,7 +86,10 @@ int	sort_to_b(t_stacks *stack)
 	{
 		while (check_lg_sm(stack->a, chunk_div + 1, chunk, 0) == 1
 				&& stack->asize > 1)
-			total += compare_logic(stack, chunk, total, 0);
+		{
+			total += compare_logic(stack, chunk, 1, 1);
+			ft_printf("Total: %d\n", total);
+		}
 		if (stack->a)
 			chunk++;
 		chunk_div = chunk_div + chunk_add;

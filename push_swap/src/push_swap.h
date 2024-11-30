@@ -51,7 +51,7 @@ typedef struct s_holds
 // functions in my src dir
 // ---  --------------------
 // push_swap.c
-//void		print_stacks(t_stacks stack);
+void		print_stacks(t_stacks stack);
 
 // BasicSort.c
 void		set_big_small(t_node *lst, t_node **big, t_node **small);
@@ -60,7 +60,7 @@ void		sort5(t_stacks stack);
 t_node		*get_midnode(t_node *lst, int chunk);
 
 // logicfunk
-int			compare_logic(t_stacks *stack, int chunk, int total, int skip);
+int			compare_logic(t_stacks *stack, int chunk, int iterations, int skip);
 int			sort_to_a(t_stacks *stack, int last_melon, int rr);
 int			sort_to_b(t_stacks *stack);
 void		set_holds(t_hold *hold, t_node *gold_hold, int iterations);
@@ -69,8 +69,8 @@ void		set_holds(t_hold *hold, t_node *gold_hold, int iterations);
 int			check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
 int			get_chunk_number(t_node *lst);
 int			closest_hold(t_stacks stack, t_node **hold_a, t_node **hold_b, int future);
-t_node		*hold_first(t_node *lst, int chunk_div, int future);
-t_node		*hold_second(t_node *lst, int chunk_div, int future);
+t_node		*hold_first(t_stacks stack, int chunk_div, int future);
+t_node		*hold_second(t_stacks stack, int chunk_div, int future);
 
 // logicfunk3
 int			rotate_prep(t_stacks stack, t_node *hold, int chunk);

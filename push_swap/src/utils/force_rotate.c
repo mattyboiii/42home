@@ -133,6 +133,7 @@ t_node	 *ops_force(t_stacks stack, t_hold *hold, t_node *hold_a, t_node *hold_b)
 		hold->rotate = -1;
 		return (hold_b);
 	}
-	hold->rotate = 1;
+	if (!hold->rotate)
+		hold->rotate = 1;
 	return (hold_a);
 }

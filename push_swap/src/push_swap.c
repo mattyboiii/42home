@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-/* this print function was used to display the code
+// this print function was used to display the code
 void	print_stacks(t_stacks stack)
 {
 	int		a = 0;
@@ -165,11 +165,11 @@ void	print_stacks(t_stacks stack)
 	}
 	ft_printf("\n");
 }
-*/
 
 int	main(int arc, char **arv)
 {
-	t_stacks stack;
+	int			total_operations;
+	t_stacks 	stack;
 
 	stack.a = NULL;
 	stack.b = NULL;
@@ -186,7 +186,7 @@ int	main(int arc, char **arv)
 	else if (stack.asize <= 5)
 		sort5(stack);
 	else
-		sort_to_b(&stack);
+		total_operations = sort_to_b(&stack);
 	ft_lstclear(&stack.a);
 	ft_lstclear(&stack.b);
 	exit(600);

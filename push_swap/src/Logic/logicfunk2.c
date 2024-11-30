@@ -63,16 +63,16 @@ allows for less operations when sending it to b/
 */
 int	closest_hold(t_stacks stack, t_node **hold_a, t_node **hold_b, int future)
 {
-	*hold_a = hold_first(stack.a, stack.a->div, future);
-	*hold_b = hold_second(stack.a, stack.a->div, future);
+	*hold_a = hold_first(stack, stack.a->div, future);
+	*hold_b = hold_second(stack, stack.a->div, future);
 }
 
-t_node	*hold_first(t_node *lst, int chunk_div, int future)
+t_node	*hold_first(t_stacks stack, int chunk_div, int future)
 {
-	int		size;
+	t_node		*lst;
 
-	size = ft_lstlast(lst)->pos / 2;
-	while (lst && lst->pos <= size)
+	lst = stack.a;
+	while (lst && lst->pos <= stack.asize / 2)
 	{
 		if (lst->num <= chunk_div && future)
 			future--;
@@ -83,13 +83,13 @@ t_node	*hold_first(t_node *lst, int chunk_div, int future)
 	return (NULL);
 }
 
-t_node	*hold_second(t_node *lst, int chunk_div, int future)
+t_node	*hold_second(t_stacks stack, int chunk_div, int future)
 {
-	int		size;
+	t_node		*lst;
 
+	lst = stack.a;
 	lst = ft_lstlast(lst);
-	size = ft_lstlast(lst)->pos / 2;
-	while (lst && lst->pos > size)
+	while (lst && lst->pos > stack.asize / 2)
 	{
 		if (lst->num <= chunk_div && future)
 			future--;
