@@ -116,7 +116,7 @@ int			ft_lstsize(t_node *lst);
 void		ft_lstadd_front(t_node **lst, t_node *new);
 void		ft_lstadd_back(t_node **lst, t_node *new);
 t_node		*ft_lstlast(t_node *lst);
-t_node		*ft_lstnew(int num, int pos, char c);
+t_node		*ft_lstnew(int num, char c);
 
 // lstfunk2
 void		fill_a(t_stacks *stack, char **arv);
@@ -149,7 +149,7 @@ int			rr(t_stacks *stack, int print);
 int			rrs(t_node **lst, int print);
 int			rrr(t_stacks *stack, int print);
 
-// utils
+// error_checks
 void		error_check_arv(char **arv);
 
 #endif

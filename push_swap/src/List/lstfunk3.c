@@ -46,11 +46,11 @@ t_node	*copy_node(t_node *node)
 	copy = NULL;
 	if (!node)
 		return (NULL);
-	ft_lstadd_front(&copy, ft_lstnew(node->num, node->pos,
-			node->stack[0]));
+	ft_lstadd_front(&copy, ft_lstnew(node->num, node->stack[0]));
 	if (!copy)
 		return (NULL);
 	copy->chunk = node->chunk;
+	copy->pos = node->pos;
 	copy->prev = NULL;
 	copy->next = NULL;
 	return (copy);
@@ -65,11 +65,11 @@ t_node	*copy_lst(t_node *lst)
 		return (NULL);
 	while (lst)
 	{
-		ft_lstadd_back(&copy, ft_lstnew(lst->num, lst->pos,
-				lst->stack[0]));
+		ft_lstadd_back(&copy, ft_lstnew(lst->num, lst->stack[0]));
 		ft_lstlast(copy)->chunk = lst->chunk;
 		ft_lstlast(copy)->div = lst->div;
 		lst = lst->next;
 	}
+	ft_stackposupdate(copy);
 	return (copy);
 }

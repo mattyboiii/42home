@@ -15,26 +15,21 @@
 void	fill_a(t_stacks *stack, char **arv)
 {
 	int			i;
-	int			j;
 	t_node		*node;
 
 	i = 0;
-	j = 0;
-	node = stack->a;
-	while (arv[i] && arv[i + j])
+	if (arv[0][0] == '/' || arv[0][0] == '.')
+		i = 1;
+	node = NULL;
+	while (arv[i])
 	{
-		if (arv[i][0] == '/' || arv[0][0] == '.')
-		{
-			node = ft_lstnew(ft_atoi(arv[i + 1]), i, 'a');
-			j++;
-		}
-		else
-			node = ft_lstnew(ft_atoi(arv[i + j]), i, 'a');
+		node = ft_lstnew(ft_atoi(arv[i]), 'a');
 		if (node == NULL)
 			return ;
 		ft_lstadd_back(&stack->a, node);
 		i++;
 	}
+	ft_stackposupdate(stack->a);
 	stack->asize = ft_lstlast(stack->a)->pos + 1;
 	stack->bsize = 0;
 }

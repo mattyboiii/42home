@@ -18,12 +18,12 @@ SRC = src/push_swap.c \
 	src/List/lstfunk2.c \
 	src/List/lstfunk3.c \
 	src/utils/BasicSort.c \
+	src/utils/error_check.c \
 	src/utils/force_rotate.c \
 	src/utils/manual_rotate.c \
 	src/utils/sortfunk.c \
 	src/utils/stackfunk.c \
-	src/utils/stackfunk2.c \
-	src/utils/utils.c
+	src/utils/stackfunk2.c
 
 # Rules
 # 1
