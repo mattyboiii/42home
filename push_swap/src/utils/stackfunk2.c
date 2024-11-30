@@ -12,6 +12,23 @@
 
 #include "../push_swap.h"
 
+int	s(t_node **lst, int print)
+{
+	int		swap;
+
+	if (*lst == NULL || (*lst)->next == NULL)
+		return (0);
+	swap = (*lst)->num;
+	(*lst)->num = (*lst)->next->num;
+	(*lst)->next->num = swap;
+	if (print == 1)
+	{
+		ft_putchar_fd('s', 1);
+		ft_putendl_fd((*lst)->stack, 1);
+	}
+	return (1);
+}
+
 int	ss(t_stacks *stack, int print)
 {
 	s(&stack->a, 0);

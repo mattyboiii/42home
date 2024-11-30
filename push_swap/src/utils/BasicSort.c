@@ -74,7 +74,7 @@ void	sort5(t_stacks st)
 
 	set_big_small(st.a, &big, &small);
 	midnum = get_midnode(st.a, 0)->num;
-	while (chunk_size(st.a, 0) > 3)
+	while (st.asize > 3)
 	{
 		if (st.a->num < midnum || st.a == big)
 			pb(&st, 1);
@@ -104,9 +104,9 @@ t_node	*get_midnode(t_node *lst, int chunk)
 
 	sorted = NULL;
 	out = lst;
-	if (chunk_size(lst, chunk) <= 2 || lst->next == NULL)
+	if (ft_lstsize(lst) <= 2 || lst->next == NULL)
 		return (lst);
-	sorted = simple_sort(copy_lst_chunk(lst, chunk));
+	sorted = simple_sort(copy_lst(lst));
 	last = ft_lstlast(sorted);
 	midnode = get_node(sorted, (last->pos + 1) / 2);
 	while (out && out->num != midnode->num)

@@ -12,23 +12,6 @@
 
 #include "../push_swap.h"
 
-int	s(t_node **lst, int print)
-{
-	int		swap;
-
-	if (*lst == NULL || (*lst)->next == NULL)
-		return (0);
-	swap = (*lst)->num;
-	(*lst)->num = (*lst)->next->num;
-	(*lst)->next->num = swap;
-	if (print == 1)
-	{
-		ft_putchar_fd('s', 1);
-		ft_putendl_fd((*lst)->stack, 1);
-	}
-	return (1);
-}
-
 int	r(t_node **lst, int print)
 {
 	t_node	*swapnode;
@@ -91,3 +74,20 @@ int	pb(t_stacks *stack, int print)
 	return (1);
 }
 
+t_stacks	stacklst_dup(t_stacks stack)
+{
+	t_stacks	stk;
+	stk.a = NULL;
+	stk.b = NULL;
+	stk.a = copy_lst(stack.a);
+	stk.b = copy_lst(stack.b);
+	stk.asize = stack.asize;
+	stk.bsize = stack.bsize;
+	return (stk);
+}
+
+void	stacklst_del(t_stacks *stack)
+{
+	ft_lstclear(&stack->a);
+	ft_lstclear(&stack->b);
+}
