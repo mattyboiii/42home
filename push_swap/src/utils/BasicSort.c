@@ -72,26 +72,26 @@ void	sort5(t_stacks st)
 	t_node		*small;
 	t_node		*big;
 
-	set_big_small(st.a, &big, &small);
-	midnum = get_midnode(st.a, 0)->num;
-	while (st.asize > 3)
+	set_big_small(m.a, &big, &small);
+	midnum = get_midnode(m.a, 0)->num;
+	while (m.asize > 3)
 	{
-		if (st.a->num < midnum || st.a == big)
+		if (m.a->num < midnum || m.a == big)
 			pb(&st, 1);
-		if (ft_lstlast(st.a)->num < midnum || ft_lstlast(st.a)->num == big->num)
-			rrs(&st.a, 1);
-		else if (st.a->num >= midnum && st.a->num < big->num)
-			r(&st.a, 1);
+		if (ft_lstlast(m.a)->num < midnum || ft_lstlast(m.a)->num == big->num)
+			rrs(&m.a, 1);
+		else if (m.a->num >= midnum && m.a->num < big->num)
+			r(&m.a, 1);
 	}
-	sort3(&st.a);
-	while (sorted_asc(st.a, st.a, 0) == 0 || st.b)
+	sort3(&m.a);
+	while (sorted_asc(m.a, m.a, 0) == 0 || m.b)
 	{
-		if (sorted_asc(st.a, st.a, 0) == 1 && st.b)
+		if (sorted_asc(m.a, m.a, 0) == 1 && m.b)
 			pa(&st, 1);
-		if (st.a->num > ft_lstlast(st.a)->num)
-			r(&st.a, 1);
-		else if (st.a->num < get_node(st.a, 2)->num && st.a->num > st.a->next->num)
-			s(&st.a, 1);
+		if (m.a->num > ft_lstlast(m.a)->num)
+			r(&m.a, 1);
+		else if (m.a->num < get_node(m.a, 2)->num && m.a->num > m.a->next->num)
+			s(&m.a, 1);
 	}
 }
 

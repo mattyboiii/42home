@@ -87,4 +87,3 @@ t_node	*ft_lstnew(int num, int pos, char c)
 	node->div = 0;
 	return (node);
 }
-

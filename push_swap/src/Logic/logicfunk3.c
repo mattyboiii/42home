@@ -40,7 +40,7 @@ int	order_rev_push(t_node **b, t_node *hold, int chunk)
 	stack_temp.b->chunk = chunk;
 	pb(&stack_temp, 0);
 	while (order_check(&stack_temp.b) == 0 && rev <= hold->div)
- 	{
+	{
 		if (stack_temp.b->num == hold->num)
 			pa(&stack_temp, 0);
 		rrs(&stack_temp.b, 0);
@@ -65,7 +65,7 @@ int	order_rot_push(t_node **b, t_node *hold, int chunk)
 	stack_temp.b->chunk = chunk;
 	pb(&stack_temp, 0);
 	while (order_check(&stack_temp.b) == 0 && rot <= hold->div)
- 	{
+	{
 		if (stack_temp.b->num == hold->num)
 			pa(&stack_temp, 0);
 		r(&stack_temp.b, 0);
@@ -90,7 +90,6 @@ int	order_check(t_node **lst)
 	compare = big->next;
 	while (compare != big)
 	{
-
 		if (compare->num > compare->prev->num)
 		{
 			cut_circle(lst, cut);

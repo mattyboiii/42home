@@ -66,7 +66,6 @@ int	sort_to_a(t_stacks *stack, int last_melon, int rr)
 	return (total);
 }
 
-
 int	sort_to_b(t_stacks *stack)
 {
 	int		chunk_div;
@@ -83,10 +82,8 @@ int	sort_to_b(t_stacks *stack)
 	while (stack->asize > 1)
 	{
 		while (check_lg_sm(stack->a, chunk_div + 1, chunk, 0) == 1
-				&& stack->asize > 1)
-		{
+			&& stack->asize > 1)
 			total += compare_logic(stack, chunk, 1, 1);
-		}
 		if (stack->a)
 			chunk++;
 		chunk_div = chunk_div + chunk_add;

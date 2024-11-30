@@ -14,7 +14,7 @@
 
 int	make_circle(t_node **lst)
 {
-	t_node *last;
+	t_node	*last;
 
 	last = ft_lstlast(*lst);
 	(*lst)->prev = last;
@@ -24,7 +24,7 @@ int	make_circle(t_node **lst)
 
 void	cut_circle(t_node **lst, int cut)
 {
-	t_node *head;
+	t_node	*head;
 
 	head = *lst;
 	if (*lst == NULL)
@@ -45,10 +45,10 @@ void	cut_circle(t_node **lst, int cut)
 
 /*
 rot_checks_rotate - will, look for the hold number and ensure that the b stack
-is ready to accept the number. Meaning ensure if hold is pushed, it will be in the
-right position within the stack b. It also uses rr depending on if the top number
-in stack a is hold, or at least a number <= Divider number. This function will
-only use rotate operations.
+is ready to accept the number. Meaning ensure if hold is pushed, it will be in
+the right position within the stack b. It also uses rr depending on if the top
+number in stack a is hold, or at least a number <= Divider number. This function
+will only use rotate operations.
 */
 
 int	rot_checks_rotate(t_stacks *stk, t_node *hold, int out)
@@ -65,7 +65,8 @@ int	rot_checks_rotate(t_stacks *stk, t_node *hold, int out)
 }
 
 /*
-rev_checks_rotate - is the same as rot_checks_rotate, but it only uses revers rotate
+rev_checks_rotate - is the same as rot_checks_rotate, but it only uses reverse
+rotate
 operations.
 */
 int	rev_checks_rotate(t_stacks *stk, t_node *hold, int out)
@@ -90,7 +91,6 @@ int	if_push(t_stacks stack, t_node *hold)
 	stack_temp.a = copy_node(hold);
 	stack_temp.b = copy_lst(stack.b);
 	pb(&stack_temp, 0);
-
 	if (order_check(&stack_temp.b) == 1)
 	{
 		ft_lstclear(&stack_temp.a);
@@ -104,5 +104,3 @@ int	if_push(t_stacks stack, t_node *hold)
 		return (0);
 	}
 }
-
-

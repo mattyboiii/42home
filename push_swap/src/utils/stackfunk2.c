@@ -80,4 +80,3 @@ int	rrs(t_node **lst, int print)
 	}
 	return (1);
 }
-

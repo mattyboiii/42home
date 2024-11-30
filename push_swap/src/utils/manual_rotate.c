@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-int	 least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
+int	least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
 						t_node	**gold_hold)
 {
 	int		ops_top;
@@ -21,10 +21,11 @@ int	 least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
 	ops_top = 1000;
 	ops_bot = 1000;
 	if (hold_a)
-		ops_top = posnum(rotate_prep(stack, hold_a, stack.a->chunk)) + hold_a->pos;
+		ops_top = posnum(rotate_prep(stack, hold_a, stack.a->chunk))
+			+ hold_a->pos;
 	if (hold_b)
 		ops_bot = posnum(rotate_prep(stack, hold_b, stack.a->chunk))
-		+ (stack.asize - hold_b->pos);
+			+ (stack.asize - hold_b->pos);
 	if (ops_top <= ops_bot)
 	{
 		*gold_hold = hold_a;

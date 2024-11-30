@@ -77,6 +77,7 @@ int	pb(t_stacks *stack, int print)
 t_stacks	stacklst_dup(t_stacks stack)
 {
 	t_stacks	stk;
+
 	stk.a = NULL;
 	stk.b = NULL;
 	stk.a = copy_lst(stack.a);

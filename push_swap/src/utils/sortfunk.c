@@ -48,7 +48,6 @@ int	sorted_asc(t_node *lst, t_node *start, int chunk)
 	return (1);
 }
 
-
 void	numswap(t_node *bigger, t_node *smaller)
 {
 	int		swap;

@@ -12,10 +12,9 @@
 
 #include "../push_swap.h"
 
-
-/* force_rotate_check - assymilates using the force logic but with copied stacks,
-using the hold which is being tested. None of the changes made will be applied yet
-the actions will simply be counted and returned for comparison later.
+/* force_rotate_check - assymilates using the force logic but with copied
+stacks, using the hold which is being tested. None of the changes made will be
+applied yet the actions will simply be counted and returned for comparison later.
 */
 int	force_rotate_check(t_stacks stack, t_node *hold, int rotate)
 {
@@ -112,7 +111,8 @@ they are equal. this supports my force_rotate logic because I want to force
 both stack A and B to move together depending on the number which gives me the
 least amount of operations
 */
-t_node	 *ops_force(t_stacks stack, t_hold *hold, t_node *hold_a, t_node *hold_b)
+t_node	*ops_force(t_stacks stack, t_hold *hold, t_node *hold_a,
+			t_node *hold_b)
 {
 	int		ops_top;
 	int		ops_bot;

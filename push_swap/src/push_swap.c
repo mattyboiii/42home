@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-// this print function was used to display the code
+/* this print function was used to display the code
 void	print_stacks(t_stacks stack)
 {
 	int		a = 0;
@@ -94,7 +94,7 @@ void	print_stacks(t_stacks stack)
 					else if (list_a->num < 10000 && list_a->num > 0)
 						ft_printf(" ");    // 1 space after larger numbers
 					else if (list_a->num < 0 && list_a->num > -10)
-						ft_printf("   ");   // 2 spaces after negative single digit
+						ft_printf("   ");   // 2 spaces after negative single di
 					else if (list_a->num < 0 && list_a->num > -100)
 						ft_printf("  ");   // 1 space after negative two digits
 					else if (list_a->num < 0 && list_a->num > -1000)
@@ -132,11 +132,14 @@ void	print_stacks(t_stacks stack)
 					ft_printf("             ");
 				// Print 'b' list
 				if (b < 10)
-					ft_printf("-----  b  [%d-%d]: %d", b, list_b->chunk, list_b->num);
+					ft_printf("-----  b  [%d-%d]: %d", b, list_b->chunk,
+							list_b->num);
 				else if (b < 100)
-					ft_printf("-----  b [%d-%d]: %d", b, list_b->chunk, list_b->num);
+					ft_printf("-----  b [%d-%d]: %d", b, list_b->chunk,
+							list_b->num);
 				else
-					ft_printf("-----  b[%d-%d]: %d", b, list_b->chunk, list_b->num);
+					ft_printf("-----  b[%d-%d]: %d", b, list_b->chunk,
+							list_b->num);
 					b_nl = 1;
 			}
 			else if (list_b && sizeb > 30)
@@ -145,11 +148,14 @@ void	print_stacks(t_stacks stack)
 				{
 					// Print 'b' list
 					if (b < 10)
-						ft_printf("-----  b  [%d-%d]: %d", b, list_b->chunk, list_b->num);
+						ft_printf("-----  b  [%d-%d]: %d", b, list_b->chunk,
+							list_b->num);
 					else if (b < 100)
-						ft_printf("-----  b [%d-%d]: %d", b, list_b->chunk, list_b->num);
+						ft_printf("-----  b [%d-%d]: %d", b, list_b->chunk,
+							list_b->num);
 					else
-						ft_printf("-----  b[%d-%d]: %d", b, list_b->chunk, list_b->num);
+						ft_printf("-----  b[%d-%d]: %d", b, list_b->chunk,
+							list_b->num);
 					b_nl = 1;
 				}
 			}
@@ -165,11 +171,12 @@ void	print_stacks(t_stacks stack)
 	}
 	ft_printf("\n");
 }
+*/
 
 int	main(int arc, char **arv)
 {
 	int			total_operations;
-	t_stacks 	stack;
+	t_stacks	stack;
 
 	stack.a = NULL;
 	stack.b = NULL;

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   by: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   created: 2024/09/27 10:58:12 by mtripodi          #+#    #+#             */
-/*   updated: 2024/09/29 12:15:18 by mtripodi         ###   ########.fr       */
+/*   Created: 2024-09-27 10:58:12 by mtripodi          #+#    #+#             */
+/*   Updated: 2024-11-30 03:48:17 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef push_swap_h
-# define push_swap_h
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 # include <unistd.h> //dup, dup2, access
 # include <stdio.h> //printf
 # include <stdlib.h> //free, malloc
@@ -68,7 +68,8 @@ void		set_holds(t_hold *hold, t_node *gold_hold, int iterations);
 // logicfunk2
 int			check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
 int			get_chunk_number(t_node *lst);
-int			closest_hold(t_stacks stack, t_node **hold_a, t_node **hold_b, int future);
+int			closest_hold(t_stacks stack, t_node **hold_a, t_node **hold_b,
+				int future);
 t_node		*hold_first(t_stacks stack, int chunk_div, int future);
 t_node		*hold_second(t_stacks stack, int chunk_div, int future);
 
@@ -92,17 +93,21 @@ void		rev_machine(t_node **lst, int n, int print);
 
 // force_rotate
 int			force_rotate_check(t_stacks stack, t_node *hold, int rotate);
-int			force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop);
+int			force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold,
+				int loop);
 int			force_rotate(t_stacks stack, t_node **fr_hold, int loop, int skip);
 int			rotate_run(t_stacks *stack, t_node *hold, int rotate);
-t_node		*ops_force(t_stacks stack, t_hold *hold, t_node *hold_a, t_node *hold_b);
+t_node		*ops_force(t_stacks stack, t_hold *hold, t_node *hold_a,
+				t_node *hold_b);
 
 // manual_rotate
-int	 least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
-						t_node	**gold_hold);
-int	manual_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop);
-int	manual_rotate(t_stacks stack, t_node **man_hold, int loop, int skip);
-int	manual_run(t_stacks *stack, t_node *hold);
+int			least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
+				t_node	**gold_hold);
+int			manual_loop(t_stacks stack, t_hold hold, t_node **gold_hold,
+				int loop);
+int			manual_rotate(t_stacks stack, t_node **man_hold, int loop,
+				int skip);
+int			manual_run(t_stacks *stack, t_node *hold);
 
 // lstfunk
 int			ft_lstsize(t_node *lst);
@@ -122,7 +127,6 @@ int			update_chunk_div(t_node *lst, int chunk_div, int chunk);
 t_node		*get_node(t_node *lst, int index);
 t_node		*copy_node(t_node *node);
 t_node		*copy_lst(t_node *lst);
-
 
 // sortfunk
 int			sorted_des(t_node *lst, int chunk);

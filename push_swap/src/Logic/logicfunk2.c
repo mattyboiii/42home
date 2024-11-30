@@ -99,5 +99,3 @@ t_node	*hold_second(t_stacks stack, int chunk_div, int future)
 	}
 	return (NULL);
 }
-
-

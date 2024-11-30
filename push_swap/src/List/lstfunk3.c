@@ -14,7 +14,7 @@
 
 int	update_chunk_div(t_node *lst, int chunk_div, int chunk)
 {
-	t_node *head;
+	t_node		*head;
 
 	if (!lst)
 		return (-1);
@@ -29,7 +29,7 @@ int	update_chunk_div(t_node *lst, int chunk_div, int chunk)
 
 t_node	*get_node(t_node *lst, int index)
 {
-	t_node	*node;
+	t_node		*node;
 
 	node = lst;
 	if (lst == NULL)
@@ -41,13 +41,13 @@ t_node	*get_node(t_node *lst, int index)
 
 t_node	*copy_node(t_node *node)
 {
-	t_node	*copy;
+	t_node		*copy;
 
 	copy = NULL;
 	if (!node)
-	return (NULL);
+		return (NULL);
 	ft_lstadd_front(&copy, ft_lstnew(node->num, node->pos,
-		node->stack[0]));
+			node->stack[0]));
 	if (!copy)
 		return (NULL);
 	copy->chunk = node->chunk;
