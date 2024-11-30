@@ -62,8 +62,6 @@ int	sort_to_a(t_stacks *stack, int last_melon, int rr)
 			rr = 0;
 		}
 		total += pa(stack, 1);
-		ft_printf("Total: %d\n", total);
-		ft_printf("Total +: %d\n", total + 312);
 	}
 	return (total);
 }
@@ -88,7 +86,6 @@ int	sort_to_b(t_stacks *stack)
 				&& stack->asize > 1)
 		{
 			total += compare_logic(stack, chunk, 1, 1);
-			ft_printf("Total: %d\n", total);
 		}
 		if (stack->a)
 			chunk++;
