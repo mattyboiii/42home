@@ -51,6 +51,8 @@ typedef struct s_holds
 // functions in my src dir
 // ---  --------------------
 // push_swap.c
+int			array_size(char **arv);
+void		ft_exit(int n);
 void		print_stacks(t_stacks stack);
 
 // BasicSort.c
@@ -148,7 +150,6 @@ int			rrs(t_node **lst, int print);
 int			rrr(t_stacks *stack, int print);
 
 // utils
-void		ft_exit(int n);
 void		error_check_arv(char **arv);
 
 #endif

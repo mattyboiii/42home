@@ -172,6 +172,41 @@ void	print_stacks(t_stacks stack)
 	ft_printf("\n");
 }
 
+void	ft_exit(int n)
+{
+	if (n == 0)
+		exit(0);
+	if (n == 1)
+	{
+		ft_putendl_fd("Error", 2);
+		exit(0);
+	}
+	if (n == 2)
+	{
+		ft_putendl_fd("Error", 2);
+		exit(0);
+	}
+	if (n == 3)
+	{
+		ft_putendl_fd("Error", 2);
+		exit(0);
+	}
+	if (n == 10)
+	{
+		ft_putendl_fd("Error", 2);
+		exit(0);
+	}
+}
+
+int	array_size(char **arv)
+{
+	int		i;
+
+	i = 0;
+	while (arv[i])
+		i++;
+	return (i);
+}
 
 int	main(int arc, char **arv)
 {
@@ -180,12 +215,8 @@ int	main(int arc, char **arv)
 
 	stack.a = NULL;
 	stack.b = NULL;
-	if (arv[1] == NULL || ft_isdigit(arv[1][0]) == 0)
-		ft_exit(0);
 	if (arc == 2)
 		arv = ft_split(arv[1], ' ');
-	else if (arc < 3)
-		ft_exit(3);
 	error_check_arv(arv);
 	fill_a(&stack, arv);
 	if (sorted_asc(stack.a, stack.a, 0) == 1)
