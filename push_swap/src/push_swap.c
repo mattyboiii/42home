@@ -179,7 +179,8 @@ void	ft_exit(int n)
 	if (n == 6)
 	{
 		ft_putendl_fd("Error", 2);
-		free(1);
+		ft_putchar_fd("", 1);
+		ft_putchar_fd("", 2);
 		exit(0);
 	}
 }
