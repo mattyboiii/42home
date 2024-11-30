@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-/* this print function was used to display the code
+// this print function was used to display the code
 void	print_stacks(t_stacks stack)
 {
 	int		a = 0;
@@ -171,7 +171,7 @@ void	print_stacks(t_stacks stack)
 	}
 	ft_printf("\n");
 }
-*/
+
 
 int	main(int arc, char **arv)
 {
@@ -180,6 +180,8 @@ int	main(int arc, char **arv)
 
 	stack.a = NULL;
 	stack.b = NULL;
+	if (arv[1] == NULL || ft_isdigit(arv[1][0]) == 0)
+		ft_exit(0);
 	if (arc == 2)
 		arv = ft_split(arv[1], ' ');
 	else if (arc < 3)

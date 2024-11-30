@@ -49,7 +49,7 @@ int	pa(t_stacks *stack, int print)
 	ft_lstadd_front(&stack->a, ahead);
 	ft_stackposupdate(stack->a);
 	if (print == 1)
-		ft_putendl_fd("pb", 1);
+		ft_putendl_fd("pa", 1);
 	stack->asize++;
 	stack->bsize--;
 	return (1);

@@ -94,7 +94,7 @@ int	strdouble(char **arv)
 	if (arv == NULL)
 		return (0);
 	i = 0;
-	if (arv[i][0] == '-')
+	if (arv[i][1] == '-')
 		ft_exit(0);
 	if (str_zeros(arv) == 1)
 		ft_exit(0);
