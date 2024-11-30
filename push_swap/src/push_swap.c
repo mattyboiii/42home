@@ -176,24 +176,10 @@ void	ft_exit(int n)
 {
 	if (n == 0)
 		exit(0);
-	if (n == 1)
+	if (n == 6)
 	{
 		ft_putendl_fd("Error", 2);
-		exit(0);
-	}
-	if (n == 2)
-	{
-		ft_putendl_fd("Error", 2);
-		exit(0);
-	}
-	if (n == 3)
-	{
-		ft_putendl_fd("Error", 2);
-		exit(0);
-	}
-	if (n == 10)
-	{
-		ft_putendl_fd("Error", 2);
+		free(1);
 		exit(0);
 	}
 }

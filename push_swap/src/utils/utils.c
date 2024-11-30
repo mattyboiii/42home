@@ -42,7 +42,7 @@ int	str_zeros(char **arv)
 	char	c;
 
 	if (str_negs(arv) == 1)
-		ft_exit(1);
+		ft_exit(6);
 	i = 0;
 	if (arv == NULL)
 		return (0);
@@ -73,9 +73,9 @@ int	strdouble(char **arv)
 		return (0);
 	i = 0;
 	if (arv[i][1] == '-')
-		ft_exit(1);
+		ft_exit(6);
 	if (str_zeros(arv) == 1)
-		ft_exit(1);
+		ft_exit(6);
 	while (arv[i])
 	{
 		j = i + 1;
@@ -100,7 +100,7 @@ void	str_many_check(char **arv)
 	{
 		j = 0;
 		if (strdouble(arv) == 1)
-			ft_exit(2);
+			ft_exit(6);
 		if (arv[i][0] == '/')
 			i++;
 		while ((arv[i][j]))
@@ -109,10 +109,10 @@ void	str_many_check(char **arv)
 			+ 1] != '-' && arv[i][j + 1]))
 				j++;
 			else
-				ft_exit(3);
+				ft_exit(6);
 		}
 		if ((ft_atoi(arv[i]) > INT_MAX) || (ft_atoi(arv[i]) < INT_MIN))
-			ft_exit(10);
+			ft_exit(6);
 		i++;
 	}
 }
@@ -125,6 +125,6 @@ void	error_check_arv(char **arv)
 	if (arv == NULL || *arv == NULL)
 		ft_exit(0);
 	if (array_size(arv) <= 2)
-		ft_exit(1);
+		ft_exit(6);
 	str_many_check(arv);
 }
