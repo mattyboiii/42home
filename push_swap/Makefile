@@ -11,15 +11,15 @@ CFLAGS = -g #-Wall -Wextra -Werror
 SRC = src/push_swap.c \
 	src/utils/utils.c \
 	src/utils/logicfunk.c \
-	src/utils/logicfunk2.c \
+	src/utils/BasicSort.c \
+	src/utils/force_rotate.c \
+	src/utils/manual_rotate.c \
 	src/utils/logicfunk3.c \
 	src/utils/logicfunk4.c \
 	src/utils/logicfunk5.c \
 	src/utils/logicfunk6.c \
 	src/utils/logicfunk7.c \
 	src/utils/logicfunk8.c \
-	src/utils/logicfunk9.c \
-	src/utils/logicfunk10.c \
 	src/utils/lstfunk.c \
 	src/utils/lstfunk2.c \
 	src/utils/lstfunk3.c \

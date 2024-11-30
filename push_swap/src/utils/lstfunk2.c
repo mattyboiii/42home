@@ -38,6 +38,7 @@ void	fill_a(t_stacks *stack, char **arv)
 	stack->asize = ft_lstlast(stack->a)->pos + 1;
 	stack->bsize = 0;
 }
+
 void	ft_stackposupdate(t_node *node)
 {
 	int		i;
@@ -103,17 +104,3 @@ t_node	*ft_nodedel(t_node *node)
 	ft_stackposupdate(node);
 	return (chopped);
 }
-
-/*
-t_node	*get_head(t_node *lst)
-{
-	t_node	*head;
-
-	if (lst == NULL)
-		return (NULL);
-	head = lst;
-	while (head->prev != NULL)
-		head = head->prev;
-	return (head);
-}
-*/

@@ -54,7 +54,10 @@ typedef struct s_holds
 int			chunk_size_f(t_node *lst, int chunk);
 
 // logicfunk
+int		compare_logic(t_stacks *stack, int chunk, int total, int skip);
+int		sort_to_a(t_stacks *stack, int last_melon, int rr);
 int		sort_to_b(t_stacks *stack);
+void	set_holds(t_hold *hold, t_node *gold_hold, int iterations);
 
 int			check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
 void		set_big_small(t_node *lst, t_node **big, t_node **small);
@@ -62,8 +65,20 @@ void		sort3(t_node **lst);
 void		sort5(t_stacks stack);
 t_node		*get_midnode(t_node *lst, int chunk);
 
+// force_rotate
+t_node	 *ops_force(t_stacks stack, t_hold *hold, t_node *hold_a, t_node *hold_b);
+int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop);
+int	force_rotate(t_stacks stack, t_node **fr_hold, int loop, int skip);
+
+// manual_rotate
+int	 least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
+						t_node	**gold_hold);
+int	manual_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop);
+int	manual_rotate(t_stacks stack, t_node **man_hold, int loop, int skip);
+int	manual_run(t_stacks *stack, t_node *hold);
+
+
 int			get_chunk_number(t_node *lst);
-t_node		*chunk_big_small(t_node *lst, int chunk, int lg_sm);
 t_node		*hold_first(t_node *lst, int chunk_div, int future);
 t_node		*hold_second(t_node *lst, int chunk_div, int future);
 
@@ -76,10 +91,8 @@ void		cut_chunk_circle(t_node **lst, t_node *old_next, int cut);
 void		cut_circle(t_node **lst, int cut);
 
 int			if_push(t_stacks stack, t_node *hold);
-int			rot_large(t_node **b, t_node *hold, int chunk);
 void		rot_machine(t_node **lst, int n, int print);
 void		rev_machine(t_node **lst, int n, int print);
-int			n_chunk_bot(t_node *b, int	chunk);
 
 int			posnum(int num);
 int			negnum(int num);
@@ -88,11 +101,6 @@ int			rot_checks_rotate(t_stacks *stk, t_node *hold, int out);
 int			rev_checks_rotate(t_stacks *stk, t_node *hold, int out);
 int			force_rotate_check(t_stacks stack, t_node *hold, int rotate);
 int			rotate_run(t_stacks *stack, t_node *hold, int rotate);
-
-
-int			rot_checks_swap(t_stacks *stk, t_node *hold, int out);
-int			rev_checks_swap(t_stacks *stk, t_node *hold, int out);
-int			push_prep_swap(t_stacks stack, t_node *hold);
 
 // lstfunk
 int			ft_lstsize(t_node *lst);

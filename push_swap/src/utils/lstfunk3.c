@@ -40,54 +40,6 @@ int	if_swap(t_node *lst, int chunk, int descending)
 	}
 }
 
-int	neg_lst(t_node *lst, int chunk)
-{
-	if (lst == NULL)
-		return (0);
-	while (lst && lst->chunk == chunk)
-	{
-		if (lst->num >= 0)
-			return (0);
-		lst = lst->next;
-	}
-	return (1);
-}
-
-int	chunk_size(t_node *lst, int chunk)
-{
-	int		i;
-
-	if (lst == NULL)
-		return (0);
-	if (lst->chunk != chunk)
-		return (0);
-	i = 1;
-	if (lst->next == NULL)
-		return (1);
-	while (lst && lst->next && lst->next->chunk == chunk)
-	{
-		i++;
-		lst = lst->next;
-	}
-	return (i);
-}
-
-t_node	*lstlast_chunk(t_node *lst, int chunk)
-{
-	t_node	*last;
-
-	last = ft_lstlast(lst);
-	if (lst == NULL)
-		return (NULL);
-	if (lst->next == NULL)
-		return (lst);
-	if (last->chunk == chunk && last->next == NULL)
-		return (last);
-	while (lst && lst->next->chunk == chunk)
-		lst = lst->next;
-	return (lst);
-}
-
 t_node	*get_node(t_node *lst, int index)
 {
 	t_node	*node;

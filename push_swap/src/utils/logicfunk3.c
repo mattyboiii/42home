@@ -40,47 +40,6 @@ int	check_lg_sm(t_node *lst, int compare, int chunk, int lg_sm)
 	return (0);
 }
 
-int	get_chunk_number(t_node *lst)
-{
-	int		chunk_step;
-	t_node	*big;
-	t_node	*small;
-
-	set_big_small(lst, &big, &small);
-	if (ft_lstlast(lst)->pos <= 99)
-		chunk_step = ((big->num - small->num) / 5);
-	if (ft_lstlast(lst)->pos > 99)
-		chunk_step = ((big->num - small->num) / 11);
-	return (chunk_step);
-}
-
-t_node	*chunk_big_small(t_node *lst, int chunk, int lg_sm)
-{
-	t_node *big_small;
-
-	big_small = lst;
-	if (!lst)
-		return (NULL);
-	if (lg_sm == 1)
-	{
-		while (lst)
-		{
-			if (lst->num > big_small->num && lst->chunk == chunk)
-				big_small = lst;
-			lst = lst->next;
-		}
-	}
-	else
-	{
-		while (lst)
-		{
-			if (lst->num < big_small->num && lst->chunk == chunk)
-				big_small = lst;
-			lst = lst->next;
-		}
-	}
-	return (big_small);
-}
 
 t_node	*hold_first(t_node *lst, int chunk_div, int future)
 {
