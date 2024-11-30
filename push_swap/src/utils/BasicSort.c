@@ -66,7 +66,7 @@ void	sort3(t_node **lst)
 	}
 }
 
-void	sort5(t_stacks st)
+void	sort5(t_stacks m)
 {
 	int			midnum;
 	t_node		*small;
@@ -77,7 +77,7 @@ void	sort5(t_stacks st)
 	while (m.asize > 3)
 	{
 		if (m.a->num < midnum || m.a == big)
-			pb(&st, 1);
+			pb(&m, 1);
 		if (ft_lstlast(m.a)->num < midnum || ft_lstlast(m.a)->num == big->num)
 			rrs(&m.a, 1);
 		else if (m.a->num >= midnum && m.a->num < big->num)
@@ -87,7 +87,7 @@ void	sort5(t_stacks st)
 	while (sorted_asc(m.a, m.a, 0) == 0 || m.b)
 	{
 		if (sorted_asc(m.a, m.a, 0) == 1 && m.b)
-			pa(&st, 1);
+			pa(&m, 1);
 		if (m.a->num > ft_lstlast(m.a)->num)
 			r(&m.a, 1);
 		else if (m.a->num < get_node(m.a, 2)->num && m.a->num > m.a->next->num)
