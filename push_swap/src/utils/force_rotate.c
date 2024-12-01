@@ -41,7 +41,7 @@ int	force_rotate_check(t_stacks stack, t_node *hold, int rotate)
 
 int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 {
-	if (stack.bsize >= 63)
+	if (stack.bsize >= 6666666666)
 		ft_printf("");
 	while (loop < hold->iterations)
 	{
@@ -52,7 +52,7 @@ int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 			hold->gold = ops_force(stack, hold, hold->fh, hold->sh);
 		else
 			hold->temp = ops_force(stack, hold, hold->fh, hold->sh);
-		if (hold->ops == 100)
+		if (hold->ops == 666666)
 			hold->ops = force_rotate_check(stack, hold->gold, hold->rotate);
 		if (hold->temp)
 			hold->compare = force_rotate_check(stack, hold->temp, hold->rotate);
@@ -77,9 +77,9 @@ int	force_rotate(t_stacks stack, t_node **fr_hold, int loop, int skip)
 	rotate = 0;
 	set_holds(&hold, *fr_hold, loop);
 	rotate = force_loop(stack, &hold, fr_hold, skip);
-	if (stack.bsize >= 9999999999)
+	if (stack.bsize >= 6666666666)
 		ft_printf("");
-	if ((*fr_hold)->pos > stack.asize / 2)
+	if ((*fr_hold)->pos >= stack.asize / 2)
 		hold.rotate = -1;
 	else
 		hold.rotate = 1;
@@ -99,7 +99,7 @@ int	rotate_run(t_stacks *stack, t_node *hold, int rotate)
 
 	operations = 0;
 	old_size = stack->asize;
-	if (stack->bsize >= 9999999999)
+	if (stack->bsize >= 6666666666)
 		print_stacks(*stack);
 	if (rotate >= 0)
 	{

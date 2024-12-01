@@ -80,6 +80,8 @@ int	manual_run(t_stacks *stack, t_node *hold)
 
 	rotate = 0;
 	operations = 0;
+	if (stack->bsize >= 6666666666)
+		print_stacks(*stack);
 	rotate = rotate_prep(*stack, hold, stack->a->chunk);
 	if (hold->pos < stack->asize / 2)
 		operations = hold->pos + rotate;
@@ -89,10 +91,14 @@ int	manual_run(t_stacks *stack, t_node *hold)
 		rot_machine(&stack->a, hold->pos, 1);
 	else if (hold->pos >= stack->asize / 2)
 		rev_machine(&stack->a, stack->asize - hold->pos, 1);
+	if (stack->bsize >= 6666666666)
+		print_stacks(*stack);
 	if (rotate >= 0)
 		rot_machine(&stack->b, rotate, 1);
 	else
 		rev_machine(&stack->b, posnum(rotate), 1);
+	if (stack->bsize >= 6666666666)
+		print_stacks(*stack);
 	pb(stack, 1);
 	return (operations + 1);
 }
