@@ -85,9 +85,9 @@ int	manual_run(t_stacks *stack, t_node *hold)
 		operations = hold->pos + rotate;
 	else if (hold->pos > stack->asize / 2)
 		operations = (stack->asize - hold->pos) + rotate;
-	if (hold->pos < stack->asize / 2 || stack->asize <= 2)
+	if (hold->pos <= stack->asize / 2 || stack->asize <= 2)
 		rot_machine(&stack->a, hold->pos, 1);
-	else if (hold->pos > stack->asize / 2)
+	else if (hold->pos >= stack->asize / 2)
 		rev_machine(&stack->a, stack->asize - hold->pos, 1);
 	if (rotate >= 0)
 		rot_machine(&stack->b, rotate, 1);

@@ -28,10 +28,12 @@ int	compare_logic(t_stacks *stack, int chunk, int iterations, int skip)
 	skip = 0;
 	f_rotate = 100;
 	m_rotate = 0;
+	if (stack->bsize >= 9999999999)
+		ft_printf("");
 	if (stack->asize >= 2)
 		f_rotate = force_rotate(*stack, &fr_hold, iterations, skip);
 	m_rotate = manual_rotate(*stack, &man_hold, iterations, skip);
-	if (stack->bsize >= 90)
+	if (stack->bsize >= 9999999999)
 		ft_printf("");
 	if (posnum(f_rotate) <= m_rotate)
 		return (rotate_run(stack, fr_hold, f_rotate));
