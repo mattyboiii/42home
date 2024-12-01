@@ -204,8 +204,8 @@ int	main(int arc, char **arv)
 		arv = ft_split(arv[1], ' ');
 	error_check_arv(arv);
 	fill_a(&stack, arv);
-	//if (stack.asize <= 1)
-	//	return (0);
+	if (stack.asize <= 1)
+		exit(0);
 	if (sorted_asc(stack.a, stack.a, 0) == 1)
 		return (0);
 	else if (stack.asize <= 3)

@@ -32,7 +32,7 @@ int	order_rev_push(t_node **b, t_node *hold, int chunk)
 	int			rev;
 	t_stacks	stack_temp;
 
-	if (ft_lstsize(*b) <= 2)
+	if (ft_lstsize(*b) < 2)
 		return (0);
 	stack_temp.a = copy_node(hold);
 	stack_temp.b = copy_lst(*b);

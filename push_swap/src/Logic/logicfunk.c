@@ -30,7 +30,9 @@ int	compare_logic(t_stacks *stack, int chunk, int iterations, int skip)
 	m_rotate = 0;
 	if (stack->asize >= 2)
 		f_rotate = force_rotate(*stack, &fr_hold, iterations, skip);
-	m_rotate = manual_rotate(*stack, &man_hold, 1, skip);
+	m_rotate = manual_rotate(*stack, &man_hold, iterations, skip);
+	if (stack->bsize >= 90)
+		ft_printf("");
 	if (posnum(f_rotate) <= m_rotate)
 		return (rotate_run(stack, fr_hold, f_rotate));
 	else
@@ -83,7 +85,7 @@ int	sort_to_b(t_stacks *stack)
 	{
 		while (check_lg_sm(stack->a, chunk_div + 1, chunk, 0) == 1
 			&& stack->asize > 1)
-			total += compare_logic(stack, chunk, 1, 1);
+			total += compare_logic(stack, chunk, 3, 0);
 		if (stack->a)
 			chunk++;
 		chunk_div = chunk_div + chunk_add;
@@ -103,5 +105,6 @@ void	set_holds(t_hold *hold, t_node *gold_hold, int iterations)
 	hold->iterations = iterations;
 	hold->ops = 100;
 	hold->rotate = 0;
+	hold->gold_rotate = 0;
 	hold->compare = 0;
 }

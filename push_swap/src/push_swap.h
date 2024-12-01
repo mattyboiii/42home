@@ -45,6 +45,7 @@ typedef struct s_holds
 	int			iterations;
 	int			ops;
 	int			rotate;
+	int			gold_rotate;
 	int			compare;
 }	t_hold;
 
