@@ -106,8 +106,6 @@ int	rotate_run(t_stacks *stack, t_node *hold, int rotate)
 		while (old_size == stack->asize)
 		{
 			operations += rot_checks_rotate(stack, hold, 1);
-			if (stack->bsize >= 9999999999)
-				print_stacks(*stack);
 		}
 	}
 	else
