@@ -20,3 +20,25 @@ typedef struct s_stack_node
 }	t_node;
 
 int	rev_checks(t_node **a, t_node **b, t_node *last, t_node *hold)
+
+void	check_rotate_value(t_stacks stack, t_hold *hold, t_node *hold_a,
+	t_node *hold_b)
+{
+	int		ops_top;
+	int		ops_bot;
+	t_node	*hold_gold;
+
+	hold_gold = NULL;
+	if (hold_a && hold_b)
+		return ;
+	if (!hold_a && hold_b)
+		hold_gold = hold_b;
+	else if (!hold_b && hold_a)
+		hold_gold = hold_a;
+	ops_top = force_rotate_check(stack, hold_gold, 1);
+	ops_bot = force_rotate_check(stack, hold_gold, -1);
+	if (ops_top <= ops_bot)
+		hold->rotate = 1;
+	else
+		hold->rotate = -1;
+}
