@@ -81,7 +81,8 @@ int			rotate_prep(t_stacks stack, t_node *hold, int chunk);
 int			order_rev_push(t_node **b, t_node *hold, int chunk);
 int			order_rot_push(t_node **b, t_node *hold, int chunk);
 int			order_check(t_node **lst);
-int			posnum(int num);
+void		check_rotate_value(t_stacks stack, t_hold *hold, t_node *hold_a,
+				t_node *hold_b);
 
 // logicfunk4
 int			make_circle(t_node **lst);
@@ -91,6 +92,7 @@ int			rev_checks_rotate(t_stacks *stk, t_node *hold, int out);
 int			if_push(t_stacks stack, t_node *hold);
 
 // logicfunk5
+int			posnum(int num);
 void		rot_machine(t_node **lst, int n, int print);
 void		rev_machine(t_node **lst, int n, int print);
 

@@ -101,10 +101,24 @@ int	order_check(t_node **lst)
 	return (1);
 }
 
-int	posnum(int num)
+void	check_rotate_value(t_stacks stack, t_hold *hold, t_node *hold_a,
+	t_node *hold_b)
 {
-	if (num < 0)
-		return (num *= -1);
+	int		ops_top;
+	int		ops_bot;
+	t_node	*hold_gold;
+
+	hold_gold = NULL;
+	if (hold_a && hold_b)
+		return ;
+	if (!hold_a && hold_b)
+		hold_gold = hold_b;
+	else if (!hold_b && hold_a)
+		hold_gold = hold_a;
+	ops_top = force_rotate_check(stack, hold_gold, 1);
+	ops_bot = force_rotate_check(stack, hold_gold, -1);
+	if (ops_top <= ops_bot)
+		hold->rotate = 1;
 	else
-		return (num);
+		hold->rotate = -1;
 }

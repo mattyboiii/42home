@@ -12,6 +12,14 @@
 
 #include "../push_swap.h"
 
+int	posnum(int num)
+{
+	if (num < 0)
+		return (num *= -1);
+	else
+		return (num);
+}
+
 void	rot_machine(t_node **lst, int n, int print)
 {
 	while (n > 0)

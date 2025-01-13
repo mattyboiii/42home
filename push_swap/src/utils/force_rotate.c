@@ -12,37 +12,10 @@
 
 #include "../push_swap.h"
 
-/* force_rotate_check - assymilates using the force logic but with copied
-stacks, using the hold which is being tested. None of the changes made will be
-applied yet the actions will simply be counted and returned for comparison later.
-*/
-int	force_rotate_check(t_stacks stack, t_node *hold, int rotate)
-{
-	int			old_size;
-	int			operations;
-	t_stacks	stk;
-
-	stk = stacklst_dup(stack);
-	operations = 0;
-	old_size = stk.asize;
-	if (rotate >= 0)
-	{
-		while (old_size == stk.asize)
-			operations += rot_checks_rotate(&stk, hold, 0);
-	}
-	else
-	{
-		while (old_size == stk.asize)
-			operations += rev_checks_rotate(&stk, hold, 0);
-	}
-	stacklst_del(&stk);
-	return (operations);
-}
-
 int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 {
-	if (stack.bsize >= 6666666666)
-		ft_printf("");
+//	if (stack.bsize >= 90)
+//		print_stacks(stack);
 	while (loop < hold->iterations)
 	{
 		closest_hold(stack, &hold->fh, &hold->sh, loop);
@@ -52,6 +25,7 @@ int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 			hold->gold = ops_force(stack, hold, hold->fh, hold->sh);
 		else
 			hold->temp = ops_force(stack, hold, hold->fh, hold->sh);
+		//check_rotate_value(stack, hold, hold->fh, hold->sh);
 		if (hold->ops == 666666)
 			hold->ops = force_rotate_check(stack, hold->gold, hold->rotate);
 		if (hold->temp)
@@ -69,6 +43,43 @@ int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 	return (hold->ops);
 }
 
+/* force_rotate_check - assymilates using the force logic but with copied
+stacks, using the hold which is being tested. None of the changes made will be
+applied yet the actions will simply be counted and returned for comparison later.
+*/
+int	force_rotate_check(t_stacks stack, t_node *hold, int rotate)
+{
+	int			old_size;
+	int			operations;
+	int			debug;
+	t_stacks	stk;
+
+	debug = 0;
+	stk = stacklst_dup(stack);
+	operations = 0;
+	old_size = stk.asize;
+	if (stack.bsize >= 91)
+		debug = 1;
+	// there seems to be somthing going on between using rrr, or rr when calculating the
+	// direction to send numbers
+	if (rotate >= 0)
+	{
+		while (old_size == stk.asize)
+		{
+			operations += rot_checks_rotate(&stk, hold, 0);
+			//if (debug == 1)
+			//	print_stacks(stk);
+		}
+	}
+	else
+	{
+		while (old_size == stk.asize)
+			operations += rev_checks_rotate(&stk, hold, 0);
+	}
+	stacklst_del(&stk);
+	return (operations);
+}
+
 int	force_rotate(t_stacks stack, t_node **fr_hold, int loop, int skip)
 {
 	int			rotate;
@@ -79,6 +90,7 @@ int	force_rotate(t_stacks stack, t_node **fr_hold, int loop, int skip)
 	rotate = force_loop(stack, &hold, fr_hold, skip);
 	if (stack.bsize >= 6666666666)
 		ft_printf("");
+	rotate = hold.rotate;
 	if ((*fr_hold)->pos >= stack.asize / 2)
 		hold.rotate = -1;
 	else
@@ -96,11 +108,13 @@ int	rotate_run(t_stacks *stack, t_node *hold, int rotate)
 {
 	int		old_size;
 	int		operations;
+	int		debug;
 
+	debug = 0;
 	operations = 0;
 	old_size = stack->asize;
-	if (stack->bsize >= 6666666666)
-		print_stacks(*stack);
+	if (stack->bsize >= 91)
+		debug = 0;
 	if (rotate >= 0)
 	{
 		while (old_size == stack->asize)
@@ -113,6 +127,8 @@ int	rotate_run(t_stacks *stack, t_node *hold, int rotate)
 		while (old_size == stack->asize)
 		{
 			operations += rev_checks_rotate(stack, hold, 1);
+		//if (debug)
+		//	print_stacks(*stack);
 		}
 	}
 	return (operations);
