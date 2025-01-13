@@ -81,8 +81,7 @@ int			rotate_prep(t_stacks stack, t_node *hold, int chunk);
 int			order_rev_push(t_node **b, t_node *hold, int chunk);
 int			order_rot_push(t_node **b, t_node *hold, int chunk);
 int			order_check(t_node **lst);
-void		check_rotate_value(t_stacks stack, t_hold *hold, t_node *hold_a,
-				t_node *hold_b);
+void		check_rotate_value(t_stacks stack, t_hold *hold);
 
 // logicfunk4
 int			make_circle(t_node **lst);

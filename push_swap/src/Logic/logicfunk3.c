@@ -27,31 +27,6 @@ int	rotate_prep(t_stacks stack, t_node *hold, int chunk)
 		return (rrb *= -1);
 }
 
-int	order_rot_push(t_node **b, t_node *hold, int chunk)
-{
-	int			rot;
-	t_stacks	stack_temp;
-
-	if (ft_lstsize(*b) < 2)
-		return (0);
-	stack_temp.a = copy_node(hold);
-	stack_temp.b = copy_lst(*b);
-	rot = 0;
-	stack_temp.b->chunk = chunk;
-	pb(&stack_temp, 0);
-	while (order_check(&stack_temp.b) == 0)
-	{
-		if (stack_temp.b->num == hold->num)
-			pa(&stack_temp, 0);
-		r(&stack_temp.b, 0);
-		rot++;
-		pb(&stack_temp, 0);
-	}
-	ft_lstclear(&stack_temp.a);
-	ft_lstclear(&stack_temp.b);
-	return (rot);
-}
-
 int	order_rev_push(t_node **b, t_node *hold, int chunk)
 {
 	int			rev;
@@ -64,7 +39,7 @@ int	order_rev_push(t_node **b, t_node *hold, int chunk)
 	rev = 0;
 	stack_temp.b->chunk = chunk;
 	pb(&stack_temp, 0);
-	while (order_check(&stack_temp.b) == 0)
+	while (order_check(&stack_temp.b) == 0 && rev <= hold->div)
 	{
 		if (stack_temp.b->num == hold->num)
 			pa(&stack_temp, 0);
@@ -75,6 +50,31 @@ int	order_rev_push(t_node **b, t_node *hold, int chunk)
 	ft_lstclear(&stack_temp.a);
 	ft_lstclear(&stack_temp.b);
 	return (rev);
+}
+
+int	order_rot_push(t_node **b, t_node *hold, int chunk)
+{
+	int			rot;
+	t_stacks	stack_temp;
+
+	if (ft_lstsize(*b) < 2)
+		return (0);
+	stack_temp.a = copy_node(hold);
+	stack_temp.b = copy_lst(*b);
+	rot = 0;
+	stack_temp.b->chunk = chunk;
+	pb(&stack_temp, 0);
+	while (order_check(&stack_temp.b) == 0 && rot <= hold->div)
+	{
+		if (stack_temp.b->num == hold->num)
+			pa(&stack_temp, 0);
+		r(&stack_temp.b, 0);
+		rot++;
+		pb(&stack_temp, 0);
+	}
+	ft_lstclear(&stack_temp.a);
+	ft_lstclear(&stack_temp.b);
+	return (rot);
 }
 
 int	order_check(t_node **lst)
@@ -101,22 +101,13 @@ int	order_check(t_node **lst)
 	return (1);
 }
 
-void	check_rotate_value(t_stacks stack, t_hold *hold, t_node *hold_a,
-	t_node *hold_b)
+void	check_rotate_value(t_stacks stack, t_hold *hold)
 {
 	int		ops_top;
 	int		ops_bot;
-	t_node	*hold_gold;
 
-	hold_gold = NULL;
-	if (hold_a && hold_b)
-		return ;
-	if (!hold_a && hold_b)
-		hold_gold = hold_b;
-	else if (!hold_b && hold_a)
-		hold_gold = hold_a;
-	ops_top = force_rotate_check(stack, hold_gold, 1);
-	ops_bot = force_rotate_check(stack, hold_gold, -1);
+	ops_top = force_rotate_check(stack, hold->gold, 1);
+	ops_bot = force_rotate_check(stack, hold->gold, -1);
 	if (ops_top <= ops_bot)
 		hold->rotate = 1;
 	else
