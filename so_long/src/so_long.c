@@ -14,28 +14,25 @@
 
 void	height_x_length(t_app *app, int height, int length)
 {
-		int		stop;
+		int		spot;
 		int		colour;
 		int		x = 5;
 		int		y = 5;
 
 		colour = 0xFFFF0000;
-		stop = 0;
-
-		while (stop < height)
+		spot = 0;
+		while (spot <= height)
 		{
-			ft_mlx_pix_put(&app->img, x, y + stop, colour);
-			ft_mlx_pix_put(&app->img, x + length, y + stop, colour);
-			mlx_put_image_to_window(app->mlx, app->win, app->img.res, 0, 0);
-			stop++;
+			ft_mlx_pix_put(&app->img, x, y + spot, colour);
+			ft_mlx_pix_put(&app->img, x + length, y + spot, colour);
+			spot++;
 		}
-		stop = 0;
-		while (stop < length)
+		spot = 1;
+		while (spot < length)
 		{
-			ft_mlx_pix_put(&app->img, x + stop, y, colour);
-			ft_mlx_pix_put(&app->img, x + stop, y + length, colour);
-			mlx_put_image_to_window(app->mlx, app->win, app->img.res, 0, 0);
-			stop++;
+			ft_mlx_pix_put(&app->img, x + spot, y, colour);
+			ft_mlx_pix_put(&app->img, x + spot, y + height, colour);
+			spot++;
 		}
 }
 
@@ -60,7 +57,7 @@ int	main(void)
 	*/
 	app.img.addr = mlx_get_data_addr(app.img.res, &app.img.bits_per_pixel,
 			&app.img.line_length, &app.img.endian);
-	height_x_length(&app,5, 10);
+	height_x_length(&app,100, 200);
 	mlx_put_image_to_window(app.mlx, app.win, app.img.res, 0, 0);
 
 	// loop the window so that it stays open and looks for user input
