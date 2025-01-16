@@ -10,9 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "so_long.h"
-#include "minilibx-linux/mlx.h"
+
+void	height_x_length(t_image *img, int x, int y, int height, int length)
+{
+
+		int		stop;
+		int		colour;
+
+		colour = 0xFFFF0000;
+		stop = 0;
+		while (stop < height)
+		{
+			ft_mlx_pix_put(img, x + stop, y, colour);
+			ft_mlx_pix_put(img, x, y + stop, colour);
+			stop++;
+		}
+		stop = ;
+		while (stop < length)
+		{
+			ft_mlx_pix_put(img, x, y + stop, colour);
+			stop++;
+
+		}
+
+}
+
 
 
 int	main(void)
@@ -29,7 +52,7 @@ int	main(void)
 
 	// create my first window
 	win_ptr = mlx_new_window (mlx_ptr, 800, 600, "First Window");
-	img.img = mlx_new_image(mlx_ptr, 1920, 1080);
+	img.img = mlx_new_image(mlx_ptr, 800, 600);
 
 	/*
 	** After creating an image, we can call `mlx_get_data_addr`, we pass
@@ -37,7 +60,9 @@ int	main(void)
 	** then be set accordingly for the *current* data address.
 	*/
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-					img.endian);
+					&img.endian);
+	ft_mlx_pix_put(&img, 5, 5, 0xFFFF0000);
+	mlx_put_image_to_window(mlx_ptr, win_ptr, img.img, 0, 0);
 
 	// loop the window so that it stays open and looks for user input
 	mlx_loop(mlx_ptr);

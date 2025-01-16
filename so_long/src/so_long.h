@@ -12,6 +12,8 @@
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
+# include <stdio.h> //free, maloc
+# include "../minilibx-linux/mlx.h" //mlx libraries
 
 typedef struct s_data
 {
@@ -21,5 +23,10 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 }			t_image;
+
+// functions in my src dir
+// ---  --------------------
+// pixel
+void	ft_mlx_pix_put(t_image *data, int x, int y, int colour);
 
 #endif

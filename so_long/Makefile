@@ -9,7 +9,9 @@ LIBX = -Lminilibx-linux -lmlx -lXext -lX11
 # assignment statements-Source funcitons (string list creators is really
 # what these are)-------------- eg $(wildcard pattern)
 
-SRC = so_long.c
+SRC = src/so_long.c \
+		src/pixel/pixelfunk.c
+
 
 # Rules
 # 1
