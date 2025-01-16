@@ -17,12 +17,19 @@
 
 typedef struct s_data
 {
-	void	*img;
+	void	*res;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
 }			t_image;
+
+typedef struct s_app
+{
+	void		*mlx; //mlx_ptr
+	void		*win; //win_ptr
+	t_image		img;  //img struct
+}				t_app;
 
 // functions in my src dir
 // ---  --------------------
