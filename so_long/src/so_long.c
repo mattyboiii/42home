@@ -20,18 +20,19 @@ void	height_x_length(t_image *img, int x, int y, int height, int length)
 
 		colour = 0xFFFF0000;
 		stop = 0;
+
 		while (stop < height)
 		{
-			ft_mlx_pix_put(img, x + stop, y, colour);
 			ft_mlx_pix_put(img, x, y + stop, colour);
+			ft_mlx_pix_put(img, x + length, y + stop, colour);
 			stop++;
 		}
-		stop = ;
+		stop = 0;
 		while (stop < length)
 		{
-			ft_mlx_pix_put(img, x, y + stop, colour);
+			ft_mlx_pix_put(img, x + stop, y, colour);
+			ft_mlx_pix_put(img, x + stop, y + length, colour);
 			stop++;
-
 		}
 
 }
@@ -61,7 +62,7 @@ int	main(void)
 	*/
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 					&img.endian);
-	ft_mlx_pix_put(&img, 5, 5, 0xFFFF0000);
+	height_x_length(&img, 5, 5, 10, 100);
 	mlx_put_image_to_window(mlx_ptr, win_ptr, img.img, 0, 0);
 
 	// loop the window so that it stays open and looks for user input

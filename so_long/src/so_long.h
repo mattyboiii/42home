@@ -13,7 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include <stdio.h> //free, maloc
-# include "../minilibx-linux/mlx.h" //mlx libraries
+# include "../minilibx-linux/mlx.h"
 
 typedef struct s_data
 {
