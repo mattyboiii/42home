@@ -12,19 +12,18 @@
 
 #include "../so_long.h"
 
-void draw_circle(t_data *img, int radius, int color) {
-    int i = HEIGHT / 2 - radius;
-    int j;
-    int center_x = WIDTH / 2;
-    int center_y = HEIGHT / 2;
-    int distance;
+void draw_circle(t_data *app, int radius, int color) {
+	int i;
+	int j;
+	int dist;
 
-    while (i <= center_y + radius) {
-        j = center_x - radius;
-        while (j <= center_x + radius) {
-            distance = (i - center_y) * (i - center_y) + (j - center_x) * (j - center_x);
-            if (distance <= radius * radius) {
-                ft_mlx_pix_put(img, j, i, color);
+	i = app->y - radius;
+    while (i <= app->y + radius) {
+        j = app->x - radius;
+        while (j <= app->x + radius) {
+            dist = (i - app->y) * (i - app->y) + (j - app->x) * (j - app->x);
+            if (dist <= radius * radius) {
+                ft_mlx_pix_put(app, j, i, color);
             }
             j++;
         }

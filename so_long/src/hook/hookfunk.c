@@ -25,8 +25,28 @@ int	handle_keyboard(int keysim, t_data *app)
 {
 	if (keysim == XK_Escape)
 	{
-		printf("Key %d (ESC) has been pressed\n\n", keysim);
+		ft_printf("Key %d (ESC) has been pressed\n\n", keysim);
 		close_program(app);
+	}
+	else if (keysim == XK_w)
+	{
+		ft_putendl_fd("Up", 1);
+		move_up(app);
+	}
+	else if (keysim == XK_d)
+	{
+		ft_putendl_fd("Right", 1);
+		move_right(app);
+	}
+	else if (keysim == XK_s)
+	{
+		ft_putendl_fd("Down", 1);
+		move_down(app);
+	}
+	else if (keysim == XK_a)
+	{
+		ft_putendl_fd("Left", 1);
+		move_left(app);
 	}
 	ft_printf("keysim %d\n", keysim);
 }

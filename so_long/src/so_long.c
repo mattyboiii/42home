@@ -12,6 +12,11 @@
 
 #include "so_long.h"
 
+/* encode RGB from numbrs to hexidecimal number value */
+int	ft_rgb(byte red, byte green, byte blue)
+{
+	return (red << 16 | green << 8 | blue);
+}
 /*	The two lines of code below are essentially the same, one is just used
 	to make code more concise
 
@@ -27,6 +32,10 @@ int	main(void)
 	app.mlx = mlx_init();
 	if (app.mlx == NULL)
 		return (1);
+
+	app.radius = 66;
+	app.x = WIDTH / 2;
+	app.y = HEIGHT / 2;
 
 	// create my first window
 	app.win = mlx_new_window (app.mlx, 800, 600, "First Window");

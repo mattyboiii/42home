@@ -28,6 +28,8 @@
 #  define WIDTH 800
 # endif
 
+typedef unsigned char	byte;
+
 typedef struct  s_data
 {
     void    *mlx;
@@ -37,8 +39,6 @@ typedef struct  s_data
     int     bits_per_pixel;
     int     line_length;
     int     endian;
-    int     width;
-    int     height;
     int     radius;
     int     x;
     int     y;
@@ -46,6 +46,16 @@ typedef struct  s_data
 
 // functions in my src dir
 // ---  --------------------
+
+// so_long.c
+int	ft_rgb(byte red, byte green, byte blue);
+
+// character
+int		move_up(t_data *app);
+int		move_right(t_data *app);
+int		move_down(t_data *app);
+int		move_left(t_data *app);
+
 // pixel
 void	draw_circle(t_data *app, int radius, int color);
 void	height_x_width(t_data *app, int height, int width);

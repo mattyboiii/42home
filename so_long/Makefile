@@ -12,7 +12,8 @@ LIBFT = -Llibft -lft
 
 SRC =	src/so_long.c \
 	src/pixel/pixelfunk.c \
-	src/hook/hookfunk.c
+	src/hook/hookfunk.c \
+	src/character/character_movement.c
 
 # Generate object file names from source files
 OBJ = $(SRC:.c=.o)
