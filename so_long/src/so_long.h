@@ -14,31 +14,46 @@
 # define SO_LONG_H
 # include <stdio.h> //free, maloc
 # include <unistd.h> //write
+# include <math.h>
+# include <X11/keysym.h> //keysim codes XK_Escape
+# include <X11/Xlib.h> // Button 1, button2 etc.
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
 
-typedef struct s_data
-{
-	void	*res;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}			t_image;
+# ifndef HEIGHT
+#  define HEIGHT 600
+# endif
 
-typedef struct s_app
+# ifndef WIDTH
+#  define WIDTH 800
+# endif
+
+typedef struct  s_data
 {
-	void		*mlx; //mlx_ptr
-	void		*win; //win_ptr
-	t_image		img;  //img struct
-}				t_app;
+    void    *mlx;
+    void    *win;
+    void    *img;
+    char    *addr;
+    int     bits_per_pixel;
+    int     line_length;
+    int     endian;
+    int     width;
+    int     height;
+    int     radius;
+    int     x;
+    int     y;
+}               t_data;
 
 // functions in my src dir
 // ---  --------------------
 // pixel
-void	ft_mlx_pix_put(t_image *data, int x, int y, int colour);
+void	draw_circle(t_data *app, int radius, int color);
+void	height_x_width(t_data *app, int height, int width);
+void	ft_mlx_pix_put(t_data *data, int x, int y, int colour);
 
 // hook
-int	handle_input(int keycode, t_app *app);
+int	close_program(t_data *app);
+int	handle_keyboard(int keycode, t_data *app);
+int	handle_mouse(int button, t_data *app);
 
 #endif

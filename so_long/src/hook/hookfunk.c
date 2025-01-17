@@ -12,15 +12,29 @@
 
 #include "../so_long.h"
 
-int	handle_input(int keycode, t_app *app)
+int	close_program(t_data *app)
 {
-	if (keycode == 53)
+	ft_putendl_fd("Program Closing...", 1);
+	mlx_destroy_window(app->mlx, app->win);
+	mlx_destroy_image(app->mlx, app->img);
+	mlx_destroy_display(app->mlx);
+	free(app->mlx);
+	exit(0);
+}
+int	handle_keyboard(int keysim, t_data *app)
+{
+	if (keysim == XK_Escape)
 	{
-		mlx_destroy_window(app->mlx, app->win);
-		mlx_destroy_display(app->mlx);
-		free(app->mlx);
-		ft_putstr_fd("close ordered", 1);
-		return (0);
+		printf("Key %d (ESC) has been pressed\n\n", keysim);
+		close_program(app);
 	}
-	ft_printf("keycode %d\n", keycode);
+	ft_printf("keysim %d\n", keysim);
+}
+
+int	handle_mouse(int button, t_data *app)
+{
+	if (button == Button1)
+	{
+		ft_putendl_fd("Pressed Left Mouse", 1);
+	}
 }
