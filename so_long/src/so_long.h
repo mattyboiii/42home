@@ -49,7 +49,7 @@ typedef struct  s_data
 // pixel
 void	draw_circle(t_data *app, int radius, int color);
 void	height_x_width(t_data *app, int height, int width);
-void	ft_mlx_pix_put(t_data *data, int x, int y, int colour);
+void	ft_mlx_pix_put(t_data *app, int x, int y, int colour);
 
 // hook
 int	close_program(t_data *app);

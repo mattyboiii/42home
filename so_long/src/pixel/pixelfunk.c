@@ -56,11 +56,11 @@ void	height_x_width(t_data *app, int height, int width)
 	}
 }
 
-void	ft_mlx_pix_put(t_data *data, int x, int y, int colour)
+void	ft_mlx_pix_put(t_data *app, int x, int y, int colour)
 {
 	char *dest;
 
-	dest = data->addr + (y * data->line_length + x * (data->bits_per_pixel
+	dest = app->addr + (y * app->line_length + x * (app->bits_per_pixel
 				/ 8));
 	*(unsigned int*)dest = colour;
 }
