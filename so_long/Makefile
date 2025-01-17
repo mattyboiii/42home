@@ -5,12 +5,14 @@ NAME = so_long
 CC = cc
 CFLAGS = -g#-Wall -Wextra -Werror
 LIBX = -Lminilibx-linux -lmlx -lXext -lX11
+LIBFT = -Llibft -lft
 
 # assignment statements-Source funcitons (string list creators is really
 # what these are)-------------- eg $(wildcard pattern)
 
 SRC = src/so_long.c \
-		src/pixel/pixelfunk.c
+		src/pixel/pixelfunk.c \
+		src/hook/hookfunk.c
 
 
 # Rules
@@ -19,7 +21,7 @@ all: $(NAME)
 
 #2 NAME rule
 $(NAME): $(SRC)
-	$(CC) $(CFLAGS) -o $@ $(SRC) $(LIBX)
+	$(CC) $(CFLAGS) -o $@ $(SRC) $(LIBX) $(LIBFT)
 	@echo "\n"
 
 # 3 remove the project file

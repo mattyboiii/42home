@@ -59,9 +59,9 @@ int	main(void)
 			&app.img.line_length, &app.img.endian);
 	height_x_length(&app,100, 200);
 	mlx_put_image_to_window(app.mlx, app.win, app.img.res, 0, 0);
+	mlx_key_hook(app.win, handle_input, &app);
 
 	// loop the window so that it stays open and looks for user input
-	mlx_loop(app.mlx);
 
-
+	return (0);
 }

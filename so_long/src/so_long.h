@@ -13,7 +13,9 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include <stdio.h> //free, maloc
+# include <unistd.h> //write
 # include "../minilibx-linux/mlx.h"
+# include "../libft/libft.h"
 
 typedef struct s_data
 {
@@ -35,5 +37,8 @@ typedef struct s_app
 // ---  --------------------
 // pixel
 void	ft_mlx_pix_put(t_image *data, int x, int y, int colour);
+
+// hook
+int	handle_input(int keycode, t_app *app);
 
 #endif
