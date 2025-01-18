@@ -21,13 +21,13 @@
 # include "../libft/libft.h"
 
 
-# ifndef ASS_PATH
-#	define ASS_PATH = "./assets"
-# endif
+#	define TILE_SIZE 64
 
-# ifndef TILE_SIZE
-#  define TILE_SIZE 64
-# endif
+#	define DUCK "./assets/duck.xpm"
+#	define DUCKLING "./assets/duckling.xpm"
+#	define GRASS "./assets/grass.xpm"
+#	define TREES "./assets/trees.xpm"
+#	define EXIT "./assets/exit.xpm"
 
 # ifndef HEIGHT
 #  define HEIGHT 600
@@ -39,18 +39,24 @@
 
 typedef unsigned char	byte;
 
+typedef struct s_duck
+{
+	int		x;
+	int		y;
+}			t_duck;
+
+typedef struct s_map
+{
+	char	**map;
+	int		width;
+	int		height;
+}				t_map;
+
 typedef struct  s_data
 {
     void    *mlx;
     void    *win;
-    void    *img;
-    char    *addr;
-    int     bits_per_pixel;
-    int     line_length;
-    int     endian;
-    int     radius;
-    int     x;
-    int     y;
+
 }               t_data;
 
 // functions in my src dir
@@ -66,8 +72,6 @@ int		move_down(t_data *app);
 int		move_left(t_data *app);
 
 // pixel
-void	draw_circle(t_data *app, int radius, int color);
-void	height_x_width(t_data *app, int height, int width);
 void	ft_mlx_pix_put(t_data *app, int x, int y, int colour);
 
 // hook
