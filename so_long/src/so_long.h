@@ -20,6 +20,15 @@
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
 
+
+# ifndef ASS_PATH
+#	define ASS_PATH = "./assets"
+# endif
+
+# ifndef TILE_SIZE
+#  define TILE_SIZE 64
+# endif
+
 # ifndef HEIGHT
 #  define HEIGHT 600
 # endif

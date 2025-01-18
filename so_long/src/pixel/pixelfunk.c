@@ -12,7 +12,8 @@
 
 #include "../so_long.h"
 
-void draw_circle(t_data *app, int radius, int color) {
+void draw_circle(t_data *app, int radius, int color)
+{
 	int i;
 	int j;
 	int dist;

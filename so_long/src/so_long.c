@@ -26,6 +26,8 @@ int	ft_rgb(byte red, byte green, byte blue)
 int	main(void)
 {
 	t_data 		app;
+	char 		*pic_path;
+
 
 	//create a structure which holds all the ptr's available to use and run
 	// MiniLibx
@@ -39,7 +41,8 @@ int	main(void)
 
 	// create my first window
 	app.win = mlx_new_window (app.mlx, 800, 600, "First Window");
-	app.img = mlx_new_image(app.mlx, 800, 600);
+	//app.img = mlx_new_image(app.mlx, 800, 600);
+	app.img = mlx_xpm_file_to_image(app.mlx, ASS_PATH/duck.xpm, 400, 300);
 
 	/*
 	** After creating an image, we can call `mlx_get_data_addr`, we pass
@@ -48,9 +51,9 @@ int	main(void)
 	*/
 	app.addr = mlx_get_data_addr(app.img, &app.bits_per_pixel,
 			&app.line_length, &app.endian);
-	height_x_width(&app,100, 200);
-	draw_circle(&app, 66, 0xFFFF0000);
-	mlx_put_image_to_window(app.mlx, app.win, app.img, 0, 0);
+	//height_x_width(&app,100, 200);
+	//draw_circle(&app, 66, 0xFFFF0000);
+	mlx_put_image_to_window(app.mlx, app.win, app.img, 0. 0);
 
 	mlx_hook(app.win, DestroyNotify, 0, close_program, &app);
 	mlx_key_hook(app.win, handle_keyboard, &app);
