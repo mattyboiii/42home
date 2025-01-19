@@ -23,11 +23,21 @@
 
 #	define TILE_SIZE 64
 
-#	define DUCK "./assets/duck.xpm"
-#	define DUCKLING "./assets/duckling.xpm"
-#	define GRASS "./assets/grass.xpm"
-#	define TREES "./assets/trees.xpm"
-#	define EXIT "./assets/exit.xpm"
+#	define GRASS '0'
+#	define TREE '1'
+#	define COLL 'C'
+#	define EXIT 'E'
+#	define DUCK 'P'
+
+/** I ended up using a bool as it made the code more readable, it also meant
+ * if I wanted to change the return values, I could ctrl + f false/true and
+ * it would only effect the bools, instead of other functions where I may
+ * have used 0 or 1. */
+typedef enum e_bool
+{
+	false,
+	true
+}			t_bool;
 
 typedef struct s_duck
 {
@@ -43,7 +53,7 @@ typedef struct s_map
 	t_duck	duck;
 	int		collect;
 	int		exits;
-	int		entries;
+	int		entry;
 	int		moves;
 }				t_map;
 
