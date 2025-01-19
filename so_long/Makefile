@@ -14,7 +14,9 @@ SRC =	src/so_long.c \
 	src/pixel/pixelfunk.c \
 	src/hook/hookfunk.c \
 	src/utils.c \
-	src/map.c \
+	src/parse.c \
+	src/window.c \
+	src/free.c \
 	src/character/character_movement.c
 
 # Generate object file names from source files

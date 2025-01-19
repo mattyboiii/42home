@@ -12,21 +12,12 @@
 
 #include "../so_long.h"
 
-int	close_program(t_data *app)
-{
-	ft_putendl_fd("Program Closing...", 1);
-	mlx_destroy_window(app->mlx, app->win);
-	mlx_destroy_image(app->mlx, app->img);
-	mlx_destroy_display(app->mlx);
-	free(app->mlx);
-	exit(0);
-}
 int	handle_keyboard(int keysim, t_data *app)
 {
 	if (keysim == XK_Escape)
 	{
 		ft_printf("Key %d (ESC) has been pressed\n\n", keysim);
-		close_program(app);
+		free_mlx(app);
 	}
 	else if (keysim == XK_w)
 	{

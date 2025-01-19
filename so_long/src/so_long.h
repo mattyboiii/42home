@@ -89,5 +89,15 @@ int	ft_read(int fd, char **line);
 int		ft_exit(int n);
 int		ft_err(char *msg, int n);
 
+//free
+void		free_app(t_data *app);
+void		free_mlx(t_data *app);
+
+//window
+void		init_window(t_data *app);
+
+//parse
+char		**get_map(char *path);
+
 
 #endif

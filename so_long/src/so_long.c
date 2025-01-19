@@ -29,7 +29,7 @@ t_data	*ft_init(void)
 		return (ft_exit(1));
 	app->map = malloc(sizeof(t_map));
 	if (!app->map)
-		return (free(app), ft_exit(1));
+		return (free(app), ft_exit(1), NULL);
 	app->map->txt = NULL;
 	app->map->width = 0;
 	app->map->height = 0;
@@ -37,7 +37,7 @@ t_data	*ft_init(void)
 	app->map->duck.y = 0;
 	app->map->collect = 0;
 	app->map->exits = 0;
-	app->map->entries = 0;
+	app->map->entry = 0;
 	app->map->moves = 0;
 	return (app);
 }
@@ -54,6 +54,9 @@ int	main(int arc, char *arv[])
 	if (arc != 2)
 		ft_exit(2);
 	app = ft_init();
+	app->map = get_map(arv[1]);
+	init_window(app);
+
 }
 // void	ft_so_long(t_data *app)
 // {

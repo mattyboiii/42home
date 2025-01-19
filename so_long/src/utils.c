@@ -44,5 +44,5 @@ int	ft_err(char *msg, int n)
 	err_mes = ft_strjoin("Error: ", msg);
 	perror(err_mes);
 	null_free(&err_mes);
-	ft_exit(n);
+	exit(n);
 }

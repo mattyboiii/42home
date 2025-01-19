@@ -12,6 +12,8 @@
 
 #include "so_long.h"
 
+
+
 /**
  * @breif the ft_get_map reads the map putting each line
  * into a double pointer. This is done so I can later go through the contents
@@ -73,5 +75,3 @@ void	get_map_info(t_map *map)
 	}
 	map->height = i;
 }
-
-gt
