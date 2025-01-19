@@ -12,11 +12,11 @@
 
 #include "../so_long.h"
 
-void	ft_mlx_pix_put(t_data *app, int x, int y, int colour)
-{
-	char *dest;
+// void	ft_mlx_pix_put(t_data *app, int x, int y, int colour)
+// {
+// 	char *dest;
 
-	dest = app->addr + (y * app->line_length + x * (app->bits_per_pixel
-				/ 8));
-	*(unsigned int*)dest = colour;
-}
+// 	dest = app->addr + (y * app->line_length + x * (app->bits_per_pixel
+// 				/ 8));
+// 	*(unsigned int*)dest = colour;
+// }

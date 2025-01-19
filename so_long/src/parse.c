@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   character_movement.c                               :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-01-17 06:16:26 by mtripodi          #+#    #+#             */
-/*   Updated: 2025-01-17 06:16:26 by mtripodi         ###   ########.fr       */
+/*   Created: 2025-01-19 00:01:35 by mtripodi          #+#    #+#             */
+/*   Updated: 2025-01-19 00:01:35 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
 
-int	move_up(t_data *app)
+char	**get_map(char *path)
 {
-}
+	int			fd;
+	char		*buf;
+	char		**map;
 
-int	move_right(t_data *app)
-{
-}
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		ft_err("Error opening file", 1);
+	if (ft_read(fd, &buf) == -1)
+	{
+		free(buf);
+		return (NULL);
+	}
 
-int	move_down(t_data *app)
-{
-}
-
-int	move_left(t_data *app)
-{
 }
