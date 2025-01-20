@@ -1,0 +1,75 @@
+
+
+
+----ex0
+mkdir ex00
+cd ex00
+echo Z > z
+cd ..
+
+----ex01
+mkdir ex01
+cd ex01
+echo 1111111111 1111111 11111111 1111111 111 > testShell00
+chmod u=r,g=rx,o=xr testShell00
+touch -t 202306012342 testShell00
+tar -cf testShell00.tar testShell00
+rm -f testShell00
+rm -r .DS_Store
+cd ..
+
+----ex02
+mkdir ex02
+cd ex02
+mkdir test0
+chmod u=wxr,g=x,o=rx test0
+echo 111 > test1
+chmod u=rwx,g=x test1
+mkdir test2
+chmod u=rx,g=,o=r test2
+echo  > test3
+chmod u=r,g=,o=r test3
+echo 1 > test4
+chmod u=rw,g=r,o=x test4
+ln test3 test5
+ln -s test0 test6
+chmod -h 777 test6
+touch -t 202306012047 test0
+touch -t 202306012146 test1
+touch -t 202306012245 test2
+touch -t 202306012344 test3
+touch -t 202306012343 test4
+touch -t 202306012344 test5
+touch -h -t 202306012220 test6
+tar -cf exo2.tar *
+rm -rf test0
+rm -rf test1
+rm -rf test2
+rm -rf test3
+rm -rf test4
+rm -rf test5
+rm -rf test6
+rm -r .DS_Store
+
+
+git add ex00
+git commit -m "ex00"
+git add ex01
+git commit -m "ex01"
+git add ex02
+git commit -m "ex02"
+git add ex03
+git commit -m "ex03"
+git add ex04
+git commit -m "ex04"
+git add ex05
+git commit -m "ex05"
+
+
+
+
+
+
+
+
+
