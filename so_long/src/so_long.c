@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-01-14 00:59:25 by mtripodi          #+#    #+#             */
-/*   Updated: 2025-01-14 00:59:25 by mtripodi         ###   ########.fr       */
+/*   Created: 2025/01/14 00:59:25 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/20 14:58:13 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		render_next_frame(void *app)
 		// display_score(app);
 		// render_bg(app);
 		// render_assets(app);
-		// return (0);
+		return (0);
 }
 
 t_data	*ft_init(void)
@@ -26,7 +26,7 @@ t_data	*ft_init(void)
 
 	app = malloc(sizeof(t_data));
 	if (!app)
-		return (ft_exit(1));
+		return (ft_exit(1), NULL);
 	app->map = malloc(sizeof(t_map));
 	if (!app->map)
 		return (free(app), ft_exit(1), NULL);
@@ -54,7 +54,7 @@ int	main(int arc, char *arv[])
 	if (arc != 2)
 		ft_exit(2);
 	app = ft_init();
-	app->map = get_map(arv[1]);
+	app->map->txt = get_map(arv[1]);
 	init_window(app);
 
 }

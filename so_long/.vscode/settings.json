@@ -3,5 +3,8 @@
     "lldb.showDisassembly": "auto",
     "lldb.dereferencePointers": true,
     "lldb.consoleMode": "commands",
-    "C_Cpp.autocomplete": "disabled"
+	"C_Cpp.autocomplete": "disabled",
+	"files.associations": {
+		"so_long.h": "c"
+	}
 }

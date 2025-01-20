@@ -6,6 +6,7 @@
 			"type": "lldb",
 			"request": "launch",
 			"program": "${workspaceFolder}/so_long",
+			"args": ["./src/maps/tiny.ber"],
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "Make Rebuild",
 			"console": "integratedTerminal"

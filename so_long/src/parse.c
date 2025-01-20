@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-01-19 00:01:35 by mtripodi          #+#    #+#             */
-/*   Updated: 2025-01-19 00:01:35 by mtripodi         ###   ########.fr       */
+/*   Created: 2025/01/19 00:01:35 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/20 14:40:17 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	**get_map(char *path)
 	char		*buf;
 	char		**map;
 
+	buf = NULL;
 	i = 0;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
