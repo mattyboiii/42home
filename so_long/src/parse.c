@@ -12,7 +12,15 @@
 
 #include "so_long.h"
 
+t_map	*prepare_map(t_data *app, char *path)
+{
+	app->map->txt = get_map(path);
+	if (app->map->txt == NULL)
+		ft_err("parse.c > prepare_map > get_map", app, 1);
 
+
+
+}
 
 /**
  * @breif the ft_get_map reads the map putting each line
@@ -27,13 +35,13 @@ char	**get_map(char *path)
 	int			fd;
 	int			i;
 	char		*buf;
-	char		**map;
+	char		**map_txt;
 
 	buf = NULL;
 	i = 0;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		ft_err("Error opening file", 1);
+		return (ft_err("Error opening file", 0, 0), NULL);
 	if (ft_read(fd, &buf) == -1)
 		return (free(buf), NULL);
 	while (buf[i])
@@ -42,9 +50,9 @@ char	**get_map(char *path)
 			return (free(buf), NULL);
 		i++;
 	}
-	map = ft_split(buf, '\n');
+	map_txt = ft_split(buf, '\n');
 	free(buf);
-	return (map);
+	return (map_txt);
 }
 
 /**

@@ -26,10 +26,10 @@ t_data	*ft_init(void)
 
 	app = malloc(sizeof(t_data));
 	if (!app)
-		return (ft_exit(1), NULL);
+		return (NULL);
 	app->map = malloc(sizeof(t_map));
 	if (!app->map)
-		return (free(app), ft_exit(1), NULL);
+		return (NULL);
 	app->map->txt = NULL;
 	app->map->width = 0;
 	app->map->height = 0;
@@ -52,9 +52,11 @@ int	main(int arc, char *arv[])
 	t_data		*app;
 
 	if (arc != 2)
-		ft_exit(2);
+		ft_err("No map has been selected", app, 2);
 	app = ft_init();
-	app->map->txt = get_map(arv[1]);
+	if (app == NULL)
+		ft_err("Error initialising map", app, 1);
+	app->map = prepare_map(app, arv[1]);
 	init_window(app);
 
 }

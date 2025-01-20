@@ -16,13 +16,10 @@ void	init_window(t_data *app)
 {
 	app->mlx = mlx_init();
 	if (app->mlx == NULL)
-		ft_err("mlx_init", 1);
+		ft_err("inti_window > mlx_init: NULL", app, 1);
 	app->win = mlx_new_window(app->mlx, app->map->width * TILE_SIZE,
 			app->map->height * TILE_SIZE, "for DUCKS sake! - mtripodi");
 	if (app->win == NULL)
-	{
-		free_mlx(app);
-		ft_err("app->win", 1);
-	}
+		ft_err("init_window > mlx_new_window: NULL", app, 1);
 
 }

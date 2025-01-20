@@ -31,20 +31,28 @@ int	ft_read(int fd, char **line)
 	*line = buffer;
 	return (bytes + 1);
 }
-int	ft_exit(int n)
-{
-	if (n == 2)
-		ft_err("No map has been specified", n);
-	return (0);
-}
 
-int	ft_err(char *msg, int n)
+/**
+ * @breif the ft_err function is mainly responsible for printing function
+ * dedicated errors to stderr during an error.
+ *
+ * It will also free the app assuming its passed in.
+ *
+ * It can also exit the program assuming that you have supplied a number > 0.
+ *
+ *
+ * @param char *msg, t_data *app, int n
+ * @return 0
+*/
+void	ft_err(char *msg, t_data *app, int n)
 {
 	char		*err_mes;
 
 	err_mes = ft_strjoin("Error: ", msg);
 	perror(err_mes);
 	null_free(&err_mes);
-	exit(n);
-	return (0);
+	if (app)
+		free_app(app);
+	if (n > 0)
+		exit(n);
 }

@@ -7,7 +7,7 @@
 			"request": "launch",
 			"args": ["src/maps/tiny.ber"],
 			"program": "${workspaceFolder}/so_long",
-			"args": ["./src/maps/tiny.ber"],
+			"args": ["src/maps/tiny.ber"],
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "Make Rebuild",
 			"console": "integratedTerminal"

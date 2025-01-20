@@ -57,7 +57,7 @@ typedef struct s_map
 	int		moves;
 }				t_map;
 
-typedef struct  s_data
+typedef struct s_data
 {
     void    *mlx;
     void    *win;
@@ -85,18 +85,20 @@ int	handle_keyboard(int keycode, t_data *app);
 int	handle_mouse(int button, t_data *app);
 
 //utils
-int	ft_read(int fd, char **line);
-int		ft_exit(int n);
-int		ft_err(char *msg, int n);
+int			ft_read(int fd, char **line);
+void		ft_err(char *msg, t_data *app, int n);
 
 //free
-void		free_app(t_data *app);
+void		free_map(t_map *map);
+void		free_textures(t_data *app);
 void		free_mlx(t_data *app);
+void		free_app(t_data *app);
 
 //window
 void		init_window(t_data *app);
 
 //parse
+t_map		*prepare_map(t_data *app, char *path);
 char		**get_map(char *path);
 
 
