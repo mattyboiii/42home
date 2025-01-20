@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-01-18 23:19:15 by mtripodi          #+#    #+#             */
-/*   Updated: 2025-01-18 23:19:15 by mtripodi         ###   ########.fr       */
+/*   Created: 2025/01/18 23:19:15 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/20 15:02:33 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	ft_exit(int n)
 {
 	if (n == 2)
 		ft_err("No map has been specified", n);
+	return (0);
 }
 
 int	ft_err(char *msg, int n)
@@ -45,4 +46,5 @@ int	ft_err(char *msg, int n)
 	perror(err_mes);
 	null_free(&err_mes);
 	exit(n);
+	return (0);
 }

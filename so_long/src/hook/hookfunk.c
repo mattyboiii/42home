@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hookfunk.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-01-17 00:26:52 by mtripodi          #+#    #+#             */
-/*   Updated: 2025-01-17 00:26:52 by mtripodi         ###   ########.fr       */
+/*   Created: 2025/01/17 00:26:52 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/20 14:58:40 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	handle_keyboard(int keysim, t_data *app)
 		move_left(app);
 	}
 	ft_printf("keysim %d\n", keysim);
+	return (0);
 }
 
 int	handle_mouse(int button, t_data *app)
@@ -48,4 +49,5 @@ int	handle_mouse(int button, t_data *app)
 	{
 		ft_putendl_fd("Pressed Left Mouse", 1);
 	}
+	return (0);
 }
