@@ -5,6 +5,7 @@
 			"name": "Launch so_long",
 			"type": "lldb",
 			"request": "launch",
+			"args": ["src/maps/tiny.ber"],
 			"program": "${workspaceFolder}/so_long",
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "Make Rebuild",
