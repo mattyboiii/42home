@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 02:17:11 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/21 11:11:24 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/21 13:12:04 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void		init_window(t_data *app);
 
 // textures
 void		render_textures(t_data *app);
+int			determine_texture(char **map, int col, int row);
 
 //parse
 t_map		*prepare_map(t_data *app, char *path);
