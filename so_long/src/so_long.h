@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 02:17:11 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/21 13:12:04 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:27:24 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <X11/Xlib.h> // Button 1, button2 etc.
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
-
-#	define TILE_SIZE 64
 
 #	define GRASS '0'
 #	define TREE '1'
@@ -61,7 +59,8 @@ typedef struct s_data
 {
     void    *mlx;
     void    *win;
-	void	*textures[5];
+	void	*textures[6];
+	int		*tile_size;
 	t_map	*map;
 
 }               t_data;
@@ -96,6 +95,7 @@ void		free_app(t_data *app);
 
 //window
 void		init_window(t_data *app);
+int			get_texture(char c);
 
 // textures
 void		render_textures(t_data *app);

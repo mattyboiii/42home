@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 00:59:25 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/21 11:13:42 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:30:26 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int		render_next_frame(void *app)
 t_data	*ft_init(void)
 {
 	t_data		*app;
+	int			*n;
+
+	*n = 64;
 
 	app = malloc(sizeof(t_data));
 	if (!app)
@@ -30,6 +33,7 @@ t_data	*ft_init(void)
 	app->map = malloc(sizeof(t_map));
 	if (!app->map)
 		return (NULL);
+	app->tile_size = n;
 	app->map->txt = NULL;
 	app->map->width = 0;
 	app->map->height = 0;
