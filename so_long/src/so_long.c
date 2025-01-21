@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 00:59:25 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/20 14:58:13 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:13:42 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	main(int arc, char *arv[])
 		ft_err("Error initialising map", app, 1);
 	app->map = prepare_map(app, arv[1]);
 	init_window(app);
+
 
 }
 // void	ft_so_long(t_data *app)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-01-19 20:24:19 by mtripodi          #+#    #+#             */
-/*   Updated: 2025-01-19 20:24:19 by mtripodi         ###   ########.fr       */
+/*   Created: 2025/01/19 20:24:19 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/21 09:59:47 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_textures(t_data *app)
 	int		i;
 
 	i = 0;
-	while (i < 5)
+	while (i <= 5)
 	{
 		if (app->textures[i])
 			mlx_destroy_image(app->mlx, app->textures[i]);

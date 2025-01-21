@@ -13,6 +13,7 @@ LIBFT = -Llibft -lft
 SRC =	src/so_long.c \
 	src/pixel/pixelfunk.c \
 	src/hook/hookfunk.c \
+	src/textures.c \
 	src/utils.c \
 	src/parse.c \
 	src/window.c \

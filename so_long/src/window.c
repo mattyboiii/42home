@@ -6,11 +6,35 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:12:48 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/20 15:00:17 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:26:11 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+
+
+void	place_textures(t_data *app)
+{
+	int		row;
+	int		col;
+	char	**m;
+
+	m = app->map->txt;
+	row = 0;
+	col = 0;
+	while (m[col])
+	{
+		while(m[row])
+		{
+			
+		}
+	}
+
+
+
+}
+
 
 void	init_window(t_data *app)
 {
@@ -21,5 +45,9 @@ void	init_window(t_data *app)
 			app->map->height * TILE_SIZE, "for DUCKS sake! - mtripodi");
 	if (app->win == NULL)
 		ft_err("init_window > mlx_new_window: NULL", app, 1);
+	render_textures(app);
+	place_textures(app);
+
 
 }
+

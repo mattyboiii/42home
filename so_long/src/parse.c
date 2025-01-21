@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:01:35 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/20 14:40:17 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/21 09:03:41 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 t_map	*prepare_map(t_data *app, char *path)
 {
-	app->map->txt = get_map(path);
-	if (app->map->txt == NULL)
+	t_map		*map;
+
+	map = app->map;
+	map->txt = get_map(path);
+	if (map->txt == NULL)
 		ft_err("parse.c > prepare_map > get_map", app, 1);
+	get_map_info(map);
+	return (map);
 
 
 
@@ -41,7 +46,7 @@ char	**get_map(char *path)
 	i = 0;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (ft_err("Error opening file", 0, 0), NULL);
+		return (ft_err("parse.c > get_map > open", 0, 0), NULL);
 	if (ft_read(fd, &buf) == -1)
 		return (free(buf), NULL);
 	while (buf[i])
