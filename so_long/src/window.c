@@ -29,7 +29,7 @@ void	place_textures(t_data *app)
 		while(m[row])
 		{
 			img = mlx_xpm_file_to_image(app->mlx, app->textures[
-				get_texture(m[col][row])], app->tile_size, app->tile_size);
+				get_texture(m[col][row])], &app->tile_size, &app->tile_size);
 			mlx_put_image_to_window(app->mlx, app->win, img, col * 64,
 				row * 64);
 			row++;
@@ -58,16 +58,18 @@ int	get_texture(char c)
 
 void	init_window(t_data *app)
 {
+	void	*img;
+
 	app->mlx = mlx_init();
 	if (app->mlx == NULL)
 		ft_err("inti_window > mlx_init: NULL", app, 1);
-	app->win = mlx_new_window(app->mlx, app->map->width * 64,
-			app->map->height * 64, "for DUCKS sake! - mtripodi");
+	app->win = mlx_new_window(app->mlx, app->map->width * app->tile_size,
+			app->map->height * app->tile_size, "for DUCKS sake! - mtripodi");
 	if (app->win == NULL)
 		ft_err("init_window > mlx_new_window: NULL", app, 1);
 	render_textures(app);
 	place_textures(app);
-
+	ft_printf("hello");
 
 }
 

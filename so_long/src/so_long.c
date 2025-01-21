@@ -23,9 +23,7 @@ int		render_next_frame(void *app)
 t_data	*ft_init(void)
 {
 	t_data		*app;
-	int			*n;
 
-	*n = 64;
 
 	app = malloc(sizeof(t_data));
 	if (!app)
@@ -33,7 +31,7 @@ t_data	*ft_init(void)
 	app->map = malloc(sizeof(t_map));
 	if (!app->map)
 		return (NULL);
-	app->tile_size = n;
+	app->tile_size = 64;
 	app->map->txt = NULL;
 	app->map->width = 0;
 	app->map->height = 0;
@@ -54,6 +52,7 @@ t_data	*ft_init(void)
 int	main(int arc, char *arv[])
 {
 	t_data		*app;
+	void		*img;
 
 	if (arc != 2)
 		ft_err("No map has been selected", app, 2);
@@ -62,8 +61,6 @@ int	main(int arc, char *arv[])
 		ft_err("Error initialising map", app, 1);
 	app->map = prepare_map(app, arv[1]);
 	init_window(app);
-
-
 }
 // void	ft_so_long(t_data *app)
 // {
@@ -80,10 +77,7 @@ int	main(int arc, char *arv[])
 // 	** `bits_per_pixel`, `line_length`, and `endian` by reference. These will
 // 	** then be set accordingly for the *current* data address.
 // 	*/
-// 	app->addr = mlx_get_data_addr(app->img, &app->bits_per_pixel,
-// 			&app->line_length, &app->endian);
-// 	//height_x_width(&app->100, 200);
-// 	//draw_circle(&app-> 66, 0xFFFF0000);
+// 	//height_x_width(&app->100, 200); // 	//draw_circle(&app-> 66, 0xFFFF0000);
 // 	mlx_put_image_to_window(app->mlx, app->win, app->img, 0, 0);
 
 // 	mlx_hook(app->win, DestroyNotify, 0, close_program, &app);

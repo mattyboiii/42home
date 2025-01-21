@@ -60,9 +60,8 @@ typedef struct s_data
     void    *mlx;
     void    *win;
 	void	*textures[6];
-	int		*tile_size;
+	int		tile_size;
 	t_map	*map;
-
 }               t_data;
 
 // functions in my src dir
