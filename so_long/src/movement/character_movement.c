@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../so_long.h"
 
 int	move_up(t_data *app)
 {
-
 	return (0);
 }
 
@@ -31,9 +30,4 @@ int	move_down(t_data *app)
 int	move_left(t_data *app)
 {
 	return (0);
-}
-
-void	check_move(char c)
-{
-	//nothing
 }

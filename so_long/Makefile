@@ -18,9 +18,12 @@ SRC =	src/so_long.c \
 	src/parse.c \
 	src/window.c \
 	src/free.c \
-	src/character_movement.c
+	src/duck.c \
+	src/movement/check_movement.c \
+	src/movement/character_movement.c
 
 # Generate object file names from source files
+OBJ_DIR = src/obj
 OBJ = $(SRC:.c=.o)
 
 # Rules
@@ -33,7 +36,8 @@ $(OBJ):	%.o: %.c
 
 # 3 Create the executable from object files
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $@ $(LIBX) $(LIBFT)
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(OBJ) -o $@ $(LIBFT) $(LIBX)
 	@echo "\n"
 
 # 4 Clean rule: Remove object files and executable

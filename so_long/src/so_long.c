@@ -14,7 +14,6 @@
 
 void	ft_loop(t_data *app)
 {
-
 	mlx_hook(app->win, DestroyNotify, 0, close_program, app);
 	mlx_key_hook(app->win, handle_keyboard, app);
 	mlx_mouse_hook(app->win, handle_mouse, app);
@@ -53,12 +52,7 @@ t_data	*ft_init(void)
 	app->map->moves = 0;
 	return (app);
 }
-/*	The two lines of code below are essentially the same, one is just used
-	to make code more concise
 
-	mlx_hook(app->win, 2, 1L<<0, handle_input, &app->;
-	mlx_key_hook(app->win, handle_input, &app->;
-*/
 int	main(int arc, char *arv[])
 {
 	t_data		*app;

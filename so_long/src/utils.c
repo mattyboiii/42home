@@ -58,11 +58,14 @@ void	ft_err(char *msg, t_data *app, int n)
 		exit(n);
 }
 
-/** @breif close_program. will simply run free_app, to clear all memory.
+/**
+ * @brief close_program. will simply run free_app, to clear all memory.
  * then it will exit(0); as to not include any errors on the exit.
- * */
-void	close_program(t_data *app)
+ *
+ */
+int	close_program(t_data *app)
 {
 	free_app(app);
 	exit(0);
+	return (0);
 }

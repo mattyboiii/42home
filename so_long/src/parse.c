@@ -68,24 +68,27 @@ char	**get_map(char *path)
 */
 void	get_map_info(t_map *map)
 {
-	int		i;
-	int		j;
+	int		y;
+	int		x;
 
-	i = 0;
-	j = 0;
+	y = 0;
+	x = 0;
 	map->width = ft_strlen(map->txt[0]);
-	while (map->txt[i])
+	while (map->txt[y])
 	{
-		while (map->txt[i][j])
-		{
-			if ((map->txt[i][j] == COLL && ++map->collect)
-				|| (map->txt[i][j] == DUCK && ++map->entry)
-				|| (map->txt[i][j] == EXIT && ++map->exits))
-			if (map->txt[i][j] == DUCK)
-				map->duck = (t_duck){j, i};
-			j++;
-		}
-		i++;
+		while (map->txt[y][x])
+        {
+			ft_printf("row: %s c: %c\n", map->txt[y], map->txt[y][x]);
+            if (map->txt[y][x] == COLL)
+                map->collect++;
+            else if (map->txt[y][x] == DUCK)
+				found_duck(map, x, y);
+            else if (map->txt[y][x] == EXIT)
+                map->exits++;
+            x++;
+        }
+		x = 0;
+		y++;
 	}
-	map->height = i;
+	map->height = y;
 }

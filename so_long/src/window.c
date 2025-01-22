@@ -13,7 +13,10 @@
 #include "so_long.h"
 
 
-
+/** @breif place_textures is responsible for reading the map_txt and placing
+ * the correct texture at their correct spot.
+ *
+ * @param t_data* */
 void	place_textures(t_data *app)
 {
 	int		row;

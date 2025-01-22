@@ -68,20 +68,27 @@ typedef struct s_data
 // ---  --------------------
 
 // so_long.c
+void		ft_loop(t_data *app);
 
 // character
 int			move_up(t_data *app);
 int			move_right(t_data *app);
 int			move_down(t_data *app);
 int			move_left(t_data *app);
-void		check_move(char c);
+t_bool		check_move(t_data *app, char c);
+
+// collision
+t_bool		collision_free(t_data *app, t_duck duck);
 
 // pixel
 
+//duck
+void		found_duck(t_map *map, int x, int y);
+
 // hook
-void		close_program(t_data *app);
-void		handle_keyboard(int keycode, t_data *app);
-void		handle_mouse(int button, t_data *app);
+int			close_program(t_data *app);
+int			handle_keyboard(int keycode, t_data *app);
+int			handle_mouse(int button, t_data *app);
 
 //utils
 int			ft_read(int fd, char **line);
