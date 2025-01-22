@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:19:15 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/20 15:02:33 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/23 08:43:23 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_err(char *msg, t_data *app, int n)
 	if (n > 0)
 		exit(n);
 }
+
 
 /**
  * @brief close_program. will simply run free_app, to clear all memory.

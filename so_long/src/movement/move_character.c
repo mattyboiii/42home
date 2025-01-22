@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   move_character.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-01-22 06:59:50 by mtripodi          #+#    #+#             */
-/*   Updated: 2025-01-22 06:59:50 by mtripodi         ###   ########.fr       */
+/*   Created: 2025/01/22 06:59:50 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/23 08:40:27 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-
 
 void	move_duck_exit(t_data *app, t_duck duck_next, t_duck duck_past)
 {

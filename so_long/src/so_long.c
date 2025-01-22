@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 00:59:25 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/21 14:30:26 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/23 08:41:34 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,9 @@ void	ft_loop(t_data *app)
 {
 	mlx_hook(app->win, DestroyNotify, 0, close_program, app);
 	mlx_key_hook(app->win, handle_keyboard, app);
-	mlx_mouse_hook(app->win, handle_mouse, app);
+	//mlx_mouse_hook(app->win, handle_mouse, app);
 
 	mlx_loop(app->mlx);
-}
-
-int		render_next_frame(void *app)
-{
-		// display_score(app);
-		// render_bg(app);
-		// render_assets(app);
-		return (0);
 }
 
 t_data	*ft_init(void)

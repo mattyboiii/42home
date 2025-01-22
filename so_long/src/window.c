@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:12:48 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/21 14:27:48 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/23 08:49:21 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,13 @@ void	place_textures(t_data *app, char **m)
 
 void	init_window(t_data *app)
 {
-	int		score;
 	void	*img;
 
-	score = app->map->height + 1;
 	app->mlx = mlx_init();
 	if (app->mlx == NULL)
 		ft_err("inti_window > mlx_init: NULL", app, 1);
 	app->win = mlx_new_window(app->mlx, app->map->width * app->tile_size,
-			score * app->tile_size,
+			app->map->height * app->tile_size,
 			"for DUCKS sake! - mtripodi");
 	if (app->win == NULL)
 		ft_err("init_window > mlx_new_window: NULL", app, 1);
