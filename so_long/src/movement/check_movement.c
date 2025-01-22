@@ -17,6 +17,7 @@
 // 	if (txt[duck.y][duck.x] == 'C')
 // 		map->collect;
 // }
+//duck exit working
 
 t_bool		collision_free(t_data *app, t_map *map, t_duck duck)
 {
