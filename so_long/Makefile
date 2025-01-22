@@ -20,7 +20,8 @@ SRC =	src/so_long.c \
 	src/free.c \
 	src/duck.c \
 	src/movement/check_movement.c \
-	src/movement/character_movement.c
+	src/movement/move_character.c \
+	src/movement/directions.c
 
 # Generate object file names from source files
 OBJ_DIR = src/obj

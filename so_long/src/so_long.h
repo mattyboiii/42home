@@ -41,6 +41,7 @@ typedef struct s_duck
 {
 	int		x;
 	int		y;
+	int		collected;
 }			t_duck;
 
 typedef struct s_map
@@ -71,14 +72,17 @@ typedef struct s_data
 void		ft_loop(t_data *app);
 
 // character
-int			move_up(t_data *app);
-int			move_right(t_data *app);
-int			move_down(t_data *app);
-int			move_left(t_data *app);
+int			move_up(t_data *app, t_map *map, t_duck *duck);
+int			move_right(t_data *app, t_map *map, t_duck *duck);
+int			move_down(t_data *app, t_map *map, t_duck *duck);
+int			move_left(t_data *app, t_map *map, t_duck *duck);
+
+// check_movement
+char		check_tile(t_map *map, char **txt, t_duck duck);
+t_bool		collision_free(t_data *app, t_duck duck);
 t_bool		check_move(t_data *app, char c);
 
-// collision
-t_bool		collision_free(t_data *app, t_duck duck);
+//move_character
 
 // pixel
 

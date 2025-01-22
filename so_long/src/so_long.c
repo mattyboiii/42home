@@ -46,6 +46,7 @@ t_data	*ft_init(void)
 	app->map->height = 0;
 	app->map->duck.x = 0;
 	app->map->duck.y = 0;
+	app->map->duck.collected = 0;
 	app->map->collect = 0;
 	app->map->exits = 0;
 	app->map->entry = 0;

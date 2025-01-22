@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   collision.c                                        :+:      :+:    :+:   */
+/*   check_movement.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-01-22 02:42:30 by mtripodi          #+#    #+#             */
-/*   Updated: 2025-01-22 02:42:30 by mtripodi         ###   ########.fr       */
+/*   Created: 2025-01-22 07:02:57 by mtripodi          #+#    #+#             */
+/*   Updated: 2025-01-22 07:02:57 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+// char		check_tile(t_map *map, char **txt, t_duck duck)
+// {
+// 	if (txt[duck.y][duck.x] == 'C')
+// 		map->collect;
+// }
 
 t_bool		collision_free(t_data *app, t_duck duck)
 {
@@ -40,9 +46,9 @@ t_bool	check_move(t_data *app, char c)
 
 	duck_future = app->map->duck;
 	if (c == 'w')
-		duck_future.y++;
-	else if (c == 's')
 		duck_future.y--;
+	else if (c == 's')
+		duck_future.y++;
 	else if (c == 'a')
 		duck_future.x--;
 	else if (c == 'd')
