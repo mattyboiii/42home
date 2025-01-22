@@ -19,13 +19,13 @@ int	handle_keyboard(int keysim, t_data *app)
 	else if ((keysim == XK_w || keysim == XK_Up)
 			&& check_move(app, 'w') == true)
 		move_up(app, app->map, &app->map->duck);
-	else if ((keysim == XK_s || keysim == XK_Right)
+	else if ((keysim == XK_s || keysim == XK_Down)
 			&& check_move(app, 's') == true)
 		move_down(app, app->map, &app->map->duck);
 	else if ((keysim == XK_a || keysim == XK_Left)
 			&& check_move(app, 'a') == true)
 		move_left(app, app->map, &app->map->duck);
-	else if ((keysim == XK_d || keysim == XK_Down)
+	else if ((keysim == XK_d || keysim == XK_Right)
 			&& check_move(app,'d') == true)
 		move_right(app, app->map, &app->map->duck);
 	ft_printf("keysim %d\n", keysim);
