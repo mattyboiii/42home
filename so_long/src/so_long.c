@@ -12,6 +12,16 @@
 
 #include "so_long.h"
 
+void	ft_loop(t_data *app)
+{
+
+	mlx_hook(app->win, DestroyNotify, 0, close_program, app);
+	mlx_key_hook(app->win, handle_keyboard, app);
+	mlx_mouse_hook(app->win, handle_mouse, app);
+
+	mlx_loop(app->mlx);
+}
+
 int		render_next_frame(void *app)
 {
 		// display_score(app);
@@ -61,31 +71,5 @@ int	main(int arc, char *arv[])
 		ft_err("Error initialising map", app, 1);
 	app->map = prepare_map(app, arv[1]);
 	init_window(app);
+	ft_loop(app);
 }
-// void	ft_so_long(t_data *app)
-// {
-// 	//create a structure which holds all the ptr's available to use and run
-// 	// MiniLibx
-// 	app->mlx = mlx_init();
-// 	if (app->mlx == NULL)
-// 		return (1);
-
-// 	app->win = mlx_new_window (app->mlx, WIDTH, HEIGHT, "DUCK's Sake!!");
-// 	//app->img = mlx_new_image(app->mlx, 800, 600);
-// 	/*
-// 	** After creating an image, we can call `mlx_get_data_addr`, we pass
-// 	** `bits_per_pixel`, `line_length`, and `endian` by reference. These will
-// 	** then be set accordingly for the *current* data address.
-// 	*/
-// 	//height_x_width(&app->100, 200); // 	//draw_circle(&app-> 66, 0xFFFF0000);
-// 	mlx_put_image_to_window(app->mlx, app->win, app->img, 0, 0);
-
-// 	mlx_hook(app->win, DestroyNotify, 0, close_program, &app);
-// 	mlx_key_hook(app->win, handle_keyboard, &app);
-// 	mlx_mouse_hook(app->win, handle_mouse, &app);
-
-// 	// loop the window so that it stays open and looks for user input
-// 	mlx_loop(app->mlx);
-
-// 	return (0);
-// }

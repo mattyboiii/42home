@@ -47,5 +47,4 @@ void	free_app(t_data *app)
 	if (app->map)
 		free_map(app->map);
 	free_mlx(app);
-
 }

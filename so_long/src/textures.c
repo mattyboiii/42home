@@ -12,6 +12,21 @@
 
 #include "so_long.h"
 
+int	get_texture(char c)
+{
+	if (c == GRASS)
+		return (0);
+	else if (c == TREE)
+		return (1);
+	else if (c == COLL)
+		return (2);
+	else if (c == EXIT)
+		return (3);
+	else if (c == DUCK)
+		return (4);
+	return (0);
+}
+
 void	render_textures(t_data *app)
 {
 	app->textures[0] = mlx_xpm_file_to_image(app->mlx, "assets/grass.xpm",

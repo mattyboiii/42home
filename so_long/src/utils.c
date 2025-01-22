@@ -13,6 +13,7 @@
 
 #include "so_long.h"
 
+
 int	ft_read(int fd, char **line)
 {
 	int			bytes;
@@ -55,4 +56,13 @@ void	ft_err(char *msg, t_data *app, int n)
 		free_app(app);
 	if (n > 0)
 		exit(n);
+}
+
+/** @breif close_program. will simply run free_app, to clear all memory.
+ * then it will exit(0); as to not include any errors on the exit.
+ * */
+void	close_program(t_data *app)
+{
+	free_app(app);
+	exit(0);
 }

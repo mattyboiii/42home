@@ -70,17 +70,18 @@ typedef struct s_data
 // so_long.c
 
 // character
-int		move_up(t_data *app);
-int		move_right(t_data *app);
-int		move_down(t_data *app);
-int		move_left(t_data *app);
+int			move_up(t_data *app);
+int			move_right(t_data *app);
+int			move_down(t_data *app);
+int			move_left(t_data *app);
+void		check_move(char c);
 
 // pixel
 
 // hook
-int	close_program(t_data *app);
-int	handle_keyboard(int keycode, t_data *app);
-int	handle_mouse(int button, t_data *app);
+void		close_program(t_data *app);
+void		handle_keyboard(int keycode, t_data *app);
+void		handle_mouse(int button, t_data *app);
 
 //utils
 int			ft_read(int fd, char **line);

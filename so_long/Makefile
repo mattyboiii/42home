@@ -18,7 +18,7 @@ SRC =	src/so_long.c \
 	src/parse.c \
 	src/window.c \
 	src/free.c \
-	src/character/character_movement.c
+	src/character_movement.c
 
 # Generate object file names from source files
 OBJ = $(SRC:.c=.o)
