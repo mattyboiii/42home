@@ -24,14 +24,14 @@ void	place_textures(t_data *app)
 	m = app->map->txt;
 	row = 0;
 	col = 0;
-	while (m[col])
+	while (col < app->map->height)
 	{
-		while(m[row])
+		while(row < app->map->width)
 		{
-			img = mlx_xpm_file_to_image(app->mlx, app->textures[
-				get_texture(m[col][row])], &app->tile_size, &app->tile_size);
-			mlx_put_image_to_window(app->mlx, app->win, img, col * 64,
-				row * 64);
+			ft_printf("col: %d, row: %d, m: %c\n", col, row, m[col][row]);
+			img = app->textures[get_texture(m[col][row])];
+			mlx_put_image_to_window(app->mlx, app->win, img, row * 64,
+				col * 64);
 			row++;
 		}
 		row = 0;
