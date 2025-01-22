@@ -18,7 +18,7 @@
 // 		map->collect;
 // }
 
-t_bool		collision_free(t_data *app, t_duck duck)
+t_bool		collision_free(t_data *app, t_map *map, t_duck duck)
 {
 	char		c;
 
@@ -28,8 +28,9 @@ t_bool		collision_free(t_data *app, t_duck duck)
 	c = app->map->txt[duck.y][duck.x];
 	if (c == TREE)
 		return (false);
-	else
-		return (true);
+	else if (c == EXIT && duck.collected < map->collect)
+		return (false);
+	return (true);
 }
 /**
  * @brief Checks where the duck wants to move to. Used to check collision and
@@ -53,5 +54,5 @@ t_bool	check_move(t_data *app, char c)
 		duck_future.x--;
 	else if (c == 'd')
 		duck_future.x++;
-	return(collision_free(app, duck_future));
+	return(collision_free(app, app->map, duck_future));
 }

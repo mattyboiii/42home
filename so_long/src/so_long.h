@@ -79,7 +79,7 @@ int			move_left(t_data *app, t_map *map, t_duck *duck);
 
 // check_movement
 char		check_tile(t_map *map, char **txt, t_duck duck);
-t_bool		collision_free(t_data *app, t_duck duck);
+t_bool		collision_free(t_data *app, t_map *map, t_duck duck);
 t_bool		check_move(t_data *app, char c);
 
 //move_character
