@@ -12,13 +12,6 @@
 
 #include "../so_long.h"
 
-void	move_duck_img(t_data *app, t_duck duck_next, t_duck duck_past)
-{
-	mlx_put_image_to_window(app->mlx, app->win, app->textures[4],
-			duck_next.x * 64, duck_next.y * 64);
-	mlx_put_image_to_window(app->mlx, app->win, app->textures[0],
-			duck_past.x * 64, duck_past.y * 64);
-}
 
 int	move_up(t_data *app, t_map *map, t_duck *duck)
 {
@@ -29,6 +22,8 @@ int	move_up(t_data *app, t_map *map, t_duck *duck)
 	duck->y--;
 	if (map->txt[duck->y][duck->x] == 'C')
 		duck->collected++;
+	if (map->txt[duck->y][duck->x] == 'E')
+		move_duck_exit(app, *duck, duck_past);
 	move_duck_img(app, *duck, duck_past);
 	return (0);
 }
@@ -41,6 +36,8 @@ int	move_down(t_data *app, t_map *map, t_duck *duck)
 	duck->y++;
 	if (map->txt[duck->y][duck->x] == 'C')
 		duck->collected++;
+	if (map->txt[duck->y][duck->x] == 'E')
+		move_duck_exit(app, *duck, duck_past);
 	move_duck_img(app, *duck, duck_past);
 	return (0);
 }
@@ -53,6 +50,8 @@ int	move_left(t_data *app, t_map *map, t_duck *duck)
 	duck->x--;
 	if (map->txt[duck->y][duck->x] == 'C')
 		duck->collected++;
+	if (map->txt[duck->y][duck->x] == 'E')
+		move_duck_exit(app, *duck, duck_past);
 	move_duck_img(app, *duck, duck_past);
 	return (0);
 }
@@ -65,6 +64,8 @@ int	move_right(t_data *app, t_map *map, t_duck *duck)
 	duck->x++;
 	if (map->txt[duck->y][duck->x] == 'C')
 		duck->collected++;
+	if (map->txt[duck->y][duck->x] == 'E')
+		move_duck_exit(app, *duck, duck_past);
 	move_duck_img(app, *duck, duck_past);
 	return (0);
 }

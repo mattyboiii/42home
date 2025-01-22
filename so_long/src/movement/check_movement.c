@@ -12,13 +12,13 @@
 
 #include "../so_long.h"
 
-// char		check_tile(t_map *map, char **txt, t_duck duck)
-// {
-// 	if (txt[duck.y][duck.x] == 'C')
-// 		map->collect;
-// }
-//duck exit working
-
+/**
+ * @brief Checks weather or not the move which the player has made is possible.
+ * It will not allow movement into tree's, nor the exit unless all ducklings
+ * have been collected.
+ *
+ * @return true/false depending on if your free to move
+ */
 t_bool		collision_free(t_data *app, t_map *map, t_duck duck)
 {
 	char		c;
@@ -40,7 +40,6 @@ t_bool		collision_free(t_data *app, t_map *map, t_duck duck)
  * @param app the t_data struct
  * @param c   the key pressed to invoke the movement wsad
  * @return true/false depending on if the move is possible
- *
  */
 t_bool	check_move(t_data *app, char c)
 {
