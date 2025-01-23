@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 02:17:11 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/23 09:57:32 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:53:49 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #	define COLL 'C'
 #	define EXIT 'E'
 #	define DUCK 'P'
+
 
 /** I ended up using a bool as it made the code more readable, it also meant
  * if I wanted to change the return values, I could ctrl + f false/true and

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:01:35 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/23 14:04:13 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:54:26 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ t_bool	check_boarder(t_map *map, char **ber)
 	int		row;
 	int		col;
 
-
+	row = 0;
+	col = 0;
 	while (col < map->height)
 	{
 		while(row < map->width)
 		{
-			mlx_put_image_to_window(app->mlx, app->win, img, row * 64,
-				col * 64);
+			if (ber[col][row] != '1')
+				return (false);
 			row++;
 			if ((col > 0 && row < map->width - 1) && col != map->height - 1)
 				row = map->width - 1;
@@ -33,11 +34,16 @@ t_bool	check_boarder(t_map *map, char **ber)
 		row = 0;
 		col++;
 	}
+	return (true);
 }
 
-t_bool	keep_or_throw(t_map *map, char **ber)
+t_bool	valid_path(t_map *map, char **ber, t_duck duck)
 {
+	int		row;
+	int		col;
 
+	row = duck.x;
+	col = duck.y;
 }
 
 t_map	*prepare_map(t_data *app, char *path)
@@ -60,7 +66,7 @@ t_map	*prepare_map(t_data *app, char *path)
 				 app, 1);
 	if (check_boarder(map, map->txt) == false)
 		ft_err("Map must be surrounded by Trees '1'", app, 1);
-	if (keep_or_throw(map, map->txt) == true)
+	if (valid_path(map, map->txt, map->duck) == true)
 		return (map);
 	else
 		return (NULL);

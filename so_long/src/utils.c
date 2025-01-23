@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:19:15 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/23 09:22:56 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:33:01 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,8 @@ int	ft_read(int fd, char **line)
 */
 void	ft_err(char *msg, t_data *app, int n)
 {
-	char		*err_mes;
-
-	err_mes = ft_strjoin("Error: ", msg);
-	perror(err_mes);
-	null_free(&err_mes);
+	ft_putendl_fd("Error", 2);
+	perror(msg);
 	if (app)
 		free_app(app);
 	if (n > 0)
