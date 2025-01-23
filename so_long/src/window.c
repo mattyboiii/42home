@@ -6,29 +6,33 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:12:48 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/23 08:49:21 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:48:42 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	place_scoreboard(t_data *app, t_map *map, char **m)
+void	place_win(t_data *app, t_map *map)
 {
 	int		row;
 	int		col;
 	void	*img;
 
+	img = mlx_xpm_file_to_image(app->mlx, "assets/win.xpm", &app->tile_size,
+				&app->tile_size);
 	row = 0;
-	col = map->height;
-	while (col <= app->map->height)
+	col = 0;
+	while (col < map->height)
 	{
-		while(row < app->map->width)
+		while(row < map->width)
 		{
-			ft_printf("col: %d, row: %d\n", col, row);
-			img = app->textures[0];
 			mlx_put_image_to_window(app->mlx, app->win, img, row * 64,
 				col * 64);
 			row++;
+			if ((col > 0 && row < map->width - 1) && col != map->height - 1)
+				row = map->width - 1;
+			else if (col > 0 && row >= map->width - 1 && col != map->height - 1)
+				break ;
 		}
 		row = 0;
 		col++;
@@ -51,7 +55,6 @@ void	place_textures(t_data *app, char **m)
 	{
 		while(row < app->map->width)
 		{
-			ft_printf("col: %d, rows %d, m: %c\n", col, row, m[col][row]);
 			img = app->textures[get_texture(m[col][row])];
 			mlx_put_image_to_window(app->mlx, app->win, img, row * 64,
 				col * 64);
@@ -76,6 +79,5 @@ void	init_window(t_data *app)
 		ft_err("init_window > mlx_new_window: NULL", app, 1);
 	render_textures(app);
 	place_textures(app, app->map->txt);
-	place_scoreboard(app, app->map, app->map->txt);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 00:26:52 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/20 14:58:40 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/23 12:09:33 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	handle_keyboard(int keysim, t_data *app)
 	else if ((keysim == XK_d || keysim == XK_Right)
 			&& check_move(app,'d') == true)
 		move_right(app, app->map, &app->map->duck);
-	ft_printf("keysim %d\n", keysim);
 	return (0);
 }
 

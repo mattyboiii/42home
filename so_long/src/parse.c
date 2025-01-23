@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:01:35 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/21 09:03:41 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/23 12:19:35 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ t_map	*prepare_map(t_data *app, char *path)
 		ft_err("parse.c > prepare_map > get_map", app, 1);
 	get_map_info(map);
 	return (map);
-
-
 
 }
 
@@ -78,7 +76,6 @@ void	get_map_info(t_map *map)
 	{
 		while (map->txt[y][x])
         {
-			ft_printf("row: %s c: %c\n", map->txt[y], map->txt[y][x]);
             if (map->txt[y][x] == COLL)
                 map->collect++;
             else if (map->txt[y][x] == DUCK)

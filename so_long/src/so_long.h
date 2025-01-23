@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 02:17:11 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/21 14:27:24 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/23 09:57:32 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void		free_mlx(t_data *app);
 void		free_app(t_data *app);
 
 //window
+void		place_win(t_data *app, t_map *map);
 void		init_window(t_data *app);
 int			get_texture(char c);
 

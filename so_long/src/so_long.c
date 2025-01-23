@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 00:59:25 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/23 08:41:34 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/23 12:18:23 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ft_loop(t_data *app)
 t_data	*ft_init(void)
 {
 	t_data		*app;
-
 
 	app = malloc(sizeof(t_data));
 	if (!app)
