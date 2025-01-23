@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 02:17:11 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/23 16:53:49 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:15:00 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ typedef enum e_bool
 	false,
 	true
 }			t_bool;
+
+typedef struct s_flood
+{
+	int		collect;
+	int		exits;
+}			t_flood;
 
 typedef struct s_duck
 {
@@ -121,6 +127,6 @@ int			determine_texture(char **map, int col, int row);
 t_map		*prepare_map(t_data *app, char *path);
 char		**get_map(char *path);
 void		get_map_info(t_map *map);
-
+t_bool		check_map(t_data *app, t_map *map, char **ber);
 
 #endif
