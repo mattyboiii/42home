@@ -6,11 +6,39 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:01:35 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/23 12:19:35 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:04:13 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+t_bool	check_boarder(t_map *map, char **ber)
+{
+	int		row;
+	int		col;
+
+
+	while (col < map->height)
+	{
+		while(row < map->width)
+		{
+			mlx_put_image_to_window(app->mlx, app->win, img, row * 64,
+				col * 64);
+			row++;
+			if ((col > 0 && row < map->width - 1) && col != map->height - 1)
+				row = map->width - 1;
+			else if (col > 0 && row >= map->width - 1 && col != map->height - 1)
+				break ;
+		}
+		row = 0;
+		col++;
+	}
+}
+
+t_bool	keep_or_throw(t_map *map, char **ber)
+{
+
+}
 
 t_map	*prepare_map(t_data *app, char *path)
 {
@@ -21,8 +49,21 @@ t_map	*prepare_map(t_data *app, char *path)
 	if (map->txt == NULL)
 		ft_err("parse.c > prepare_map > get_map", app, 1);
 	get_map_info(map);
-	return (map);
-
+	if (map->exits < 1 || map->exits > 1)
+		ft_err("Only 1 Exit 'E' is allowed", app, 1);
+	if (map->entry < 1 || map->entry > 1)
+		ft_err("Only 1 Entry 'P' is allowed", app, 1);
+	if (map->collect < 1)
+		ft_err("Map needs one duckling 'C'", app, 1);
+	if (map->height < 3 || map->width < 3 || map->height == map->width)
+		ft_err("Map must be a rectangle and at least 3 tiles in height/width",
+				 app, 1);
+	if (check_boarder(map, map->txt) == false)
+		ft_err("Map must be surrounded by Trees '1'", app, 1);
+	if (keep_or_throw(map, map->txt) == true)
+		return (map);
+	else
+		return (NULL);
 }
 
 /**
