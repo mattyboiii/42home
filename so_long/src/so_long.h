@@ -53,7 +53,7 @@ typedef struct s_duck
 
 typedef struct s_map
 {
-	char	**ber; //
+	char	**ber; //file extention of the map
 	int		width;
 	int		height;
 	t_duck	duck;
@@ -85,12 +85,12 @@ int			move_down(t_data *app, t_map *map, t_duck *duck);
 int			move_left(t_data *app, t_map *map, t_duck *duck);
 
 // check_movement
-char		check_tile(t_map *map, char **ber, t_duck duck);
+char		check_tile(t_map *map, char **txt, t_duck duck);
 t_bool		collision_free(t_data *app, t_map *map, t_duck duck);
 t_bool		check_move(t_data *app, char c);
 
 // check_map
-t_bool		check_map(t_data *app, t_map *map, char **ber);
+void		check_map(t_data *app, t_map *map, char **ber);
 t_bool		check_boarder(t_map *map, char **ber);
 
 //move_chapracter
@@ -127,9 +127,10 @@ void		render_textures(t_data *app);
 int			determine_texture(char **map, int col, int row);
 
 //parse
+t_bool		valid_map_path(t_map *map, int row, int col,
+			t_flood *flood);
 t_map		*prepare_map(t_data *app, char *path);
 char		**get_map(char *path);
 void		get_map_info(t_map *map);
-t_bool		check_map(t_data *app, t_map *map, char **ber);
 
 #endif

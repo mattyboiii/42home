@@ -35,16 +35,13 @@ t_bool	valid_map_path(t_map *map, int row, int col, t_flood *flood)
 t_map	*prepare_map(t_data *app, char *path)
 {
 	t_map		*map;
-	t_flood		flood;
 
 	map = app->map;
 	map->ber = get_map(path);
 	if (map->ber == NULL)
 		ft_err("parse.c > prepare_map > get_map", app, 1);
 	get_map_info(map);
-	flood.collected = 0;
-	flood.exits = 0;
-	valid_map_path(map, app->map->duck.x, app->map->duck.y, &flood);
+	check_map(app, map, map->ber);
 	return (NULL);
 }
 

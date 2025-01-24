@@ -37,19 +37,23 @@ t_bool	check_boarder(t_map *map, char **ber)
 	return (true);
 }
 
-t_bool	check_map(t_data *app, t_map *map, char **ber)
+void	check_map(t_data *app, t_map *map, char **ber)
 {
-	if (map->exits < 1 || map->exits > 1)
-		ft_err("Only 1 Exit 'E' is allowed", app, 1);
+	t_flood		flood;
+
+	flood.collected = 0;
+	flood.exits = 0;
+	if (map->exits != 1)
+		ft_err("Only 1 Exit 'E' is allowed on the map", app, 1);
 	if (map->entry < 1 || map->entry > 1)
-		ft_err("Only 1 Entry 'P' is allowed", app, 1);
+		ft_err("Only 1 Entry 'P' is allowed on the map", app, 1);
 	if (map->collect < 1)
-		ft_err("Map needs one duckling 'C'", app, 1);
+		ft_err("Map needs at least one duckling 'C'", app, 1);
 	if (map->height < 3 || map->width < 3 || map->height == map->width)
-		ft_err("Map must be a rectangle and at least 3 tiles in height/width",
+		ft_err("Map must be a rectangle and at least 3 tiles in height or width",
 				 app, 1);
 	if (check_boarder(map, map->ber) == false)
-		ft_err("Map must be surrounded by Trees '1'", app, 1);
-	if (valid_path(map, map->ber, map->duck) == true)
-		return (map);
+		ft_err("Map must be completely surrounded by Trees '1'", app, 1);
+	if (valid_map_path(map, map->duck.x, map->duck.y, &flood) == true)
+		ft_err("Map is not possible, no valid path for our Duck", app, 1);
 }
