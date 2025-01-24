@@ -12,6 +12,18 @@
 
 #include "../so_long.h"
 
+void	found_duck(t_map *map, int x, int y)
+{
+	if (!map->duck.x && !map->duck.y)
+	{
+		map->duck.x = x;
+		map->duck.y = y;
+		map->entry++;
+	}
+	else
+		map->entry++;
+}
+
 /**
  * @brief Checks weather or not the move which the player has made is possible.
  * It will not allow movement into tree's, nor the exit unless all ducklings

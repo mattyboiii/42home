@@ -58,6 +58,6 @@ void	check_map(t_data *app, t_map *map, char **ber)
 				 app, 1);
 	if (check_boarder(map, map->ber) == false)
 		ft_err("Map must be completely surrounded by Trees '1'", app, 1);
-	if (valid_map_path(map, map->duck.x, map->duck.y, &flood) == true)
+	if (valid_map_path(map, map->duck.x, map->duck.y, &flood) == false)
 		ft_err("Map is not possible, no valid path for our Duck", app, 1);
 }

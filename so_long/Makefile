@@ -18,7 +18,6 @@ SRC =	src/so_long.c \
 	src/parse.c \
 	src/window.c \
 	src/free.c \
-	src/duck.c \
 	src/check_map.c \
 	src/movement/check_movement.c \
 	src/movement/move_character.c \

@@ -94,13 +94,13 @@ void		check_map(t_data *app, t_map *map, char **ber);
 t_bool		check_boarder(t_map *map, char **ber);
 
 //move_chapracter
-void	move_duck_exit(t_data *app, t_duck duck_next, t_duck duck_past);
-void	move_duck_img(t_data *app, t_duck duck_next, t_duck duck_past);
+void		found_duck(t_map *map, int x, int y);
+void		move_duck_exit(t_data *app, t_duck duck_next, t_duck duck_past);
+void		move_duck_img(t_data *app, t_duck duck_next, t_duck duck_past);
 
 // pixel
 
 //duck
-void		found_duck(t_map *map, int x, int y);
 
 // hook
 int			close_program(t_data *app);

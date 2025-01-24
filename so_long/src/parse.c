@@ -12,7 +12,6 @@
 
 #include "so_long.h"
 
-
 t_bool	valid_map_path(t_map *map, int row, int col, t_flood *flood)
 {
 	if (flood->collected == map->collect && flood->exits == 1)
@@ -35,14 +34,17 @@ t_bool	valid_map_path(t_map *map, int row, int col, t_flood *flood)
 t_map	*prepare_map(t_data *app, char *path)
 {
 	t_map		*map;
+	t_map		*map_copy;
 
 	map = app->map;
+	map_copy = map;
 	map->ber = get_map(path);
 	if (map->ber == NULL)
 		ft_err("parse.c > prepare_map > get_map", app, 1);
 	get_map_info(map);
-	check_map(app, map, map->ber);
-	return (NULL);
+	check_map(app, map_copy, map->ber);
+	free_map(map_copy);
+	return (map);
 }
 
 /**

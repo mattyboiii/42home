@@ -16,7 +16,6 @@ void	ft_loop(t_data *app)
 {
 	mlx_hook(app->win, DestroyNotify, 0, close_program, app);
 	mlx_key_hook(app->win, handle_keyboard, app);
-	//mlx_mouse_hook(app->win, handle_mouse, app);
 
 	mlx_loop(app->mlx);
 }
