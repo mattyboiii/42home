@@ -66,7 +66,7 @@ int	close_program(t_data *app)
 	if (app->victory == 1)
 		ft_putendl_fd("Victory!!! Well Ducking Done :)", 1);
 	else
-		ft_putendl_fd("Close program Initiated", 1);
+		ft_putendl_fd("Close program Initiated\nClosing Program...", 1);
 	exit(0);
 	return (0);
 }
