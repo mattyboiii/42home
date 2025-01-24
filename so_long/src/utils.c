@@ -34,7 +34,7 @@ int	ft_read(int fd, char **line)
 }
 
 /**
- * @breif the ft_err function is mainly responsible for printing function
+ * @brief the ft_err function is mainly responsible for printing function
  * dedicated errors to stderr during an error.
  *
  * It will also free the app assuming its passed in.

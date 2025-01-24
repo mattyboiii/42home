@@ -28,7 +28,10 @@ void	free_textures(t_data *app)
 	while (i <= 5)
 	{
 		if (app->textures[i])
+		{
 			mlx_destroy_image(app->mlx, app->textures[i]);
+			free(app->textures[i]);
+		}
 		i++;
 	}
 }
@@ -36,7 +39,6 @@ void	free_textures(t_data *app)
 void	free_mlx(t_data *app)
 {
 	mlx_destroy_window(app->mlx, app->win);
-	//mlx_destroy_image(app->mlx, app->img);
 	mlx_destroy_display(app->mlx);
 	free(app->mlx);
 }
