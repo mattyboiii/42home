@@ -14,15 +14,14 @@
 
 int	move_up(t_data *app, t_map *map, t_duck *duck)
 {
-	char		prev_tile;
 	t_duck		duck_past;
 
 	map->moves++;
 	duck_past = *duck;
 	duck->y--;
-	if (map->txt[duck->y][duck->x] == 'C')
+	if (map->ber[duck->y][duck->x] == 'C')
 		duck->collected++;
-	if (map->txt[duck->y][duck->x] == 'E')
+	if (map->ber[duck->y][duck->x] == 'E')
 		move_duck_exit(app, *duck, duck_past);
 	move_duck_img(app, *duck, duck_past);
 	ft_printf("Moves: %d\n", map->moves);
@@ -36,9 +35,9 @@ int	move_down(t_data *app, t_map *map, t_duck *duck)
 	map->moves++;
 	duck_past = *duck;
 	duck->y++;
-	if (map->txt[duck->y][duck->x] == 'C')
+	if (map->ber[duck->y][duck->x] == 'C')
 		duck->collected++;
-	if (map->txt[duck->y][duck->x] == 'E')
+	if (map->ber[duck->y][duck->x] == 'E')
 		move_duck_exit(app, *duck, duck_past);
 	move_duck_img(app, *duck, duck_past);
 	ft_printf("Moves: %d\n", map->moves);
@@ -52,9 +51,9 @@ int	move_left(t_data *app, t_map *map, t_duck *duck)
 	map->moves++;
 	duck_past = *duck;
 	duck->x--;
-	if (map->txt[duck->y][duck->x] == 'C')
+	if (map->ber[duck->y][duck->x] == 'C')
 		duck->collected++;
-	if (map->txt[duck->y][duck->x] == 'E')
+	if (map->ber[duck->y][duck->x] == 'E')
 		move_duck_exit(app, *duck, duck_past);
 	move_duck_img(app, *duck, duck_past);
 	ft_printf("Moves: %d\n", map->moves);
@@ -68,9 +67,9 @@ int	move_right(t_data *app, t_map *map, t_duck *duck)
 	map->moves++;
 	duck_past = *duck;
 	duck->x++;
-	if (map->txt[duck->y][duck->x] == 'C')
+	if (map->ber[duck->y][duck->x] == 'C')
 		duck->collected++;
-	if (map->txt[duck->y][duck->x] == 'E')
+	if (map->ber[duck->y][duck->x] == 'E')
 		move_duck_exit(app, *duck, duck_past);
 	move_duck_img(app, *duck, duck_past);
 	ft_printf("Moves: %d\n", map->moves);

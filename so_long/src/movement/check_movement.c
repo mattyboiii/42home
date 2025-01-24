@@ -26,7 +26,7 @@ t_bool		collision_free(t_data *app, t_map *map, t_duck duck)
 	if (duck.x > app->map->width || duck.y > app->map->height
 			|| !duck.x || !duck.y)
 		return (false);
-	c = app->map->txt[duck.y][duck.x];
+	c = app->map->ber[duck.y][duck.x];
 	if (c == TREE)
 		return (false);
 	else if (c == EXIT && duck.collected < map->collect)

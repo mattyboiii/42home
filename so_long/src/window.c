@@ -39,7 +39,7 @@ void	place_win(t_data *app, t_map *map)
 	}
 }
 
-/** @breif place_textures is responsible for reading the map_txt and placing
+/** @breif place_textures is responsible for reading the map_ber and placing
  * the correct texture at their correct spot.
  *
  * @param t_data* */
@@ -78,6 +78,6 @@ void	init_window(t_data *app)
 	if (app->win == NULL)
 		ft_err("init_window > mlx_new_window: NULL", app, 1);
 	render_textures(app);
-	place_textures(app, app->map->txt);
+	place_textures(app, app->map->ber);
 }
 

@@ -32,7 +32,7 @@ t_data	*ft_init(void)
 	if (!app->map)
 		return (NULL);
 	app->tile_size = 64;
-	app->map->txt = NULL;
+	app->map->ber = NULL;
 	app->map->width = 0;
 	app->map->height = 0;
 	app->map->duck.x = 0;

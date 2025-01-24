@@ -40,7 +40,7 @@ typedef enum e_bool
 
 typedef struct s_flood
 {
-	int		collect;
+	int		collected;
 	int		exits;
 }			t_flood;
 
@@ -53,7 +53,7 @@ typedef struct s_duck
 
 typedef struct s_map
 {
-	char	**txt;
+	char	**ber; //
 	int		width;
 	int		height;
 	t_duck	duck;
@@ -85,14 +85,17 @@ int			move_down(t_data *app, t_map *map, t_duck *duck);
 int			move_left(t_data *app, t_map *map, t_duck *duck);
 
 // check_movement
-char		check_tile(t_map *map, char **txt, t_duck duck);
+char		check_tile(t_map *map, char **ber, t_duck duck);
 t_bool		collision_free(t_data *app, t_map *map, t_duck duck);
 t_bool		check_move(t_data *app, char c);
+
+// check_map
+t_bool		check_map(t_data *app, t_map *map, char **ber);
+t_bool		check_boarder(t_map *map, char **ber);
 
 //move_chapracter
 void	move_duck_exit(t_data *app, t_duck duck_next, t_duck duck_past);
 void	move_duck_img(t_data *app, t_duck duck_next, t_duck duck_past);
-
 
 // pixel
 

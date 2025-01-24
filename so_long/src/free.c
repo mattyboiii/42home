@@ -16,7 +16,7 @@
 
 void	free_map(t_map	*map)
 {
-	dp_free(&map->txt);
+	dp_free(&map->ber);
 	free(map);
 }
 

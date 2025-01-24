@@ -12,51 +12,40 @@
 
 #include "so_long.h"
 
-t_bool	check_boarder(t_map *map, char **ber)
+
+t_bool	valid_map_path(t_map *map, int row, int col, t_flood *flood)
 {
-	int		row;
-	int		col;
-
-	row = 0;
-	col = 0;
-	while (col < map->height)
-	{
-		while(row < map->width)
-		{
-			if (ber[col][row] != '1')
-				return (false);
-			row++;
-			if ((col > 0 && row < map->width - 1) && col != map->height - 1)
-				row = map->width - 1;
-			else if (col > 0 && row >= map->width - 1 && col != map->height - 1)
-				break ;
-		}
-		row = 0;
-		col++;
-	}
-	return (true);
-}
-
-t_bool	valid_path(t_map *map, char **ber, t_duck duck)
-{
-	int		row;
-	int		col;
-
-	row = duck.x;
-	col = duck.y;
+	if (flood->collected == map->collect && flood->exits == 1)
+		return (true);
+	if (map->ber[col][row] == TREE)
+		return (false);
+	if (map->ber[col][row] == COLL)
+		flood->collected++;
+	if (map->ber[col][row] == EXIT)
+		flood->exits++;
+	map->ber[col][row] = TREE;
+	if (valid_map_path(map, row + 1, col, flood) == true
+		|| valid_map_path(map, row - 1, col, flood) == true
+		|| valid_map_path(map, row, col + 1, flood) == true
+		|| valid_map_path(map, row, col - 1, flood) == true)
+		return (true);
+	return (false);
 }
 
 t_map	*prepare_map(t_data *app, char *path)
 {
 	t_map		*map;
+	t_flood		flood;
 
 	map = app->map;
-	map->txt = get_map(path);
-	if (map->txt == NULL)
+	map->ber = get_map(path);
+	if (map->ber == NULL)
 		ft_err("parse.c > prepare_map > get_map", app, 1);
 	get_map_info(map);
-	else
-		return (NULL);
+	flood.collected = 0;
+	flood.exits = 0;
+	valid_map_path(map, app->map->duck.x, app->map->duck.y, &flood);
+	return (NULL);
 }
 
 /**
@@ -72,7 +61,7 @@ char	**get_map(char *path)
 	int			fd;
 	int			i;
 	char		*buf;
-	char		**map_txt;
+	char		**map_ber;
 
 	buf = NULL;
 	i = 0;
@@ -87,9 +76,9 @@ char	**get_map(char *path)
 			return (free(buf), NULL);
 		i++;
 	}
-	map_txt = ft_split(buf, '\n');
+	map_ber = ft_split(buf, '\n');
 	free(buf);
-	return (map_txt);
+	return (map_ber);
 }
 
 /**
@@ -105,16 +94,16 @@ void	get_map_info(t_map *map)
 
 	y = 0;
 	x = 0;
-	map->width = ft_strlen(map->txt[0]);
-	while (map->txt[y])
+	map->width = ft_strlen(map->ber[0]);
+	while (map->ber[y])
 	{
-		while (map->txt[y][x])
+		while (map->ber[y][x])
         {
-            if (map->txt[y][x] == COLL)
+            if (map->ber[y][x] == COLL)
                 map->collect++;
-            else if (map->txt[y][x] == DUCK)
+            else if (map->ber[y][x] == DUCK)
 				found_duck(map, x, y);
-            else if (map->txt[y][x] == EXIT)
+            else if (map->ber[y][x] == EXIT)
                 map->exits++;
             x++;
         }
