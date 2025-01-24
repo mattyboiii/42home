@@ -43,8 +43,10 @@ void	free_mlx(t_data *app)
 
 void	free_app(t_data *app)
 {
-	free_textures(app);
+	if (app->textures[0])
+		free_textures(app);
 	if (app->map)
 		free_map(app->map);
-	free_mlx(app);
+	if (app->mlx)
+		free_mlx(app);
 }

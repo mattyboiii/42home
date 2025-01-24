@@ -48,7 +48,7 @@ int	ft_read(int fd, char **line)
 void	ft_err(char *msg, t_data *app, int n)
 {
 	ft_putendl_fd("Error", 2);
-	perror(msg);
+	ft_putendl_fd(msg, 2);
 	if (app)
 		free_app(app);
 	if (n > 0)

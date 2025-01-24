@@ -43,12 +43,16 @@ void	check_map(t_data *app, t_map *map, char **ber)
 
 	flood.collected = 0;
 	flood.exits = 0;
-	if (map->exits != 1)
-		ft_err("Only 1 Exit 'E' is allowed on the map", app, 1);
-	if (map->entry < 1 || map->entry > 1)
+	if (map->exits < 1)
+		ft_err("Must be at least 1 Exit 'E' on the map", app, 1);
+	if (map->exits > 1)
+		ft_err("Only 1 Exit 'E' allowed on the map", app, 1);
+	if (map->entry < 1)
+		ft_err("Must be at least 1 Entry 'P' on the map", app, 1);
+	if (map->entry > 1)
 		ft_err("Only 1 Entry 'P' is allowed on the map", app, 1);
 	if (map->collect < 1)
-		ft_err("Map needs at least one duckling 'C'", app, 1);
+		ft_err("Map needs at least one Duckling 'C'", app, 1);
 	if (map->height < 3 || map->width < 3 || map->height == map->width)
 		ft_err("Map must be a rectangle and at least 3 tiles in height or width",
 				 app, 1);
