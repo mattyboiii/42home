@@ -39,10 +39,11 @@ void	place_win(t_data *app, t_map *map)
 	}
 }
 
-/** @breif place_textures is responsible for reading the map_ber and placing
+/** @brief place_textures is responsible for reading the map_ber and placing
  * the correct texture at their correct spot.
  *
- * @param t_data* */
+ * @param t_data
+*/
 void	place_textures(t_data *app, char **m)
 {
 	int		row;
