@@ -31,6 +31,7 @@ t_data	*ft_init(void)
 	if (!app->map)
 		return (NULL);
 	app->tile_size = 64;
+	app->victory = 0;
 	app->map->ber = NULL;
 	app->map->width = 0;
 	app->map->height = 0;

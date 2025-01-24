@@ -11,17 +11,16 @@ LIBFT = -Llibft -lft
 # what these are)-------------- eg $(wildcard pattern)
 
 SRC =	src/so_long.c \
-	src/pixel/pixelfunk.c \
-	src/hook/hookfunk.c \
-	src/textures.c \
-	src/utils.c \
-	src/parse.c \
-	src/window.c \
-	src/free.c \
-	src/check_map.c \
-	src/movement/check_movement.c \
-	src/movement/move_character.c \
-	src/movement/directions.c
+		src/hookfunk.c \
+		src/textures.c \
+		src/utils.c \
+		src/parse.c \
+		src/window.c \
+		src/free.c \
+		src/check_map.c \
+		src/movement/check_movement.c \
+		src/movement/move_character.c \
+		src/movement/directions.c
 
 # Generate object file names from source files
 OBJ_DIR = src/obj

@@ -33,17 +33,26 @@ t_bool	valid_map_path(t_map *map, int row, int col, t_flood *flood)
 
 t_map	*prepare_map(t_data *app, char *path)
 {
+	char		**ber_copy;
 	t_map		*map;
-	t_map		*map_copy;
+	t_flood		flood;
 
+	flood.collected = 0;
+	flood.exits = 0;
 	map = app->map;
-	map_copy = map;
+	ber_copy = get_map(path);
 	map->ber = get_map(path);
-	if (map->ber == NULL)
+	if (map->ber == NULL || ber_copy == NULL)
 		ft_err("parse.c > prepare_map > get_map", app, 1);
 	get_map_info(map);
-	check_map(app, map_copy, map->ber);
-	free_map(map_copy);
+	if (valid_map_path(map, map->duck.x, map->duck.y, &flood) == false)
+	{
+		dp_free(&ber_copy);
+		ft_err("Map is not possible, no valid path for our Duck", app, 1);
+	}
+	dp_free(&app->map->ber);
+	app->map->ber = ber_copy;
+	check_map(app, map, map->ber);
 	return (map);
 }
 

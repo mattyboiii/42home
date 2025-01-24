@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
+
 
 int	handle_keyboard(int keysim, t_data *app)
 {
-	if (keysim == XK_Escape)
+	if (keysim == XK_Escape || app->victory == 1)
 		close_program(app);
 	else if ((keysim == XK_w || keysim == XK_Up)
 			&& check_move(app, 'w') == true)

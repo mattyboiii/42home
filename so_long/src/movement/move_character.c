@@ -19,7 +19,7 @@ void	move_duck_exit(t_data *app, t_duck duck_next, t_duck duck_past)
 	mlx_put_image_to_window(app->mlx, app->win, app->textures[0],
 			duck_past.x * 64, duck_past.y * 64);
 	place_win(app, app->map);
-
+	app->victory = 1;
 }
 
 void	move_duck_img(t_data *app, t_duck duck_next, t_duck duck_past)

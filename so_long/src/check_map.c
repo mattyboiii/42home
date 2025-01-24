@@ -39,10 +39,6 @@ t_bool	check_boarder(t_map *map, char **ber)
 
 void	check_map(t_data *app, t_map *map, char **ber)
 {
-	t_flood		flood;
-
-	flood.collected = 0;
-	flood.exits = 0;
 	if (map->exits < 1)
 		ft_err("Must be at least 1 Exit 'E' on the map", app, 1);
 	if (map->exits > 1)
@@ -58,6 +54,4 @@ void	check_map(t_data *app, t_map *map, char **ber)
 				 app, 1);
 	if (check_boarder(map, map->ber) == false)
 		ft_err("Map must be completely surrounded by Trees '1'", app, 1);
-	if (valid_map_path(map, map->duck.x, map->duck.y, &flood) == false)
-		ft_err("Map is not possible, no valid path for our Duck", app, 1);
 }

@@ -63,6 +63,10 @@ void	ft_err(char *msg, t_data *app, int n)
 int	close_program(t_data *app)
 {
 	free_app(app);
+	if (app->victory == 1)
+		ft_putendl_fd("Victory!!! Well Ducking Done :)", 1);
+	else
+		ft_putendl_fd("Close program Initiated", 1);
 	exit(0);
 	return (0);
 }

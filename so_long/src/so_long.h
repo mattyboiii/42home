@@ -69,6 +69,7 @@ typedef struct s_data
     void    *win;
 	void	*textures[6];
 	int		tile_size;
+	int		victory;
 	t_map	*map;
 }               t_data;
 
