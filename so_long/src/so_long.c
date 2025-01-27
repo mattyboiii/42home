@@ -48,7 +48,6 @@ t_data	*ft_init(void)
 int	main(int arc, char *arv[])
 {
 	t_data		*app;
-	void		*img;
 
 	if (arc != 2)
 		ft_err("No map has been selected", app, 2);

@@ -30,7 +30,6 @@ void	free_textures(t_data *app)
 		if (app->textures[i])
 		{
 			mlx_destroy_image(app->mlx, app->textures[i]);
-			free(app->textures[i]);
 		}
 		i++;
 	}
@@ -51,4 +50,5 @@ void	free_app(t_data *app)
 		free_map(app->map);
 	if (app->mlx)
 		free_mlx(app);
+	free(app);
 }
