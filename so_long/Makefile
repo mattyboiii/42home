@@ -7,45 +7,51 @@ CFLAGS = -g -Wall -Wextra -Werror
 LIBX = -Lminilibx-linux -lmlx -lXext -lX11
 LIBFT = -Llibft -lft
 
+# Directories
+SRC_DIR = src
+OBJ_DIR = obj
+
 # Assignment statements-Source funcitons (string list creators is really
 # what these are)-------------- eg $(wildcard pattern)
 
-SRC =	src/so_long.c \
-		src/hookfunk.c \
-		src/textures.c \
-		src/utils.c \
-		src/parse.c \
-		src/window.c \
-		src/free.c \
-		src/check_map.c \
-		src/movement/check_movement.c \
-		src/movement/move_character.c \
-		src/movement/directions.c
+# Source files
+SRC =	so_long.c \
+		hookfunk.c \
+		textures.c \
+		utils.c \
+		parse.c \
+		window.c \
+		free.c \
+		check_map.c \
+		check_movement.c \
+		move_character.c \
+		directions.c
 
 # Generate object file names from source files
-OBJ_DIR = src/obj
-OBJ = $(SRC:.c=.o)
+OBJ = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC))
 
 # Rules
-# 1
 all: $(NAME)
 
-# 2 Create object files from source files
-$(OBJ):	%.o: %.c
+# Create object directory
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
+# Compile source files into object files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-# 3 Create the executable from object files
+# Link object files into executable
 $(NAME): $(OBJ)
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(OBJ) -o $@ $(LIBFT) $(LIBX)
-	@echo "\n"
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBFT) $(LIBX)
+	@echo "\nCompilation complete!"
 
-# 4 Clean rule: Remove object files and executable
+# Clean rule: Remove object files and executable
 clean:
-	rm -f $(OBJ) $(NAME)
-	@echo "Object files and executable removed!!"
+	rm -rf $(OBJ_DIR) $(NAME)
+	@echo "Object files, obj directory, and executable removed!"
 
 re: clean all
-	@echo "Re compiled project"
+	@echo "Re-compiled project"
 
-.PHONY:	all clean re
+.PHONY: all clean re

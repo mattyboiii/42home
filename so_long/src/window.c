@@ -6,12 +6,17 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:12:48 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/28 11:04:31 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/28 15:55:58 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/**
+ * @brief place windows is responsible for placing the "win" image around the
+ * boarder of the map. This is just a way for me to demonstrate to the player
+ * they have won the game.
+ */
 void	place_win(t_data *app, t_map *map)
 {
 	int		row;
@@ -19,12 +24,12 @@ void	place_win(t_data *app, t_map *map)
 	void	*img;
 
 	img = mlx_xpm_file_to_image(app->mlx, "assets/win.xpm", &app->tile_size,
-				&app->tile_size);
+			&app->tile_size);
 	row = 0;
 	col = 0;
 	while (col < map->height)
 	{
-		while(row < map->width)
+		while (row < map->width)
 		{
 			mlx_put_image_to_window(app->mlx, app->win, img, row * 64,
 				col * 64);
@@ -55,7 +60,7 @@ void	place_textures(t_data *app, char **m)
 	col = 0;
 	while (col < app->map->height)
 	{
-		while(row < app->map->width)
+		while (row < app->map->width)
 		{
 			img = app->textures[get_texture(m[col][row])];
 			mlx_put_image_to_window(app->mlx, app->win, img, row * 64,
@@ -67,10 +72,13 @@ void	place_textures(t_data *app, char **m)
 	}
 }
 
+/**
+ * @brief init window function is responsible for creating the window where
+ * the program will run. It is also responsible for promting render_textures
+ * along with placing the innitial map images to the windows.
+ */
 void	init_window(t_data *app)
 {
-	void	*img;
-
 	app->mlx = mlx_init();
 	if (app->mlx == NULL)
 		ft_err("inti_window > mlx_init: NULL", app, 1);
@@ -82,4 +90,3 @@ void	init_window(t_data *app)
 	render_textures(app);
 	place_textures(app, app->map->ber);
 }
-

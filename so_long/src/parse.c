@@ -6,12 +6,26 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:01:35 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/23 17:15:32 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/28 14:01:48 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/**
+ * @brief valid map path uses recursion to flood the map. It never moves the
+ * character only the coordinates. It will check right, left, down, then up,
+ * from the first coordinates handed into the paent call. Everytime it checks
+ * coordinates, it will replace it with a TREE, to ensure it will not check the
+ * same location twice. If coordinates = COLL or Exit it will add them to the
+ * count.
+ *
+ * @param map t_map
+ * @param row //x coordinate of the player starting point
+ * @param col //y coordinate of the player starting point
+ * @param t_flood //this is the location where we will count Exits and Coll
+ * @return boolean true or false. True if the map IS valid.
+ */
 t_bool	valid_map_path(t_map *map, int row, int col, t_flood *flood)
 {
 	if (flood->collected == map->collect && flood->exits == 1)
@@ -31,6 +45,10 @@ t_bool	valid_map_path(t_map *map, int row, int col, t_flood *flood)
 	return (false);
 }
 
+/**
+ * @brief prepare_map is used to run the map functions to create it. It
+ * will return a map pointer.
+ */
 t_map	*prepare_map(t_data *app, char *path)
 {
 	char		**ber_copy;
@@ -57,7 +75,7 @@ t_map	*prepare_map(t_data *app, char *path)
 }
 
 /**
- * @breif the ft_get_map reads the map putting each line
+ * @brief the ft_get_map reads the map putting each line
  * into a double pointer. This is done so I can later go through the contents
  * of the map to check if its valid, then push to screen.
  *
@@ -106,15 +124,15 @@ void	get_map_info(t_map *map)
 	while (map->ber[y])
 	{
 		while (map->ber[y][x])
-        {
-            if (map->ber[y][x] == COLL)
-                map->collect++;
-            else if (map->ber[y][x] == DUCK)
+		{
+			if (map->ber[y][x] == COLL)
+				map->collect++;
+			else if (map->ber[y][x] == DUCK)
 				found_duck(map, x, y);
-            else if (map->ber[y][x] == EXIT)
-                map->exits++;
-            x++;
-        }
+			else if (map->ber[y][x] == EXIT)
+				map->exits++;
+			x++;
+		}
 		x = 0;
 		y++;
 	}

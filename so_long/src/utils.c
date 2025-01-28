@@ -6,14 +6,18 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:19:15 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/28 11:03:05 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:13:45 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "so_long.h"
 
-
+/**
+ * @brief the ft_read function is responsible for reading the .ber file which
+ * is handed in as an argument when running the program. It puts the map in
+ * the *line so that the text can be used outside of this function. It reads
+ * the ber one byte a time.
+*/
 int	ft_read(int fd, char **line)
 {
 	int			bytes;
@@ -62,9 +66,9 @@ void	ft_err(char *msg, t_data *app, int n)
  */
 int	close_program(t_data *app)
 {
-	free_app(app);
 	if (app->victory == 0)
 		ft_putendl_fd("Closing Program...", 1);
+	free_app(app);
 	exit(0);
 	return (0);
 }

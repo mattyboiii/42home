@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   check_movement.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-01-22 07:02:57 by mtripodi          #+#    #+#             */
-/*   Updated: 2025-01-22 07:02:57 by mtripodi         ###   ########.fr       */
+/*   Created: 2025/01/22 07:02:57 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/28 14:35:54 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
 
+/**
+ * @brief found duck simply checks if an entry has been found yet 'P' in
+ * the map. If it has, it will count another entry in the map. This entry
+ * will be used later for debugging.
+*/
 void	found_duck(t_map *map, int x, int y)
 {
 	if (!map->duck.x && !map->duck.y)
@@ -31,12 +36,12 @@ void	found_duck(t_map *map, int x, int y)
  *
  * @return true/false depending on if your free to move
  */
-t_bool		collision_free(t_data *app, t_map *map, t_duck duck)
+t_bool	collision_free(t_data *app, t_map *map, t_duck duck)
 {
 	char		c;
 
 	if (duck.x > app->map->width || duck.y > app->map->height
-			|| !duck.x || !duck.y)
+		|| !duck.x || !duck.y)
 		return (false);
 	c = app->map->ber[duck.y][duck.x];
 	if (c == TREE)
@@ -45,6 +50,7 @@ t_bool		collision_free(t_data *app, t_map *map, t_duck duck)
 		return (false);
 	return (true);
 }
+
 /**
  * @brief Checks where the duck wants to move to. Used to check collision and
  * to check if any collectables are in the move. This function
@@ -66,5 +72,5 @@ t_bool	check_move(t_data *app, char c)
 		duck_future.x--;
 	else if (c == 'd')
 		duck_future.x++;
-	return(collision_free(app, app->map, duck_future));
+	return (collision_free(app, app->map, duck_future));
 }

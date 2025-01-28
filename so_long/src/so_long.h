@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 02:17:11 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/28 13:00:20 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:46:08 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
 
-#	define GRASS '0'
-#	define TREE '1'
-#	define COLL 'C'
-#	define EXIT 'E'
-#	define DUCK 'P'
-
+# define GRASS '0'
+# define TREE '1'
+# define COLL 'C'
+# define EXIT 'E'
+# define DUCK 'P'
 
 /** I ended up using a bool as it made the code more readable, it also meant
  * if I wanted to change the return values, I could ctrl + f false/true and
@@ -51,9 +50,10 @@ typedef struct s_duck
 	int		collected;
 }			t_duck;
 
+// map struct, .ber is the file extention name.
 typedef struct s_map
 {
-	char	**ber; //file extention of the map
+	char	**ber;
 	int		width;
 	int		height;
 	t_duck	duck;
@@ -65,27 +65,27 @@ typedef struct s_map
 
 typedef struct s_data
 {
-    void    *mlx;
-    void    *win;
+	void	*mlx;
+	void	*win;
 	void	*textures[6];
 	int		tile_size;
 	int		victory;
 	t_map	*map;
-}               t_data;
+}				t_data;
 
 // functions in my src dir
 // ---  --------------------
-
 // so_long.c
 void		ft_loop(t_data *app);
+t_data		*ft_init(void);
 
-// character
+// directions.c
 int			move_up(t_data *app, t_map *map, t_duck *duck);
 int			move_right(t_data *app, t_map *map, t_duck *duck);
 int			move_down(t_data *app, t_map *map, t_duck *duck);
 int			move_left(t_data *app, t_map *map, t_duck *duck);
 
-// check_movement
+// check_movement.c
 char		check_tile(t_map *map, char **txt, t_duck duck);
 t_bool		collision_free(t_data *app, t_map *map, t_duck duck);
 t_bool		check_move(t_data *app, char c);
@@ -98,10 +98,6 @@ t_bool		check_boarder(t_map *map, char **ber);
 void		found_duck(t_map *map, int x, int y);
 void		move_duck_exit(t_data *app, t_duck duck_next, t_duck duck_past);
 void		move_duck_img(t_data *app, t_duck duck_next, t_duck duck_past);
-
-// pixel
-
-//duck
 
 // hook
 int			close_program(t_data *app);
@@ -129,7 +125,7 @@ int			determine_texture(char **map, int col, int row);
 
 //parse
 t_bool		valid_map_path(t_map *map, int row, int col,
-			t_flood *flood);
+				t_flood *flood);
 t_map		*prepare_map(t_data *app, char *path);
 char		**get_map(char *path);
 void		get_map_info(t_map *map);

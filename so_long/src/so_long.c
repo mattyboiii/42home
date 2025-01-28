@@ -6,20 +6,43 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 00:59:25 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/28 12:56:29 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:45:01 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/**
+ */
 void	ft_loop(t_data *app)
 {
 	mlx_hook(app->win, DestroyNotify, 0, close_program, app);
 	mlx_key_hook(app->win, handle_keyboard, app);
-
 	mlx_loop(app->mlx);
 }
 
+/**
+ * @brief ft_init simply initialises the app. This is important to assign
+ * values to all of the variables along with initialising them. Now variables
+ * can be assigned.
+ *
+ * NATE thinks I could have used bzero here. So maybe think about this next
+ * time :) Check below
+ */
+
+/*
+t_data	*ft_nateinit(void)
+{
+	t_data	*app;
+
+	app = malloc(sizeof(*app));
+	bzero(app, sizeof(*app));
+	app->map = malloc(sizeof(*app->map));
+	bzero(app, sizeof(*app->map));
+	app->tile_size = 64;
+	return (app);
+}
+*/
 t_data	*ft_init(void)
 {
 	t_data		*app;
@@ -45,6 +68,12 @@ t_data	*ft_init(void)
 	return (app);
 }
 
+/**
+ * main function, first point of the program
+ *
+ * Nate suggested making app not a pointer so its stack
+ * allocated. Then just passing &app
+ */
 int	main(int arc, char *arv[])
 {
 	t_data		*app;
