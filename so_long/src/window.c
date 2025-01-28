@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:12:48 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/23 11:48:42 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:04:31 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	place_win(t_data *app, t_map *map)
 		row = 0;
 		col++;
 	}
+	mlx_destroy_image(app->mlx, img);
 }
 
 /** @brief place_textures is responsible for reading the map_ber and placing

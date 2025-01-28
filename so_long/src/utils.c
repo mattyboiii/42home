@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:19:15 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/23 14:33:01 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:03:05 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,7 @@ void	ft_err(char *msg, t_data *app, int n)
 int	close_program(t_data *app)
 {
 	free_app(app);
-	if (app->victory == 1)
-		ft_putendl_fd("Victory!!! Well Ducking Done :)", 1);
-	else
+	if (app->victory == 0)
 		ft_putendl_fd("Closing Program...", 1);
 	exit(0);
 	return (0);
