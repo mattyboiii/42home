@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 00:59:25 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/23 13:47:04 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/28 12:56:29 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	main(int arc, char *arv[])
 {
 	t_data		*app;
 
+	app = NULL;
 	if (arc != 2)
 		ft_err("No map has been selected", app, 2);
 	app = ft_init();

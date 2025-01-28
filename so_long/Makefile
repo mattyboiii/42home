@@ -3,7 +3,7 @@ NAME = so_long
 
 # Compiler and flags
 CC = cc
-CFLAGS = -g#-Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 LIBX = -Lminilibx-linux -lmlx -lXext -lX11
 LIBFT = -Llibft -lft
 

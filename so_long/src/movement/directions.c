@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 07:02:48 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/28 11:14:37 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/28 12:49:14 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	move_up(t_data *app, t_map *map, t_duck *duck)
 	{
 		ft_printf("Moves: %d\n", map->moves);
 		ft_putendl_fd("Victory!!! Well Ducking Done :)", 1);
+		ft_putendl_fd("Press ANY key to close", 1);
 	}
 	else
 		ft_printf("Moves: %d\n", map->moves);
@@ -50,6 +51,7 @@ int	move_down(t_data *app, t_map *map, t_duck *duck)
 	{
 		ft_printf("Moves: %d\n", map->moves);
 		ft_putendl_fd("Victory!!! Well Ducking Done :)", 1);
+		ft_putendl_fd("Press ANY key to close", 1);
 	}
 	else
 		ft_printf("Moves: %d\n", map->moves);
@@ -72,6 +74,7 @@ int	move_left(t_data *app, t_map *map, t_duck *duck)
 	{
 		ft_printf("Moves: %d\n", map->moves);
 		ft_putendl_fd("Victory!!! Well Ducking Done :)", 1);
+		ft_putendl_fd("Press ANY key to close", 1);
 	}
 	else
 		ft_printf("Moves: %d\n", map->moves);
@@ -94,6 +97,7 @@ int	move_right(t_data *app, t_map *map, t_duck *duck)
 	{
 		ft_printf("Moves: %d\n", map->moves);
 		ft_putendl_fd("Victory!!! Well Ducking Done :)", 1);
+		ft_putendl_fd("Press ANY key to close", 1);
 	}
 	else
 		ft_printf("Moves: %d\n", map->moves);
