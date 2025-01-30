@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:12:48 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/28 15:55:58 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:23:14 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	place_win(t_data *app, t_map *map)
 	int		col;
 	void	*img;
 
-	img = mlx_xpm_file_to_image(app->mlx, "assets/win.xpm", &app->tile_size,
+	img = mlx_xpm_file_to_image(app->mlx, "textures/win.xpm", &app->tile_size,
 			&app->tile_size);
 	row = 0;
 	col = 0;
