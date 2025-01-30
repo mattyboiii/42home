@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sortfunk2.c                                        :+:      :+:    :+:   */
+/*   logicfunk4.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-03 21:23:15 by mtripodi          #+#    #+#             */
-/*   Updated: 2024-11-03 21:23:15 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/11/03 21:23:15 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/30 15:25:12 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap.h"
 
 int	make_circle(t_node **lst)
 {

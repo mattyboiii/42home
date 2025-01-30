@@ -6,13 +6,61 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:56:54 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/29 12:31:37 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:24:34 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// this print function was used to display the code
+
+
+void	ft_exit(int n)
+{
+	if (n == 0)
+		exit(0);
+	if (n == 6)
+	{
+		ft_putendl_fd("Error", 2);
+		exit(0);
+	}
+}
+
+int	array_size(char **arv)
+{
+	int		i;
+
+	i = 0;
+	while (arv[i])
+		i++;
+	return (i);
+}
+
+int	main(int arc, char **arv)
+{
+	int			total_operations;
+	t_stacks	stack;
+
+	stack.a = NULL;
+	stack.b = NULL;
+	if (arc == 2)
+		arv = ft_split(arv[1], ' ');
+	error_check_arv(arv);
+	fill_a(&stack, arv);
+	if (stack.asize <= 1)
+		exit(0);
+	if (sorted_asc(stack.a, stack.a, 0) == 1)
+		return (0);
+	else if (stack.asize <= 3)
+		sort3(&stack.a);
+	else if (stack.asize <= 5)
+		sort5(stack);
+	else
+		total_operations = sort_to_b(&stack);
+	ft_lstclear(&stack.a);
+	ft_lstclear(&stack.b);
+}
+
+/* this print function was used to display the code
 void	print_stacks(t_stacks stack)
 {
 	int		a = 0;
@@ -24,7 +72,6 @@ void	print_stacks(t_stacks stack)
 	int		sizeb = stack.bsize;
 	t_node	*list_a = stack.a;
 	t_node	*list_b = stack.b;
-
 
 	while (list_a || list_b)
 	{
@@ -171,49 +218,4 @@ void	print_stacks(t_stacks stack)
 	}
 	ft_printf("\n");
 }
-
-void	ft_exit(int n)
-{
-	if (n == 0)
-		exit(0);
-	if (n == 6)
-	{
-		ft_putendl_fd("Error", 2);
-		exit(0);
-	}
-}
-
-int	array_size(char **arv)
-{
-	int		i;
-
-	i = 0;
-	while (arv[i])
-		i++;
-	return (i);
-}
-
-int	main(int arc, char **arv)
-{
-	int			total_operations;
-	t_stacks	stack;
-
-	stack.a = NULL;
-	stack.b = NULL;
-	if (arc == 2)
-		arv = ft_split(arv[1], ' ');
-	error_check_arv(arv);
-	fill_a(&stack, arv);
-	if (stack.asize <= 1)
-		exit(0);
-	if (sorted_asc(stack.a, stack.a, 0) == 1)
-		return (0);
-	else if (stack.asize <= 3)
-		sort3(&stack.a);
-	else if (stack.asize <= 5)
-		sort5(stack);
-	else
-		total_operations = sort_to_b(&stack);
-	ft_lstclear(&stack.a);
-	ft_lstclear(&stack.b);
-}
+*/

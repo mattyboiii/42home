@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   logicfunk5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-05 03:50:43 by mtripodi          #+#    #+#             */
-/*   Updated: 2024-11-05 03:50:43 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/11/05 03:50:43 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/30 15:25:12 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap.h"
 
 int	posnum(int num)
 {

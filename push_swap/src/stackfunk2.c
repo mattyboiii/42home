@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stackfunk.c                                        :+:      :+:    :+:   */
+/*   stackfunk2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-09-30 12:49:12 by mtripodi          #+#    #+#             */
-/*   Updated: 2024-09-30 12:49:12 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/09/30 12:49:12 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/30 15:25:12 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap.h"
 
 int	s(t_node **lst, int print)
 {

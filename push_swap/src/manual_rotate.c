@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   manual_rotate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-30 00:06:46 by mtripodi          #+#    #+#             */
-/*   Updated: 2024-11-30 00:06:46 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/11/30 00:06:46 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/30 15:25:12 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap.h"
 
 int	least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
 						t_node	**gold_hold)

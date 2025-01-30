@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   BasicSort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-04 07:33:29 by mtripodi          #+#    #+#             */
-/*   Updated: 2024-11-29 23:58:16 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/10/04 07:33:29 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/30 15:25:12 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap.h"
 
 //about to update the logic. It wont use midpoint algorythm
 

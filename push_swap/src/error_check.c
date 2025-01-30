@@ -6,11 +6,11 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:31:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/30 16:42:33 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:25:12 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap.h"
 
 int	str_negs(char **arv, int i)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   logicfunk.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-04 07:33:29 by mtripodi          #+#    #+#             */
-/*   Updated: 2024-11-30 00:01:03 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/10/04 07:33:29 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/30 15:25:12 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap.h"
 
 /* have two functions that loop and try all numbers. and return the cheapest
 move with desired algorythm. Then compare them below. */
