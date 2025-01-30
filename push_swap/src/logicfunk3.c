@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 02:28:57 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/30 15:25:12 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:30:21 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	rotate_prep(t_stacks stack, t_node *hold, int chunk)
 		return (rb);
 	else if (rb > rrb)
 		return (rrb *= -1);
+	return (0);
 }
 
 int	order_rev_push(t_node **b, t_node *hold, int chunk)

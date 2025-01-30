@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:48:08 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/30 15:25:12 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:30:34 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	update_chunk_div(t_node *lst, int chunk_div, int chunk)
 {
-	t_node		*head;
-
 	if (!lst)
 		return (-1);
 	while (lst)

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 07:33:29 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/30 15:25:12 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:32:04 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 
 void	set_big_small(t_node *lst, t_node **big, t_node **small)
 {
-	int		b;
-	int		s;
 	t_node	*head;
 
 	head = lst;
@@ -73,7 +71,7 @@ void	sort5(t_stacks m)
 	t_node		*big;
 
 	set_big_small(m.a, &big, &small);
-	midnum = get_midnode(m.a, 0)->num;
+	midnum = get_midnode(m.a)->num;
 	while (m.asize > 3)
 	{
 		if (m.a->num < midnum || m.a == big)
@@ -95,7 +93,7 @@ void	sort5(t_stacks m)
 	}
 }
 
-t_node	*get_midnode(t_node *lst, int chunk)
+t_node	*get_midnode(t_node *lst)
 {
 	t_node	*sorted;
 	t_node	*midnode;

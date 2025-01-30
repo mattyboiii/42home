@@ -6,13 +6,11 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:56:54 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/30 15:24:34 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:35:31 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-
 
 void	ft_exit(int n)
 {

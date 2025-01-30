@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:06:46 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/30 15:25:12 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:34:14 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
 		*gold_hold = hold_b;
 		return (ops_bot);
 	}
+	return (ops_top);
 }
 
 int	manual_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:02:45 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/30 15:25:12 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:36:41 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 {
-	if (stack.bsize >= 666666)
-		ft_printf("");
 	while (loop < hold->iterations)
 	{
 		closest_hold(stack, &hold->fh, &hold->sh, loop);
@@ -69,7 +67,6 @@ int	force_rotate_check(t_stacks stack, t_node *hold, int rotate)
 	return (operations);
 }
 
-
 int	force_rotate(t_stacks stack, t_node **fr_hold, int loop, int skip)
 {
 	int			rotate;
@@ -78,8 +75,6 @@ int	force_rotate(t_stacks stack, t_node **fr_hold, int loop, int skip)
 	rotate = 0;
 	set_holds(&hold, *fr_hold, loop);
 	rotate = force_loop(stack, &hold, fr_hold, skip);
-	if (stack.bsize >= 9999999999)
-		ft_printf("");
 	if (rotate == 0)
 		rotate = 1;
 	else
@@ -105,21 +100,15 @@ int	rotate_run(t_stacks *stack, t_node *hold, int rotate)
 
 	operations = 0;
 	old_size = stack->asize;
-	if (stack->bsize >= 9999999999)
-		print_stacks(*stack);
 	if (rotate >= 0)
 	{
 		while (old_size == stack->asize)
-		{
 			operations += rot_checks_rotate(stack, hold, 1);
-		}
 	}
 	else
 	{
 		while (old_size == stack->asize)
-		{
 			operations += rev_checks_rotate(stack, hold, 1);
-		}
 	}
 	return (operations);
 }
@@ -137,7 +126,7 @@ t_node	*ops_force(t_stacks stack, t_hold *hold, t_node *hold_a,
 	int		ops_top;
 	int		ops_bot;
 
-	if (hold_a && !hold_b || stack.asize <= 1)
+	if ((hold_a && !hold_b) || stack.asize <= 1)
 		return (hold_a);
 	if (!hold_a && hold_b)
 		return (hold_b);

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:59:11 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/30 15:25:12 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:29:35 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	closest_hold(t_stacks stack, t_node **hold_a, t_node **hold_b, int future)
 {
 	*hold_a = hold_first(stack, stack.a->div, future);
 	*hold_b = hold_second(stack, stack.a->div, future);
+	return (0);
 }
 
 t_node	*hold_first(t_stacks stack, int chunk_div, int future)

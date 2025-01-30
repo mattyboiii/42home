@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-09-27 10:58:12 by mtripodi          #+#    #+#             */
-/*   Updated: 2024-11-30 03:48:17 by mtripodi         ###   ########.fr       */
+/*   Created: 2024/09/27 10:58:12 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/01/30 15:31:54 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void		print_stacks(t_stacks stack);
 void		set_big_small(t_node *lst, t_node **big, t_node **small);
 void		sort3(t_node **lst);
 void		sort5(t_stacks stack);
-t_node		*get_midnode(t_node *lst, int chunk);
+t_node		*get_midnode(t_node *lst);
 
 // logicfunk
-int			compare_logic(t_stacks *stack, int chunk, int iterations, int skip);
+int			compare_logic(t_stacks *stack, int iterations, int skip);
 int			sort_to_a(t_stacks *stack, int last_melon, int rr);
 int			sort_to_b(t_stacks *stack);
 void		set_holds(t_hold *hold, t_node *gold_hold, int iterations);
