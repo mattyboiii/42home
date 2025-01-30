@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:12:48 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/30 14:23:14 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 18:24:20 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,28 @@
  */
 void	place_win(t_data *app, t_map *map)
 {
-	int		row;
 	int		col;
+	int		row;
 	void	*img;
 
 	img = mlx_xpm_file_to_image(app->mlx, "textures/win.xpm", &app->tile_size,
 			&app->tile_size);
-	row = 0;
 	col = 0;
-	while (col < map->height)
+	row = 0;
+	while (row < map->height)
 	{
-		while (row < map->width)
+		while (col < map->width)
 		{
-			mlx_put_image_to_window(app->mlx, app->win, img, row * 64,
-				col * 64);
-			row++;
-			if ((col > 0 && row < map->width - 1) && col != map->height - 1)
-				row = map->width - 1;
-			else if (col > 0 && row >= map->width - 1 && col != map->height - 1)
+			mlx_put_image_to_window(app->mlx, app->win, img, col * 64,
+				row * 64);
+			col++;
+			if ((row > 0 && col < map->width - 1) && row != map->height - 1)
+				col = map->width - 1;
+			else if (row > 0 && col >= map->width - 1 && row != map->height - 1)
 				break ;
 		}
-		row = 0;
-		col++;
+		col = 0;
+		row++;
 	}
 	mlx_destroy_image(app->mlx, img);
 }
@@ -52,23 +52,23 @@ void	place_win(t_data *app, t_map *map)
 */
 void	place_textures(t_data *app, char **m)
 {
-	int		row;
 	int		col;
+	int		row;
 	void	*img;
 
-	row = 0;
 	col = 0;
-	while (col < app->map->height)
+	row = 0;
+	while (row < app->map->height)
 	{
-		while (row < app->map->width)
+		while (col < app->map->width)
 		{
-			img = app->textures[get_texture(m[col][row])];
-			mlx_put_image_to_window(app->mlx, app->win, img, row * 64,
-				col * 64);
-			row++;
+			img = app->textures[get_texture(m[row][col])];
+			mlx_put_image_to_window(app->mlx, app->win, img, col * 64,
+				row * 64);
+			col++;
 		}
-		row = 0;
-		col++;
+		col = 0;
+		row++;
 	}
 }
 

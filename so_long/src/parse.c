@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:01:35 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/28 14:01:48 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:49:36 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,12 @@ t_map	*prepare_map(t_data *app, char *path)
 	flood.collected = 0;
 	flood.exits = 0;
 	map = app->map;
-	ber_copy = get_map(path);
 	map->ber = get_map(path);
-	if (map->ber == NULL || ber_copy == NULL)
-		ft_err("parse.c > prepare_map > get_map", app, 1);
+	if (map->ber == NULL)
+		ft_err("Failed to read map, Check Specified map Path", app, 1);
 	get_map_info(map);
+	check_map(app, map, map->ber);
+	ber_copy = get_map(path);
 	if (valid_map_path(map, map->duck.x, map->duck.y, &flood) == false)
 	{
 		dp_free(&ber_copy);
@@ -70,7 +71,6 @@ t_map	*prepare_map(t_data *app, char *path)
 	}
 	dp_free(&app->map->ber);
 	app->map->ber = ber_copy;
-	check_map(app, map, map->ber);
 	return (map);
 }
 
@@ -93,7 +93,9 @@ char	**get_map(char *path)
 	i = 0;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (ft_err("parse.c > get_map > open", 0, 0), NULL);
+	{
+		return (NULL);
+	}
 	if (ft_read(fd, &buf) == -1)
 		return (free(buf), NULL);
 	while (buf[i])

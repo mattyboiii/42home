@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:09:15 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/28 15:15:40 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 18:39:35 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,73 @@ t_bool	check_boarder(t_map *map, char **ber)
 	int		row;
 	int		col;
 
-	row = 0;
 	col = 0;
-	while (col < map->height)
+	row = 0;
+	while (row < map->height)
 	{
-		while (row < map->width)
+		while (col < map->width)
 		{
-			if (ber[col][row] != '1')
+			if (ber[row][col] != '1')
 				return (false);
-			row++;
-			if ((col > 0 && row < map->width - 1) && col != map->height - 1)
-				row = map->width - 1;
-			else if (col > 0 && row >= map->width - 1 && col != map->height - 1)
+			col++;
+			if ((row > 0 && col < map->width - 1) && row != map->height - 1)
+				col = map->width - 1;
+			else if (row > 0 && col >= map->width - 1 && row != map->height - 1)
 				break ;
 		}
-		row = 0;
-		col++;
+		col = 0;
+		row++;
+	}
+	return (true);
+}
+
+t_bool	check_map_chars(char **ber)
+{
+	int		row;
+	int		col;
+	char	*set;
+	char	c;
+
+	set = "01CEP";
+	row = 0;
+	col = 0;
+	while (ber[row])
+	{
+		while (ber[row][col])
+		{
+			c = ber[row][col];
+			if (ber[row][col] && ft_strchr(set, ber[row][col]))
+				col++;
+			else
+				return (false);
+		}
+		col = 0;
+		row++;
+	}
+	return (true);
+}
+
+t_bool	check_map_rectangle(char **ber)
+{
+	int		row;
+	int		col;
+	int		prev_col;
+
+	row = 0;
+	col = 0;
+	prev_col = 0;
+	while (ber[row])
+	{
+		while (ber[row][col])
+		{
+			if (row == 0)
+				prev_col++;
+			col++;
+		}
+		if (!prev_col || prev_col != col)
+			return (false);
+		col = 0;
+		row++;
 	}
 	return (true);
 }
@@ -58,7 +109,10 @@ void	check_map(t_data *app, t_map *map, char **ber)
 		ft_err("Only 1 Entry 'P' is allowed on the map", app, 1);
 	if (map->collect < 1)
 		ft_err("Map needs at least one Duckling 'C'", app, 1);
-	if (map->height < 3 || map->width < 3 || map->height == map->width)
+	if (check_map_chars(ber) == false)
+		ft_err("Map contains chars that are non allowed", app, 1);
+	if (map->height < 3 || map->width < 3 || map->height == map->width
+		|| check_map_rectangle(ber) == false)
 		ft_err("Map must be a rectangle and at least 3 tiles in height/width",
 			app, 1);
 	if (check_boarder(map, ber) == false)

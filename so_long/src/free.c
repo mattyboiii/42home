@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:24:19 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/21 09:59:47 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:45:52 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 void	free_map(t_map	*map)
 {
-	dp_free(&map->ber);
+	if (map->ber)
+		dp_free(&map->ber);
 	free(map);
 }
 
