@@ -3,48 +3,58 @@ NAME = push_swap
 
 # Compiler and flags
 CC = cc
-CFLAGS = -g #-Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
+LIBFT = -Llibft -lft
+
+# Directories
+SRC_DIR = src
+OBJ_DIR = obj
 
 # assignment statements-Source funcitons (string list creators is really
 # what these are)-------------- eg $(wildcard pattern)
+SRC =	push_swap.c \
+		logicfunk.c \
+		logicfunk2.c \
+		logicfunk3.c \
+		logicfunk4.c \
+		logicfunk5.c \
+		lstfunk.c \
+		lstfunk2.c \
+		lstfunk3.c \
+		BasicSort.c \
+		error_check.c \
+		force_rotate.c \
+		manual_rotate.c \
+		sortfunk.c \
+		stackfunk.c \
+		stackfunk2.c
 
-SRC = src/push_swap.c \
-	src/Logic/logicfunk.c \
-	src/Logic/logicfunk2.c \
-	src/Logic/logicfunk3.c \
-	src/Logic/logicfunk4.c \
-	src/Logic/logicfunk5.c \
-	src/List/lstfunk.c \
-	src/List/lstfunk2.c \
-	src/List/lstfunk3.c \
-	src/utils/BasicSort.c \
-	src/utils/error_check.c \
-	src/utils/force_rotate.c \
-	src/utils/manual_rotate.c \
-	src/utils/sortfunk.c \
-	src/utils/stackfunk.c \
-	src/utils/stackfunk2.c
+# Generate object file names from source files
+OBJ = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC))
 
 # Rules
-# 1
 all: $(NAME)
 
-#2 NAME rule
-$(NAME): libft $(SRC)
-	$(CC) $(CFLAGS) -o $@ $(SRC) -Llibft -lft
+# Create object directory
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 
-#3 creating the libft library.
-libft:
-	$(MAKE) -C libft
+# Compile source files into object files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-make:
-	make
+# Link object files into executable
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBFT) $(LIBX)
+	@echo "\nCompilation complete!"
 
-# 5 remove the object files
+# Clean rule: Remove object files and executable
 clean:
-	@rm $(NAME)
-	@echo "all files removed!!"
+	rm -rf $(OBJ_DIR) $(NAME)
+	@echo "Object files, obj directory, and executable removed!"
+
+fclean:clean
+	rm -rf $(NAME)
 
 re: clean all
-
-.PHONY: all clean re
+	@echo "Re-compiled project"
