@@ -51,7 +51,10 @@ clean:
 	rm -rf $(OBJ_DIR) $(NAME)
 	@echo "Object files, obj directory, and executable removed!"
 
+fclean:clean
+	rm -rf $(NAME)
+
 re: clean all
 	@echo "Re-compiled project"
 
-.PHONY: all clean re
+.PHONY: all clean fclean re
