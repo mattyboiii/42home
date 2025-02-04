@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 00:59:25 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/02/04 10:37:43 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/04 12:59:40 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ t_data	*ft_init(void)
  *
  * if i was to do this again, I would make the t_data *app; a non pointer.
  *
- * t_data app; ---> this way the memory is stored in the stack, making ft_init free of having
- * to allocate memo
+ * t_data app; ---> this way the memory is stored in the stack, this means
+ * that when I allocate memory in ft_init, the memory is stored int the stack.
  */
 int	main(int arc, char *arv[])
 {
