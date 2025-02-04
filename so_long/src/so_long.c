@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 00:59:25 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/28 16:45:01 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:37:43 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,10 @@ t_data	*ft_init(void)
 /**
  * main function, first point of the program
  *
- * Nate suggested making app not a pointer so its stack
- * allocated. Then just passing &app
+ * if i was to do this again, I would make the t_data *app; a non pointer.
+ *
+ * t_data app; ---> this way the memory is stored in the stack, making ft_init free of having
+ * to allocate memo
  */
 int	main(int arc, char *arv[])
 {

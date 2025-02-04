@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:09:15 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/30 18:39:35 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:31:17 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,12 @@ void	check_map(t_data *app, t_map *map, char **ber)
 		ft_err("Only 1 Entry 'P' is allowed on the map", app, 1);
 	if (map->collect < 1)
 		ft_err("Map needs at least one Duckling 'C'", app, 1);
-	if (check_map_chars(ber) == false)
-		ft_err("Map contains chars that are non allowed", app, 1);
 	if (map->height < 3 || map->width < 3 || map->height == map->width
 		|| check_map_rectangle(ber) == false)
 		ft_err("Map must be a rectangle and at least 3 tiles in height/width",
 			app, 1);
+	if (check_map_chars(ber) == false)
+		ft_err("Map contains chars that are non allowed", app, 1);
 	if (check_boarder(map, ber) == false)
 		ft_err("Map must be completely surrounded by Trees '1'", app, 1);
 }
