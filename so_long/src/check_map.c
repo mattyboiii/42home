@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:09:15 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/02/04 10:31:17 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:18:33 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ t_bool	check_boarder(t_map *map, char **ber)
 	return (true);
 }
 
+/**
+ * @brief this funciton is used to check if the characters inside of the map
+ * are ONLY the ones inside of set. It uses ft_strchr to loop thorugh set
+ * ensuring only allowed chars
+ */
 t_bool	check_map_chars(char **ber)
 {
 	int		row;
@@ -68,6 +73,10 @@ t_bool	check_map_chars(char **ber)
 	return (true);
 }
 
+/**
+ * @brief this function checks if the map is rectangle, or if all sides are
+ * the same width
+ */
 t_bool	check_map_rectangle(char **ber)
 {
 	int		row;
@@ -91,6 +100,24 @@ t_bool	check_map_rectangle(char **ber)
 		row++;
 	}
 	return (true);
+}
+
+/**
+ * @brief function checks if the map path ends with .ber. in case the
+ * second argument is maps, or any other directory name
+ *
+ * NOT ACTUALLY USING THIS???!?!?
+ */
+t_bool	check_filename(char *str)
+{
+	int		i;
+
+	i = ft_strlen(str) - 4;
+	if (i < 0)
+		return (false);
+	if (ft_strcmp(".ber", &str[i]) == 0)
+		return (true);
+	return (false);
 }
 
 /**

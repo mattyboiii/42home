@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:01:35 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/30 17:49:36 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:13:59 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_map	*prepare_map(t_data *app, char *path)
 	flood.exits = 0;
 	map = app->map;
 	map->ber = get_map(path);
-	if (map->ber == NULL)
+	if (map->ber == NULL || map->ber[0] == NULL)
 		ft_err("Failed to read map, Check Specified map Path", app, 1);
 	get_map_info(map);
 	check_map(app, map, map->ber);
