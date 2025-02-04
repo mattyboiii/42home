@@ -5,7 +5,7 @@
 			"name": "Launch so_long",
 			"type": "lldb",
 			"request": "launch",
-			"args": ["maps"],
+			"args": ["maps/zeem.ber"],
 			"program": "${workspaceFolder}/so_long",
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "Make Rebuild",

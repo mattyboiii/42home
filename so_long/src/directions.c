@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 07:02:48 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/28 14:58:59 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:33:20 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	move_up(t_data *app, t_map *map, t_duck *duck)
 	duck_past = *duck;
 	duck->y--;
 	if (map->ber[duck->y][duck->x] == 'C')
-		duck->collected++;
+		duckling_collected(app, duck);
 	if (map->ber[duck->y][duck->x] == 'E')
 		move_duck_exit(app, *duck, duck_past);
 	move_duck_img(app, *duck, duck_past);
@@ -55,7 +55,7 @@ int	move_down(t_data *app, t_map *map, t_duck *duck)
 	duck_past = *duck;
 	duck->y++;
 	if (map->ber[duck->y][duck->x] == 'C')
-		duck->collected++;
+		duckling_collected(app, duck);
 	if (map->ber[duck->y][duck->x] == 'E')
 		move_duck_exit(app, *duck, duck_past);
 	move_duck_img(app, *duck, duck_past);
@@ -78,7 +78,7 @@ int	move_left(t_data *app, t_map *map, t_duck *duck)
 	duck_past = *duck;
 	duck->x--;
 	if (map->ber[duck->y][duck->x] == 'C')
-		duck->collected++;
+		duckling_collected(app, duck);
 	if (map->ber[duck->y][duck->x] == 'E')
 		move_duck_exit(app, *duck, duck_past);
 	move_duck_img(app, *duck, duck_past);
@@ -101,7 +101,7 @@ int	move_right(t_data *app, t_map *map, t_duck *duck)
 	duck_past = *duck;
 	duck->x++;
 	if (map->ber[duck->y][duck->x] == 'C')
-		duck->collected++;
+		duckling_collected(app, duck);
 	if (map->ber[duck->y][duck->x] == 'E')
 		move_duck_exit(app, *duck, duck_past);
 	move_duck_img(app, *duck, duck_past);

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 02:17:11 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/28 16:46:08 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:33:30 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void		check_map(t_data *app, t_map *map, char **ber);
 t_bool		check_boarder(t_map *map, char **ber);
 
 //move_chapracter
+void		duckling_collected(t_data *app, t_duck *duck);
 void		found_duck(t_map *map, int x, int y);
 void		move_duck_exit(t_data *app, t_duck duck_next, t_duck duck_past);
 void		move_duck_img(t_data *app, t_duck duck_next, t_duck duck_past);

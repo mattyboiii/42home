@@ -6,11 +6,17 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 07:02:57 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/28 14:35:54 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:33:53 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	duckling_collected(t_data *app, t_duck *duck)
+{
+	app->map->ber[duck->y][duck->x] = '0';
+	duck->collected++;
+}
 
 /**
  * @brief found duck simply checks if an entry has been found yet 'P' in
