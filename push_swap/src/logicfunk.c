@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 07:33:29 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/02/06 15:50:08 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:59:19 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	compare_logic(t_stacks *stack, int iterations, int skip)
 	skip = 0;
 	f_rotate = 100;
 	m_rotate = 0;
-	// if (stack->bsize >= 8)
+	// if (stack->bsize >= 75)
 	// 	printf("");
-	//print_stacks(*stack);
+	// print_stacks(*stack);
 	if (stack->asize >= 2)
 		f_rotate = force_rotate(*stack, &fr_hold, iterations, skip);
 	m_rotate = manual_rotate(*stack, &man_hold, iterations, skip);
@@ -36,6 +36,10 @@ int	compare_logic(t_stacks *stack, int iterations, int skip)
 		return (manual_run(stack, man_hold));
 }
 
+/**
+ * @brief sort to a simply finds the smallest number in stack b, and pushes
+ * it to stack_a
+ */
 int	sort_to_a(t_stacks *stack, int last_melon, int rr)
 {
 	int		total;
@@ -65,6 +69,15 @@ int	sort_to_a(t_stacks *stack, int last_melon, int rr)
 	return (total);
 }
 
+/**
+ * this is the master function
+ * @brief this functoin is responsible for assiging chunk numbers - which are
+ * just used as refernce points when sorting. and also calling the compare
+ * logic function. The compare logic function takes in a stack, the amount
+ * of numbers it will check before pushing one, and if you want to skip
+ * any of the first results. It will also recognise if the stack A function is
+ * ready to receive numbers from B
+ */
 int	sort_to_b(t_stacks *stack)
 {
 	int		chunk_div;
@@ -82,7 +95,7 @@ int	sort_to_b(t_stacks *stack)
 	{
 		while (check_lg_sm(stack->a, chunk_div + 1, chunk, 0) == 1
 			&& stack->asize > 1)
-			total += compare_logic(stack, 2, 0);
+			total += compare_logic(stack, 10, 0);
 		if (stack->a)
 			chunk++;
 		chunk_div = chunk_div + chunk_add;
