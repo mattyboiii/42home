@@ -6,12 +6,25 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:02:45 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/30 15:36:41 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:27:53 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/**
+ * @brief force loop, is an efficient way to try the force_rotate_check on
+ * different potential hold numbers. Somtimes, Its more efficient to use logic
+ * on a number that is further away from the top of the stack. Which is why the
+ * loop checks itself against hold->iterations. Iterations is set to 10 by
+ * defualt. Loop is set to 0.
+ *
+ * It will check the first available 10 numbers. Then set hold->gold as the
+ * number which has the fewest actions to push to b.
+ *
+ * @return it returns the number of actions the force_rotate function would take to correclty push
+ * hold->gold into the b stack.
+ */
 int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 {
 	while (loop < hold->iterations)
@@ -24,9 +37,9 @@ int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 		else
 			hold->temp = ops_force(stack, hold, hold->fh, hold->sh);
 		if (hold->ops == 100)
-			hold->ops = force_rotate_check(stack, hold->gold, hold->rotate);
+			hold->ops = check_rrr_rr(stack, hold->gold, hold);
 		if (hold->temp)
-			hold->compare = force_rotate_check(stack, hold->temp, hold->rotate);
+			hold->compare = check_rrr_rr(stack, hold->temp, hold);
 		if (hold->temp && hold->compare < hold->ops)
 		{
 			hold->gold = hold->temp;
@@ -67,6 +80,15 @@ int	force_rotate_check(t_stacks stack, t_node *hold, int rotate)
 	return (operations);
 }
 
+/**
+ * @brief force_rotate is the functoin that uses the force_loop to see
+ * what the lowest amount of actions it can get. It then checks the direction
+ * it needs to run, and applies it to the number. Making it a negative or
+ * positive numebr.
+ *
+ * @return returns the lowest amount of actions the logic has discovered. In
+ * a negative or positive number.
+ */
 int	force_rotate(t_stacks stack, t_node **fr_hold, int loop, int skip)
 {
 	int			rotate;
@@ -75,17 +97,10 @@ int	force_rotate(t_stacks stack, t_node **fr_hold, int loop, int skip)
 	rotate = 0;
 	set_holds(&hold, *fr_hold, loop);
 	rotate = force_loop(stack, &hold, fr_hold, skip);
-	if (rotate == 0)
-		rotate = 1;
+	if (hold.rotate >= 0)
+		rotate *= 1;
 	else
-	{
-		if ((*fr_hold)->pos > stack.asize / 2)
-			hold.rotate = -1;
-		else
-			hold.rotate = 1;
-	}
-	if (hold.rotate < 0)
-		rotate *= -1;
+		rotate *= 1;
 	return (rotate);
 }
 

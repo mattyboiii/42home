@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:58:12 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/30 15:31:54 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:28:08 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int			force_rotate(t_stacks stack, t_node **fr_hold, int loop, int skip);
 int			rotate_run(t_stacks *stack, t_node *hold, int rotate);
 t_node		*ops_force(t_stacks stack, t_hold *hold, t_node *hold_a,
 				t_node *hold_b);
+// force_rotate2
+int	check_rrr_rr(t_stacks stack, t_node *fr_hold, t_hold *hold);
 
 // manual_rotate
 int			least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,

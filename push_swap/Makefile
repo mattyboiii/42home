@@ -3,7 +3,7 @@ NAME = push_swap
 
 # Compiler and flags
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g #-Wall -Wextra -Werror
 LIBFT = -Llibft -lft
 
 # Directories
@@ -24,6 +24,7 @@ SRC =	push_swap.c \
 		BasicSort.c \
 		error_check.c \
 		force_rotate.c \
+		force_rotate2.c \
 		manual_rotate.c \
 		sortfunk.c \
 		stackfunk.c \

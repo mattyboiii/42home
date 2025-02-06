@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:56:54 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/01/30 15:35:31 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:42:34 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	main(int arc, char **arv)
 }
 
 /* this print function was used to display the code
+*/
 void	print_stacks(t_stacks stack)
 {
 	int		a = 0;
@@ -216,4 +217,3 @@ void	print_stacks(t_stacks stack)
 	}
 	ft_printf("\n");
 }
-*/
