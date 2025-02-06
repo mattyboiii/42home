@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:02:13 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/02/06 15:33:29 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:13:24 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,17 @@ int	check_rrr_rr(t_stacks stack, t_node *fr_hold, t_hold *hold)
 	rrr = 0;
 	rr = force_rotate_check(stack, fr_hold, 1);
 	rrr = force_rotate_check(stack, fr_hold, -1);
-	if (stack.bsize >= 8)
-		printf("");
+	// if (stack.bsize >= 8)
+	// 	printf("");
 	if (rr <= rrr)
 	{
-		if (hold->compare != 0 && posnum(hold->compare) < rr)
+		if (hold->compare == 0 || posnum(hold->compare) < rr)
 			hold->rotate = 1;
 		return (rr);
 	}
 	else
 	{
-		if (hold->compare != 0 && posnum(hold->compare) < rrr)
+		if (hold->compare == 0 || posnum(hold->compare) < rrr)
 			hold->rotate = -1;
 		return (rrr * -1);
 	}

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 07:33:29 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/02/06 15:35:05 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:50:08 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	compare_logic(t_stacks *stack, int iterations, int skip)
 	skip = 0;
 	f_rotate = 100;
 	m_rotate = 0;
-	if (stack->bsize >= 8)
-		printf("");
+	// if (stack->bsize >= 8)
+	// 	printf("");
 	//print_stacks(*stack);
 	if (stack->asize >= 2)
 		f_rotate = force_rotate(*stack, &fr_hold, iterations, skip);
