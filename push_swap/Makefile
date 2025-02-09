@@ -59,3 +59,5 @@ fclean:clean
 
 re: clean all
 	@echo "Re-compiled project"
+	
+.PHONY: all clean fclean re

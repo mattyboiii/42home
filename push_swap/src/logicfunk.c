@@ -12,6 +12,15 @@
 
 #include "push_swap.h"
 
+/**
+ * @brief compare logic is used to compare if using the force_rotate function
+ * will be faster than using manual roatate.
+ *
+ * This is compared, as somtimes, it is quicker to manually rotate the stacks
+ * in alternate directions. Meaning stack.a might ra, and stack b might rrb
+ * and vice versa. Most of the time. force_rotate wll return in less
+ * operations than manual_rotate
+ */
 int	compare_logic(t_stacks *stack, int iterations, int skip)
 {
 	int			f_rotate;
@@ -34,7 +43,7 @@ int	compare_logic(t_stacks *stack, int iterations, int skip)
 }
 
 /**
- * @brief sort to a simply finds the smallest number in stack b, and pushes
+ * @brief sort to a simply finds the biggest number in stack b, and pushes
  * it to stack_a
  */
 int	sort_to_a(t_stacks *stack, int last_melon, int rr)
