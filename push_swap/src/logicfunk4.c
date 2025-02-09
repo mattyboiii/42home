@@ -50,7 +50,6 @@ the right position within the stack b. It also uses rr depending on if the top
 number in stack a is hold, or at least a number <= Divider number. This function
 will only use rotate operations.
 */
-
 int	rot_checks_rotate(t_stacks *stk, t_node *hold, int out)
 {
 	if (stk->a->num <= stk->a->div && if_push(*stk, stk->a) == 1)
