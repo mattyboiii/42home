@@ -3,7 +3,7 @@ NAME = push_swap
 
 # Compiler and flags
 CC = cc
-CFLAGS = -g #-Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 LIBFT = -Llibft -lft
 
 # Directories

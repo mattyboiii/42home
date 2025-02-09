@@ -22,8 +22,8 @@
  * It will check the first available 10 numbers. Then set hold->gold as the
  * number which has the fewest actions to push to b.
  *
- * @return it returns the number of actions the force_rotate function would take to correclty push
- * hold->gold into the b stack.
+ * @return it returns the number of actions the force_rotate function would take
+ * to correclty push hold->gold into the b stack.
  */
 int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 {

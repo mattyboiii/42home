@@ -104,7 +104,7 @@ int			rotate_run(t_stacks *stack, t_node *hold, int rotate);
 t_node		*ops_force(t_stacks stack, t_hold *hold, t_node *hold_a,
 				t_node *hold_b);
 // force_rotate2
-int	check_rrr_rr(t_stacks stack, t_node *fr_hold, t_hold *hold);
+int			check_rrr_rr(t_stacks stack, t_node *fr_hold, t_hold *hold);
 
 // manual_rotate
 int			least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,

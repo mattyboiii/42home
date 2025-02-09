@@ -52,7 +52,6 @@ t_bool	check_map_chars(char **ber)
 	int		row;
 	int		col;
 	char	*set;
-	char	c;
 
 	set = "01CEP";
 	row = 0;
@@ -61,7 +60,6 @@ t_bool	check_map_chars(char **ber)
 	{
 		while (ber[row][col])
 		{
-			c = ber[row][col];
 			if (ber[row][col] && ft_strchr(set, ber[row][col]))
 				col++;
 			else

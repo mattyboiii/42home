@@ -35,7 +35,6 @@ int	array_size(char **arv)
 
 int	main(int arc, char **arv)
 {
-	int			total_operations;
 	t_stacks	stack;
 
 	stack.a = NULL;
@@ -53,13 +52,12 @@ int	main(int arc, char **arv)
 	else if (stack.asize <= 5)
 		sort5(stack);
 	else
-		total_operations = sort_to_b(&stack);
+		sort_to_b(&stack);
 	ft_lstclear(&stack.a);
 	ft_lstclear(&stack.b);
 }
 
 /* this print function was used to display the code
-*/
 void	print_stacks(t_stacks stack)
 {
 	int		a = 0;
@@ -217,3 +215,4 @@ void	print_stacks(t_stacks stack)
 	}
 	ft_printf("\n");
 }
+*/

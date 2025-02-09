@@ -37,4 +37,3 @@ void	rev_machine(t_node **lst, int n, int print)
 		n--;
 	}
 }
-

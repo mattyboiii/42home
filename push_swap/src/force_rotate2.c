@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   force_rotate2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/06 13:02:13 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/02/06 16:51:36by mtripodi         ###   ########.fr       */
+/*   Created: 2025-02-09 22:22:39 by mtripodi          #+#    #+#             */
+/*   Updated: 2025-02-09 22:22:39 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ int	check_rrr_rr(t_stacks stack, t_node *fr_hold, t_hold *hold)
 
 	rr = force_rotate_check(stack, fr_hold, 1);
 	rrr = force_rotate_check(stack, fr_hold, -1);
-	// if (stack.bsize >= 8)
-	// 	printf("");
 	if (rr <= rrr)
 	{
 		if (hold->compare == 0 || posnum(hold->compare) < rr)
