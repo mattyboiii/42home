@@ -37,7 +37,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*out;
 	size_t	i;
-	
+
 	i = 0;
 	if (!s || start >= ft_strlen(s))
 		return (NULL);

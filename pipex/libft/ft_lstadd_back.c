@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:16:17 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/04/02 11:26:21 by mtripodi         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:23:39 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list		*last;
+	t_list	*last;
 
 	if (*lst == NULL)
 	{
 		*lst = new;
+		new->next = NULL;
 		return ;
 	}
 	last = ft_lstlast(*lst);
 	last->next = new;
+	new->next = NULL;
 }

@@ -3,17 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   dp_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 10:55:29 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/21 10:56:39 by mtripodi         ###   ########.fr       */
+/*   Created: 2025-02-10 06:25:41 by mtripodi          #+#    #+#             */
+/*   Updated: 2025-02-10 06:25:41 by mtripodi         ###   ########:w        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// this function is just strcat, but it applies the str to every
-// string in the dp array.
+/**
+ * @brief this functions is strcat, but it catonates the str given to every
+ * string inside of the dp array.
+ *
+ * @return a double pointer array with str on the end
+ */
 char	**dp_strcat(char **paths, char *str)
 {
 	int		i;
@@ -29,6 +33,11 @@ char	**dp_strcat(char **paths, char *str)
 	while (paths[i])
 	{
 		dp_strcat[i] = ft_strjoin(paths[i], str);
+		if (dp_strcat[i] == NULL)
+		{
+			dp_free(&dp_strcat);
+			return (NULL);
+		}
 		i++;
 	}
 	dp_strcat[i] = NULL;

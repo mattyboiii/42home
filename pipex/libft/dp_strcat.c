@@ -33,7 +33,7 @@ char	**dp_strcat(char **paths, char *str)
 	while (paths[i])
 	{
 		dp_strcat[i] = ft_strjoin(paths[i], str);
-		if(dp_strcat[i] == NULL)
+		if (dp_strcat[i] == NULL)
 		{
 			dp_free(&dp_strcat);
 			return (NULL);
