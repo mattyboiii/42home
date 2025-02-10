@@ -18,12 +18,19 @@ void	ft_exit(int n)
 	{
 		ft_putendl_fd("Incorrect number of arguments", 2);
 		ft_putendl_fd("./pipex file1 cmd cmd file2", 2);
-		exit(5);
+		exit(n);
+	}
+	if (n == -1)
+	{
+		ft_putendl_fd("Error", 2);
+		ft_putendl_fd("Unknown cmd, please check", 2);
+		perror("Perror: ");
+		exit(n);
 	}
 }
 
-// Function to collect the path of the variable at argument name. It will 
-// Search though the environment variables till it finds a match, then 
+// Function to collect the path of the variable at argument name. It will
+// Search though the environment variables till it finds a match, then
 // it will return a double pointer with each of the dir paths referenced
 // by the name argument. I used this to find everthing after "PATH="
 char	**ft_getenv(char *name, char **env)
@@ -31,6 +38,7 @@ char	**ft_getenv(char *name, char **env)
 	int		i;
 	char	**split_paths;
 
+	split_paths = NULL;
 	i = 0;
 	while (env[i])
 	{
@@ -50,29 +58,33 @@ char	**ft_getenv(char *name, char **env)
 
 // Funciton to check the path from ft_getenv. The file at this path needs
 // to be checked to ensure its available and does not cause errors. I will
-// need to use F_OK | X_OK 
+// need to use F_OK | X_OK
 // F_OK: This flag checks if the file exists.
 // X_OK: This flag checks if the file is executable by the current process.
 char	*get_cmdpath(char *cmd, char **env)
 {
 	int		i;
 	char	**paths;
+	char	*join;
 	char	*exec;
 
 	i = 0;
 	exec = NULL;
+	join = ft_strjoin("/", cmd);
 	paths = ft_getenv("PATH", env);
-	paths = dp_strcat(paths, ft_strjoin("/", cmd));
+	paths = dp_strcat(paths, join);
 	while (paths[i])
 	{
 		if (access(paths[i], F_OK | X_OK) == 0)
 		{
 			exec = ft_strdup(paths[i]);
+			null_free(&join);
 			dp_free(&paths);
 			return (exec);
 		}
 		i++;
 	}
+	null_free(&join);
 	dp_free(&paths);
 	return (exec);
 }

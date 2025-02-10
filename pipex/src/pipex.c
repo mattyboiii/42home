@@ -13,11 +13,11 @@
 #include "pipex.h"
 
 // openupV
-// int openup(char *file, 
-// if the file exists, it should open it using 
+// int openup(char *file,
+// if the file exists, it should open it using
 // int open(const char *path, int oflag, ...);
 // if the file does not exist, it should create it using open() with the
-// right oflags if the file has an error opening it should handle this. 
+// right oflags if the file has an error opening it should handle this.
 /*
  ** mode: The access mode to check, which can be one or more of the
  **        following flags combined with a bitwise OR (|):
@@ -51,7 +51,7 @@ int	openup(char *filename, int read_write)
 // first this needs to get the path of the cmd used looking inside of the env
 // this function should execute the cmd used in arv[1] using
 // execve(path, arv, env). If the execute errors out I should send the error
-// to stderror and Free all of the memory used.  
+// to stderror and Free all of the memory used.
 // int execve(const char *path, char *const argv[], char *const envp[]);
 void	cmd_exe(char *cmdarv, char **env)
 {
@@ -86,7 +86,7 @@ void	child(char **arv, int *pfd, char **env)
 }
 
 // PARENT a funciton for when the parent process is called. The parent
-// process will have a fid greater than 0. It will take in the second 
+// process will have a fid greater than 0. It will take in the second
 // argument of arv[3] open this file. If it does not exist it should
 // be created. using the open function. Take the new fd and link it to
 // the stdout
@@ -102,12 +102,11 @@ void	parent(char **arv, int *pfd, char **env)
 }
 
 // main function should
-// create a pipe and apply its ids to an int array. 
+// create a pipe and apply its ids to an int array.
 // create a child and a parent process using fork
 // check for failures or -1 returns for both fork and pipe
 // if its child, run child process
-// if parent run the parent function. Parent PROCESS will
-// always run first.
+// Parent PROCESS will always run first.
 // pfd[1] = write
 // pfd[0] = read
 /*

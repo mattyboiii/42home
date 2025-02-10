@@ -5,7 +5,7 @@ NAME = pipex
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
-# assignment statements-Source funcitons (string list creators is really 
+# assignment statements-Source funcitons (string list creators is really
 # what these are)-------------- eg $(wildcard pattern)
 
 SRC = src/pipex.c \
@@ -17,14 +17,14 @@ BONUS_SRC = src_bonus/pipex_bonus.c \
 	    libft/libft.a
 
 # Rules
-# 1 
+# 1
 all: $(NAME)
 
 #2 NAME rule
 $(NAME): libft $(SRC)
 	$(CC) $(CFLAGS) -o $@ $(SRC) -Llibft -lft
 
-#3 creating the libft library. 
+#3 creating the libft library.
 libft:
 	$(MAKE) -C libft
 
@@ -34,11 +34,14 @@ bonus: libft
 
 # 5 remove the object files
 clean:
-	@rm $(NAME)
-	@echo "all files removed!!"
+	@echo "All files removed!!"
 
-re: clean all
+fclean: clean
+	@rm $(NAME);
+	@echo "Project file removed!!"
 
-rebonus: clean bonus
+re: fclean all
 
-.PHONY: all bonus clean re rebonus
+rebonus: fclean bonus
+
+.PHONY: all bonus clean fclean re rebonus

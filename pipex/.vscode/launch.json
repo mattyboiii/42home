@@ -1,27 +1,15 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "(gdb) Launch",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/pipex",
-            "args": ["infile", "STOP", "sort", "uniq -c", "sort -r", "mcount"],
-            "stopAtEntry": true,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printfing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
-        }
-    ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Launch pipex",
+			"type": "lldb",
+			"request": "launch",
+			"args": ["file1", "sort", "unic", "file4"],
+			"program": "${workspaceFolder}/pipex",
+			"cwd": "${workspaceFolder}",
+			"preLaunchTask": "Make Rebuild",
+			"console": "integratedTerminal"
+		}
+	]
 }

@@ -13,11 +13,11 @@
 #include "pipex_bonus.h"
 
 // openupV
-// int openup(char *file, 
-// if the file exists, it should open it using 
+// int openup(char *file,
+// if the file exists, it should open it using
 // int open(const char *path, int oflag, ...);
 // if the file does not exist, it should create it using open() with the
-// right oflags if the file has an error opening it should handle this. 
+// right oflags if the file has an error opening it should handle this.
 /*
  ** mode: The access mode to check, which can be one or more of the
  **        following flags combined with a bitwise OR (|):
@@ -66,8 +66,8 @@ void	ft_exit(int n)
 	}
 }
 
-// Function to collect the path of the variable at argument name. It will 
-// Search though the environment variables till it finds a match, then 
+// Function to collect the path of the variable at argument name. It will
+// Search though the environment variables till it finds a match, then
 // it will return a double pointer with each of the dir paths referenced
 // by the name argument. I used this to find everthing after "PATH="
 char	**ft_getenv(char *name, char **env)
@@ -94,29 +94,33 @@ char	**ft_getenv(char *name, char **env)
 
 // Funciton to check the path from ft_getenv. The file at this path needs
 // to be checked to ensure its available and does not cause errors. I will
-// need to use F_OK | X_OK 
+// need to use F_OK | X_OK
 // F_OK: This flag checks if the file exists.
 // X_OK: This flag checks if the file is executable by the current process.
 char	*get_cmdpath(char *cmd, char **env)
 {
 	int		i;
 	char	**paths;
+	char	*join;
 	char	*exec;
 
 	i = 0;
 	exec = NULL;
+	join = ft_strjoin("/", cmd);
 	paths = ft_getenv("PATH", env);
-	paths = dp_strcat(paths, ft_strjoin("/", cmd));
+	paths = dp_strcat(paths, join);
 	while (paths[i])
 	{
 		if (access(paths[i], F_OK | X_OK) == 0)
 		{
 			exec = ft_strdup(paths[i]);
+			null_free(&join);
 			dp_free(&paths);
 			return (exec);
 		}
 		i++;
 	}
+	null_free(&join);
 	dp_free(&paths);
 	return (exec);
 }

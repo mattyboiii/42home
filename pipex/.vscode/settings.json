@@ -1,0 +1,10 @@
+{
+    "lldb.displayFormat": "auto",
+    "lldb.showDisassembly": "auto",
+    "lldb.dereferencePointers": true,
+    "lldb.consoleMode": "commands",
+	//"C_Cpp.autocomplete": "disabled",
+	"files.associations": {
+		"pipex.h": "c"
+	}
+}
