@@ -83,6 +83,13 @@ int	sort_to_a(t_stacks *stack, int last_melon, int rr)
  * of numbers it will check before pushing one, and if you want to skip
  * any of the first results. It will also recognise if the stack A function is
  * ready to receive numbers from B
+ *
+ * My code is currently to inneficient to run with 500 numbers. 100 works fine.
+ * I could make it more efficient by removing chunk->div from being a variable
+ * inside if stack->a. and instead make it a varialbe inside of t_stacks *stack.
+ *
+ * this would make it so that it loops through stack A 1 less time each loop.
+ *
  */
 int	sort_to_b(t_stacks *stack)
 {
