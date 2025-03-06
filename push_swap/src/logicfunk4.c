@@ -52,7 +52,7 @@ will only use rotate operations.
 */
 int	rot_checks_rotate(t_stacks *stk, t_node *hold, int out)
 {
-	if (stk->a->num <= stk->a->div && if_push(*stk, stk->a) == 1)
+	if (stk->a->num <= stk->div && if_push(*stk, stk->a) == 1)
 		pb(stk, out);
 	else if (stk->a->num != hold->num && if_push(*stk, hold) == 0)
 		rr(stk, out);
@@ -70,7 +70,7 @@ operations.
 */
 int	rev_checks_rotate(t_stacks *stk, t_node *hold, int out)
 {
-	if (stk->a->num <= stk->a->div && if_push(*stk, stk->a) == 1)
+	if (stk->a->num <= stk->div && if_push(*stk, stk->a) == 1)
 		pb(stk, out);
 	else if (stk->a->num != hold->num && if_push(*stk, hold) == 0)
 		rrr(stk, out);

@@ -12,6 +12,14 @@
 
 #include "push_swap.h"
 
+/**
+ * @brief this function is responsible for setting the chunk divider. It will
+ * seperate the stacks based on size of the largest value in the
+ * stack - smallest. Depending on the toatl size, it will then divide it into
+ * 5 chunks, or 11;
+ *
+ * @return int chunk_divider
+ */
 int	get_chunk_number(t_node *lst)
 {
 	int		chunk_step;
@@ -63,8 +71,8 @@ allows for less operations when sending it to b/
 */
 int	closest_hold(t_stacks stack, t_node **hold_a, t_node **hold_b, int future)
 {
-	*hold_a = hold_first(stack, stack.a->div, future);
-	*hold_b = hold_second(stack, stack.a->div, future);
+	*hold_a = hold_first(stack, stack.div, future);
+	*hold_b = hold_second(stack, stack.div, future);
 	return (0);
 }
 

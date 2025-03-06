@@ -12,18 +12,20 @@
 
 #include "push_swap.h"
 
-int	update_chunk_div(t_node *lst, int chunk_div, int chunk)
+/** removing this function because I have changed how the chunk_div is updated
+int	update_chunk_div(t_stack *stack, int chunk_div, int chunk)
 {
-	if (!lst)
+	if (!stack)
 		return (-1);
-	while (lst)
+	while (stack)
 	{
-		lst->chunk = chunk;
-		lst->div = chunk_div;
-		lst = lst->next;
+		stack->chunk = chunk;
+		stack->div = chunk_div;
+		stack = lst->next;
 	}
 	return (1);
 }
+*/
 
 t_node	*get_node(t_node *lst, int index)
 {
@@ -65,7 +67,6 @@ t_node	*copy_lst(t_node *lst)
 	{
 		ft_lstadd_back(&copy, ft_lstnew(lst->num, lst->stack[0]));
 		ft_lstlast(copy)->chunk = lst->chunk;
-		ft_lstlast(copy)->div = lst->div;
 		lst = lst->next;
 	}
 	ft_stackposupdate(copy);

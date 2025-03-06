@@ -23,7 +23,6 @@ typedef struct s_stack_node
 	long				pos;
 	char				stack[2];
 	int					chunk;
-	int					div;
 	struct s_stack_node	*prev;
 	struct s_stack_node	*next;
 }	t_node;
@@ -32,6 +31,7 @@ typedef struct s_stack
 {
 	t_node		*a;
 	t_node		*b;
+	int			div;
 	int			asize;
 	int			bsize;
 }	t_stacks;
@@ -78,8 +78,8 @@ t_node		*hold_second(t_stacks stack, int chunk_div, int future);
 
 // logicfunk3
 int			rotate_prep(t_stacks stack, t_node *hold, int chunk);
-int			order_rev_push(t_node **b, t_node *hold, int chunk);
-int			order_rot_push(t_node **b, t_node *hold, int chunk);
+int			order_rev_push(t_stacks stack, t_node **b, t_node *hold, int chunk);
+int			order_rot_push(t_stacks stack, t_node **b, t_node *hold, int chunk);
 int			order_check(t_node **lst);
 void		check_rotate_value(t_stacks stack, t_hold *hold);
 

@@ -19,8 +19,8 @@ int	rotate_prep(t_stacks stack, t_node *hold, int chunk)
 
 	if (stack.bsize < 2)
 		return (0);
-	rb = order_rot_push(&stack.b, hold, chunk);
-	rrb = order_rev_push(&stack.b, hold, chunk);
+	rb = order_rot_push(stack, &stack.b, hold, chunk);
+	rrb = order_rev_push(stack, &stack.b, hold, chunk);
 	if (rb <= rrb)
 		return (rb);
 	else if (rb > rrb)
@@ -28,7 +28,7 @@ int	rotate_prep(t_stacks stack, t_node *hold, int chunk)
 	return (0);
 }
 
-int	order_rev_push(t_node **b, t_node *hold, int chunk)
+int	order_rev_push(t_stacks stack, t_node **b, t_node *hold, int chunk)
 {
 	int			rev;
 	t_stacks	stack_temp;
@@ -40,7 +40,7 @@ int	order_rev_push(t_node **b, t_node *hold, int chunk)
 	rev = 0;
 	stack_temp.b->chunk = chunk;
 	pb(&stack_temp, 0);
-	while (order_check(&stack_temp.b) == 0 && rev <= hold->div)
+	while (order_check(&stack_temp.b) == 0 && rev <= stack.div)
 	{
 		if (stack_temp.b->num == hold->num)
 			pa(&stack_temp, 0);
@@ -53,7 +53,7 @@ int	order_rev_push(t_node **b, t_node *hold, int chunk)
 	return (rev);
 }
 
-int	order_rot_push(t_node **b, t_node *hold, int chunk)
+int	order_rot_push(t_stacks stack, t_node **b, t_node *hold, int chunk)
 {
 	int			rot;
 	t_stacks	stack_temp;
@@ -65,7 +65,7 @@ int	order_rot_push(t_node **b, t_node *hold, int chunk)
 	rot = 0;
 	stack_temp.b->chunk = chunk;
 	pb(&stack_temp, 0);
-	while (order_check(&stack_temp.b) == 0 && rot <= hold->div)
+	while (order_check(&stack_temp.b) == 0 && rot <= stack.div)
 	{
 		if (stack_temp.b->num == hold->num)
 			pa(&stack_temp, 0);
