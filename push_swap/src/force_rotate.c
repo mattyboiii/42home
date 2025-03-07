@@ -29,7 +29,7 @@ int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 {
 	while (loop < hold->iterations)
 	{
-		closest_hold(stack, &hold->fh, &hold->sh, loop);
+		closest_hold(stack, hold, loop);
 		if (!hold->fh && !hold->sh)
 			break ;
 		if (!hold->gold)

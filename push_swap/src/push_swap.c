@@ -33,9 +33,17 @@ int	array_size(char **arv)
 	return (i);
 }
 
+int	set_iterations(int	size)
+{
+	if (size <= 100)
+		return (10);
+	else
+		return (5);
+}
 int	main(int arc, char **arv)
 {
 	t_stacks	stack;
+	int			iterations;
 
 	stack.a = NULL;
 	stack.b = NULL;
@@ -45,6 +53,7 @@ int	main(int arc, char **arv)
 	fill_a(&stack, arv);
 	if (stack.asize <= 1)
 		exit(0);
+	iterations = set_iterations(stack.asize);
 	if (sorted_asc(stack.a, stack.a, 0) == 1)
 		return (0);
 	else if (stack.asize <= 3)
@@ -52,7 +61,7 @@ int	main(int arc, char **arv)
 	else if (stack.asize <= 5)
 		sort5(stack);
 	else
-		sort_to_b(&stack);
+		sort_to_b(&stack, iterations);
 	ft_lstclear(&stack.a);
 	ft_lstclear(&stack.b);
 }

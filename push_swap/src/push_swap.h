@@ -65,14 +65,13 @@ t_node		*get_midnode(t_node *lst);
 // logicfunk
 int			compare_logic(t_stacks *stack, int iterations, int skip);
 int			sort_to_a(t_stacks *stack, int last_melon, int rr);
-int			sort_to_b(t_stacks *stack);
+int			sort_to_b(t_stacks *stack, int iterations);
 void		set_holds(t_hold *hold, t_node *gold_hold, int iterations);
 
 // logicfunk2
 int			check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
-int			get_chunk_number(t_node *lst);
-int			closest_hold(t_stacks stack, t_node **hold_a, t_node **hold_b,
-				int future);
+int			get_chunk_number(t_stacks stack);
+int			closest_hold(t_stacks stack, t_hold *hold, int future);
 t_node		*hold_first(t_stacks stack, int chunk_div, int future);
 t_node		*hold_second(t_stacks stack, int chunk_div, int future);
 
@@ -91,6 +90,7 @@ int			rev_checks_rotate(t_stacks *stk, t_node *hold, int out);
 int			if_push(t_stacks stack, t_node *hold);
 
 // logicfunk5
+int			pos_greater_than_ops(t_hold hold, t_node node);
 int			posnum(int num);
 void		rot_machine(t_node **lst, int n, int print);
 void		rev_machine(t_node **lst, int n, int print);

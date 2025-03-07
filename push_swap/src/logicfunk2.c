@@ -19,17 +19,20 @@
  * 5 chunks, or 11;
  *
  * @return int chunk_divider
+		chunk_step = ((big->num - small->num) / 11);
+	if (stack.asize > 120)
+		chunk_step = ((big->num - small->num) / 20);
  */
-int	get_chunk_number(t_node *lst)
+int	get_chunk_number(t_stacks stack)
 {
 	int		chunk_step;
 	t_node	*big;
 	t_node	*small;
 
-	set_big_small(lst, &big, &small);
-	if (ft_lstlast(lst)->pos <= 99)
+	set_big_small(stack.a, &big, &small);
+	if (stack.asize <= 99)
 		chunk_step = ((big->num - small->num) / 5);
-	if (ft_lstlast(lst)->pos > 99)
+	if (stack.asize > 99)
 		chunk_step = ((big->num - small->num) / 11);
 	return (chunk_step);
 }
@@ -62,17 +65,28 @@ int	check_lg_sm(t_node *lst, int compare, int chunk, int lg_sm)
 	return (0);
 }
 
-/* closest hold simply applys the node whos number is <= divider, to
-hold_a or hold_b, depending on their position. If its in the first half of the
-stack, it will go to hold_a, if its in the second half of the stack it will
-belong to hold_b. the future, simply allows me to skip over however many
-node's which apply to the <= divider logic. In case the number after the closest
-allows for less operations when sending it to b/
+/** UPDATED - 07.03.25
+ * @brief closest hold simply applys the node whos number is <= divider, to
+ * hold_a or hold_b, depending on their position.
+ *
+ * If its in the first half of the stack, it will go to hold_a, if
+ * its in the second half of the stack it will belong to hold_b. The
+ * future, simply allows me to skip over however many node's which apply
+ * to the <= divider logic. In case the number after the closest allows
+ * for less operations when sending it to b/
+ *
+ * update - it now also runs the pos_greater_than_ops function. If the
+ * function returns a 1, it will set that hold to NULL. so the loop skips
+ * it making it more efficient.
 */
-int	closest_hold(t_stacks stack, t_node **hold_a, t_node **hold_b, int future)
+int	closest_hold(t_stacks stack, t_hold *hold, int future)
 {
-	*hold_a = hold_first(stack, stack.div, future);
-	*hold_b = hold_second(stack, stack.div, future);
+	hold->fh = hold_first(stack, stack.div, future);
+	hold->sh = hold_second(stack, stack.div, future);
+	if (pos_greater_than_ops(*hold, *hold->fh) == 1)
+		hold->fh = NULL;
+	if (pos_greater_than_ops(*hold, *hold->sh) == 1);
+		hold->fh = NULL;
 	return (0);
 }
 

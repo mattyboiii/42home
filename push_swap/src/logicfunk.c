@@ -36,6 +36,8 @@ int	compare_logic(t_stacks *stack, int iterations, int skip)
 	if (stack->asize >= 2)
 		f_rotate = force_rotate(*stack, &fr_hold, iterations, skip);
 	m_rotate = manual_rotate(*stack, &man_hold, iterations, skip);
+	if (stack->bsize >= 50)
+		ft_printf("");
 	if (posnum(f_rotate) <= m_rotate)
 		return (rotate_run(stack, fr_hold, f_rotate));
 	else
@@ -91,7 +93,7 @@ int	sort_to_a(t_stacks *stack, int last_melon, int rr)
  * this would make it so that it loops through stack A 1 less time each loop.
  *
  */
-int	sort_to_b(t_stacks *stack)
+int	sort_to_b(t_stacks *stack, int iterations)
 {
 	int		chunk_add;
 	int		chunk;
@@ -100,13 +102,13 @@ int	sort_to_b(t_stacks *stack)
 
 	total = 0;
 	chunk = 1;
-	stack->div = get_chunk_number(stack->a);
+	stack->div = get_chunk_number(*stack);
 	chunk_add = stack->div;
 	while (stack->asize > 1)
 	{
 		while (check_lg_sm(stack->a, stack->div + 1, chunk, 0) == 1
 			&& stack->asize > 1)
-			total += compare_logic(stack, 10, 0);
+			total += compare_logic(stack, iterations, 0);
 		if (stack->a)
 			chunk++;
 		stack->div += chunk_add;
