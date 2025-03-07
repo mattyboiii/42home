@@ -109,7 +109,7 @@ int			check_rrr_rr(t_stacks stack, t_node *fr_hold, t_hold *hold);
 // manual_rotate
 int			least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
 				t_node	**gold_hold);
-int			manual_loop(t_stacks stack, t_hold hold, t_node **gold_hold,
+int			manual_loop(t_stacks stack, t_hold *hold, t_node **gold_hold,
 				int loop);
 int			manual_rotate(t_stacks stack, t_node **man_hold, int loop,
 				int skip);

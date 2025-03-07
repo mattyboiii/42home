@@ -78,15 +78,20 @@ int	check_lg_sm(t_node *lst, int compare, int chunk, int lg_sm)
  * update - it now also runs the pos_greater_than_ops function. If the
  * function returns a 1, it will set that hold to NULL. so the loop skips
  * it making it more efficient.
+ *
+ * update - This change cuased errors. Untill I smooth them out, the addition
+ * wont be used.
 */
 int	closest_hold(t_stacks stack, t_hold *hold, int future)
 {
 	hold->fh = hold_first(stack, stack.div, future);
 	hold->sh = hold_second(stack, stack.div, future);
+	/*
 	if (pos_greater_than_ops(*hold, *hold->fh) == 1)
 		hold->fh = NULL;
-	if (pos_greater_than_ops(*hold, *hold->sh) == 1);
+	if (pos_greater_than_ops(*hold, *hold->sh) == 1)
 		hold->fh = NULL;
+		*/
 	return (0);
 }
 

@@ -39,28 +39,28 @@ int	least_ops_man(t_stacks stack, t_node *hold_a, t_node *hold_b,
 	return (ops_top);
 }
 
-int	manual_loop(t_stacks stack, t_hold hold, t_node **gold_hold, int loop)
+int	manual_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 {
-	while (loop < hold.iterations)
+	while (loop < hold->iterations)
 	{
-		closest_hold(stack, &hold.fh, &hold.sh, loop);
-		if (!hold.fh && !hold.sh)
+		closest_hold(stack, hold, loop);
+		if (!hold->fh && !hold->sh)
 			break ;
-		if (!hold.gold)
-			hold.ops = least_ops_man(stack, hold.fh, hold.sh, &hold.gold);
+		if (!hold->gold)
+			hold->ops = least_ops_man(stack, hold->fh, hold->sh, &hold->gold);
 		else
-			hold.compare = least_ops_man(stack, hold.fh, hold.sh, &hold.temp);
-		if (hold.temp && hold.compare < hold.ops)
+			hold->compare = least_ops_man(stack, hold->fh, hold->sh, &hold->temp);
+		if (hold->temp && hold->compare < hold->ops)
 		{
-			hold.gold = hold.temp;
-			hold.ops = hold.compare;
+			hold->gold = hold->temp;
+			hold->ops = hold->compare;
 		}
-		if (hold.gold && stack.bsize < 2)
+		if (hold->gold && stack.bsize < 2)
 			break ;
 		loop++;
 	}
-	*gold_hold = hold.gold;
-	return (hold.ops + 1);
+	*gold_hold = hold->gold;
+	return (hold->ops + 1);
 }
 
 int	manual_rotate(t_stacks stack, t_node **man_hold, int loop, int skip)
@@ -70,7 +70,7 @@ int	manual_rotate(t_stacks stack, t_node **man_hold, int loop, int skip)
 
 	rotate = 0;
 	set_holds(&hold, NULL, loop);
-	rotate = manual_loop(stack, hold, man_hold, skip);
+	rotate = manual_loop(stack, &hold, man_hold, skip);
 	return (rotate);
 }
 
