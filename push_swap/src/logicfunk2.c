@@ -91,7 +91,8 @@ int	closest_hold(t_stacks stack, t_hold *hold, int future)
 		hold->fh = NULL;
 	if (pos_greater_than_ops(*hold, *hold->sh) == 1)
 		hold->fh = NULL;
-		*/
+	 
+	*/
 	return (0);
 }
 
