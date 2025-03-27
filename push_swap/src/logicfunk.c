@@ -38,6 +38,7 @@ int	compare_logic(t_stacks *stack, int iterations, int skip)
 	m_rotate = manual_rotate(*stack, &man_hold, iterations, skip);
 	if (stack->bsize >= 50)
 		ft_printf("");
+	print_stacks(*stack);
 	if (posnum(f_rotate) <= m_rotate)
 		return (rotate_run(stack, fr_hold, f_rotate));
 	else
@@ -108,7 +109,7 @@ int	sort_to_b(t_stacks *stack, int iterations)
 	{
 		while (check_lg_sm(stack->a, stack->div + 1, chunk, 0) == 1
 			&& stack->asize > 1)
-			total += compare_logic(stack, iterations, 0);
+			total += posnum(compare_logic(stack, iterations, 0));
 		if (stack->a)
 			chunk++;
 		stack->div += chunk_add;

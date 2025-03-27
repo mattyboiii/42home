@@ -67,6 +67,7 @@ int	main(int arc, char **arv)
 }
 
 /* this print function was used to display the code
+*/
 void	print_stacks(t_stacks stack)
 {
 	int		a = 0;
@@ -193,7 +194,7 @@ void	print_stacks(t_stacks stack)
 				else
 					ft_printf("-----  b[%d-%d]: %d", b, list_b->chunk,
 							list_b->num);
-					b_nl = 1;
+				b_nl = 1;
 			}
 			else if (list_b && sizeb > 30)
 			{
@@ -224,4 +225,3 @@ void	print_stacks(t_stacks stack)
 	}
 	ft_printf("\n");
 }
-*/

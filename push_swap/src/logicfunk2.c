@@ -30,9 +30,9 @@ int	get_chunk_number(t_stacks stack)
 	t_node	*small;
 
 	set_big_small(stack.a, &big, &small);
-	if (stack.asize <= 99)
+	if (stack.asize <= 100)
 		chunk_step = ((big->num - small->num) / 5);
-	if (stack.asize > 99)
+	if (stack.asize > 100)
 		chunk_step = ((big->num - small->num) / 11);
 	return (chunk_step);
 }
@@ -86,13 +86,12 @@ int	closest_hold(t_stacks stack, t_hold *hold, int future)
 {
 	hold->fh = hold_first(stack, stack.div, future);
 	hold->sh = hold_second(stack, stack.div, future);
-	/*
+	if (stack.asize <= 98)
+		ft_printf("");
 	if (pos_greater_than_ops(*hold, *hold->fh) == 1)
 		hold->fh = NULL;
 	if (pos_greater_than_ops(*hold, *hold->sh) == 1)
-		hold->fh = NULL;
-	 
-	*/
+		hold->sh = NULL;
 	return (0);
 }
 
