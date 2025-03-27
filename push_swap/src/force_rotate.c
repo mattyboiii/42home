@@ -12,6 +12,43 @@
 
 #include "push_swap.h"
 
+void get_ops_data(t_stacks stack, t_hold *hold)
+{
+		hold->ops_fh = 100;
+		hold->ops_sh = 100;
+		if (stack.asize >= stack.div)
+		{
+			if (hold->fh)
+				hold->ops_fh = force_rotate_check(stack, hold->fh, 1);
+			if (hold->sh)
+				hold->ops_sh = force_rotate_check(stack, hold->sh, -1);
+		}
+		else
+		{
+			if (hold->fh)
+				hold->ops_fh = check_rrr_rr(stack, hold->fh, hold);
+			if (hold->sh)
+				hold->ops_sh = check_rrr_rr(stack, hold->sh, hold);
+		}
+}
+
+
+void check_temp_gold(t_stacks stack, t_hold *hold)
+{
+	if (!hold->fh || !hold->sh)
+	{
+		if ((hold->fh && !hold->sh) || stack.asize <= 1)
+			hold->gold = hold->fh;
+		if (!hold->fh && hold->sh)
+			hold->gold = hold->sh;
+		return (0);
+	}
+	else
+	{
+		get_ops_data(stack, hold);
+
+	}
+}
 /**
  * @brief force loop, is an efficient way to try the force_rotate_check on
  * different potential hold numbers. Somtimes, Its more efficient to use logic
@@ -38,10 +75,10 @@ int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 		else
 			hold->temp = ops_force(stack, hold, hold->fh, hold->sh);
 		*/
-		if (hold->ops == 100)
-			hold->ops = check_rrr_rr(stack, hold->gold, hold);
-		if (hold->temp)
-			hold->compare = check_rrr_rr(stack, hold->temp, hold);
+		check_temp_gold(stack, hold);
+		get_ops_data(stack, hold);
+		// if (hold->temp)
+		// 	hold->compare = check_rrr_rr(stack, hold->temp, hold);
 		if (hold->temp && hold->compare < hold->ops)
 		{
 			hold->gold = hold->temp;
@@ -70,15 +107,17 @@ int	force_rotate_check(t_stacks stack, t_node *hold, int rotate)
 	old_size = stk.asize;
 	if (rotate >= 0)
 	{
-		while (old_size == stk.asize)
+		while (old_size == stk.asize && operations <= 20)
 			operations += rot_checks_rotate(&stk, hold, 0);
 	}
 	else
 	{
-		while (old_size == stk.asize)
+		while (old_size == stk.asize && operations <= 20)
 			operations += rev_checks_rotate(&stk, hold, 0);
 	}
 	stacklst_del(&stk);
+	if (rotate < 0)
+		operations *= -1;
 	return (operations);
 }
 
@@ -99,10 +138,6 @@ int	force_rotate(t_stacks stack, t_node **fr_hold, int loop, int skip)
 	rotate = 0;
 	set_holds(&hold, *fr_hold, loop);
 	rotate = force_loop(stack, &hold, fr_hold, skip);
-	if (hold.rotate >= 0)
-		rotate *= 1;
-	else
-		rotate *= 1;
 	return (rotate);
 }
 

@@ -43,6 +43,8 @@ typedef struct s_holds
 	t_node		*gold;
 	t_node		*temp;
 	int			iterations;
+	int			ops_fh;
+	int			ops_sh;
 	int			ops;
 	int			rotate;
 	int			gold_rotate;

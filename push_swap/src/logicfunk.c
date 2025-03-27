@@ -126,6 +126,8 @@ void	set_holds(t_hold *hold, t_node *gold_hold, int iterations)
 	hold->gold = gold_hold;
 	hold->temp = NULL;
 	hold->iterations = iterations;
+	hold->ops_fh = 0;
+	hold->ops_sh = 0;
 	hold->ops = 100;
 	hold->rotate = 0;
 	hold->gold_rotate = 0;
