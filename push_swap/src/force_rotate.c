@@ -32,10 +32,12 @@ int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 		closest_hold(stack, hold, loop);
 		if (!hold->fh && !hold->sh)
 			break ;
+		/* trying to remove order_rot_push
 		if (!hold->gold)
 			hold->gold = ops_force(stack, hold, hold->fh, hold->sh);
 		else
 			hold->temp = ops_force(stack, hold, hold->fh, hold->sh);
+		*/
 		if (hold->ops == 100)
 			hold->ops = check_rrr_rr(stack, hold->gold, hold);
 		if (hold->temp)
