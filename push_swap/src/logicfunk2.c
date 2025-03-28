@@ -86,11 +86,9 @@ int	closest_hold(t_stacks stack, t_hold *hold, int future)
 {
 	hold->fh = hold_first(stack, stack.div, future);
 	hold->sh = hold_second(stack, stack.div, future);
-	if (stack.asize <= 98)
-		ft_printf("");
-	if (pos_greater_than_ops(*hold, *hold->fh) == 1)
+	if (hold->fh && pos_greater_than_ops(*hold, *hold->fh) == 1)
 		hold->fh = NULL;
-	if (pos_greater_than_ops(*hold, *hold->sh) == 1)
+	if (hold->sh && pos_greater_than_ops(*hold, *hold->sh) == 1)
 		hold->sh = NULL;
 	return (0);
 }

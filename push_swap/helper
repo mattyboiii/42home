@@ -20,3 +20,6 @@ typedef struct s_stack_node
 }	t_node;
 
 int	rev_checks(t_node **a, t_node **b, t_node *last, t_node *hold)
+
+if gold is not set. Set it.
+if gold is set. set temp and compare. 

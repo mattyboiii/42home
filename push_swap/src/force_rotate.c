@@ -16,7 +16,7 @@ void get_ops_data(t_stacks stack, t_hold *hold)
 {
 		hold->ops_fh = 100;
 		hold->ops_sh = 100;
-		if (stack.asize >= stack.div)
+		if (stack.asize >= 20)
 		{
 			if (hold->fh)
 				hold->ops_fh = force_rotate_check(stack, hold->fh, 1);
@@ -32,21 +32,64 @@ void get_ops_data(t_stacks stack, t_hold *hold)
 		}
 }
 
+void	set_compare(t_stacks stack, t_hold *hold)
+{
+	if (!hold->gold)
+		return ;
+	if (!hold->fh || !hold->sh)
+	{
+		if ((hold->fh && !hold->sh) || stack.asize <= 1)
+			hold->compare = hold->ops_fh;
+		if (!hold->fh && hold->sh)
+			hold->compare = hold->ops_sh;
+	}
+	else
+	{
+		if (hold->ops_fh <= posnum(hold->ops_sh))
+			hold->compare = hold->ops_fh;
+		else
+			hold->compare = hold->ops_sh;
+	}
+}
+
+void check_set_temp(t_stacks stack, t_hold *hold)
+{
+	if (!hold->fh || !hold->sh)
+	{
+		if ((hold->fh && !hold->sh) || stack.asize <= 1)
+			hold->temp = hold->fh;
+		if (!hold->fh && hold->sh)
+			hold->temp = hold->sh;
+	}
+	else
+	{
+		if (hold->ops_fh <= posnum(hold->ops_sh))
+			hold->temp = hold->fh;
+		else
+			hold->temp = hold->sh;
+	}
+}
 
 void check_temp_gold(t_stacks stack, t_hold *hold)
 {
-	if (!hold->fh || !hold->sh)
+	if (!hold->gold && (!hold->fh || !hold->sh))
 	{
 		if ((hold->fh && !hold->sh) || stack.asize <= 1)
 			hold->gold = hold->fh;
 		if (!hold->fh && hold->sh)
 			hold->gold = hold->sh;
-		return (0);
 	}
 	else
 	{
-		get_ops_data(stack, hold);
-
+		if (!hold->gold)
+		{
+			if (hold->ops_fh <= posnum(hold->ops_sh))
+				hold->gold = hold->fh;
+			else
+				hold->gold = hold->sh;
+		}
+		else
+			check_set_temp(stack, hold);
 	}
 }
 /**
@@ -69,23 +112,18 @@ int	force_loop(t_stacks stack, t_hold *hold, t_node **gold_hold, int loop)
 		closest_hold(stack, hold, loop);
 		if (!hold->fh && !hold->sh)
 			break ;
-		/* trying to remove order_rot_push
-		if (!hold->gold)
-			hold->gold = ops_force(stack, hold, hold->fh, hold->sh);
-		else
-			hold->temp = ops_force(stack, hold, hold->fh, hold->sh);
-		*/
-		check_temp_gold(stack, hold);
 		get_ops_data(stack, hold);
-		// if (hold->temp)
-		// 	hold->compare = check_rrr_rr(stack, hold->temp, hold);
-		if (hold->temp && hold->compare < hold->ops)
+		check_temp_gold(stack, hold);
+		set_compare(stack, hold);
+		if (hold->temp && posnum(hold->compare) < posnum(hold->ops))
 		{
 			hold->gold = hold->temp;
 			hold->ops = hold->compare;
 		}
 		if (hold->gold && stack.bsize < 2)
 			break ;
+		if (hold->ops == 0 || hold->ops == 100)
+			hold->ops = hold->compare;
 		loop++;
 	}
 	*gold_hold = hold->gold;
@@ -138,7 +176,10 @@ int	force_rotate(t_stacks stack, t_node **fr_hold, int loop, int skip)
 	rotate = 0;
 	set_holds(&hold, *fr_hold, loop);
 	rotate = force_loop(stack, &hold, fr_hold, skip);
-	return (rotate);
+	if (!hold.rotate)
+		return (rotate);
+	else
+		return (rotate * hold.rotate);
 }
 
 /* rotate_run - is the same as force_rotate_check, but it uses the real stacks.
