@@ -12,26 +12,10 @@ OBJ_DIR = obj
 
 # assignment statements-Source funcitons (string list creators is really
 # what these are)-------------- eg $(wildcard pattern)
-SRC =	push_swap.c \
-		logicfunk.c \
-		logicfunk2.c \
-		logicfunk3.c \
-		logicfunk4.c \
-		logicfunk5.c \
-		lstfunk.c \
-		lstfunk2.c \
-		lstfunk3.c \
-		BasicSort.c \
-		error_check.c \
-		force_rotate.c \
-		force_rotate2.c \
-		manual_rotate.c \
-		sortfunk.c \
-		stackfunk.c \
-		stackfunk2.c
+SRC = $(wildcard $(SRC_DIR)/*.c)
 
 # Generate object file names from source files
-OBJ = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC))
+OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
 # Rules
 all: $(NAME)
@@ -59,5 +43,23 @@ fclean:clean
 
 re: clean all
 	@echo "Re-compiled project"
-	
+
 .PHONY: all clean fclean re
+
+# SRC =	push_swap.c \
+# 		logicfunk.c \
+# 		logicfunk2.c \
+# 		logicfunk3.c \
+# 		logicfunk4.c \
+# 		logicfunk5.c \
+# 		lstfunk.c \
+# 		lstfunk2.c \
+# 		lstfunk3.c \
+# 		BasicSort.c \
+# 		error_check.c \
+# 		force_rotate.c \
+# 		force_rotate2.c \
+# 		manual_rotate.c \
+# 		sortfunk.c \
+# 		stackfunk.c \
+# 		stackfunk2.c

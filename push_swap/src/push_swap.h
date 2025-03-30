@@ -12,9 +12,10 @@
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include <unistd.h> //dup, dup2, access
-# include <stdio.h> //printf
+# include <unistd.h> //write
+# include <stdio.h>
 # include <stdlib.h> //free, malloc
+# include <stdbool.h> //bool
 # include "../libft/libft.h"
 
 typedef struct s_stack_node
@@ -22,7 +23,10 @@ typedef struct s_stack_node
 	long				num;
 	long				pos;
 	char				stack[2];
-	int					chunk;
+	int					push_price;
+	bool				above_middle;
+	bool				cheapest;
+	struct s_stack_node	*target_node;
 	struct s_stack_node	*prev;
 	struct s_stack_node	*next;
 }	t_node;
@@ -36,20 +40,20 @@ typedef struct s_stack
 	int			bsize;
 }	t_stacks;
 
-typedef struct s_holds
-{
-	t_node		*fh;
-	t_node		*sh;
-	t_node		*gold;
-	t_node		*temp;
-	int			iterations;
-	int			ops_fh;
-	int			ops_sh;
-	int			ops;
-	int			rotate;
-	int			gold_rotate;
-	int			compare;
-}	t_hold;
+// typedef struct s_holds
+// {
+// 	t_node		*fh;
+// 	t_node		*sh;
+// 	t_node		*gold;
+// 	t_node		*temp;
+// 	int			iterations;
+// 	int			ops_fh;
+// 	int			ops_sh;
+// 	int			ops;
+// 	int			rotate;
+// 	int			gold_rotate;
+// 	int			compare;
+// }	t_hold;
 
 // functions in my src dir
 // ---  --------------------
