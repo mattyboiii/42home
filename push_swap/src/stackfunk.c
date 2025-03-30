@@ -82,7 +82,6 @@ t_stacks	stacklst_dup(t_stacks stack)
 	stk.b = NULL;
 	stk.a = copy_lst(stack.a);
 	stk.b = copy_lst(stack.b);
-	stk.div = stack.div;
 	stk.asize = stack.asize;
 	stk.bsize = stack.bsize;
 	return (stk);

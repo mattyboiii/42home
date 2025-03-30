@@ -30,7 +30,7 @@ void	fill_a(t_stacks *stack, char **arv)
 		i++;
 	}
 	ft_stackposupdate(stack->a);
-	stack->asize = ft_lstlast(stack->a)->pos + 1;
+	stack->asize = i;
 	stack->bsize = 0;
 }
 

@@ -28,7 +28,7 @@ typedef struct t_stack_node
 	int					push_price;
 	bool				above_median;
 	bool				cheapest;
-	struct t_stack_node	*target_node;
+	struct t_stack_node	*target;
 	struct t_stack_node	*prev;
 }						t_stack_node;
 
@@ -82,7 +82,7 @@ int						find_max(t_stack_node *head);
 void					correct_push(t_stack_base *lists, int num);
 int						stack_size(t_stack_node *head);
 //mass_sort.c
-void					find_target_node(t_stack_node *head_a,
+void					find_target(t_stack_node *head_a,
 							t_stack_node *head_b);
 t_stack_node			*smallest_node(t_stack_node *head);
 void					calculate_push_price(t_stack_node *a, t_stack_node *b);

@@ -43,7 +43,6 @@ int	set_iterations(int	size)
 int	main(int arc, char **arv)
 {
 	t_stacks	stack;
-	int			iterations;
 
 	stack.a = NULL;
 	stack.b = NULL;
@@ -53,15 +52,14 @@ int	main(int arc, char **arv)
 	fill_a(&stack, arv);
 	if (stack.asize <= 1)
 		exit(0);
-	iterations = set_iterations(stack.asize);
-	if (sorted_asc(stack.a, stack.a, 0) == 1)
+	if (sorted_asc(stack.a, stack.a) == 1)
 		return (0);
 	else if (stack.asize <= 3)
 		sort3(&stack.a);
 	else if (stack.asize <= 5)
 		sort5(stack);
 	else
-		sort_to_b(&stack, iterations);
+		sort(&stack);
 	ft_lstclear(&stack.a);
 	ft_lstclear(&stack.b);
 }
@@ -186,13 +184,13 @@ void	print_stacks(t_stacks stack)
 					ft_printf("             ");
 				// Print 'b' list
 				if (b < 10)
-					ft_printf("-----  b  [%d-%d]: %d", b, list_b->chunk,
+					ft_printf("-----  b  [%d-%d]: %d", b,
 							list_b->num);
 				else if (b < 100)
-					ft_printf("-----  b [%d-%d]: %d", b, list_b->chunk,
+					ft_printf("-----  b [%d-%d]: %d", b,
 							list_b->num);
 				else
-					ft_printf("-----  b[%d-%d]: %d", b, list_b->chunk,
+					ft_printf("-----  b[%d-%d]: %d", b,
 							list_b->num);
 				b_nl = 1;
 			}
@@ -202,13 +200,13 @@ void	print_stacks(t_stacks stack)
 				{
 					// Print 'b' list
 					if (b < 10)
-						ft_printf("-----  b  [%d-%d]: %d", b, list_b->chunk,
+						ft_printf("-----  b  [%d-%d]: %d", b,
 							list_b->num);
 					else if (b < 100)
-						ft_printf("-----  b [%d-%d]: %d", b, list_b->chunk,
+						ft_printf("-----  b [%d-%d]: %d", b,
 							list_b->num);
 					else
-						ft_printf("-----  b[%d-%d]: %d", b, list_b->chunk,
+						ft_printf("-----  b[%d-%d]: %d", b,
 							list_b->num);
 					b_nl = 1;
 				}

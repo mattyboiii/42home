@@ -79,10 +79,11 @@ t_node	*ft_lstnew(int num, char c)
 		return (NULL);
 	node->num = num;
 	node->pos = 0;
+	node->push_price = 100;
 	node->stack[0] = c;
 	node->stack[1] = '\0';
+	node->target = NULL;
 	node->next = NULL;
 	node->prev = NULL;
-	node->chunk = 0;
 	return (node);
 }

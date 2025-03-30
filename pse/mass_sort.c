@@ -29,10 +29,10 @@ t_stack_node	*smallest_node(t_stack_node *head)
 	return (smallest);
 }
 
-void	find_target_node(t_stack_node *head_a, t_stack_node *head_b)
+void	find_target(t_stack_node *head_a, t_stack_node *head_b)
 {
 	t_stack_node	*current_a;
-	t_stack_node	*target_node;
+	t_stack_node	*target;
 	long			best_match_index;
 
 	while (head_b)
@@ -45,14 +45,14 @@ void	find_target_node(t_stack_node *head_a, t_stack_node *head_b)
 				&& (current_a->data < best_match_index))
 			{
 				best_match_index = current_a->data;
-				target_node = current_a;
+				target = current_a;
 			}
 			current_a = current_a->next;
 		}
 		if (LONG_MAX == best_match_index)
-			head_b->target_node = smallest_node(head_a);
+			head_b->target = smallest_node(head_a);
 		else
-			head_b->target_node = target_node;
+			head_b->target = target;
 		head_b = head_b->next;
 	}
 }
@@ -69,10 +69,10 @@ void	calculate_push_price(t_stack_node *a, t_stack_node *b)
 		b->push_price = b->current_position;
 		if (!(b->above_median))
 			b->push_price = len_b - (b->current_position);
-		if (b->target_node->above_median)
-			b->push_price += b->target_node->current_position;
+		if (b->target->above_median)
+			b->push_price += b->target->current_position;
 		else
-			b->push_price += len_a - (b->target_node->current_position);
+			b->push_price += len_a - (b->target->current_position);
 		b = b->next;
 	}
 }

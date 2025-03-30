@@ -95,14 +95,12 @@ void	big_sort(t_stack_base *lists)
 	sort_three(lists);
 	while (lists->head_b)
 	{
-		print_stacks(*lists);
 		set_current_position(lists->head_b);
 		set_current_position(lists->head_a);
-		find_target_node(lists->head_a, lists->head_b);
+		find_target(lists->head_a, lists->head_b);
 		calculate_push_price(lists->head_a, lists->head_b);
 		set_cheapest(lists->head_b);
 		push_cheapest(lists);
-		print_stacks(*lists);
 		if (lists->head_b == NULL)
 			break ;
 	}

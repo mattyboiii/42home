@@ -81,7 +81,7 @@ void	push_cheapest(t_stack_base *l)
 	c = l->head_b;
 	while (c && !c->cheapest)
 		c = c->next;
-	t = c->target_node;
+	t = c->target;
 	if (!c->current_position && !t->current_position)
 	{
 		push_a(l);

@@ -12,14 +12,12 @@
 
 #include "push_swap.h"
 
-int	sorted_des(t_node *lst, int chunk)
+int	sorted_des(t_node *lst)
 {
 	lst = ft_lstlast(lst);
 	if (lst == NULL)
 		return (1);
-	if (lst->chunk != chunk)
-		return (0);
-	while (lst->chunk == chunk && lst->prev != NULL)
+	while (lst->prev != NULL)
 	{
 		if (lst->prev->num < lst->num)
 			return (0);
@@ -28,14 +26,14 @@ int	sorted_des(t_node *lst, int chunk)
 	return (1);
 }
 
-int	sorted_asc(t_node *lst, t_node *start, int chunk)
+int	sorted_asc(t_node *lst, t_node *start)
 {
 	t_node	*head;
 
 	head = lst;
-	while (lst != start && lst->chunk == chunk)
+	while (lst != start)
 		lst = lst->next;
-	while (lst->next != NULL && lst->chunk == chunk)
+	while (lst->next != NULL)
 	{
 		if (lst->num > lst->next->num)
 		{

@@ -14,6 +14,13 @@
 
 //about to update the logic. It wont use midpoint algorythm
 
+t_node	*get_smallest(t_node *lst)
+{
+	t_node *small;
+	set_big_small(lst, 0, &small);
+	return (small);
+}
+
 void	set_big_small(t_node *lst, t_node **big, t_node **small)
 {
 	t_node	*head;
@@ -43,7 +50,7 @@ void	sort3(t_node **lst)
 	t_node		*small;
 	t_node		*big;
 
-	if (sorted_asc(*lst, *lst, 0) == 1)
+	if (sorted_asc(*lst, *lst) == 1)
 		return ;
 	set_big_small(*lst, &big, &small);
 	if (small->pos == 1 && big->pos == 2)
@@ -64,6 +71,10 @@ void	sort3(t_node **lst)
 	}
 }
 
+/**
+ * potentially not using as I dont want to use midnum at all. We will come back
+ * to it later
+ */
 void	sort5(t_stacks m)
 {
 	int			midnum;
@@ -82,9 +93,9 @@ void	sort5(t_stacks m)
 			r(&m.a, 1);
 	}
 	sort3(&m.a);
-	while (sorted_asc(m.a, m.a, 0) == 0 || m.b)
+	while (sorted_asc(m.a, m.a) == 0 || m.b)
 	{
-		if (sorted_asc(m.a, m.a, 0) == 1 && m.b)
+		if (sorted_asc(m.a, m.a) == 1 && m.b)
 			pa(&m, 1);
 		if (m.a->num > ft_lstlast(m.a)->num)
 			r(&m.a, 1);
