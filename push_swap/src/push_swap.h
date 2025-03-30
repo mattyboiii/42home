@@ -38,6 +38,7 @@ typedef struct s_stack
 	t_node		*b;
 	int			asize;
 	int			bsize;
+	int			bigdig;
 }	t_stacks;
 
 // typedef struct s_holds
@@ -60,7 +61,8 @@ typedef struct s_stack
 // push_swap.c
 int			array_size(char **arv);
 void		ft_exit(int n);
-void		print_stacks(t_stacks stack);
+int			set_bigdig(t_stacks *stack);
+void		print_stacks(t_stacks *stack);
 
 // BasicSort.c
 t_node		*get_smallest(t_node *lst);

@@ -50,6 +50,7 @@ int	main(int arc, char **arv)
 		arv = ft_split(arv[1], ' ');
 	error_check_arv(arv);
 	fill_a(&stack, arv);
+	stack.bigdig = set_bigdig(&stack);
 	if (stack.asize <= 1)
 		exit(0);
 	if (sorted_asc(stack.a, stack.a) == 1)
@@ -63,64 +64,236 @@ int	main(int arc, char **arv)
 	return (0);
 }
 
-void print_stacks(t_stacks stacks)
+
+int		set_bigdig(t_stacks *stack)
 {
-    t_node *a = stacks.a;
-    t_node *b = stacks.b;
-    int total_a = stacks.asize; // Use asize for stack A size
-    int total_b = stacks.bsize; // Use bsize for stack B size
+	t_node		*big;
+	t_node		*small;
+	int			bignum;
+	int			smallnum;
+	int			neg;
+	int			i;
 
-    int max_lines = (total_a > 30 || total_b > 30) ? 31 : (total_a > total_b ? total_a : total_b);
-    int top = (total_a > 30 || total_b > 30) ? 15 : max_lines;
-    int bottom = (total_a > 30 || total_b > 30) ? 15 : max_lines - top;
 
-    // Print the top section of stacks
-    int i = 0;
-    while (i < top)
+	neg = 0;
+	set_big_small(stack->a, &big, &small);
+	if (big->num < 0 && small->num < 0)
+		neg = 1;
+	bignum = posnum(big->num);
+	smallnum = posnum(small->num);
+	if (bignum < smallnum)
+	{
+		if (small->num < 0)
+			neg = 1;
+		bignum = smallnum;
+	}
+	while (bignum >= 10)
+	{
+		i++;
+		bignum /= 10;
+	}
+	return (i + neg);
+}
+
+#include <stdio.h>
+
+void print_stacks(t_stacks *stack)
+{
+    int a = 0;
+    int b = 0;
+    int num_width = stack->bigdig + 1;     // Include space for negative sign
+    int a_col_width = 8 + stack->bigdig;  // Width for "a [X]: " + number
+    t_node *list_a = stack->a;
+    t_node *list_b = stack->b;
+
+    while (list_a || list_b)
     {
-        if (a) { printf("%10ld", a->num); a = a->next; }
-        else printf("          ");
-        if (b) { printf("     %10ld", b->num); b = b->next; }
-        else printf("          ");
-        printf("\n");
-        i++;
-    }
-
-    // Print truncation indicator if stacks are too large
-    if (total_a > 30 || total_b > 30)
-        printf("      [...]\n");
-
-    // Print the bottom section of stacks
-    i = 0;
-    while (i < bottom)
-    {
-        t_node *a_bottom = stacks.a;
-        t_node *b_bottom = stacks.b;
-
-        // Navigate to the starting point for printing bottom section
-        int j = 0;
-        while (j < (total_a - bottom + i) && a_bottom)
+        // Print Stack A entry
+        if (list_a)
         {
-            a_bottom = a_bottom->next;
-            j++;
+            printf("a [%2d]: %*ld", a, num_width, list_a->num);
+            list_a = list_a->next;
+            a++;
         }
-        j = 0;
-        while (j < (total_b - bottom + i) && b_bottom)
+        else
         {
-            b_bottom = b_bottom->next;
-            j++;
+            printf("%*s", a_col_width, ""); // Blank space if no more elements in A
         }
 
-        if (!a_bottom && !b_bottom) break;
+        // Print separator
+        printf("  -----  ");
 
-        if (a_bottom) { printf("%10ld", a_bottom->num); }
-        else printf("          ");
-        if (b_bottom) { printf("     %10ld", b_bottom->num); }
-        else printf("          ");
-        printf("\n");
-        i++;
+        // Print Stack B entry
+        if (list_b)
+        {
+            printf("b [%2d]: %*ld\n", b, num_width, list_b->num);
+            list_b = list_b->next;
+            b++;
+        }
+        else
+        {
+            printf("\n"); // Newline if no more elements in B
+        }
     }
+}
 
-    // Print stack labels at the bottom with extended length for alignment
-    printf("__________a     __________b\n");
+/* this print function was used to display the code
+*/
+void	print_stacks2(t_stacks *stack)
+{
+	int		a = 0;
+	int		b = 0;
+	int		b_nl;
+	int		nl;
+	int		a_empty = 2;
+	int		sizea = stack->asize;
+	int		sizeb = stack->bsize;
+	t_node	*list_a = stack->a;
+	t_node	*list_b = stack->b;
+
+
+	while (list_a || list_b)
+	{
+		nl = 0;
+		b_nl = 0;
+		if (list_a)
+		{
+			if (sizea < 30)
+				ft_printf("");
+			if (list_a && (list_a->pos == 15) && !list_b)
+					ft_printf("a [...]\n");
+			else if (list_a && list_a->pos == 15 && list_b && sizea >= 30)
+				ft_printf("a [...]      ");
+			if (list_a && a > 15 && sizea > 30)
+			{
+				while (a < (sizea - 14))
+				{
+					list_a = list_a->next;
+					a++;
+				}
+			}
+			if (list_a && sizea <= 30)
+			{
+				// Print 'a' list
+				if (a < 10)
+					ft_printf("a  [%d]: %d", a, list_a->num);
+				else if (a < 100)
+					ft_printf("a [%d]: %d", a, list_a->num);
+				else
+					ft_printf("a[%d]: %d", a, list_a->num);
+
+				// Handle spacing based on number size
+				if (list_a->num < 10 && list_a->num >= 0)
+					ft_printf("    ");  // 3 spaces after single digit
+				else if (list_a->num < 100 && list_a->num > 0)
+					ft_printf("   ");   // 2 spaces after two digits
+				else if (list_a->num < 1000 && list_a->num > 0)
+					ft_printf("  ");    // 1 space after three digits
+				else if (list_a->num < 10000 && list_a->num > 0)
+					ft_printf(" ");    // 1 space after larger numbers
+				else if (list_a->num < 0 && list_a->num > -10)
+					ft_printf("   ");   // 2 spaces after negative single digit
+				else if (list_a->num < 0 && list_a->num > -100)
+					ft_printf("  ");   // 1 space after negative two digits
+				else if (list_a->num < 0 && list_a->num > -1000)
+					ft_printf(" ");   // 1 space after negative three digits
+			}
+			else if (list_a && sizea > 30)
+			{
+				if (a <= 14 || a >= (sizea - 15))
+				{
+					// Print 'a' list
+					if (a < 10)
+						ft_printf("a  [%d]: %d", a, list_a->num);
+					else if (a < 100)
+						ft_printf("a [%d]: %d", a, list_a->num);
+					else
+						ft_printf("a[%d]: %d", a, list_a->num);
+
+					// Handle spacing based on number size
+					if (list_a->num < 10 && list_a->num >= 0)
+						ft_printf("    ");  // 3 spaces after single digit
+					else if (list_a->num < 100 && list_a->num > 0)
+						ft_printf("   ");   // 2 spaces after two digits
+					else if (list_a->num < 1000 && list_a->num > 0)
+						ft_printf("  ");    // 1 space after three digits
+					else if (list_a->num < 10000 && list_a->num > 0)
+						ft_printf(" ");    // 1 space after larger numbers
+					else if (list_a->num < 0 && list_a->num > -10)
+						ft_printf("   ");   // 2 spaces after negative single di
+					else if (list_a->num < 0 && list_a->num > -100)
+						ft_printf("  ");   // 1 space after negative two digits
+					else if (list_a->num < 0 && list_a->num > -1000)
+						ft_printf(" ");   // 1 space after negative three digits
+				}
+			}
+			list_a = list_a->next;
+			a++;
+		}
+		if (!list_b)
+			nl = 1;
+		if (list_b)
+		{
+			if (sizea == 70 && sizeb == 30)
+				ft_printf("");
+			if (list_b && b > 15 && sizeb > 30)
+			{
+				while (b < (sizeb - 14))
+				{
+					list_b = list_b->next;
+					b++;
+				}
+			}
+			if (!list_a)
+				a_empty--;
+			if (!list_a && a_empty < 1)
+				ft_printf("             ");
+			if (list_b && (b == 15 && sizeb >= 30))
+			{
+				ft_printf("-----  b [...]\n");
+			}
+			else if (list_b && sizeb <= 30)
+			{
+				if (b >= 16 && a < (sizea - 15))
+					ft_printf("             ");
+				// Print 'b' list
+				if (b < 10)
+					ft_printf("-----  b  [%d]: %d", b,
+							list_b->num);
+				else if (b < 100)
+					ft_printf("-----  b [%d]: %d", b,
+							list_b->num);
+				else
+					ft_printf("-----  b[%d]: %d", b,
+							list_b->num);
+				b_nl = 1;
+			}
+			else if (list_b && sizeb > 30)
+			{
+				if (b <= 14 || b > (sizeb - 15))
+				{
+					// Print 'b' list
+					if (b < 10)
+						ft_printf("-----  b  [%d]: %d", b,
+							list_b->num);
+					else if (b < 100)
+						ft_printf("-----  b [%d]: %d", b,
+							list_b->num);
+					else
+						ft_printf("-----  b[%d]: %d", b,
+							list_b->num);
+					b_nl = 1;
+				}
+			}
+			list_b = list_b->next;
+			b++;
+		}
+		if (b >= 16 && (a <= 15 || a > (sizea - 15)))
+			ft_printf("");
+		if (a > 15 && b > 15 && sizeb >= 29)
+			ft_printf("");
+		if (b_nl == 1 || (nl == 1 && (a <= 15 || a > (sizea - 15))))
+			ft_printf("\n");
+	}
+	ft_printf("\n");
 }

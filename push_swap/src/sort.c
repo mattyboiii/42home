@@ -152,10 +152,10 @@ void	man_push(t_stacks *stack, t_node *push)
 	else if (stack->a != push->target && push->target->mid_up == false)
 		rev_machine(&(stack->a), stack->asize - push->target->pos, 1);
 	set_mid_up(stack);
-	if (stack->b != push && push->target->mid_up == true)
-		rot_machine(&(stack->b), push->target->pos, 1);
-	else if (stack->b != push->target && push->target->mid_up == false)
-		rev_machine(&(stack->b), push->target->pos, 1);
+	if (stack->b != push && push->mid_up == true)
+		rot_machine(&(stack->b), push->pos, 1);
+	else if (stack->b != push->target && push->mid_up == false)
+		rev_machine(&(stack->b), push->pos, 1);
 	pa(stack, 1);
 	set_mid_up(stack);
 }
@@ -190,6 +190,7 @@ void	sort(t_stacks *stack)
 	while (stack->asize > 3)
 		pb(stack, 1);
 	sort3(&stack->a);
+	print_stacks(stack);
 	while (stack->b)
 	{
 		set_mid_up(stack);
@@ -197,6 +198,7 @@ void	sort(t_stacks *stack)
 		set_push_price(stack);
 		cheap = get_cheapest(stack->b);
 		push_cheapest(stack, cheap);
+		print_stacks(stack);
 	}
 	smallest_on_top(stack);
 }
