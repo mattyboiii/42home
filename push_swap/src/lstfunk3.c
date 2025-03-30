@@ -49,7 +49,6 @@ t_node	*copy_node(t_node *node)
 	ft_lstadd_front(&copy, ft_lstnew(node->num, node->stack[0]));
 	if (!copy)
 		return (NULL);
-	copy->chunk = node->chunk;
 	copy->pos = node->pos;
 	copy->prev = NULL;
 	copy->next = NULL;
@@ -66,7 +65,6 @@ t_node	*copy_lst(t_node *lst)
 	while (lst)
 	{
 		ft_lstadd_back(&copy, ft_lstnew(lst->num, lst->stack[0]));
-		ft_lstlast(copy)->chunk = lst->chunk;
 		lst = lst->next;
 	}
 	ft_stackposupdate(copy);

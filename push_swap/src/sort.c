@@ -170,6 +170,19 @@ void	push_cheapest(t_stacks *stack, t_node *cheap)
 		man_push(stack, cheap);
 }
 
+void	smallest_on_top(t_stacks *stack)
+{
+	t_node		*small;
+
+	set_big_small(stack->a, 0, &small);
+	while (stack->a != small)
+	{
+		if (small->mid_up == true)
+			rot_machine(&(stack->a), small->pos, 1);
+		else
+			rev_machine(&(stack->a), stack->asize - small->pos, 1);
+	}
+}
 void	sort(t_stacks *stack)
 {
 	t_node		*cheap;
@@ -177,7 +190,6 @@ void	sort(t_stacks *stack)
 	while (stack->asize > 3)
 		pb(stack, 1);
 	sort3(&stack->a);
-	print_stacks(*stack);
 	while (stack->b)
 	{
 		set_mid_up(stack);
@@ -185,6 +197,6 @@ void	sort(t_stacks *stack)
 		set_push_price(stack);
 		cheap = get_cheapest(stack->b);
 		push_cheapest(stack, cheap);
-		print_stacks(*stack);
 	}
+	smallest_on_top(stack);
 }
