@@ -72,8 +72,8 @@ void		sort5(t_stacks stack);
 // sort.c
 void		sort(t_stacks *stack);
 void		set_targets(t_node *a, t_node *b);
-void		set_mid_up(t_stacks stack, t_node *a, t_node *b);
-void		set_push_price(t_stacks stack, t_node *b);
+void		set_mid_up(t_stacks *stack);
+void		set_push_price(t_stacks *stack);
 
 // logicfunk
 int			sort_to_a(t_stacks *stack, int last_melon, int rr);
@@ -91,8 +91,6 @@ int			if_push(t_stacks stack, t_node *hold);
 
 // logicfunk5
 int			posnum(int num);
-void		rot_machine(t_node **lst, int n, int print);
-void		rev_machine(t_node **lst, int n, int print);
 
 // lstfunk
 int			ft_lstsize(t_node *lst);
