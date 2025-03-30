@@ -6,27 +6,28 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025-03-30 00:45:35 by mtripodi          #+#    #+#             */
-/*   Updated: 2025-03-30 00:45:35 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/03/30 20:12:09 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 void	set_mid_up(t_stacks *stack)
 {
-    int middle;
-    t_node *current_b = stack->b;
-    t_node *current_a = stack->a;
+	int middle;
+	t_node *current_b = stack->b;
+	t_node *current_a = stack->a;
 
-    middle = stack->asize / 2;
-    while (current_a) {
-        current_a->mid_up = (current_a->pos <= middle);
-        current_a = current_a->next;
-    }
-    middle = stack->bsize / 2;
-    while (current_b) {
-        current_b->mid_up = (current_b->pos <= middle);
-        current_b = current_b->next;
-    }
+	middle = stack->asize / 2;
+	while (current_a) {
+		current_a->mid_up = (current_a->pos <= middle);
+		current_a = current_a->next;
+	}
+	middle = stack->bsize / 2;
+	while (current_b) {
+		current_b->mid_up = (current_b->pos <= middle);
+		current_b = current_b->next;
+	}
 }
 
 void	set_targets(t_node *a, t_node *b)
@@ -43,7 +44,7 @@ void	set_targets(t_node *a, t_node *b)
 		while (compare)
 		{
 			if (current_b->num < compare->num
-				&& compare->num < compare_index)
+					&& compare->num < compare_index)
 			{
 				compare_index = compare->num;
 				current_b->target = compare;
@@ -109,39 +110,39 @@ void	rev_machine(t_node **lst, int n, int print)
 }
 void force_rot_push(t_stacks *stack, t_node *push)
 {
-    int stacksize = stack->bsize;
+	int stacksize = stack->bsize;
 
-    while (stack->bsize == stacksize) {
-        if (stack->b != push && stack->a != push->target)
-            rr(stack, 1);
-        else if (stack->b != push && stack->a == push->target)
-            r(&(stack->b), 1);
-        else if (stack->b == push && stack->a != push->target)
-            r(&(stack->a), 1);
-        else if (stack->b == push && stack->a == push->target)
-            pa(stack, 1);
+	while (stack->bsize == stacksize) {
+		if (stack->b != push && stack->a != push->target)
+			rr(stack, 1);
+		else if (stack->b != push && stack->a == push->target)
+			r(&(stack->b), 1);
+		else if (stack->b == push && stack->a != push->target)
+			r(&(stack->a), 1);
+		else if (stack->b == push && stack->a == push->target)
+			pa(stack, 1);
 
-        set_mid_up(stack); // Update mid_up flags globally
-    }
+		set_mid_up(stack); // Update mid_up flags globally
+	}
 }
 
 void	force_rev_push(t_stacks *stack, t_node *push)
 {
-		int		stacksize;
+	int		stacksize;
 
-		stacksize = stack->bsize;
-		while (stack->bsize == stacksize)
-		{
-			if (stack->b != push && stack->a != push->target)
-				rrr(stack, 1);
-			else if (stack->b != push && stack->a == push->target)
-				rrs(&(stack->b), 1);
-			else if (stack->b == push && stack->a != push->target)
-				rrs(&(stack->a), 1);
-			else if (stack->b == push && stack->a == push->target)
-				pa(stack, 1);
-			set_mid_up(stack);
-		}
+	stacksize = stack->bsize;
+	while (stack->bsize == stacksize)
+	{
+		if (stack->b != push && stack->a != push->target)
+			rrr(stack, 1);
+		else if (stack->b != push && stack->a == push->target)
+			rrs(&(stack->b), 1);
+		else if (stack->b == push && stack->a != push->target)
+			rrs(&(stack->a), 1);
+		else if (stack->b == push && stack->a == push->target)
+			pa(stack, 1);
+		set_mid_up(stack);
+	}
 }
 
 void	man_push(t_stacks *stack, t_node *push)
