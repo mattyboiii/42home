@@ -1,0 +1,92 @@
+
+12 20 10 26 17 13 14 2 6 16 15 0 5 19 4 21 25 8 11 27 29 24 9 3 18 22 1 28 23 7
+
+below is a struct which I am using to contain a stack of numbers and other details. I
+am using these stack in the push_swap project. However, this means that when I call
+fuctions. I have to always hand in both stacks. Am i able to use another struct which I
+can call stack->a or somthing like that. Which can have both stack a and b? So i could just
+hand in rev_check(t_node **stacks) somthing like that.
+
+
+typedef struct s_stack_node
+{
+	long				num;
+	long				pos;
+	char				stack[2];
+	int					chunk;
+	int					div;
+	struct s_stack_node	*prev;
+	struct s_stack_node	*next;
+}	t_node;
+
+int	rev_checks(t_node **a, t_node **b, t_node *last, t_node *hold)
+
+if gold is not set. Set it.
+if gold is set. set temp and compare.
+
+set positions. make a boolean that is also true or false if it is below
+or above the median.
+
+
+function Target node.
+
+target node is responsible for settings the "target Node" varialbe inside of the
+t_node.
+because all numbers are pushed to b. It is responsible for setting the smalles number
+in stack A that is still larger than the number being compared to
+Input:
+
+    Stack A (head_a): 5 → 4 → 1
+
+    Stack B (head_b): 3 → 2 → 9 → 10 → 7 → 6 → 8
+
+Process Each Node in Stack B:
+
+    Node 3 from Stack B:
+
+        Compare with nodes in Stack A:
+
+            3 < 5: True → Candidate target = 5.
+
+            3 < 4: True → Candidate target = 4.
+
+            3 < 1: False → Skip.
+
+        Best target: Node with value 4.
+If it finds no value, then assign the smallest node to it, as if the stackA (head_a) = 100
+and the smallest number is 1. thats good. As if the number 100 is pushed before 1. Its
+still in order.
+
+calculate_push_price
+
+Simply calculates the price of getting the "target_node" and the current_node to the top
+of their stacks. This simplifies the logic a bit, because we can calculate that it
+always takes 2 more rotations to get them in the correct position. This does However
+give all numbers a cost at the same time. Instead of finding a possible number, then
+simulating it one by one.
+1. Node 3 (B)
+
+    Target in A: Node 4
+
+    Current Position (B): 0 (top of B)
+
+    B Rotation Cost:
+
+        above_median = true (position ≤ 3.5; 0 ≤ 3)
+
+        Cost = 0 (no rotations needed to bring 3 to top)
+
+    A Rotation Cost:
+
+        Target node 4 is at position 1 in A (median = 1.5)
+
+        above_median = true (1 ≤ 1.5)
+
+        Cost = 1 (rotate A once to bring 4 to top)
+
+    Total Push Price: 0 + 1 = 1
+
+Set cheapest is simple. It will traverse the stack passed into it, and then set the node
+with the cheapest push price to "true".
+-- for now, we will keep it that it does not compare equal push prices, and simply takes
+the first cheapest. If node 1 & 2 have push price 1. Node 1 will reimain cheapest
