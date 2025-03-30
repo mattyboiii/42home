@@ -81,7 +81,7 @@ t_node	*get_cheapest(t_node *b)
 	cheapest = b;
 	while (b)
 	{
-		if (b->next->push_price < cheapest->push_price)
+		if (b->next && b->next->push_price < cheapest->push_price)
 			cheapest = b;
 		b = b->next;
 	}
@@ -122,6 +122,7 @@ void	force_rot_push(t_stacks *stack, t_node *a, t_node *b, t_node *push)
 				r(&a, 1);
 			else if (b == push && a == push->target)
 				pa(stack, 1);
+			set_mid_up(*stack, a, b);
 		}
 }
 
@@ -140,30 +141,34 @@ void	force_rev_push(t_stacks *stack, t_node *a, t_node *b, t_node *push)
 				rrs(&a, 1);
 			else if (b == push && a == push->target)
 				pa(stack, 1);
+			set_mid_up(*stack, a, b);
 		}
 }
 
-void	man_push(t_stacks *stacks, t_node *a, t_node *b, t_node *push)
+void	man_push(t_stacks *stack, t_node *a, t_node *b, t_node *push)
 {
+	print_stacks(*stack);
 	if (a != push->target && push->target->mid_up == true)
 		rot_machine(&a, push->target->pos, 1);
 	else if (a != push->target && push->target->mid_up == false)
-		rev_machine(&a, stacks->asize - push->target->pos, 1);
+		rev_machine(&a, stack->asize - push->target->pos, 1);
+	print_stacks(*stack);
 	if (b != push && push->target->mid_up == true)
 		rot_machine(&b, push->target->pos, 1);
 	else if (b != push->target && push->target->mid_up == false)
 		rev_machine(&b, push->target->pos, 1);
-	pa(stacks, 1);
+	pa(stack, 1);
+	set_mid_up(*stack, a, b);
 }
 
-void	push_cheapest(t_stacks *stack, t_node *a, t_node *b, t_node *cheap)
+void	push_cheapest(t_stacks *stack, t_node **a, t_node **b, t_node *cheap)
 {
 	if (cheap->mid_up && cheap->target->mid_up)
-		force_rot_push(stack, a, b, cheap);
+		force_rot_push(stack, *a, *b, cheap);
 	else if (!cheap->mid_up && !cheap->target->mid_up)
-		force_rev_push(stack, a, b, cheap);
+		force_rev_push(stack, *a, *b, cheap);
 	else
-		man_push(stack, a, b, cheap);
+		man_push(stack, *a, *b, cheap);
 }
 
 void	sort(t_stacks *stack)
@@ -180,7 +185,7 @@ void	sort(t_stacks *stack)
 		set_targets(stack->a, stack->b);
 		set_push_price(*stack, stack->b);
 		cheap = get_cheapest(stack->b);
-		push_cheapest(stack, stack->a, stack->b, cheap);
+		push_cheapest(stack, &stack->a, &stack->b, cheap);
 		print_stacks(*stack);
 	}
 }

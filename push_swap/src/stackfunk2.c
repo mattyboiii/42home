@@ -68,9 +68,9 @@ int	rrs(t_node **lst, int print)
 	last = ft_lstlast(*lst);
 	last_prev = last->prev;
 	first->prev = last;
+	last_prev->next = NULL;
 	last->prev = NULL;
 	last->next = first;
-	last_prev->next = NULL;
 	*lst = last;
 	ft_stackposupdate(*lst);
 	if (print == 1)

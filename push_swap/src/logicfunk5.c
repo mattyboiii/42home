@@ -19,21 +19,3 @@ int	posnum(int num)
 	else
 		return (num);
 }
-
-void	rot_machine(t_node **lst, int n, int print)
-{
-	while (n > 0)
-	{
-		r(lst, print);
-		n--;
-	}
-}
-
-void	rev_machine(t_node **lst, int n, int print)
-{
-	while (n > 0)
-	{
-		rrs(lst, print);
-		n--;
-	}
-}

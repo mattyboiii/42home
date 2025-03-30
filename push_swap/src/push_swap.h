@@ -76,27 +76,17 @@ void		set_mid_up(t_stacks stack, t_node *a, t_node *b);
 void		set_push_price(t_stacks stack, t_node *b);
 
 // logicfunk
-int			compare_logic(t_stacks *stack, int iterations, int skip);
 int			sort_to_a(t_stacks *stack, int last_melon, int rr);
-int			sort_to_b(t_stacks *stack, int iterations);
 
 // logicfunk2
-int			check_lg_sm(t_node *lst, int compare, int chunk, int lg_small);
-int			get_chunk_number(t_stacks stack);
-t_node		*hold_first(t_stacks stack, int chunk_div, int future);
-t_node		*hold_second(t_stacks stack, int chunk_div, int future);
+int			check_lg_sm(t_node *lst, int compare, int lg_small);
 
 // logicfunk3
-int			rotate_prep(t_stacks stack, t_node *hold, int chunk);
-int			order_rev_push(t_stacks stack, t_node **b, t_node *hold, int chunk);
-int			order_rot_push(t_stacks stack, t_node **b, t_node *hold, int chunk);
 int			order_check(t_node **lst);
 
 // logicfunk4
 int			make_circle(t_node **lst);
 void		cut_circle(t_node **lst, int cut);
-int			rot_checks_rotate(t_stacks *stk, t_node *hold, int out);
-int			rev_checks_rotate(t_stacks *stk, t_node *hold, int out);
 int			if_push(t_stacks stack, t_node *hold);
 
 // logicfunk5
