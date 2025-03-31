@@ -82,12 +82,6 @@ void print_stacks(t_stacks *stack)
             printf("%*s", a_col_width, ""); // Blank space if no more elements in A
 		if (list_a)
         	list_a = list_a->next;
-        if (list_b && (list_b->pos <= top + 1 || list_b->pos >= bbot))
-		{
-			while (list_a && list_a->pos < abot)
-			//make list_a go straight to the number where it can print.
-			//fuck it make both go straight to the list it can print. 
-		}
 
         // Print separator
         if (list_b && (list_b->pos <= top + 1 || list_b->pos >= bbot))
@@ -102,5 +96,9 @@ void print_stacks(t_stacks *stack)
             printf("\n");
 		if (list_b)
         	list_b = list_b->next;
+		while (list_a && (list_a->pos > top + 1 && list_a->pos < abot))
+			list_a = list_a->next;
+		while (list_b && (list_b->pos > top + 1 && list_b->pos < bbot))
+			list_b = list_b->next;
     }
 }
