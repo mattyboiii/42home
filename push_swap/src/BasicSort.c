@@ -12,8 +12,6 @@
 
 #include "push_swap.h"
 
-//about to update the logic. It wont use midpoint algorythm
-
 t_node	*get_smallest(t_node *lst)
 {
 	t_node *small;
@@ -69,59 +67,4 @@ void	sort3(t_node **lst)
 		s(lst, 1);
 		rrs(lst, 1);
 	}
-}
-
-/**
- * potentially not using as I dont want to use midnum at all. We will come back
- * to it later
- */
-void	sort5(t_stacks m)
-{
-	int			midnum;
-	t_node		*small;
-	t_node		*big;
-
-	set_big_small(m.a, &big, &small);
-	midnum = get_midnode(m.a)->num;
-	while (m.asize > 3)
-	{
-		if (m.a->num < midnum || m.a == big)
-			pb(&m, 1);
-		if (ft_lstlast(m.a)->num < midnum || ft_lstlast(m.a)->num == big->num)
-			rrs(&m.a, 1);
-		else if (m.a->num >= midnum && m.a->num < big->num)
-			r(&m.a, 1);
-	}
-	sort3(&m.a);
-	while (sorted_asc(m.a, m.a) == 0 || m.b)
-	{
-		if (sorted_asc(m.a, m.a) == 1 && m.b)
-			pa(&m, 1);
-		if (m.a->num > ft_lstlast(m.a)->num)
-			r(&m.a, 1);
-		else if (m.a->num < get_node(m.a, 2)->num && m.a->num > m.a->next->num)
-			s(&m.a, 1);
-	}
-}
-
-t_node	*get_midnode(t_node *lst)
-{
-	t_node	*sorted;
-	t_node	*midnode;
-	t_node	*last;
-	t_node	*out;
-
-	sorted = NULL;
-	out = lst;
-	if (ft_lstsize(lst) <= 2 || lst->next == NULL)
-		return (lst);
-	sorted = simple_sort(copy_lst(lst));
-	last = ft_lstlast(sorted);
-	midnode = get_node(sorted, (last->pos + 1) / 2);
-	while (out && out->num != midnode->num)
-		out = out->next;
-	ft_lstclear(&sorted);
-	last = NULL;
-	midnode = NULL;
-	return (out);
 }

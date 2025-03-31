@@ -24,12 +24,12 @@ typedef struct s_stack_node
 {
 	long				num;
 	long				pos;
-	char				stack[2];
 	int					push_price;
-	bool				mid_up;
 	struct s_stack_node	*target;
 	struct s_stack_node	*prev;
 	struct s_stack_node	*next;
+	bool				mid_up;
+	char				stack[2];
 }	t_node;
 
 typedef struct s_stack

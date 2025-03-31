@@ -81,6 +81,8 @@ t_node	*get_cheapest(t_node *b)
 
 	if (!b)
 		return (NULL);
+	if (b->next == NULL)
+		return (b);
 	cheapest = b;
 	while (b)
 	{
@@ -198,7 +200,6 @@ void	sort(t_stacks *stack)
 		set_push_price(stack);
 		cheap = get_cheapest(stack->b);
 		push_cheapest(stack, cheap);
-		print_stacks(stack);
 	}
 	smallest_on_top(stack);
 }
