@@ -118,6 +118,7 @@ void	error_check_arv(char **arv)
 		i = 1;
 	while (arv[arc])
 		arc++;
+	arc--;
 	if (arv[i] == NULL)
 		ft_exit(0);
 	if (arc == 1)
