@@ -34,7 +34,7 @@ int		set_bigdig(t_stacks *stack)
 	int			smallnum;
 	int			i;
 
-	i = 0;
+	i = 1;
 	set_big_small(stack->a, &big, &small);
 	if (big->num < 0 && small->num < 0)
 		i = 1;
@@ -46,7 +46,7 @@ int		set_bigdig(t_stacks *stack)
 			i = 1;
 		bignum = smallnum;
 	}
-	while (bignum >= 10)
+	while (bignum > 0)
 	{
 		i++;
 		bignum /= 10;
@@ -66,11 +66,15 @@ void print_stacks(t_stacks *stack)
 	int	sizea = stack->asize;
 	int	sizeb = stack->bsize;
 	int	top = 15;
-	int	abot = sizea - 15;
-	int	bbot = sizeb - 15;
+	int	abot = 15;
+	int	bbot = 15;
     t_node *list_a = stack->a;
     t_node *list_b = stack->b;
 
+	if (sizea > 15)
+		abot = sizea - 15;
+	if (sizeb > 15)
+		bbot = sizea - 15;
     while (list_a || list_b)
     {
         // Print Stack A entry
@@ -84,8 +88,14 @@ void print_stacks(t_stacks *stack)
         	list_a = list_a->next;
 
         // Print separator
-        if (list_b && (list_b->pos <= top + 1 || list_b->pos >= bbot))
-        	printf("  -----  ");
+        if (list_a || (list_b && (list_b->pos <= top + 1 || list_b->pos >= bbot)))
+		{
+			printf("  -----  ");
+		}
+		if (!list_b)
+		{
+			printf("\n");
+		}
 
         // Print Stack B entry
         if (list_b && (list_b->pos <= top || list_b->pos >= bbot))

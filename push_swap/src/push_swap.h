@@ -61,7 +61,6 @@ typedef struct s_stack
 // push_swap.c
 int			array_size(char **arv);
 void		ft_exit(int n);
-int			set_bigdig(t_stacks *stack);
 void		print_stacks(t_stacks *stack);
 
 // BasicSort.c
@@ -69,7 +68,6 @@ t_node		*get_smallest(t_node *lst);
 t_node		*get_midnode(t_node *lst);
 void		set_big_small(t_node *lst, t_node **big, t_node **small);
 void		sort3(t_node **lst);
-void		sort5(t_stacks stack);
 
 // sort.c
 void		sort(t_stacks *stack);
@@ -77,21 +75,8 @@ void		set_targets(t_node *a, t_node *b);
 void		set_mid_up(t_stacks *stack);
 void		set_push_price(t_stacks *stack);
 
-// logicfunk
-int			sort_to_a(t_stacks *stack, int last_melon, int rr);
-
-// logicfunk2
-int			check_lg_sm(t_node *lst, int compare, int lg_small);
-
-// logicfunk3
-int			order_check(t_node **lst);
-
-// logicfunk4
-int			make_circle(t_node **lst);
-void		cut_circle(t_node **lst, int cut);
-int			if_push(t_stacks stack, t_node *hold);
-
-// logicfunk5
+// utils
+int			set_bigdig(t_stacks *stack);
 int			posnum(int num);
 
 // lstfunk
@@ -107,23 +92,13 @@ void		ft_stackposupdate(t_node *node);
 void		ft_lstclear(t_node **lst);
 t_node		*ft_nodedel(t_node *node);
 
-// lstfunk3
-t_node		*get_node(t_node *lst, int index);
-t_node		*copy_node(t_node *node);
-t_node		*copy_lst(t_node *lst);
-
 // sortfunk
-int			sorted_des(t_node *lst);
 int			sorted_asc(t_node *lst, t_node *start);
-void		numswap(t_node *bigger, t_node *smaller);
-t_node		*simple_sort(t_node *lst);
 
 // stackfunk
 int			r(t_node **lst, int print);
 int			pa(t_stacks *stack, int print);
 int			pb(t_stacks *stack, int print);
-void		stacklst_del(t_stacks *stack);
-t_stacks	stacklst_dup(t_stacks stack);
 
 int			s(t_node **lst, int print);
 int			ss(t_stacks *stack, int print);

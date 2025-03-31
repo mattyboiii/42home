@@ -73,22 +73,3 @@ int	pb(t_stacks *stack, int print)
 	stack->bsize++;
 	return (1);
 }
-
-t_stacks	stacklst_dup(t_stacks stack)
-{
-	t_stacks	stk;
-
-	stk.a = NULL;
-	stk.b = NULL;
-	stk.a = copy_lst(stack.a);
-	stk.b = copy_lst(stack.b);
-	stk.asize = stack.asize;
-	stk.bsize = stack.bsize;
-	return (stk);
-}
-
-void	stacklst_del(t_stacks *stack)
-{
-	ft_lstclear(&stack->a);
-	ft_lstclear(&stack->b);
-}

@@ -111,11 +111,13 @@ void	error_check_arv(char **arv)
 	int		arc;
 
 	i = 0;
+	arc = 0;
 	if (arv == NULL || *arv == NULL)
 		ft_exit(0);
 	if (arv[0][0] == '/' || arv[0][0] == '.')
 		i = 1;
-	arc = array_size(arv) - 1;
+	while (arv[arc])
+		arc++;
 	if (arv[i] == NULL)
 		ft_exit(0);
 	if (arc == 1)
