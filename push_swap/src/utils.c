@@ -77,11 +77,17 @@ void print_stacks(t_stacks *stack)
         if (list_a && (list_a->pos <= top || list_a->pos >= abot))
             printf("a [%3ld]: %*ld", list_a->pos, num_width, list_a->num);
 		else if (list_a && list_a->pos == 16)
-            printf("%*s\n", num_width + 9, "[...]");
+            printf("%*s", num_width + 9, "[...]");
         else if (list_b && (list_b->pos <= top + 1 || list_b->pos >= bbot))
             printf("%*s", a_col_width, ""); // Blank space if no more elements in A
 		if (list_a)
         	list_a = list_a->next;
+        if (list_b && (list_b->pos <= top + 1 || list_b->pos >= bbot))
+		{
+			while (list_a && list_a->pos < abot)
+			//make list_a go straight to the number where it can print.
+			//fuck it make both go straight to the list it can print. 
+		}
 
         // Print separator
         if (list_b && (list_b->pos <= top + 1 || list_b->pos >= bbot))

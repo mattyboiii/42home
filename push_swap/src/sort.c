@@ -200,6 +200,8 @@ void	sort(t_stacks *stack)
 		set_push_price(stack);
 		cheap = get_cheapest(stack->b);
 		push_cheapest(stack, cheap);
+		if (stack->asize >= 60)
+			print_stacks(stack);
 	}
 	smallest_on_top(stack);
 }
