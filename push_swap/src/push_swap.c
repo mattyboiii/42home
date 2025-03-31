@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+
 int	sorted_asc(t_node *lst, t_node *start)
 {
 	t_node	*head;

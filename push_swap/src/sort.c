@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	set_mid_up(t_stacks *stack)
+void	set_mid_h(t_stacks *stack)
 {
 	int middle;
 	t_node *current_b = stack->b;
@@ -20,12 +20,12 @@ void	set_mid_up(t_stacks *stack)
 
 	middle = stack->asize / 2;
 	while (current_a) {
-		current_a->mid_up = (current_a->pos <= middle);
+		current_a->mid_h = (current_a->pos <= middle);
 		current_a = current_a->next;
 	}
 	middle = stack->bsize / 2;
 	while (current_b) {
-		current_b->mid_up = (current_b->pos <= middle);
+		current_b->mid_h = (current_b->pos <= middle);
 		current_b = current_b->next;
 	}
 }
@@ -65,12 +65,13 @@ void	set_push_price(t_stacks *stack)
 	while (b)
 	{
 		b->push_price = b->pos;
-		if (b->mid_up == false)
+		if (b->mid_h == false)
 			b->push_price = stack->bsize - b->pos;
-		if (b->target->mid_up == true)
+		if (b->target->mid_h == true)
 			b->push_price += b->target->pos;
 		else
 			b->push_price += stack->asize - (b->target->pos);
+		b->push_price++;
 		b = b->next;
 	}
 }
@@ -86,7 +87,11 @@ t_node	*get_cheapest(t_node *b)
 	cheapest = b;
 	while (b)
 	{
-		if (b->next && b->next->push_price < cheapest->push_price)
+		if (b->num == 52)
+			printf(" ");
+		if (b && (b->push_price < cheapest->push_price ||
+			(b->push_price <= cheapest->push_price && b->num > 0
+				&& cheapest->num < 0)))
 			cheapest = b;
 		b = b->next;
 	}
@@ -124,7 +129,7 @@ void force_rot_push(t_stacks *stack, t_node *push)
 		else if (stack->b == push && stack->a == push->target)
 			pa(stack, 1);
 
-		set_mid_up(stack); // Update mid_up flags globally
+		set_mid_h(stack); // Update mid_h flags globally
 	}
 }
 
@@ -143,30 +148,30 @@ void	force_rev_push(t_stacks *stack, t_node *push)
 			rrs(&(stack->a), 1);
 		else if (stack->b == push && stack->a == push->target)
 			pa(stack, 1);
-		set_mid_up(stack);
+		set_mid_h(stack);
 	}
 }
 
 void	man_push(t_stacks *stack, t_node *push)
 {
-	if (stack->a != push->target && push->target->mid_up == true)
+	if (stack->a != push->target && push->target->mid_h == true)
 		rot_machine(&(stack->a), push->target->pos, 1);
-	else if (stack->a != push->target && push->target->mid_up == false)
+	else if (stack->a != push->target && push->target->mid_h == false)
 		rev_machine(&(stack->a), stack->asize - push->target->pos, 1);
-	set_mid_up(stack);
-	if (stack->b != push && push->mid_up == true)
+	set_mid_h(stack);
+	if (stack->b != push && push->mid_h == true)
 		rot_machine(&(stack->b), push->pos, 1);
-	else if (stack->b != push->target && push->mid_up == false)
-		rev_machine(&(stack->b), push->pos, 1);
+	else if (stack->b != push->target && push->mid_h == false)
+		rev_machine(&(stack->b), stack->bsize - push->pos, 1);
 	pa(stack, 1);
-	set_mid_up(stack);
+	set_mid_h(stack);
 }
 
 void	push_cheapest(t_stacks *stack, t_node *cheap)
 {
-	if (cheap->mid_up && cheap->target->mid_up)
+	if (cheap->mid_h == true && cheap->target->mid_h == true)
 		force_rot_push(stack, cheap);
-	else if (!cheap->mid_up && !cheap->target->mid_up)
+	else if (cheap->mid_h == false && cheap->target->mid_h == false)
 		force_rev_push(stack, cheap);
 	else
 		man_push(stack, cheap);
@@ -179,7 +184,7 @@ void	smallest_on_top(t_stacks *stack)
 	set_big_small(stack->a, 0, &small);
 	while (stack->a != small)
 	{
-		if (small->mid_up == true)
+		if (small->mid_h == true)
 			rot_machine(&(stack->a), small->pos, 1);
 		else
 			rev_machine(&(stack->a), stack->asize - small->pos, 1);
@@ -192,16 +197,24 @@ void	sort(t_stacks *stack)
 	while (stack->asize > 3)
 		pb(stack, 1);
 	sort3(&stack->a);
-	// print_stacks(stack);
 	while (stack->b)
 	{
-		set_mid_up(stack);
+		set_mid_h(stack);
 		set_targets(stack->a, stack->b);
+		// if (stack->b->num == 100)
+		// 	printf(" ");
 		set_push_price(stack);
+		// if (stack->b->num == 83)
+		// 	printf(" ");
 		cheap = get_cheapest(stack->b);
+		// printf("Cheap: %ld\n", cheap->num);
+		// printf("Targt: %ld\n", cheap->target->num);
+		// printf("Ch-pp: %d\n", cheap->push_price);
+		// print_stacks(stack);
 		push_cheapest(stack, cheap);
-		// if (stack->asize >= 7)
-		// 	print_stacks(stack);
 	}
 	smallest_on_top(stack);
+	// if (sorted_asc(stack->a, stack->a) == 1)
+	// 	ft_printf("sorted\n");
+	// print_stacks(stack);
 }

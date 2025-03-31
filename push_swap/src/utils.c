@@ -74,7 +74,7 @@ void print_stacks(t_stacks *stack)
 	if (sizea > 15)
 		abot = sizea - 15;
 	if (sizeb > 15)
-		bbot = sizea - 15;
+		bbot = sizeb - 15;
     while (list_a || list_b)
     {
         // Print Stack A entry
@@ -96,10 +96,9 @@ void print_stacks(t_stacks *stack)
 		{
 			printf("\n");
 		}
-
         // Print Stack B entry
         if (list_b && (list_b->pos <= top || list_b->pos >= bbot))
-            printf("b [%3ld]: %*ld\n", list_b->pos, num_width, list_b->num);
+            printf("b [%3ld]: %*ld - %d\n", list_b->pos, num_width, list_b->num, list_b->push_price);
 		else if (list_b && list_b->pos == 16)
             printf("%*s\n", num_width + 9, "[...]");
         else if (list_b && (list_b->pos <= top || list_b->pos >= bbot))

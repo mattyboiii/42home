@@ -28,7 +28,7 @@ typedef struct s_stack_node
 	struct s_stack_node	*target;
 	struct s_stack_node	*prev;
 	struct s_stack_node	*next;
-	bool				mid_up;
+	bool				mid_h;
 	char				stack[2];
 }	t_node;
 
@@ -72,7 +72,7 @@ void		sort3(t_node **lst);
 // sort.c
 void		sort(t_stacks *stack);
 void		set_targets(t_node *a, t_node *b);
-void		set_mid_up(t_stacks *stack);
+void		set_mid_h(t_stacks *stack);
 void		set_push_price(t_stacks *stack);
 
 // utils
