@@ -12,6 +12,18 @@
 
 #include "push_swap.h"
 
+t_node	*get_node(t_node *lst, int index)
+{
+	t_node		*node;
+
+	node = lst;
+	if (lst == NULL)
+		return (NULL);
+	while (node->pos < index && node->next != NULL)
+		node = node->next;
+	return (node);
+}
+
 /**
  * @brief takes in a number, returns the positive value of it. This was used
  * when having to compare calculations based on numbers in bottom, compared

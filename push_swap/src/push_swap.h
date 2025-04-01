@@ -46,7 +46,6 @@ typedef struct s_stack
 // push_swap.c
 int			sorted_asc(t_node *lst, t_node *start);
 void		ft_exit(int n);
-void		print_stacks(t_stacks *stack);
 
 // BasicSort.c
 t_node		*get_smallest(t_node *lst);
@@ -61,6 +60,7 @@ void		push_cheapest(t_stacks *stack, t_node *cheap);
 void		smallest_on_top(t_stacks *stack);
 
 // rot_rev_push2.c
+void		set_rr_rrr_push_price(t_stacks stack, t_node *b);
 void		rot_machine(t_node **lst, int n, int print);
 void		rev_machine(t_node **lst, int n, int print);
 
@@ -71,8 +71,10 @@ void		set_mid_h(t_stacks *stack);
 void		set_push_price(t_stacks *stack);
 
 // utils
+t_node		*get_node(t_node *lst, int index);
 int			set_bigdig(t_stacks *stack);
 int			posnum(int num);
+void		print_stacks(t_stacks *stack);
 
 // lstfunk
 int			ft_lstsize(t_node *lst);

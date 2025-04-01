@@ -64,6 +64,9 @@ void	set_push_price(t_stacks *stack)
 	b = stack->b;
 	while (b)
 	{
+		if (b && b->next && b->num == 81 && b->next->num == 52
+				&& stack->bsize == 95)
+			printf(" ");
 		b->push_price = b->pos;
 		if (b->mid_h == false)
 			b->push_price = stack->bsize - b->pos;
@@ -71,6 +74,14 @@ void	set_push_price(t_stacks *stack)
 			b->push_price += b->target->pos;
 		else
 			b->push_price += stack->asize - (b->target->pos);
+		if (b->mid_h == false && b->target->mid_h == false && b->pos > 0
+				&& b->pos + 1 != stack->bsize && b->target->pos > 0
+				&& b->target->pos + 1 != stack->asize)
+				set_rr_rrr_push_price(*stack, b);
+		if (b->mid_h == true && b->target->mid_h == true && b->pos > 0
+				&& b->pos + 1 != stack->bsize && b->target->pos > 0
+				&& b->target->pos + 1 != stack->asize)
+				set_rr_rrr_push_price(*stack, b);
 		b->push_price++;
 		b = b->next;
 	}
@@ -89,9 +100,10 @@ t_node	*get_cheapest(t_node *b)
 	{
 		if (b->num == 52)
 			printf(" ");
-		if (b && (b->push_price <= cheapest->push_price &&
-					(b->num > 0 && cheapest->num < 0) ||
-					b->num > cheapest->num))
+		if (((b && (b->push_price < cheapest->push_price))
+				|| ((b->push_price <= cheapest->push_price)
+				&& ((b->num > 0 && cheapest->num < 0)
+				||	b->num > cheapest->num))))
 			cheapest = b;
 		b = b->next;
 	}
@@ -116,7 +128,7 @@ void    sort(t_stacks *stack)
 
 		set_push_price(stack);
 
-		if (debug && stack->b->num == 83)
+		if (debug && stack->b->num == 24)
 			printf(" ");
 
 		cheap = get_cheapest(stack->b);
