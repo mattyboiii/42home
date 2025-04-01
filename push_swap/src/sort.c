@@ -93,9 +93,6 @@ void	set_push_price(t_stacks *stack)
 	b = stack->b;
 	while (b)
 	{
-		if (b && b->next && b->num == 81 && b->next->num == 52
-			&& stack->bsize == 95)
-			printf(" ");
 		b->push_price = b->pos;
 		if (b->mid_h == false)
 			b->push_price = stack->bsize - b->pos;
@@ -156,14 +153,9 @@ t_node	*get_cheapest(t_node *b)
  * @brief sort, is responsible for running all functions which will
  * be used to eventually sort the stacks. After sort is finished the
  * stacks will be sorted.
- *
- * TO DEBUG. simply change debug = 0, to debu = 1. and set a breakpoint
- * at push_cheapest. This will allow you to see how the logic program is
- * working
  */
 void	sort(t_stacks *stack)
 {
-	int			debug = 0;
 	t_node		*cheap;
 
 	while (stack->asize > 3)
@@ -173,26 +165,9 @@ void	sort(t_stacks *stack)
 	{
 		set_mid_h(stack);
 		set_targets(stack->a, stack->b);
-		if (debug && stack->b->num == 100)
-			printf(" ");
 		set_push_price(stack);
-		if (debug && stack->b->num == 24)
-			printf(" ");
 		cheap = get_cheapest(stack->b);
-		if (debug)
-		{
-			printf("Cheap: %ld\n", cheap->num);
-			printf("Targt: %ld\n", cheap->target->num);
-			printf("Ch-pp: %d\n", cheap->push_price);
-			print_stacks(stack);
-		}
 		push_cheapest(stack, cheap);
 	}
 	smallest_on_top(stack);
-	if (debug)
-	{
-		if (sorted_asc(stack->a, stack->a) == 1)
-			ft_printf("sorted\n");
-		print_stacks(stack);
-	}
 }

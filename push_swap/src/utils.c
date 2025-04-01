@@ -83,6 +83,7 @@ int	set_bigdig(t_stacks *stack)
  * @brief this funciton simply prints out both stacks in a nice format which
  * also shows their position. NOT NORMINETTE FRIENDLY :) :) :)
  */
+/*
 void	print_stacks(t_stacks *stack)
 {
     int num_width = stack->bigdig + 1;     // Include space for negative sign
@@ -137,3 +138,4 @@ void	print_stacks(t_stacks *stack)
 			list_b = list_b->next;
     }
 }
+*/
