@@ -12,6 +12,12 @@
 
 #include "push_swap.h"
 
+/**
+ * @brief takes in a number, returns the positive value of it. This was used
+ * when having to compare calculations based on numbers in bottom, compared
+ * to top of stack.
+ * @return positive number handed in
+ */
 int	posnum(int num)
 {
 	if (num < 0)
@@ -22,9 +28,10 @@ int	posnum(int num)
 
 /**
  * @brief this function is used to get the number of digits, for the
- * number with the most digits. I use it in the print_stacks. So assuming
- * the project is working, this bigdig num wont actually get used and may
- * not be in the main function (which is the only place I use it)
+ * number with the most digits. I use it in the print_stacks function
+ * below. So assuming the project is working, this bigdig value
+ * wont actually get used and may not be in the main
+ * function (which is the only place I use this function)
  */
 int		set_bigdig(t_stacks *stack)
 {

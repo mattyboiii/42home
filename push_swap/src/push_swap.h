@@ -41,33 +41,28 @@ typedef struct s_stack
 	int			bigdig;
 }	t_stacks;
 
-// typedef struct s_holds
-// {
-// 	t_node		*fh;
-// 	t_node		*sh;
-// 	t_node		*gold;
-// 	t_node		*temp;
-// 	int			iterations;
-// 	int			ops_fh;
-// 	int			ops_sh;
-// 	int			ops;
-// 	int			rotate;
-// 	int			gold_rotate;
-// 	int			compare;
-// }	t_hold;
-
 // functions in my src dir
 // ---  --------------------
 // push_swap.c
-int			array_size(char **arv);
+int			sorted_asc(t_node *lst, t_node *start);
 void		ft_exit(int n);
 void		print_stacks(t_stacks *stack);
 
 // BasicSort.c
 t_node		*get_smallest(t_node *lst);
-t_node		*get_midnode(t_node *lst);
 void		set_big_small(t_node *lst, t_node **big, t_node **small);
 void		sort3(t_node **lst);
+
+// rot_rev_push.c
+void		force_rot_push(t_stacks *stack, t_node *push);
+void		force_rev_push(t_stacks *stack, t_node *push);
+void		man_push(t_stacks *stack, t_node *push);
+void		push_cheapest(t_stacks *stack, t_node *cheap);
+void		smallest_on_top(t_stacks *stack);
+
+// rot_rev_push2.c
+void		rot_machine(t_node **lst, int n, int print);
+void		rev_machine(t_node **lst, int n, int print);
 
 // sort.c
 void		sort(t_stacks *stack);
@@ -92,14 +87,13 @@ void		ft_stackposupdate(t_node *node);
 void		ft_lstclear(t_node **lst);
 t_node		*ft_nodedel(t_node *node);
 
-// sortfunk
-int			sorted_asc(t_node *lst, t_node *start);
 
-// stackfunk
+// stackfunk.c
 int			r(t_node **lst, int print);
 int			pa(t_stacks *stack, int print);
 int			pb(t_stacks *stack, int print);
 
+// stackfunk2.c
 int			s(t_node **lst, int print);
 int			ss(t_stacks *stack, int print);
 int			rr(t_stacks *stack, int print);

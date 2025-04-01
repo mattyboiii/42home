@@ -6,12 +6,11 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:56:54 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/02/06 12:42:34 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/04/01 09:54:51 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
 
 int	sorted_asc(t_node *lst, t_node *start)
 {
@@ -46,6 +45,18 @@ void	ft_exit(int n)
 
 int	main(int arc, char **arv)
 {
+	/*
+	printf("Arguments:\n");
+	for (int i = 0; i < arc; i++) {
+		printf("%s\n", arv[i]);
+	}
+	printf("Environment Variables:\n");
+	extern char **environ;
+	for (char **env = environ; *env; env++) {
+		printf("%s\n", *env);
+	}
+	return (0);
+	*/
 	t_stacks	stack;
 
 	stack.a = NULL;

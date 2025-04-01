@@ -31,6 +31,8 @@ void	fill_a(t_stacks *stack, char **arv)
 	}
 	ft_stackposupdate(stack->a);
 	stack->asize = i;
+	if (arv[0][0] == '/' || arv[0][0] == '.')
+		stack->asize--;
 	stack->bsize = 0;
 }
 
