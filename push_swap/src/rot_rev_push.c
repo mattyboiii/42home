@@ -12,11 +12,19 @@
 
 #include "push_swap.h"
 
-void force_rot_push(t_stacks *stack, t_node *push)
+/**
+ * @brief force rot push is responsible for checking if rr can be used instead
+ * of rotating stacks individually. It uses the mid_h variable which tells it
+ * the direction it can go. Used in the situation stacks can rotate in the
+ * same diretion.
+ */
+void	force_rot_push(t_stacks *stack, t_node *push)
 {
-	int stacksize = stack->bsize;
+	int		stacksize;
 
-	while (stack->bsize == stacksize) {
+	stacksize = stack->bsize;
+	while (stack->bsize == stacksize)
+	{
 		if (stack->b != push && stack->a != push->target)
 			rr(stack, 1);
 		else if (stack->b != push && stack->a == push->target)
@@ -25,11 +33,16 @@ void force_rot_push(t_stacks *stack, t_node *push)
 			r(&(stack->a), 1);
 		else if (stack->b == push && stack->a == push->target)
 			pa(stack, 1);
-
-		set_mid_h(stack); // Update mid_h flags globally
+		set_mid_h(stack);
 	}
 }
 
+/**
+ * @brief force rev push is responsible for checking if rrr can be used instead
+ * of rotating stacks individually. It uses the mid_h variable which tells it
+ * the direction it can go. Used in the situation stacks can rotate in the
+ * same diretion
+ */
 void	force_rev_push(t_stacks *stack, t_node *push)
 {
 	int		stacksize;
@@ -49,6 +62,12 @@ void	force_rev_push(t_stacks *stack, t_node *push)
 	}
 }
 
+/**
+ * @brief man push simply uses push-pos and push->target->pos to dictate
+ * how and which direction the stack wants to move. Man push always rotates
+ * stacks individually. It is used in the situation that its quicker to
+ * rotate stacks in opposite directions.
+ */
 void	man_push(t_stacks *stack, t_node *push)
 {
 	if (stack->a != push->target && push->target->mid_h == true)
@@ -64,6 +83,15 @@ void	man_push(t_stacks *stack, t_node *push)
 	set_mid_h(stack);
 }
 
+/**
+ * @brief push cheapest is responsible for deciding how it will get
+ * the cheap node to the opposing stack. It does this by using
+ * mid_h variable in cheap and cheap->target. It prioritises rr, next
+ * rrr. If it can not rotate stacks the same way, it will run man_push.
+ *
+ * it works this way for maxium efficiency, as if using rr or rr is
+ * valid, it will almost certainly use less actions.
+ */
 void	push_cheapest(t_stacks *stack, t_node *cheap)
 {
 	if (cheap->mid_h == true && cheap->target->mid_h == true)
@@ -74,6 +102,11 @@ void	push_cheapest(t_stacks *stack, t_node *cheap)
 		man_push(stack, cheap);
 }
 
+/**
+ * @brief smallest on top, simply finds the smallest number in the
+ * stack, and rotates the stack so that its on top. It does this
+ * to finalise sorting the stacks in ascending order.
+ */
 void	smallest_on_top(t_stacks *stack)
 {
 	t_node		*small;
@@ -87,5 +120,4 @@ void	smallest_on_top(t_stacks *stack)
 			rev_machine(&(stack->a), stack->asize - small->pos, 1);
 		set_mid_h(stack);
 	}
-
 }

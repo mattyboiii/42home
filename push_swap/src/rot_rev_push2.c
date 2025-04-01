@@ -21,29 +21,35 @@
  */
 void	set_rr_rrr_push_price(t_stacks stack, t_node *b)
 {
-		int		bpos;
-		int		tpos;
+	int			bpos;
+	int			tpos;
 
-		if (b->mid_h == true)
-		{
-			bpos = b->pos;
-			tpos = b->target->pos;
-			if (bpos >= tpos)
-				b->push_price = tpos + (bpos - tpos);
-			else
-				b->push_price = bpos + (tpos - bpos);
-		}
+	if (b->mid_h == true)
+	{
+		bpos = b->pos;
+		tpos = b->target->pos;
+		if (bpos >= tpos)
+			b->push_price = tpos + (bpos - tpos);
 		else
-		{
-			bpos = stack.bsize - b->pos;
-			tpos = stack.asize - b->target->pos;
-			if (bpos >= tpos)
-				b->push_price = tpos + (bpos - tpos);
-			else
-				b->push_price = bpos + (tpos - bpos);
-		}
+			b->push_price = bpos + (tpos - bpos);
+	}
+	else
+	{
+		bpos = stack.bsize - b->pos;
+		tpos = stack.asize - b->target->pos;
+		if (bpos >= tpos)
+			b->push_price = tpos + (bpos - tpos);
+		else
+			b->push_price = bpos + (tpos - bpos);
+	}
 }
 
+/**
+ * @brief simple functoin which rotates the stack n times.
+ *
+ * This function is used to ensure rotating can be done in a clean
+ * way  without using to many loops in other functions.
+ */
 void	rot_machine(t_node **lst, int n, int print)
 {
 	while (n > 0)
@@ -53,6 +59,13 @@ void	rot_machine(t_node **lst, int n, int print)
 	}
 }
 
+/**
+ * @brief simple functoin which reverse rotates the stack n times.
+ *
+ * This function is used to ensure revers rotating can be
+ * done in a clean way  without using to many loops in
+ * other functions.
+ */
 void	rev_machine(t_node **lst, int n, int print)
 {
 	while (n > 0)

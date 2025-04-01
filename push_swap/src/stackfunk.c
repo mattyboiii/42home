@@ -12,6 +12,9 @@
 
 #include "push_swap.h"
 
+/**
+ * @brief rotate the lst/stack handed in.
+ */
 int	r(t_node **lst, int print)
 {
 	t_node	*swapnode;
@@ -36,6 +39,9 @@ int	r(t_node **lst, int print)
 	return (1);
 }
 
+/**
+ * @brief push number at top of b to a
+ */
 int	pa(t_stacks *stack, int print)
 {
 	t_node	*ahead;
@@ -55,6 +61,9 @@ int	pa(t_stacks *stack, int print)
 	return (1);
 }
 
+/**
+ * @brief push number at top of a to b.
+ */
 int	pb(t_stacks *stack, int print)
 {
 	t_node	*ahead;

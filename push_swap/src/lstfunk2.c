@@ -36,6 +36,10 @@ void	fill_a(t_stacks *stack, char **arv)
 	stack->bsize = 0;
 }
 
+/**
+ * @brief loops through the stack giving nodes their updated positions. This
+ * funciton assumes you have handed it the TOP/FIRST node.
+ */
 void	ft_stackposupdate(t_node *node)
 {
 	int		i;
@@ -70,9 +74,13 @@ void	ft_lstclear(t_node **lst)
 	*lst = NULL;
 }
 
-// nodedel returns the deleted node.
-// the list is updated to simply forget the node variable ever existed.
-// it does not actually do any deleting/freeing of memory.
+/**
+ * @brief removes the connection of the node handed in from whichever
+ * list it sits. Then, it returns the node which has been cut out. This
+ * function is used to push nodes to a different stack cleanly.
+ *
+ * @return the node which has been cut from the stack.
+ */
 t_node	*ft_nodedel(t_node *node)
 {
 	t_node	*nnex;

@@ -12,13 +12,27 @@
 
 #include "push_swap.h"
 
+/**
+ * @brief loops through the stack to return the node with the smallest
+ * value.
+ *
+ * @return node with smallest number.
+ */
 t_node	*get_smallest(t_node *lst)
 {
-	t_node *small;
+	t_node		*small;
+
 	set_big_small(lst, 0, &small);
 	return (small);
 }
 
+/**
+ * @brief Can use this function like set_big_small(lst, 0, &small) to only
+ * set a small value & vice versa.
+ * Loops through the stack and sets the "big" & "small" values
+ * to the node with the biggest number, and smallest, node with the smallest
+ * number.
+ */
 void	set_big_small(t_node *lst, t_node **big, t_node **small)
 {
 	t_node	*head;
@@ -43,6 +57,10 @@ void	set_big_small(t_node *lst, t_node **big, t_node **small)
 	}
 }
 
+/**
+ * @brief sorts a stack with 3 numbers into ascending order using the allowed
+ * commands.
+ */
 void	sort3(t_node **lst)
 {
 	t_node		*small;

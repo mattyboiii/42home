@@ -12,6 +12,9 @@
 
 #include "push_swap.h"
 
+/**
+ * @brief swap the top node in the lst/stack for the one underneath it
+ */
 int	s(t_node **lst, int print)
 {
 	int		swap;
@@ -29,6 +32,9 @@ int	s(t_node **lst, int print)
 	return (1);
 }
 
+/**
+ * @brief swap the top node on both lst/stacks for the node underneath.
+ */
 int	ss(t_stacks *stack, int print)
 {
 	s(&stack->a, 0);
@@ -38,6 +44,9 @@ int	ss(t_stacks *stack, int print)
 	return (1);
 }
 
+/**
+ * @brief number at top to the bottom on BOTH stacks.
+ */
 int	rr(t_stacks *stack, int print)
 {
 	r(&stack->a, 0);
@@ -47,6 +56,9 @@ int	rr(t_stacks *stack, int print)
 	return (1);
 }
 
+/**
+ * @brief number at bottom to the top on BOTH stacks.
+ */
 int	rrr(t_stacks *stack, int print)
 {
 	rrs(&stack->a, 0);
@@ -56,6 +68,9 @@ int	rrr(t_stacks *stack, int print)
 	return (1);
 }
 
+/**
+ * @brief number at the top to the bottom on the stack handed in
+ */
 int	rrs(t_node **lst, int print)
 {
 	t_node	*first;

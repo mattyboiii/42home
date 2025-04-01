@@ -12,14 +12,20 @@
 
 #include "push_swap.h"
 
-t_node	*get_node(t_node *lst, int index)
+/**
+ * @brief function will loop through the lst untill it finds the node
+ * matching the "Position"
+ *
+ * @return node at position
+ */
+t_node	*get_node(t_node *lst, int position)
 {
 	t_node		*node;
 
 	node = lst;
 	if (lst == NULL)
 		return (NULL);
-	while (node->pos < index && node->next != NULL)
+	while (node->pos < position && node->next != NULL)
 		node = node->next;
 	return (node);
 }
@@ -45,7 +51,7 @@ int	posnum(int num)
  * wont actually get used and may not be in the main
  * function (which is the only place I use this function)
  */
-int		set_bigdig(t_stacks *stack)
+int	set_bigdig(t_stacks *stack)
 {
 	t_node		*big;
 	t_node		*small;
@@ -73,12 +79,11 @@ int		set_bigdig(t_stacks *stack)
 	return (i);
 }
 
-
 /**
  * @brief this funciton simply prints out both stacks in a nice format which
- * also shows their position
+ * also shows their position. NOT NORMINETTE FRIENDLY :) :) :)
  */
-void print_stacks(t_stacks *stack)
+void	print_stacks(t_stacks *stack)
 {
     int num_width = stack->bigdig + 1;     // Include space for negative sign
     int a_col_width = 10 + stack->bigdig;  // Width for "a [X]: " + number
@@ -102,12 +107,13 @@ void print_stacks(t_stacks *stack)
 		else if (list_a && list_a->pos == 16)
             printf("%*s", num_width + 9, "[...]");
         else if (list_b && (list_b->pos <= top + 1 || list_b->pos >= bbot))
-            printf("%*s", a_col_width, ""); // Blank space if no more elements in A
+            printf("%*s", a_col_width, "");
 		if (list_a)
         	list_a = list_a->next;
 
         // Print separator
-        if (list_a || (list_b && (list_b->pos <= top + 1 || list_b->pos >= bbot)))
+        if (list_a || (list_b && (list_b->pos <= top + 1
+			|| list_b->pos >= bbot)))
 		{
 			printf("  -----  ");
 		}
@@ -117,7 +123,8 @@ void print_stacks(t_stacks *stack)
 		}
         // Print Stack B entry
         if (list_b && (list_b->pos <= top || list_b->pos >= bbot))
-            printf("b [%3ld]: %*ld - %d\n", list_b->pos, num_width, list_b->num, list_b->push_price);
+            printf("b [%3ld]: %*ld - %d\n", list_b->pos, num_width,
+				list_b->num, list_b->push_price);
 		else if (list_b && list_b->pos == 16)
             printf("%*s\n", num_width + 9, "[...]");
         else if (list_b && (list_b->pos <= top || list_b->pos >= bbot))
