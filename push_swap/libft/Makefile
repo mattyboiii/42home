@@ -9,6 +9,9 @@ CFLAGS = -Wall -Wextra -Werror
 SRC_DIR = src
 OBJ_DIR = obj
 
+# Create necessary directories for each object file
+SUB_DIRS = $(sort $(dir $(OBJ)))
+
 # All .c source files inside src and its subdirs (like ft_printf)
 SRC = $(wildcard $(SRC_DIR)/**/*.c) $(wildcard $(SRC_DIR)/*.c)
 
@@ -26,8 +29,12 @@ all: $(NAME)
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
+
+$(SUB_DIRS):
+	@mkdir -p $@
+
 # Compile .c to .o into obj/
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(SUB_DIRS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Archive all .o into libft.a

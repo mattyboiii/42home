@@ -1,0 +1,24 @@
+libft. 
+
+Is a folder with an updated makefile which uses a wildcard to run on all files inside of a src directory. The files can also be inside of seperate folders. Then when it compiles them, it will do so into seperate folders. eg. 
+
+src
+-- ft_printf
+------file1.c
+------file2.c
+-- random.c
+-- random1.c
+
+obj
+-- ft_printf
+------file1.o
+------file2.o
+-- random.o
+-- random1.o
+
+It also has no lst functions or structs, so that they can be created/modified to suit the specific project. I also prefer doubly linked list's now. And the bonus did not consider this. 
+
+
+
+LibftWithBouns
+is simply the clean norminette friendly version of the libft with the bonus so it includes all of the lst functoins. 
