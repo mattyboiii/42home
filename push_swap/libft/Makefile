@@ -5,95 +5,53 @@ NAME = libft.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-# assignment statements-Source funcitons (string list creators is really
-# what these are)-------------- eg $(wildcard pattern)
+# Directories
+SRC_DIR = src
+OBJ_DIR = obj
 
-FT_PRINTF_SRC = ft_printf/ft_printf.c \
-				ft_printf/ft_putchar.c \
-				ft_printf/ft_putnbr_base.c \
-				ft_printf/ft_putnbr.c \
-				ft_printf/ft_putptr.c \
-				ft_printf/ft_putstr.c \
-				ft_printf/ft_strlen.c
+# All .c source files inside src and its subdirs (like ft_printf)
+SRC = $(wildcard $(SRC_DIR)/**/*.c) $(wildcard $(SRC_DIR)/*.c)
 
-SRC = ft_atoi.c \
-      ft_bzero.c \
-      ft_calloc.c \
-      ft_isalnum.c \
-      ft_isalpha.c \
-      ft_isascii.c \
-      ft_isdigit.c \
-      ft_isprint.c \
-      ft_itoa.c \
-      ft_memchr.c \
-      ft_memcmp.c \
-      ft_memcpy.c \
-      ft_memmove.c \
-      ft_memset.c \
-      ft_putchar_fd.c \
-      ft_putendl_fd.c \
-      ft_putnbr_fd.c \
-      ft_putstr_fd.c \
-      ft_split.c \
-      ft_strchr.c \
-      ft_strdup.c \
-      ft_striteri.c \
-      ft_strjoin.c \
-      ft_strlcat.c \
-      ft_strlcpy.c \
-      ft_strlen.c \
-      ft_strmapi.c \
-      ft_strncmp.c \
-      ft_strnstr.c \
-      ft_strrchr.c \
-      ft_strtrim.c \
-      ft_substr.c \
-      ft_tolower.c \
-      ft_toupper.c \
-      ft_strstr.c \
-      ft_strcmp.c \
-      null_free.c \
-      dp_free.c \
-      dp_strcat.c \
-      ischar.c \
-      get_next_line.c \
-	  $(FT_PRINTF_SRC)
+# Generate object files in obj/ from source files
+OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
+# Bonus source placeholders (currently unused)
 BONUS_SRC =
+BONUS_OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(BONUS_SRC))
 
-OBJ = $(SRC:.c=.o)
-BONUS_OBJ = $(BONUS_SRC:.c=.o)
-
-# Rules
-# 1
+# Default rule
 all: $(NAME)
 
-# 2
+# Create object directory
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
+# Compile .c to .o into obj/
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+# Archive all .o into libft.a
 $(NAME): $(OBJ)
-	@ar rcs $@ $^ #the s flag runs a ranlib equivelent.
+	@ar rcs $@ $^
 
+# Bonus rule (currently does nothing, but structure is kept)
 bonus: $(BONUS_OBJ)
-	@ar rcs $(NAME) $(BONUS_OBJ)
+	@ar rcs $(NAME) $^
 
-# 3 pattern rule creating/compiling the object files.
-%.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $<
-
-# 4 remove the object files
+# Clean object files
 clean:
-	@rm -rf $(OBJ)
-	@rm -rf $(BONUS_OBJ)
-	@echo "obj directory and all files removed!!"
+	@rm -rf $(OBJ_DIR)
+	@echo "Object files and obj directory removed."
 
-# 5 removing the object files and default target
+# Clean everything
 fclean: clean
 	@rm -f $(NAME)
-	@echo "fclean has completed!!"
+	@echo "fclean complete."
 
-# 6 rebuild refresh
+# Rebuild from scratch
 re: fclean all
 
-# 7 rebuild refresh bonus
+# Rebuild bonus from scratch
 rebonus: fclean bonus
 
 .PHONY: all clean fclean re bonus rebonus

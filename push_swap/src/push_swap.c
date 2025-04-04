@@ -92,6 +92,8 @@ int	main(int arc, char **arv)
 		sort3(&stack.a);
 	else
 		sort(&stack);
+	if (arc >= 2)
+		dp_free(&arv);
 	ft_lstclear(&stack.a);
 	ft_lstclear(&stack.b);
 	return (0);

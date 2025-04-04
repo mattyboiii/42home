@@ -7,6 +7,7 @@ CFLAGS = -g -Wall -Wextra -Werror
 LIBFT = -Llibft -lft
 
 # Directories
+LIBFT_DIR = libft
 SRC_DIR = src
 OBJ_DIR = obj
 
@@ -24,12 +25,15 @@ all: $(NAME)
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
+$(LIBFT_DIR)/libft.a:
+	@$(MAKE) -C $(LIBFT_DIR)
+
 # Compile source files into object files
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Link object files into executable
-$(NAME): $(OBJ)
+$(NAME): $(LIBFT_DIR)/libft.a $(OBJ)
 	$(CC) $(CFLAGS) $^ -o $@ $(LIBFT) $(LIBX)
 	@echo "\nCompilation complete!"
 
@@ -45,21 +49,3 @@ re: clean all
 	@echo "Re-compiled project"
 
 .PHONY: all clean fclean re
-
-# SRC =	push_swap.c \
-# 		logicfunk.c \
-# 		logicfunk2.c \
-# 		logicfunk3.c \
-# 		logicfunk4.c \
-# 		logicfunk5.c \
-# 		lstfunk.c \
-# 		lstfunk2.c \
-# 		lstfunk3.c \
-# 		BasicSort.c \
-# 		error_check.c \
-# 		force_rotate.c \
-# 		force_rotate2.c \
-# 		manual_rotate.c \
-# 		sortfunk.c \
-# 		stackfunk.c \
-# 		stackfunk2.c
