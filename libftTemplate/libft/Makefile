@@ -19,7 +19,7 @@ SRC = $(wildcard $(SRC_DIR)/**/*.c) $(wildcard $(SRC_DIR)/*.c)
 OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
 # Bonus source placeholders (currently unused)
-BONUS_SRC =
+BONUS_SRC = bonus_src
 BONUS_OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(BONUS_SRC))
 
 # Default rule
@@ -40,6 +40,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(SUB_DIRS)
 # Archive all .o into libft.a
 $(NAME): $(OBJ)
 	@ar rcs $@ $^
+	@echo "\n $(NAME) compilation complete!\n"
 
 # Bonus rule (currently does nothing, but structure is kept)
 bonus: $(BONUS_OBJ)
@@ -48,12 +49,12 @@ bonus: $(BONUS_OBJ)
 # Clean object files
 clean:
 	@rm -rf $(OBJ_DIR)
-	@echo "Object files and obj directory removed."
+	@echo "\n $(NAME) $(OBJ_DIR) cleaned!"
 
 # Clean everything
 fclean: clean
 	@rm -f $(NAME)
-	@echo "fclean complete."
+	@echo " $(NAME) cleaned! fclean complete \n"
 
 # Rebuild from scratch
 re: fclean all

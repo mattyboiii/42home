@@ -17,7 +17,7 @@
 # include <stdlib.h> //free, malloc
 # include <stdbool.h> //bool
 # include <limits.h> //LONG_MAX
-# include "../libft/libft.h"
+# include "../libft/src/libft.h"
 
 typedef struct s_stack_node
 {
