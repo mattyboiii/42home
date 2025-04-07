@@ -83,8 +83,6 @@ int	main(int arc, char **arv)
 		arv = ft_split(arv[1], ' ');
 	error_check_arv(arv);
 	fill_a(&stack, arv);
-	if (arc >= 2)
-		dp_free(&arv);
 	stack.bigdig = set_bigdig(&stack);
 	if (stack.asize <= 1)
 		exit(0);
@@ -94,6 +92,8 @@ int	main(int arc, char **arv)
 		sort3(&stack.a);
 	else
 		sort(&stack);
+	if (arc == 2)
+		dp_free(&arv);
 	ft_lstclear(&stack.a);
 	ft_lstclear(&stack.b);
 	return (0);
