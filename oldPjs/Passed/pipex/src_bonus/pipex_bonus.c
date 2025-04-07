@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:34:05 by mtripodi          #+#    #+#             */
-/*   Updated: 2024/09/27 10:32:06 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/04/07 10:59:49 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // first this needs to get the path of the cmd used looking inside of the env
 // this function should execute the cmd used in arv[1] using
 // execve(path, arv, env). If the execute errors out I should send the error
-// to stderror and Free all of the memory used.  
+// to stderror and Free all of the memory used.
 // int execve(const char *path, char *const argv[], char *const envp[]);
 void	cmd_exe(char *cmdarv, char **env)
 {
@@ -89,6 +89,7 @@ void	piping_hot(char *cmd, char **env)
 		close(pfd[0]);
 		dup2(pfd[1], 1);
 		cmd_exe(cmd, env);
+		close(pfd[1]);
 	}
 	else
 	{
