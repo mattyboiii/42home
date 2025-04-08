@@ -1,5 +1,5 @@
 # Name of the program
-NAME = minishell
+NAME = push_swap
 
 # Compiler and flags
 CC = cc
