@@ -8,8 +8,15 @@ LIBFT = -Llibft -lft
 
 # Directories
 LIBFT_DIR = libft
+CONFIG_DIR = default_config
 SRC_DIR = src
 OBJ_DIR = obj
+RL_INCL := /usr/local/opt/readline/include
+RL_LIB := /usr/local/opt/readline/lib
+
+# Include directories variable
+INCLUDES := -I. -I$(LIBFT_DIR) -I$(CONFIG_DIR)
+LFLAGS = -L$(RL_LIB) -lreadline
 
 # Create matching subdirectories for obj/
 SUB_DIRS = $(sort $(dir $(OBJ)))
@@ -31,17 +38,21 @@ all: $(NAME)
 $(LIBFT_DIR)/libft.a:
 	@$(MAKE) -C $(LIBFT_DIR)
 
+# create dependancy files, and include them
+DEP := $(OBJ:.o=.d)
+-include $(DEP)
+
 # Create subdirectories in obj/
 $(SUB_DIRS):
 	@mkdir -p $@
 
 # Compile .c into .o, ensuring dirs exist
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(SUB_DIRS)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -MMD -c $< -o $@
 
 # Link objects into push_swap executable
 $(NAME): $(LIBFT_DIR)/libft.a $(OBJ)
-	@$(CC) $(CFLAGS) $^ -o $@ $(LIBFT)
+	@$(CC) $(CFLAGS)  $^ -o $@ $(LIBFT) $(LFLAGS)
 	@echo "\n $(NAME) Compilation complete!\n"
 
 # Bonus rule (currently does nothing, but structure is kept)

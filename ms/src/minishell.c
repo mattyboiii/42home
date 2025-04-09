@@ -72,6 +72,16 @@ void	shell_loop(void)
 	}
 }
 
+/**
+ * @brief get_prompt is the function which will simply, create a buffer for the
+ * prompt to sit in.
+ *
+ * Then it checks if the custom placeholder of "%p" has been typed in the
+ * prompt. If it has, it will replace %p with the current directory using
+ * the functoin getcwd
+ *
+ * @return char * with miimum 130 bytes of space null terminated by calloc.
+ */
 char	*get_prompt(void)
 {
 	char	*prompt;

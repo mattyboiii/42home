@@ -29,22 +29,7 @@
 //     The strtol() and strtol_l() functions are recommended instead of
 //     atoi() and atoi_l() functions, especially in new code.
 
-// Recommendation:
-// To recreate the atoi() function, you would essentially need to implement
-// a function that takes a string as input, parses it, and converts it into
-// an integer. You can follow the approach of strtol(), parsing the string
-// and converting it into an integer based on your requirements.
-
 #include "libft.h"
-
-static int	ft_isspace(int c)
-{
-	if (c == ' ' || c == '\t' || c == '\n' || c == '\v'
-		|| c == '\f' || c == '\r')
-		return (1);
-	else
-		return (0);
-}
 
 static int	ft_ctod(const char num)
 {

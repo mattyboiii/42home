@@ -111,6 +111,6 @@ void	free_command(void *raw)
 		free(comm->command);
 	free(comm->infile);
 	free(comm->outfile);
-	ft_split_free(comm->args, free);
+	dp_free(&comm->args);
 	free(comm);
 }

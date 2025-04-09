@@ -44,7 +44,7 @@ int	is_path(char *command, t_comm *comm)
 		check = ft_strjoin(path[index], command);
 		if (access(check, F_OK) == 0)
 		{
-			ft_split_free(path, free);
+			dp_free(&path);
 			free(command);
 			comm->command = check;
 			return (1);

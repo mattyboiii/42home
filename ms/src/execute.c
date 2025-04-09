@@ -67,12 +67,12 @@ int	execute_single(t_list *comm_list, int status)
 	return (execute_wait(comm_list, status));
 }
 
-void	execute_line(t_list *comm_list, int status) // I need to pass fds here
+// I need to pass fds here
 // exit codes:
 //  *command not found:			127
 //  *command not executable:	126
 //  *command execution failed:	126
-{
+void	execute_line(t_list *comm_list, int status) {
 	int		inpipe;
 	t_list	**next_comm;
 
@@ -124,6 +124,6 @@ t_list	*get_commands(char *line, int status)
 		end_comm_list = &((*end_comm_list)->next);
 		++i;
 	}
-	ft_split_free(comm_lines, free);
+	dp_free(&comm_lines);
 	return (comm_list);
 }

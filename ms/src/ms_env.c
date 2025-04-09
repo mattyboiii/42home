@@ -25,6 +25,6 @@ int	ms_env(char **argv)
 		printf("%s\n", env[index]);
 		index++;
 	}
-	ft_split_free(env, free);
+	dp_free(&env);
 	return (0);
 }

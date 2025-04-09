@@ -6,8 +6,12 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 # Directories
+FT_PRINTF_DIR = src/ft_printf
 SRC_DIR = src
 OBJ_DIR = obj
+
+# Include directories variable
+INCLUDES := -I. -I$(FT_PRINTF_DIR)
 
 # Create necessary directories for each object file
 SUB_DIRS = $(sort $(dir $(OBJ)))
@@ -29,13 +33,16 @@ all: $(NAME)
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
+# create dependancy files, and include them
+DEP := $(OBJ:.o=.d)
+-include $(DEP)
 
 $(SUB_DIRS):
 	@mkdir -p $@
 
 # Compile .c to .o into obj/
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(SUB_DIRS)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -MMD -c $< -o $@
 
 # Archive all .o into libft.a
 $(NAME): $(OBJ)
