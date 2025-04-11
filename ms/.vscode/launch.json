@@ -1,0 +1,14 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "ms with LLDB",
+			"type": "lldb",
+			"request": "launch",
+			"program": "${workspaceFolder}/minishell",
+			"cwd": "${workspaceFolder}",
+			"preLaunchTask": "Make",
+			"console": "integratedTerminal"
+		}
+	]
+}

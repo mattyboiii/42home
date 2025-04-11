@@ -102,7 +102,8 @@ void	open_redir_files(t_comm *comm)
 			comm->fdin = open(comm->infile, O_RDONLY);
 	}
 }
-
+/**
+ * @c
 int	here_doc(char *word)
 {
 	char	*line;

@@ -95,7 +95,7 @@ void		variable_expand(char **argv, int status);
 void		remove_quotes(char **argv);
 t_list		*get_commands(char *line, int status);
 void		free_command(void *comm);
-void		reverse_pipe(int infd, int outfd);
+// void		reverse_pipe(int infd, int outfd);
 // signals
 void		init_signals(void);
 void		ms_sig_interupt(int signo);

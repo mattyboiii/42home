@@ -80,7 +80,7 @@ void	shell_loop(void)
  * prompt. If it has, it will replace %p with the current directory using
  * the functoin getcwd
  *
- * @return char * with miimum 130 bytes of space null terminated by calloc.
+ * @return char * with minmum 130 bytes of space null terminated by calloc.
  */
 char	*get_prompt(void)
 {

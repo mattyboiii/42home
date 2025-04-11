@@ -33,6 +33,17 @@ static char	**ms_split_alloc(const char *line, char c)
 	return (malloc((count + 1) * sizeof(char *)));
 }
 
+/**
+ * @brief if the line is valid, it will put the word inside of **out.
+ *
+ * Two important features seperating it from ft_split
+ * 1. finish_quote();
+ * 2. if substr returns (NULL); it will free **out completely. Inside
+ * of a looping shell environment, it ensures clean memory handlind.
+ *
+ *
+ * @return length of a word
+ */
 static int	get_word(const char *line, char c, char **out, size_t count)
 {
 	int	i;
@@ -46,7 +57,7 @@ static int	get_word(const char *line, char c, char **out, size_t count)
 			++i;
 	}
 	out[count] = ft_substr(line, 0, i);
-	if (!out)
+	if (!out[count])
 	{
 		while (count > 0)
 			free(out[--count]);
@@ -56,6 +67,14 @@ static int	get_word(const char *line, char c, char **out, size_t count)
 	return (i);
 }
 
+/**
+ * @brief this function splits the words into a double pointer. It works like
+ * ft_split, but it takes use of functons such as ft_substr/free. Substr
+ * allows the function to not have to call malloc itself. It also handles
+ * errors and memory allocation cleaner.
+ *
+ * @return a pointer array filled with arguments.
+ */
 char	**ms_split(const char *line, char c)
 {
 	char	**out;
@@ -83,6 +102,10 @@ char	**ms_split(const char *line, char c)
 	return (out);
 }
 
+/**
+ * @brief finishe quote allows for everything inside of " " to be
+ * considered as one argument, instead of splitting them.
+ */
 void	finish_quote(const char *line, int *i)
 {
 	int	s;
@@ -102,6 +125,11 @@ void	finish_quote(const char *line, int *i)
 		*i = s + 1;
 }
 
+/**
+ * @brief free all memory inside of the t_com. It does not specify but
+ * this functoin will only work correclty when you pass in a t_comm. Void
+ * is set as a parameter type so it can be handed into other funcitons.
+ */
 void	free_command(void *raw)
 {
 	t_comm	*comm;

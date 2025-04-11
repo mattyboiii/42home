@@ -99,6 +99,12 @@ typedef struct s_comm
 }	t_comm;
 */
 
+
+/**
+ * @brief this is where the parsin begins.
+ *
+ * @return comm_list
+ */
 t_list	*get_commands(char *line, int status)
 {
 	t_list	*comm_list;
