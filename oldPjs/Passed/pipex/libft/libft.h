@@ -69,6 +69,7 @@ void	ft_putnbr_fd(int n, int fd);
 
 // Personal small Functions
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_isnumber(char *s);
 void	null_free(char **ptr);
 void	dp_free(char ***dp);
 char	**dp_strcat(char **paths, char *str);

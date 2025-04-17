@@ -3,134 +3,191 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
+/*   By: mexu <charlie_xumeng@hotmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/11 16:35:12 by bmilford         ###   ########.fr       */
+/*   Created: 2024/11/20 22:48:15 by mexu              #+#    #+#             */
+/*   Updated: 2024/11/27 11:14:02 by mexu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft.h"
-# include "ft_env.h"
-# include <sys/types.h>
-# include <fcntl.h>
+# include <errno.h>
 # include <unistd.h>
-# include <stdlib.h>
+# include <stdbool.h>
 # include <stdio.h>
-# include <string.h>
-# include <signal.h>
-# include <sys/wait.h>
+# include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
+# include <limits.h>
+# include <fcntl.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <string.h>
+# include "../libft/libft.h"
 
-// PS1 and SPLASH defined here
-# include "config.h"
+# define PROMPT "🐚 MINISHELL:$ "
+# define HEREDOC_NAME "/tmp/.minishell_heredoc_"
+# define CMD_NOT_FOUND 127
+# define CMD_NOT_EXECUTABLE 126
 
-// in case that failed for whatever reason
-# ifndef PS1
-#  define PS1 "> "
-# endif
+// extern int	g_exit_code;
 
-# ifndef SPLASH
-#  define SPLASH ""
-# endif
-
-// PATH_MAX, in case one didn't already exist
-# ifndef PATH_MAX
-#  define PATH_MAX 1024
-# endif
-
-extern int	g_last_signal;
-
-typedef struct s_comm
+// --------------------------------------------typedefs
+typedef struct s_token
 {
-	char	*command;
-	char	**args;
+	char			*str;
+	bool			var_exists;
+	int				type;
+	int				quoting;
+	bool			join;
+	struct s_token	*prev;
+	struct s_token	*next;
+}	t_token;
+
+typedef struct s_io_fds
+{
 	char	*infile;
 	char	*outfile;
-	int		is_heredoc;
-	int		is_append;
-	int		fdin;
-	int		fdout;
-	int		pid;
-	int		raw_status;
-}	t_comm;
+	char	*hd_delimiter;
+	bool	heredoc_quotes;
+	int		fd_in;
+	int		fd_out;
+	int		stdin_backup;
+	int		stdout_backup;
+}	t_io_fds;
 
-typedef struct s_list
+typedef struct s_command
 {
-	void			*content;
-	struct s_list	*next;
-}	t_list;
+	char				*cmd_str;
+	char				*path;
+	char				**args;
+	bool				pipe_output;
+	int					*pipe_fd;
+	t_io_fds			*io_fds;
+	struct s_command	*next;
+	struct s_command	*prev;
+}	t_cmd;
 
-// lstfunk
+typedef struct s_minishell
+{
+	bool		interactive;
+	t_token		*token;
+	t_cmd		*cmd;
+	char		*user_input;
+	char		**env;
+	pid_t		pid;
+	int			last_exit_code;
+}	t_minishell;
 
-void		ft_lstclear(t_list **lst, void (*del)(void *));
-t_list		*ft_lstnew(void *content);
-int			ft_lstsize(t_list *lst);
-void		ft_lstdelone(t_list *lst, void (*del)(void*));
+// --------------------------------------------enums
+enum e_token_types
+{
+	EMPTY,
+	SPACES,
+	WORD,
+	VAR,
+	PIPE,
+	INPUT,
+	OUTPUT,
+	HEREDOC,
+	APPEND,
+	END
+};
 
+enum e_quote_status
+{
+	DEFAULT,
+	SQUOTE,
+	DQUOTE
+};
 
-// natefunk
-char		*ft_strnjoin(unsigned int num_strs, ...);
-
-int			ms_exit(char **av, int status);
-char		*get_prompt(void);
-void		shell_loop(void);
-int			process_line(char *line, int status);
-char		**shell_expand(t_list *args);
-void		finish_quote(const char *line, int *i);
-char		**ms_split(const char *line, char c);
-int			execute_command(t_list *next_comm, int inpipe,
-				t_list *comm_list, int status);
-void		execute_line(t_list *comm_list, int status);
-void		execute_command_child(t_comm *comm, t_list *comm_list, int status);
-int			execute_single(t_list *comm_list, int status);
-int			execute_wait(t_list *comm_list, int status);
-
-void		find_redirects(t_comm *comm, char *line);
-void		variable_expand(char **argv, int status);
-void		remove_quotes(char **argv);
-t_list		*get_commands(char *line, int status);
-void		free_command(void *comm);
-// void		reverse_pipe(int infd, int outfd);
-// signals
-void		init_signals(void);
-void		ms_sig_interupt(int signo);
-void		ms_sig_interupt_alt(int signo);
-void		swap_signal_for_execute(void);
-
-// *********************** ASSIGNED TO BETH
-
-int			is_builtin(t_comm *comm);
-int			can_builtin_fork(t_comm *comm);
-int			execute_builtin(t_comm *comm, int signal);
-int			execute_builtin_forked(t_comm *comm, t_list *comm_list, int signal);
-
-int			find_command(t_comm *command);
-int			is_path(char *command, t_comm *comm);
-// returns allocated the absolute path of a given command, NULL if there's no
-// match. This will be called after checking for builtins
-
-void		open_redir_files(t_comm *comm);
-// opens the files at infile and outfile, and sets the fds to comm->fdin and
-// fd->out.
-//  if comm->is_heredoc is 1, run heredoc instead.
-//  outfile can be truncate or append, depending on comm->is_append
-//  if comm->fdin and/or comm->fdout is >= 0, close them before setting.
-
-int			here_doc(char *word);
-// BUILTINS
-// will we need to give these env? or will we be able to use getenv
-// I think these will need to be more specific
-int			ms_echo(char **av);
-int			ms_cd(char **av);
-int			ms_pwd(char **av);
-int			ms_export(char **av);
-int			ms_unset(char **av);
-int			ms_env(char **av);
-// this can send a signal to the main process to tell it to exit. I think
+// --------------------------------------------functions
+int		init_ms(t_minishell *data, char **env);
+void	init_io(t_cmd *cmd);
+void	exit_ms(t_minishell *data, int exno);
+int		put_errmsg(char *s1, char *s2, char *s3, int err_nb);
+void	clean_data(t_minishell *data);
+void	close_fds(t_cmd *cmds, bool close_backups);
+void	free_io(t_io_fds *io);
+int		check_input(t_minishell *data);
+int		create_token(t_minishell *data);
+int		save_token(int *i, char *str, int start, t_minishell *data);
+int		set_quote_status(int status, char *str);
+int		save_word(t_token **token_lst, char *str, int index, int start);
+int		save_separator(t_token **token_lst, char *str, int index, int type);
+int		check_consecutives(t_token **token_lst);
+int		check_if_var(t_token **token_lst);
+t_token	*lst_new_token(char *str, int type, int status);
+void	lst_delone_token(t_token *lst);
+void	lst_clear_token(t_token **lst);
+void	lst_add_back_token(t_token **lst, t_token *new);
+int		handle_variable(t_minishell *data, t_token **token_lst);
+char	*handle_variable_heredoc(t_minishell *data, char *str);
+int		expand_var_token(t_token **token_node, char *var_value, int index);
+char	*expand_var_heredoc(char *str, char *var_value, int index);
+int		var_length(char *str);
+char	*get_var_value(t_token *token, char *str, t_minishell *data);
+char	*get_new_string(char *oldstr, char *var_value,
+			int newstr_size, int index);
+bool	is_quote(char c);
+int		handle_quotes(t_token *token);
+int		remove_quotes(t_token **token_node);
+void	create_cmd(t_minishell *data, t_token *token);
+void	parse_word(t_cmd **cmd, t_token **token_lst);
+int		fill_args(t_token **token_node, t_cmd *last_cmd);
+char	*join_vars(t_token **token_node);
+int		count_args(t_token *temp, bool join_flag);
+char	**copy_to_new_arr(int len, char **arr, t_cmd *last_cmd, t_token *tmp);
+char	**copy_to_new_arr_join(int len, char **arr, t_cmd *last_cmd,
+			t_token *tmp);
+void	remove_empty_var_args(t_token **tokens);
+t_cmd	*lst_new_command(bool value);
+void	lst_add_back_cmd(t_cmd **lst, t_cmd *new);
+t_cmd	*lst_last_cmd(t_cmd *cmd);
+void	lst_delone_cmd(t_cmd *lst, void (*del)(void *));
+void	lst_clear_cmd(t_cmd **lst, void (*del)(void *));
+void	parse_output(t_cmd **last_cmd, t_token **token_lst);
+char	*get_relative_path(char *file_to_open);
+int		remove_infile_ref(t_io_fds *io);
+int		remove_outfile_ref(t_io_fds *io);
+void	parse_input(t_cmd **last_cmd, t_token **token_lst);
+void	parse_append(t_cmd **last_cmd, t_token **token_lst);
+void	parse_heredoc(t_minishell *data, t_cmd **last_cmd, t_token **token_lst);
+bool	fill_heredoc(t_minishell *data, t_io_fds *io, int fd);
+void	parse_pipe(t_cmd **cmd, t_token **token_lst);
+int		env_var_index(char **env, char *var);
+char	*env_var_value(char **env, char *var);
+bool	is_valid_env_var_key(char *var);
+bool	set_env_var(t_minishell *data, char *key, char *value);
+bool	remove_env_var(t_minishell *data, int idx);
+int		env_builtin(t_minishell *data, char **args);
+int		pwd_builtin(t_minishell *data, char **args);
+int		echo_builtin(t_minishell *data, char **args);
+int		export_builtin(t_minishell *data, char **args);
+int		unset_builtin(t_minishell *data, char **args);
+int		cd_builtin(t_minishell *data, char **args);
+int		exit_builtin(t_minishell *data, char **args);
+// void	ignore_sigquit(void);
+void	signal_in_prompt(void);
+void	signal_in_execution(void);
+// void	handle_signals(void);
+int		execute(t_minishell *data);
+int		child_process_exe(t_minishell *data, t_cmd *cmd);
+int		execute_builtin(t_minishell *data, t_cmd *cmd);
+bool	cmd_is_dir(char *cmd);
+int		check_command_not_found(t_minishell *data, t_cmd *cmd);
+char	*get_cmd_path(t_minishell *data, char *cmd);
+int		create_pipes(t_minishell *data);
+void	set_pipe_fds(t_cmd *cmds, t_cmd *curr_cmd);
+void	close_pipe_fds(t_cmd *cmds, t_cmd *skip_cmd);
+bool	is_files_set(t_io_fds *io);
+void	redirect_io(t_io_fds *io);
+void	restore_io(t_io_fds *io);
+void	print_cmd_list(t_cmd *cmd);
+void	print_token_list(t_token *lst);
 
 #endif

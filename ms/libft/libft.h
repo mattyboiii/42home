@@ -68,13 +68,17 @@ void	ft_putnbr_fd(int n, int fd);
 
 // Personal small Functions
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_isnumber(char *s);
 int		ft_isspace(int c);
 int		ft_atoi_strict(const char *str, int *err);
 void	null_free(char **ptr);
-void	dp_free(char ***dp);
-char	**dp_strcat(char **paths, char *str);
 size_t	ischar(char *str, size_t start, char c);
 char	*ft_strstr(const char *haystack, const char *needle);
+
+// Double pointer array functions
+int		dp_len(char **arr);
+void	dp_free(char ***dp);
+char	**dp_strcat(char **paths, char *str);
 
 // Personal BIG Functions
 char	*get_next_line(int fd);

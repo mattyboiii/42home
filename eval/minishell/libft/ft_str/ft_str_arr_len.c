@@ -13,7 +13,7 @@
 #include "libft.h"
 
 // get the length of a 2d string array.
-int	ft_str_arr_len(char **arr)
+int	dp_len(char **arr)
 {
 	int	i;
 

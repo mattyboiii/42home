@@ -3,142 +3,99 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mexu <charlie_xumeng@hotmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/05 14:42:38 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/11 18:20:10 by njackson         ###   ########.fr       */
+/*   Created: 2024/11/20 22:46:13 by mexu              #+#    #+#             */
+/*   Updated: 2024/11/26 16:49:11 by mexu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**ms_split_alloc(const char *line, char c)
+// check if the command is a directory
+bool	cmd_is_dir(char *cmd)
 {
-	size_t	i;
-	size_t	count;
+	struct stat	cmd_stat;
 
-	if (!line)
-		return (0);
-	i = 0;
-	count = 0;
-	while (line[i])
-	{
-		while (line[i] && line[i] == c)
-			i++;
-		if (line[i] && line[i] != c)
-			count++;
-		while (line[i] && line[i] != c)
-			i++;
-	}
-	return (malloc((count + 1) * sizeof(char *)));
+	ft_memset(&cmd_stat, 0, sizeof(cmd_stat));
+	stat(cmd, &cmd_stat);
+	return (S_ISDIR(cmd_stat.st_mode));
 }
 
-/**
- * @brief if the line is valid, it will put the word inside of **out.
- *
- * Two important features seperating it from ft_split
- * 1. finish_quote();
- * 2. if substr returns (NULL); it will free **out completely. Inside
- * of a looping shell environment, it ensures clean memory handlind.
- *
- *
- * @return length of a word
- */
-static int	get_word(const char *line, char c, char **out, size_t count)
+// check if the command is ok or not
+// return the error message and number respectively
+int	check_command_not_found(t_minishell *data, t_cmd *cmd)
 {
-	int	i;
-
-	i = 0;
-	while (line[i] && line[i] != c)
-	{
-		if (line[i] == '\'' || line[i] == '"')
-			finish_quote(line, &i);
-		else
-			++i;
-	}
-	out[count] = ft_substr(line, 0, i);
-	if (!out[count])
-	{
-		while (count > 0)
-			free(out[--count]);
-		free(out);
-		return (-1);
-	}
-	return (i);
+	if (!ft_strchr(cmd->cmd_str, '/') && env_var_index(data->env, "PATH") != -1)
+		return (put_errmsg(cmd->cmd_str, NULL, "command not found",
+				CMD_NOT_FOUND));
+	if (cmd_is_dir(cmd->cmd_str))
+		return (put_errmsg(cmd->cmd_str, NULL, "is a directory",
+				CMD_NOT_EXECUTABLE));
+	if (access(cmd->cmd_str, F_OK) != 0)
+		return (put_errmsg(cmd->cmd_str, NULL, strerror(errno),
+				CMD_NOT_FOUND));
+	if (access(cmd->cmd_str, X_OK) != 0)
+		return (put_errmsg(cmd->cmd_str, NULL, strerror(errno),
+				CMD_NOT_EXECUTABLE));
+	return (EXIT_SUCCESS);
 }
 
-/**
- * @brief this function splits the words into a double pointer. It works like
- * ft_split, but it takes use of functons such as ft_substr/free. Substr
- * allows the function to not have to call malloc itself. It also handles
- * errors and memory allocation cleaner.
- *
- * @return a pointer array filled with arguments.
- */
-char	**ms_split(const char *line, char c)
+// loop through the paths and find the executable path
+static char	*find_executable_path(char *cmd, char **paths)
 {
-	char	**out;
 	int		i;
-	size_t	count;
+	char	*cmd_path;
 
-	out = ms_split_alloc(line, c);
-	if (!out)
-		return (0);
-	count = 0;
-	while (*line)
+	i = -1;
+	while (paths[++i])
 	{
-		if (*line != c)
-		{
-			i = get_word(line, c, out, count);
-			if (i < 0)
-				return (0);
-			line += i;
-			count++;
-		}
-		else
-			line++;
+		cmd_path = ft_strjoin(paths[i], cmd);
+		if (!cmd_path)
+			return (NULL);
+		if (access(cmd_path, F_OK | X_OK) == 0)
+			return (cmd_path);
+		null_free(&cmd_path);
 	}
-	out[count] = 0;
-	return (out);
+	return (NULL);
 }
 
-/**
- * @brief finishe quote allows for everything inside of " " to be
- * considered as one argument, instead of splitting them.
- */
-void	finish_quote(const char *line, int *i)
+// get the paths from the environment variable list
+// paths are separated by ':'
+static char	**get_paths_from_env(t_minishell *data)
 {
-	int	s;
+	char	**env_paths;
 
-	if (line[*i] != '\'' && line[*i] != '"')
-	{
-		++(*i);
-		return ;
-	}
-	s = *i;
-	++(*i);
-	while (line[*i] && line[*i] != line[s])
-		++(*i);
-	if (line[*i] != '\0')
-		++*i;
-	else
-		*i = s + 1;
+	if (env_var_index(data->env, "PATH") == -1)
+		return (NULL);
+	env_paths = ft_split(env_var_value(data->env, "PATH"), ':');
+	if (!env_paths)
+		return (NULL);
+	return (env_paths);
 }
 
-/**
- * @brief free all memory inside of the t_com. It does not specify but
- * this functoin will only work correclty when you pass in a t_comm. Void
- * is set as a parameter type so it can be handed into other funcitons.
- */
-void	free_command(void *raw)
+// get the full path of the command
+char	*get_cmd_path(t_minishell *data, char *name)
 {
-	t_comm	*comm;
+	char	**env_paths;
+	char	*cmd;
+	char	*cmd_path;
 
-	comm = (t_comm *)raw;
-	if (comm->command && comm->command != comm->args[0])
-		free(comm->command);
-	free(comm->infile);
-	free(comm->outfile);
-	dp_free(&comm->args);
-	free(comm);
+	env_paths = get_paths_from_env(data);
+	if (!env_paths)
+		return (NULL);
+	cmd = ft_strjoin("/", name);
+	if (!cmd)
+	{
+		dp_free(&env_paths);
+		return (NULL);
+	}
+	cmd_path = find_executable_path(cmd, env_paths);
+	if (!cmd_path)
+	{
+		null_free(&cmd);
+		dp_free(&env_paths);
+		return (NULL);
+	}
+	return (cmd_path);
 }

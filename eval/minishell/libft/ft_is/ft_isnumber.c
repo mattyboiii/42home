@@ -17,7 +17,7 @@ int	ft_isnumber(char *s)
 	int	i;
 
 	i = 0;
-	while (ft_iswhitespace(s[i]))
+	while (ft_isspace(s[i]))
 		i++;
 	if (s[i] == '\0')
 		return (0);
@@ -27,7 +27,7 @@ int	ft_isnumber(char *s)
 		return (0);
 	while (s[i])
 	{
-		if (!ft_isdigit(s[i]) && !ft_iswhitespace(s[i]))
+		if (!ft_isdigit(s[i]) && !ft_isspace(s[i]))
 			return (0);
 		i++;
 	}
