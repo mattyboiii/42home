@@ -102,8 +102,11 @@ void	open_redir_files(t_comm *comm)
 			comm->fdin = open(comm->infile, O_RDONLY);
 	}
 }
+
 /**
- * @c
+ * TODO - change the here_doc so that it runs in child process, allowin
+ * this was nate's heredoc. I changed it so it would run in child process
+ * I also changed its flow a little bit for my clarity.
 int	here_doc(char *word)
 {
 	char	*line;
@@ -126,3 +129,4 @@ int	here_doc(char *word)
 	close(pipefd[1]);
 	return (pipefd[0]);
 }
+*/

@@ -101,7 +101,7 @@ typedef struct s_comm
 
 
 /**
- * @brief this is where the parsin begins.
+ * @brief this is where the parsing begins.
  *
  * @return comm_list
  */
