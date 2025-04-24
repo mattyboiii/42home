@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcrisp <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 13:24:57 by gcrisp            #+#    #+#             */
-/*   Updated: 2025/04/17 12:20:51 by gcrisp           ###   ########.fr       */
+/*   Updated: 2025/04/24 13:52:13 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	render(t_edata *data)
 {
 	t_vector	*intscts;
 
-	clear_image(data->minimap);
 	intscts = cast(&data->cast);
 	render_3d(&data->rd, intscts, data->main_render);
 	ft_vecfree(&intscts, 0);
