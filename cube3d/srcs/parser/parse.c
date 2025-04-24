@@ -6,58 +6,62 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:01:35 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/04/24 14:54:18 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:33:16y mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
+#include "parser.h"
 
-/**
- * @brief the ft_err function is mainly responsible for printing function
- * dedicated errors to stderr during an error.
- *
- * It will also free the app assuming its passed in.
- *
- * It can also exit the program assuming that you have supplied a number > 0.
- *
- *
- * @param char *msg, t_data *app, int n
- * @return 0
-*/
-void	ft_err(char *msg, t_data *app, int n)
+
+void	ft_err(char *msg, t_txt *map, int n)
 {
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(msg, 2);
-	if (app)
-		free_app(app);
-	if (n > 0)
-		exit(n);
+	if (map->txt)
+		ft_free_strs(map->txt);
 }
 
 /**
  * @brief prepare_map is used to run the map functions to create it. It
  * will return a map pointer.
  */
-void	*prepare_map( *path)
+t_txt	*prepare_map(char *path)
 {
-	char		**ber_copy;
-	t_map		*map;
+	t_txt		*map;
 
-	map = app->map;
-	map->ber = get_map(path);
-	if (map->ber == NULL || map->ber[0] == NULL)
+
+	map->txt = get_map(path);
+	if (map->txt == NULL || map->txt[0] == NULL)
 		ft_err("Failed to read map, Check Specified map Path", app, 1);
 	get_map_info(map);
-	check_map(map->ber);
-	ber_copy = get_map(path);
-	if (valid_map_path(map, map->duck.x, map->duck.y, &flood) == false)
-	{
-		dp_free(&ber_copy);
-		ft_err("Map is not possible, no valid path for our Duck", app, 1);
-	}
-	dp_free(&app->map->ber);
-	app->map->ber = ber_copy;
+	check_map(map);
 	return (map);
+}
+
+/**
+ * @brief the ft_read function is responsible for reading the .ber file which
+ * is handed in as an argument when running the program. It puts the map in
+ * the *line so that the text can be used outside of this function. It reads
+ * the ber one byte a time.
+*/
+int	ft_read(int fd, char **line)
+{
+	int			bytes;
+	char		c;
+	char		*buffer;
+
+	bytes = 0;
+	if (fd < 0)
+		return (-1);
+	buffer = ft_calloc(1000, sizeof(char));
+	if (!buffer)
+		return (-1);
+	while (read(fd, &c, 1) > 0 && c && bytes < 1000 - 1)
+		buffer[bytes++] = c;
+	buffer[bytes] = '\0';
+	*line = buffer;
+	return (bytes + 1);
 }
 
 /**
@@ -93,28 +97,4 @@ char	**get_map(char *path)
 	map_ber = ft_split(buf, '\n');
 	free(buf);
 	return (map_ber);
-}
-
-/**
- * @brief the get_map_info gets all the information about the map.
- * Why: So I can fill the map varialbe's with data relevant to the map
- *
- * @param map
-*/
-void	get_map_info(t_map *map)
-{
-	int		y;
-	int		x;
-
-	y = 0;
-	x = 0;
-	map->width = ft_strlen(map->ber[0]);
-	while (map->ber[y])
-	{
-		while (map->ber[y][x])
-			x++;
-		x = 0;
-		y++;
-	}
-	map->height = y;
 }

@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:29:34 by gcrisp            #+#    #+#             */
-/*   Updated: 2025/04/24 14:47:27 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:26:48 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static t_map	*final_check(t_map *map)
 t_map	*parse(char *path)
 {
 	t_map	*map;
+	t_txt	*txt;
 	char	*first_bounds_line;
 	int		fd;
 
@@ -42,6 +43,7 @@ t_map	*parse(char *path)
 	if (fd == -1)
 		return (0);
 	map = new_map();
+	txt = new_map_txt();
 	first_bounds_line = parse_render_data(map, fd);
 	if (!first_bounds_line)
 	{
@@ -49,10 +51,9 @@ t_map	*parse(char *path)
 		free_map(map);
 		return (0);
 	}
-	if (check_map(&map))
-		free(first_bounds_line);
 	//maybe from here.
-	map->text = 
+	prepare_mapk
+	txt->txt =
 	if (map && parse_bounds(map, first_bounds_line, fd))
 	{
 		free_map(map);
