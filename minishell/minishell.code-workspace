@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../minishell_exmple"
+		},
+		{
+			"path": "../oldPjs/Passed/pipex"
+		},
+		{
+			"path": "../minishell-nate"
+		},
+		{
+			"path": "../cubeproj/cube3d"
+		},
+		{
+			"path": "../oldPjs/Passed/so_long"
+		}
+	],
+	"settings": {}
+}
