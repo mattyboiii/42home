@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcrisp <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:50:12 by gcrisp            #+#    #+#             */
-/*   Updated: 2025/04/11 15:08:10 by gcrisp           ###   ########.fr       */
+/*   Updated: 2025/04/24 14:25:13 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ static int	parse_colour(t_map *map, char **pline)
 char	*parse_render_data(t_map *map, int fd)
 {
 	char	*line;
+	int		i;
 
+	i = 0;
 	while (1)
 	{
 		line = get_next_line(fd);

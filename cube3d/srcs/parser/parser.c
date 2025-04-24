@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcrisp <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:29:34 by gcrisp            #+#    #+#             */
-/*   Updated: 2025/04/11 15:11:33 by gcrisp           ###   ########.fr       */
+/*   Updated: 2025/04/24 14:47:27 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_map	*parse(char *path)
 	}
 	if (check_map(&map))
 		free(first_bounds_line);
+	//maybe from here.
+	map->text = 
 	if (map && parse_bounds(map, first_bounds_line, fd))
 	{
 		free_map(map);

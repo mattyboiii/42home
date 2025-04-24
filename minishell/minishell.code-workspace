@@ -17,6 +17,9 @@
 		},
 		{
 			"path": "../cube3d"
+		},
+		{
+			"path": "../../cub"
 		}
 	],
 	"settings": {}

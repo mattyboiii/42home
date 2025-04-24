@@ -2,11 +2,11 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Launch so_long",
+			"name": "Launch cub3D",
 			"type": "lldb",
 			"request": "launch",
-			"args": ["maps/zeem.ber"],
-			"program": "${workspaceFolder}/so_long",
+			"args": ["maps/basic.cub"],
+			"program": "${workspaceFolder}/cub3D",
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "Make Rebuild",
 			"console": "integratedTerminal"

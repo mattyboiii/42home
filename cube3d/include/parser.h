@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcrisp <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:23:35 by gcrisp            #+#    #+#             */
-/*   Updated: 2025/04/03 15:30:27 by gcrisp           ###   ########.fr       */
+/*   Updated: 2025/04/24 14:49:31 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include "mlx_util.h"
 
 t_map	*parse(char	*path);
+
+void	check_map(t_map *map, char **txt)
 
 char	*parse_render_data(t_map *map, int fd);
 int		parse_bounds(t_map *map, char *line, int fd);

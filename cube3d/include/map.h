@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcrisp <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 12:25:18 by gcrisp            #+#    #+#             */
-/*   Updated: 2025/03/28 12:30:22 by gcrisp           ###   ########.fr       */
+/*   Updated: 2025/04/24 15:04:49 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,15 @@ typedef struct s_map
 	int			floor_colour;
 }	t_map;
 
+typedef struct s_maptext
+{
+	char	**txt;
+	int		height;
+	int		width;
+}	t_txt
+
 t_map		*new_map(void);
+t_txt		*new_map_txt(void);
 void		free_map(t_map *map);
 
 #endif
