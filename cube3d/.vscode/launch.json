@@ -1,0 +1,15 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Launch so_long",
+			"type": "lldb",
+			"request": "launch",
+			"args": ["maps/zeem.ber"],
+			"program": "${workspaceFolder}/so_long",
+			"cwd": "${workspaceFolder}",
+			"preLaunchTask": "Make Rebuild",
+			"console": "integratedTerminal"
+		}
+	]
+}

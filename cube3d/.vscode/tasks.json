@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Make Rebuild",
+      "type": "shell",
+      "command": "make",
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Rebuild the project using make re"
+    },
+  ]
+}
