@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 17:09:15 by mtripodi          #+#    #+#             */
-/*   Updated: 2025/04/24 14:35:23y mtripodi         ###   ########.fr       */
+/*   Created: 2025/04/24 15:43:23 by mtripodi          #+#    #+#             */
+/*   Updated: 2025/04/24 15:50:05 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,18 +104,25 @@ int	check_map_rectangle(char **txt)
  * @brief check_map function checks the txt file for issues with the map. This
  * ensures maps are playable. Any issue with the map will be stated direclty
  */
-void	check_map(t_txt *map, char **txt)
+int	check_map_valid(t_txt *map, char **txt)
 {
+	int		err;
+
+	err = 0;
 	if (map->entry < 1)
-		ft_err("Must be at least 1 Entry 'P' on the map", map, 1);
+		err = ft_err("Must be at least 1 Entry 'P' on the map", map);
 	if (map->entry > 1)
-		ft_err("Only 1 Entry 'P' is allowed on the map", map, 1);
+		err = ft_err("Only 1 Entry 'P' is allowed on the map", map);
 	if (map->height < 3 || map->width < 3 || map->height == map->width
 		|| check_map_rectangle(txt) == 1)
+	{
 		ft_err("Map must be a rectangle and at least 3 tiles in height/width",
-				map, 1);
+			map, 1);
+		err = 1;
+	}
 	if (check_map_chars(txt) == 1)
-		ft_err("Map contains chars that are non allowed", map, 1);
+		err = ft_err("Map contains chars that are non allowed", map);
 	if (check_boarder(map, txt) == 1)
-		ft_err("Map must be completely surrounded by Walls '1'", map, 1);
+		err = ft_err("Map must be completely surrounded by Walls '1'", map);
+	return (err);
 }

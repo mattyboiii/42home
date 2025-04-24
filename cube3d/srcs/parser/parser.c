@@ -6,12 +6,13 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:29:34 by gcrisp            #+#    #+#             */
-/*   Updated: 2025/04/24 15:26:48 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:49:28 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
+/**
 static int	check_map(t_map **pmap)
 {
 	if ((*pmap)->wall_paths[0] && (*pmap)->wall_paths[1]
@@ -23,7 +24,9 @@ static int	check_map(t_map **pmap)
 	*pmap = 0;
 	return (1);
 }
+*/
 
+/*
 static t_map	*final_check(t_map *map)
 {
 	if (!map || map->start_dir != -1)
@@ -31,6 +34,7 @@ static t_map	*final_check(t_map *map)
 	free_map(map);
 	return (0);
 }
+*/
 
 t_map	*parse(char *path)
 {
@@ -52,8 +56,6 @@ t_map	*parse(char *path)
 		return (0);
 	}
 	//maybe from here.
-	prepare_mapk
-	txt->txt =
 	if (map && parse_bounds(map, first_bounds_line, fd))
 	{
 		free_map(map);

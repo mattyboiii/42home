@@ -14,36 +14,39 @@
 #include "parser.h"
 
 
-void	ft_err(char *msg, t_txt *map, int n)
+int	ft_err(char *msg, t_txt *map)
 {
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(msg, 2);
 	if (map->txt)
 		ft_free_strs(map->txt);
+	return (1);
 }
 
 /**
  * @brief prepare_map is used to run the map functions to create it. It
  * will return a map pointer.
  */
-t_txt	*prepare_map(char *path)
+int	*prepare_map(char *path)
 {
 	t_txt		*map;
 
-
 	map->txt = get_map(path);
 	if (map->txt == NULL || map->txt[0] == NULL)
-		ft_err("Failed to read map, Check Specified map Path", app, 1);
+	{
+		ft_err("Failed to read map, Check Specified map Path", map);
+		return (1);
+	}
+
 	get_map_info(map);
-	check_map(map);
-	return (map);
+	return (check_map_valid(map, map->txt));
 }
 
 /**
- * @brief the ft_read function is responsible for reading the .ber file which
+ * @brief the ft_read function is responsible for reading the .txt file which
  * is handed in as an argument when running the program. It puts the map in
  * the *line so that the text can be used outside of this function. It reads
- * the ber one byte a time.
+ * the txt one byte a time.
 */
 int	ft_read(int fd, char **line)
 {
@@ -77,7 +80,7 @@ char	**get_map(char *path)
 	int			fd;
 	int			i;
 	char		*buf;
-	char		**map_ber;
+	char		**map_txt;
 
 	buf = NULL;
 	i = 0;
@@ -94,7 +97,35 @@ char	**get_map(char *path)
 			return (free(buf), NULL);
 		i++;
 	}
-	map_ber = ft_split(buf, '\n');
+	map_txt = ft_split(buf, '\n');
 	free(buf);
-	return (map_ber);
+	return (map_txt);
+}
+
+/**
+ * @breif the get_map_info gets all the information about the map.
+ * Why: So I can fill the map varialbe's with data relevant to the map
+ *
+ * @param map
+*/
+void	get_map_info(t_txt *map)
+{
+	int		y;
+	int		x;
+
+	y = 0;
+	x = 0;
+	map->width = ft_strlen(map->txt[0]);
+	while (map->txt[y])
+	{
+		while (map->txt[y][x])
+		{
+			if (map->txt[y][x] == 'E')
+				map->entry++;
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+	map->height = y;
 }

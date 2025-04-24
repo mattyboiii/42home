@@ -6,7 +6,7 @@
 /*   By: mtripodi <mtripodi@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:23:35 by gcrisp            #+#    #+#             */
-/*   Updated: 2025/04/24 14:49:31 by mtripodi         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:49:54 by mtripodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 t_map	*parse(char	*path);
 
-void	check_map(t_map *map, char **txt)
+int		check_map_valid(t_txt *map, char **txt);
 
 char	*parse_render_data(t_map *map, int fd);
 int		parse_bounds(t_map *map, char *line, int fd);
