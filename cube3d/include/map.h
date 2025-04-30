@@ -37,6 +37,7 @@ typedef struct s_maptext
 
 t_map		*new_map(void);
 t_txt		*new_map_txt(void);
+int			*prepare_map(char *first_line);
 void		free_map(t_map *map);
 
 #endif

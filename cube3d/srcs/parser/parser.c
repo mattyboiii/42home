@@ -52,15 +52,11 @@ t_map	*parse(char *path)
 	if (!first_bounds_line)
 	{
 		close(fd);
-		free_map(map);
 		return (0);
 	}
 	//maybe from here.
-	if (map && parse_bounds(map, first_bounds_line, fd))
-	{
-		free_map(map);
-		map = 0;
-	}
-	close(fd);
-	return (final_check(map));
+	if (!prepare_map(first_bounds_line))
+		return (0);
+	free_map(map);
+	return (map);
 }

@@ -23,24 +23,6 @@ int	ft_err(char *msg, t_txt *map)
 	return (1);
 }
 
-/**
- * @brief prepare_map is used to run the map functions to create it. It
- * will return a map pointer.
- */
-int	*prepare_map(char *path)
-{
-	t_txt		*map;
-
-	map->txt = get_map(path);
-	if (map->txt == NULL || map->txt[0] == NULL)
-	{
-		ft_err("Failed to read map, Check Specified map Path", map);
-		return (1);
-	}
-
-	get_map_info(map);
-	return (check_map_valid(map, map->txt));
-}
 
 /**
  * @brief the ft_read function is responsible for reading the .txt file which
@@ -48,10 +30,11 @@ int	*prepare_map(char *path)
  * the *line so that the text can be used outside of this function. It reads
  * the txt one byte a time.
 */
-int	ft_read(int fd, char **line)
+int	ft_read(int fd, char **line, char *first_line, int strlen)
 {
 	int			bytes;
 	char		c;
+	char		line;
 	char		*buffer;
 
 	bytes = 0;
@@ -60,6 +43,11 @@ int	ft_read(int fd, char **line)
 	buffer = ft_calloc(1000, sizeof(char));
 	if (!buffer)
 		return (-1);
+	while (line = get_next_line(fd))
+	{
+		if (line != first_line)
+			line = get_next_line(fd);
+	}
 	while (read(fd, &c, 1) > 0 && c && bytes < 1000 - 1)
 		buffer[bytes++] = c;
 	buffer[bytes] = '\0';
@@ -75,21 +63,19 @@ int	ft_read(int fd, char **line)
  * @param path
  * @return char **
 */
-char	**get_map(char *path)
+char	**get_map(char *first_line, int fd)
 {
-	int			fd;
 	int			i;
+	int			strlen;
 	char		*buf;
 	char		**map_txt;
 
+	strlen = ft_strlen(first_line);
 	buf = NULL;
 	i = 0;
-	fd = open(path, O_RDONLY);
 	if (fd < 0)
-	{
 		return (NULL);
-	}
-	if (ft_read(fd, &buf) == -1)
+	if (ft_read(fd, &buf, first_line, strlen) == -1)
 		return (free(buf), NULL);
 	while (buf[i])
 	{
@@ -128,4 +114,22 @@ void	get_map_info(t_txt *map)
 		y++;
 	}
 	map->height = y;
+}
+
+/**
+ * @brief prepare_map is used to run the map functions to create it. It
+ * will return a map pointer.
+ */
+int	*prepare_map(char *first_line, int fd)
+{
+	t_txt		*map;
+
+	map->txt = get_map(first_line, fd);
+	if (map->txt == NULL || map->txt[0] == NULL)
+	{
+		ft_err("Failed to read map, Check Specified map Path", map);
+		return (1);
+	}
+	get_map_info(map);
+	return (check_map_valid(map, map->txt));
 }

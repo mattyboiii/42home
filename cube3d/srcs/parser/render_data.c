@@ -94,9 +94,7 @@ static int	parse_colour(t_map *map, char **pline)
 char	*parse_render_data(t_map *map, int fd)
 {
 	char	*line;
-	int		i;
 
-	i = 0;
 	while (1)
 	{
 		line = get_next_line(fd);
