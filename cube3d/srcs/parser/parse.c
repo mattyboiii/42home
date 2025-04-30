@@ -34,7 +34,7 @@ int	ft_read(int fd, char **line, char *first_line, int strlen)
 {
 	int			bytes;
 	char		c;
-	char		line;
+	char		*line;
 	char		*buffer;
 
 	bytes = 0;
@@ -43,16 +43,19 @@ int	ft_read(int fd, char **line, char *first_line, int strlen)
 	buffer = ft_calloc(1000, sizeof(char));
 	if (!buffer)
 		return (-1);
-	while (line = get_next_line(fd))
-	{
-		if (line != first_line)
-			line = get_next_line(fd);
-	}
-	while (read(fd, &c, 1) > 0 && c && bytes < 1000 - 1)
+	while (read(fd, &c, 1) > 0 && c && bytes < 10000 - 1)
 		buffer[bytes++] = c;
 	buffer[bytes] = '\0';
 	*line = buffer;
-	return (bytes + 1);
+	while (ft_strncmp(line, first_line, strlen) != 0)
+	{
+		c = line;
+		*line++;
+		free(c);
+		c = 0;
+	}
+	bytes = ft_strlen(line) + 1;
+	return (bytes);
 }
 
 /**
@@ -120,14 +123,12 @@ void	get_map_info(t_txt *map)
  * @brief prepare_map is used to run the map functions to create it. It
  * will return a map pointer.
  */
-int	*prepare_map(char *first_line, int fd)
+int	prepare_map(t_txt *map, char *first_line, int fd)
 {
-	t_txt		*map;
-
 	map->txt = get_map(first_line, fd);
 	if (map->txt == NULL || map->txt[0] == NULL)
 	{
-		ft_err("Failed to read map, Check Specified map Path", map);
+		ft_err("Failed to read map, Check .cub file for map", map);
 		return (1);
 	}
 	get_map_info(map);

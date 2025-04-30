@@ -12,30 +12,6 @@
 
 #include "parser.h"
 
-/**
-static int	check_map(t_map **pmap)
-{
-	if ((*pmap)->wall_paths[0] && (*pmap)->wall_paths[1]
-		&& (*pmap)->wall_paths[2] && (*pmap)->wall_paths[3]
-		&& colour_get_t((*pmap)->ciel_colour) != 0xff
-		&& colour_get_t((*pmap)->floor_colour) != 0xff)
-		return (0);
-	free_map(*pmap);
-	*pmap = 0;
-	return (1);
-}
-*/
-
-/*
-static t_map	*final_check(t_map *map)
-{
-	if (!map || map->start_dir != -1)
-		return (map);
-	free_map(map);
-	return (0);
-}
-*/
-
 t_map	*parse(char *path)
 {
 	t_map	*map;
@@ -54,9 +30,10 @@ t_map	*parse(char *path)
 		close(fd);
 		return (0);
 	}
-	//maybe from here.
-	if (!prepare_map(first_bounds_line))
+	if (!prepare_map(txt, first_bounds_line, fd))
+	{
+		free_map(map);
 		return (0);
-	free_map(map);
+	}
 	return (map);
 }
