@@ -19,8 +19,7 @@
 
 t_map	*parse(char	*path);
 
-int		prepare_map(t_txt *map, char *first_line, int fd);
-
+int		prepare_map_txt(t_txt *map, char *first_line, int fd);
 int		check_map_valid(t_txt *map, char **txt);
 
 char	*parse_render_data(t_map *map, int fd);

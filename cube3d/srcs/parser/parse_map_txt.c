@@ -123,7 +123,8 @@ void	get_map_info(t_txt *map)
  * @brief prepare_map is used to run the map functions to create it. It
  * will return a map pointer.
  */
-int	prepare_map(t_txt *map, char *first_line, int fd)
+
+int	prepare_map_txt(t_txt *map, char *first_line, int fd)
 {
 	map->txt = get_map(first_line, fd);
 	if (map->txt == NULL || map->txt[0] == NULL)

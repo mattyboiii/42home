@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "map.h"
 
 t_map	*parse(char *path)
 {
@@ -23,14 +24,14 @@ t_map	*parse(char *path)
 	if (fd == -1)
 		return (0);
 	map = new_map();
-	txt = new_map_txt();
 	first_bounds_line = parse_render_data(map, fd);
 	if (!first_bounds_line)
 	{
 		close(fd);
 		return (0);
 	}
-	if (!prepare_map(txt, first_bounds_line, fd))
+	txt = new_map_txt();
+	if (!prepare_map_txt(txt, first_bounds_line, fd))
 	{
 		free_map(map);
 		return (0);
