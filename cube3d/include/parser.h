@@ -19,6 +19,8 @@
 
 t_map	*parse(char	*path);
 
+void	ft_putendl_fd(char *s, int fd);
+int		ft_err(char *msg, t_txt *map);
 int		prepare_map_txt(t_txt *map, char *first_line, int fd);
 int		check_map_valid(t_txt *map, char **txt);
 

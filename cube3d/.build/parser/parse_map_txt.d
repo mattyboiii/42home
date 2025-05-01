@@ -1,11 +1,10 @@
-.build/parser/parse_map_txt.o: srcs/parser/parse_map_txt.c include/map.h \
- lib/libft/libft.h include/casting.h include/constants.h \
- include/mlx_util.h lib/mlx_linux/mlx.h include/parser.h include/map.h
-include/map.h:
+.build/parser/parse_map_txt.o: srcs/parser/parse_map_txt.c \
+ include/parser.h lib/libft/libft.h include/map.h include/casting.h \
+ include/constants.h include/mlx_util.h lib/mlx_linux/mlx.h
+include/parser.h:
 lib/libft/libft.h:
+include/map.h:
 include/casting.h:
 include/constants.h:
 include/mlx_util.h:
 lib/mlx_linux/mlx.h:
-include/parser.h:
-include/map.h:

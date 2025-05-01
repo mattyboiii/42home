@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
+#include "parser.h"
 
 /**
  * check boarder is used to ensure the map is surrounded by '1's. This feat
@@ -117,12 +117,13 @@ int	check_map_valid(t_txt *map, char **txt)
 		|| check_map_rectangle(txt) == 1)
 	{
 		ft_err("Map must be a rectangle and at least 3 tiles in height/width",
-			map, 1);
+			map);
 		err = 1;
 	}
 	if (check_map_chars(txt) == 1)
 		err = ft_err("Map contains chars that are non allowed", map);
 	if (check_boarder(map, txt) == 1)
 		err = ft_err("Map must be completely surrounded by Walls '1'", map);
+	ft_free_strs(txt);
 	return (err);
 }

@@ -11,7 +11,22 @@
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "map.h"
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	if (s)
+		write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
+}
+
+int	ft_err(char *msg, t_txt *map)
+{
+	ft_putendl_fd("Error", 2);
+	ft_putendl_fd(msg, 2);
+	if (map->txt)
+		ft_free_strs(map->txt);
+	return (1);
+}
 
 t_map	*parse(char *path)
 {
@@ -31,7 +46,7 @@ t_map	*parse(char *path)
 		return (0);
 	}
 	txt = new_map_txt();
-	if (!prepare_map_txt(txt, first_bounds_line, fd))
+	if (prepare_map_txt(txt, first_bounds_line, fd) == 1)
 	{
 		free_map(map);
 		return (0);

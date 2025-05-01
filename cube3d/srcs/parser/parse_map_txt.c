@@ -10,19 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
 #include "parser.h"
-
-
-int	ft_err(char *msg, t_txt *map)
-{
-	ft_putendl_fd("Error", 2);
-	ft_putendl_fd(msg, 2);
-	if (map->txt)
-		ft_free_strs(map->txt);
-	return (1);
-}
-
 
 /**
  * @brief the ft_read function is responsible for reading the .txt file which
@@ -30,31 +18,28 @@ int	ft_err(char *msg, t_txt *map)
  * the *line so that the text can be used outside of this function. It reads
  * the txt one byte a time.
 */
-int	ft_read(int fd, char **line, char *first_line, int strlen)
+int	ft_read(int fd, char **line, char *first_line)
 {
 	int			bytes;
 	char		c;
-	char		*line;
 	char		*buffer;
 
 	bytes = 0;
 	if (fd < 0)
 		return (-1);
-	buffer = ft_calloc(1000, sizeof(char));
-	if (!buffer)
+	*line = ft_calloc(1000, sizeof(char));
+	if (!(*line))
 		return (-1);
+	buffer = *line;
+	while (first_line[bytes])
+	{
+		buffer[bytes] = first_line[bytes];
+		bytes++;
+	}
+	//at this point it will read the second line.
 	while (read(fd, &c, 1) > 0 && c && bytes < 10000 - 1)
 		buffer[bytes++] = c;
 	buffer[bytes] = '\0';
-	*line = buffer;
-	while (ft_strncmp(line, first_line, strlen) != 0)
-	{
-		c = line;
-		*line++;
-		free(c);
-		c = 0;
-	}
-	bytes = ft_strlen(line) + 1;
 	return (bytes);
 }
 
@@ -69,16 +54,14 @@ int	ft_read(int fd, char **line, char *first_line, int strlen)
 char	**get_map(char *first_line, int fd)
 {
 	int			i;
-	int			strlen;
 	char		*buf;
 	char		**map_txt;
 
-	strlen = ft_strlen(first_line);
 	buf = NULL;
 	i = 0;
 	if (fd < 0)
 		return (NULL);
-	if (ft_read(fd, &buf, first_line, strlen) == -1)
+	if (ft_read(fd, &buf, first_line) == -1)
 		return (free(buf), NULL);
 	while (buf[i])
 	{

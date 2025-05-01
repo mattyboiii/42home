@@ -37,6 +37,7 @@ t_txt	*new_map_txt(void)
 	out->txt = 0;
 	out->height = 0;
 	out->width = 0;
+	out->entry = 0;
 	return (out);
 }
 
